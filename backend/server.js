@@ -1,53 +1,50 @@
-// ============================================
-// DMV ASSISTANT — BACKEND SERVER
-// File: backend/server.js
-// Run: node server.js
-// ============================================
-
 const express = require('express');
 const cors = require('cors');
-const cron = require('node-cron');
 require('dotenv').config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// ---- ROUTES ----
-const authRoutes = require('./routes/auth');
-const alertRoutes = require('./routes/alerts');
-const renewalRoutes = require('./routes/renewals');
-const billingRoutes = require('./routes/billing');
-
-app.use('/api/auth', authRoutes);
-app.use('/api/alerts', alertRoutes);
-app.use('/api/renewals', renewalRoutes);
-app.use('/api/billing', billingRoutes);
-
 app.get('/health', (req, res) => {
-  res.json({ status: 'DMV Assistant API running', time: new Date() });
+  res.json({ 
+    status: 'DMV Assistant API running', 
+    time: new Date(),
+    env: process.env.SUPABASE_URL ? 'configured' : 'missing vars'
+  });
 });
 
-// ---- CRON JOBS (Automatic — runs without you doing anything) ----
+try {
+  app.use('/api/auth', require('./routes/auth'));
+  app.use('/api/alerts', require('./routes/alerts'));
+  app.use('/api/renewals', require('./routes/renewals'));
+  app.use('/api/billing', require('./routes/billing'));
+  console.log('All routes loaded');
+} catch(e) {
+  console.log('Routes error:', e.message);
+}
 
-// Job 1: Check DMV slots every 30 minutes
-const checkDMVSlots = require('./jobs/checkDMVSlots');
-cron.schedule('*/30 * * * *', () => {
-  console.log('🔍 Checking DMV slots...', new Date().toLocaleTimeString());
-  checkDMVSlots();
-});
-
-// Job 2: Check renewal reminders every day at 9 AM
-const checkRenewals = require('./jobs/checkRenewals');
-cron.schedule('0 9 * * *', () => {
-  console.log('⏰ Checking renewal reminders...', new Date().toDateString());
-  checkRenewals();
-});
+if (process.env.SUPABASE_URL) {
+  try {
+    const cron = require('node-cron');
+    const checkDMVSlots = require('./jobs/checkDMVSlots');
+    const checkRenewals = require('./jobs/checkRenewals');
+    
+    cron.schedule('*/30 * * * *', () => {
+      checkDMVSlots();
+    });
+    
+    cron.schedule('0 9 * * *', () => {
+      checkRenewals();
+    });
+    
+    console.log('Cron jobs started!');
+  } catch(e) {
+    console.log('Cron error:', e.message);
+  }
+}
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`✅ DMV Assistant API running on port ${PORT}`);
-  console.log(`📧 Email: SendGrid connected`);
-  console.log(`💬 SMS: Twilio connected`);
-  console.log(`🗄️  Database: Supabase connected`);
+  console.log(`DMV Assistant API running on port ${PORT}`);
 });
