@@ -1,0 +1,886 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#07090f;--bg2:#0c1018;--bg3:#111827;--bg4:#1a2332;
+  --blue:#1d6ae5;--blue2:#2563eb;--blue3:#60a5fa;
+  --gold:#d97706;--gold2:#f59e0b;--gold3:#fcd34d;
+  --green:#16a34a;--green2:#22c55e;--teal:#0d9488;
+  --red:#dc2626;--red2:#ef4444;
+  --text:#f1f5f9;--text2:#94a3b8;--text3:#475569;
+  --border:#1e293b;--border2:#2d3f55;
+  --card:#0c1018;--card2:#111827;
+  --r:12px;--rl:18px;--rxl:24px
+}
+body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+
+/* LAYOUT */
+.shell{display:flex;min-height:100vh}
+.sidebar{width:228px;background:var(--bg2);border-right:1px solid var(--border);position:fixed;top:0;bottom:0;left:0;z-index:60;display:flex;flex-direction:column;overflow-y:auto;transition:transform 0.3s}
+.sb-head{padding:1.1rem;border-bottom:1px solid var(--border)}
+.brand{display:flex;align-items:center;gap:9px}
+.brand-ico{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#1d6ae5,#0d47a1);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.brand-name{font-size:0.95rem;font-weight:900;letter-spacing:-0.02em}
+.brand-sub{font-size:0.56rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.07em;margin-top:1px}
+.nav-sec{padding:0.75rem 1rem 0.2rem;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);font-weight:700}
+.ni{display:flex;align-items:center;gap:8px;padding:0.52rem 1rem;font-size:0.82rem;color:var(--text2);cursor:pointer;transition:all 0.15s;border-left:2px solid transparent;margin:1px 0;font-weight:500}
+.ni:hover{background:rgba(255,255,255,0.03);color:var(--text)}
+.ni.active{background:rgba(29,106,229,0.1);color:var(--blue3);border-left-color:var(--blue2);font-weight:600}
+.ni-ic{width:15px;text-align:center;font-size:0.88rem;flex-shrink:0}
+.sb-foot{padding:0.875rem 1rem;border-top:1px solid var(--border);margin-top:auto}
+.urow{display:flex;align-items:center;gap:8px}
+.uava{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-size:0.68rem;font-weight:900;color:#000;flex-shrink:0}
+.uname{font-size:0.82rem;font-weight:700;line-height:1.2}
+.uplan{font-size:0.62rem;color:var(--gold2);font-weight:600}
+
+.main{margin-left:228px;flex:1;min-height:100vh;display:flex;flex-direction:column}
+.topbar{padding:0.8rem 1.5rem;background:rgba(7,9,15,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.tb-left h2{font-size:1rem;font-weight:800;letter-spacing:-0.02em}
+.tb-left p{font-size:0.7rem;color:var(--text3)}
+.tb-right{display:flex;align-items:center;gap:0.5rem}
+.tbadge{padding:2px 9px;border-radius:20px;font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.04em}
+.bfree{background:rgba(71,85,105,0.25);color:var(--text3);border:1px solid rgba(71,85,105,0.35)}
+.bpro{background:rgba(245,158,11,0.15);color:var(--gold2);border:1px solid rgba(245,158,11,0.3)}
+.bfam{background:rgba(29,106,229,0.15);color:var(--blue3);border:1px solid rgba(29,106,229,0.3)}
+.notifbtn{width:32px;height:32px;border-radius:7px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.85rem;cursor:pointer;position:relative}
+.ndot{position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:var(--gold2);border:1.5px solid var(--bg2)}
+.content{padding:1.4rem 1.5rem;flex:1}
+
+/* BTN */
+.btn{padding:0.42rem 0.95rem;border-radius:7px;border:none;cursor:pointer;font-family:'Manrope',sans-serif;font-size:0.8rem;font-weight:700;transition:all 0.18s;display:inline-flex;align-items:center;gap:5px}
+.bp{background:var(--blue2);color:#fff}.bp:hover{background:#1d4ed8}
+.bg{background:var(--gold2);color:#000}.bg:hover{background:var(--gold3)}
+.bo{background:transparent;border:1px solid var(--border2);color:var(--text2)}.bo:hover{border-color:var(--blue3);color:var(--text)}
+.bgh{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);color:var(--text2)}.bgh:hover{background:rgba(255,255,255,0.08)}
+.bd{background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.25);color:#fca5a5}
+.bt{background:rgba(13,148,136,0.15);border:1px solid rgba(13,148,136,0.3);color:#5eead4}
+.bsm{padding:0.28rem 0.7rem;font-size:0.74rem}
+.blg{padding:0.65rem 1.5rem;font-size:0.92rem;border-radius:10px}
+
+/* PAGES */
+.pg{display:none}.pg.active{display:block}
+.fp{display:none;min-height:100vh}.fp.active{display:block}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--rl);padding:1.2rem}
+.card-t{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-weight:700;margin-bottom:0.875rem}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.875rem}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0.875rem;margin-bottom:1.4rem}
+.stat{background:var(--card2);border:1px solid var(--border);border-radius:var(--r);padding:1rem;position:relative;overflow:hidden}
+.stat::after{content:'';position:absolute;top:-25px;right:-25px;width:80px;height:80px;border-radius:50%;opacity:0.06}
+.s-blue::after{background:var(--blue3)}.s-gold::after{background:var(--gold2)}.s-green::after{background:var(--green2)}.s-red::after{background:#f87171}
+.stat-l{font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--text3);font-weight:700;margin-bottom:0.4rem}
+.stat-v{font-size:1.8rem;font-weight:900;letter-spacing:-0.04em;line-height:1}
+.stat-s{font-size:0.68rem;color:var(--text3);margin-top:4px}
+.stat-tr{display:inline-flex;align-items:center;gap:3px;font-size:0.66rem;padding:2px 6px;border-radius:8px;margin-top:5px}
+.tup{background:rgba(22,163,74,0.12);color:var(--green2)}.twarn{background:rgba(245,158,11,0.1);color:var(--gold2)}.tred{background:rgba(220,38,38,0.1);color:#fca5a5}
+
+/* BANNER */
+.banner{border-radius:var(--r);padding:0.9rem 1rem;display:flex;align-items:flex-start;gap:9px;margin-bottom:1rem}
+.bb{background:rgba(29,106,229,0.08);border:1px solid rgba(29,106,229,0.2)}
+.br{background:rgba(220,38,38,0.07);border:1px solid rgba(220,38,38,0.18)}
+.bw{background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.18)}
+.banner-ic{font-size:1rem;flex-shrink:0;margin-top:1px}
+.banner-body{flex:1}
+.banner-t{font-size:0.84rem;font-weight:800;margin-bottom:2px;letter-spacing:-0.01em}
+.banner-s{font-size:0.76rem;color:var(--text2);line-height:1.5}
+.banner-acts{display:flex;gap:0.4rem;margin-top:0.5rem;flex-wrap:wrap}
+
+/* APPT ROWS */
+.arow{display:flex;align-items:center;gap:9px;padding:0.68rem 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+.arow:last-child{border-bottom:none}
+.adot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.d-bl{background:var(--blue3)}.d-gd{background:var(--gold2);animation:pu 2s infinite}.d-rd{background:#f87171}.d-gr{background:var(--green2)}
+@keyframes pu{0%,100%{opacity:1}50%{opacity:0.35}}
+.ainfo{flex:1;min-width:0}
+.atit{font-size:0.82rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-0.01em}
+.amet{font-size:0.68rem;color:var(--text3);margin-top:1px}
+.aright{text-align:right;flex-shrink:0}
+.adate{font-size:0.75rem;font-weight:700}
+.astag{font-size:0.62rem;color:var(--text3);margin-top:1px}
+
+/* RENEWAL BARS */
+.rrow{padding:0.68rem 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+.rrow:last-child{border-bottom:none}
+.rtop{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.rname{font-size:0.82rem;font-weight:600}
+.rdays{font-size:0.76rem;font-weight:800}
+.ptrack{height:4px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden}
+.pfill{height:100%;border-radius:2px}
+.p-red{background:linear-gradient(90deg,#dc2626,#f87171)}
+.p-gold{background:linear-gradient(90deg,var(--gold),var(--gold2))}
+.p-green{background:linear-gradient(90deg,var(--teal),var(--green2))}
+.rsub{font-size:0.65rem;color:var(--text3);margin-top:3px}
+
+/* DOCS */
+.dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:0.875rem;margin-top:0.875rem}
+.dcard{background:var(--card2);border:1px solid var(--border);border-radius:var(--r);padding:0.95rem;cursor:pointer;transition:all 0.18s;position:relative}
+.dcard:hover{border-color:var(--border2);transform:translateY(-2px)}
+.dic{font-size:1.6rem;margin-bottom:0.5rem}
+.dname{font-size:0.82rem;font-weight:700;margin-bottom:2px;letter-spacing:-0.01em}
+.dinfo{font-size:0.67rem;color:var(--text3)}
+.dexp{font-size:0.67rem;margin-top:4px}
+.dacts{display:flex;gap:0.3rem;margin-top:0.5rem}
+.dstatus{position:absolute;top:7px;right:7px}
+.dupload{border:1.5px dashed var(--border2);background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-height:120px;cursor:pointer;transition:all 0.2s;border-radius:var(--r)}
+.dupload:hover{border-color:var(--blue3);background:rgba(29,106,229,0.04)}
+
+/* AI CHAT */
+.chatbox{background:var(--bg3);border-radius:var(--r);padding:0.8rem;max-height:260px;overflow-y:auto;display:flex;flex-direction:column;gap:0.6rem}
+.msg{display:flex;gap:7px}
+.msg.user{flex-direction:row-reverse}
+.mava{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;flex-shrink:0;font-weight:800}
+.m-ai{background:rgba(29,106,229,0.18);font-size:0.82rem}
+.m-us{background:rgba(245,158,11,0.18)}
+.mbub{max-width:88%;padding:0.5rem 0.75rem;border-radius:9px;font-size:0.79rem;line-height:1.55}
+.msg.ai .mbub{background:rgba(29,106,229,0.09);border:1px solid rgba(29,106,229,0.18);color:var(--text)}
+.msg.user .mbub{background:var(--blue2);color:#fff}
+.cinrow{display:flex;gap:0.45rem;margin-top:0.6rem}
+.cin{flex:1;padding:0.52rem 0.8rem;background:var(--bg3);border:1px solid var(--border2);border-radius:7px;color:var(--text);font-size:0.8rem;font-family:'Manrope',sans-serif;outline:none}
+.cin:focus{border-color:var(--blue3)}
+
+/* ALERT HIST */
+.ahrow{display:flex;align-items:center;gap:9px;padding:0.65rem;background:var(--card2);border-radius:7px;margin-bottom:0.375rem}
+.ahic{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:0.8rem;flex-shrink:0}
+.ahbody{flex:1;min-width:0}
+.ahtit{font-size:0.79rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ahtime{font-size:0.65rem;color:var(--text3);margin-top:1px}
+.ahtag{font-size:0.62rem;padding:2px 7px;border-radius:8px;background:rgba(255,255,255,0.05);color:var(--text3);flex-shrink:0}
+
+/* FAMILY */
+.memcard{background:var(--card2);border:1px solid var(--border);border-radius:var(--r);padding:0.95rem;display:flex;align-items:center;gap:9px;margin-bottom:0.45rem}
+.memava{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.74rem;font-weight:900;flex-shrink:0}
+
+/* MODAL */
+.mov{position:fixed;inset:0;background:rgba(0,0,0,0.82);backdrop-filter:blur(8px);z-index:200;display:none;align-items:center;justify-content:center;padding:1rem}
+.mov.open{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--rxl);padding:1.6rem;max-width:470px;width:100%;max-height:88vh;overflow-y:auto}
+.mhead{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.1rem}
+.mhead h3{font-size:1.05rem;font-weight:800;letter-spacing:-0.02em}
+.mx{cursor:pointer;color:var(--text3);font-size:1.05rem;padding:0 2px;margin-top:1px}
+.mbtns{display:flex;gap:0.55rem;justify-content:flex-end;margin-top:1.1rem;flex-wrap:wrap}
+
+/* FORMS */
+.fg{margin-bottom:0.875rem}
+.fl{display:block;font-size:0.68rem;color:var(--text2);margin-bottom:4px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em}
+.fi,.fs{width:100%;padding:0.55rem 0.8rem;background:var(--bg3);border:1px solid var(--border2);border-radius:7px;color:var(--text);font-size:0.82rem;font-family:'Manrope',sans-serif;outline:none;transition:border-color 0.2s}
+.fi:focus,.fs:focus{border-color:var(--blue3)}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem}
+
+/* TABS */
+.tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:1.1rem}
+.tab{padding:0.55rem 1rem;font-size:0.79rem;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.2s;font-weight:600}
+.tab:hover{color:var(--text2)}
+.tab.active{color:var(--blue3);border-bottom-color:var(--blue2)}
+
+/* TOAST */
+.toast{position:fixed;bottom:1.4rem;right:1.4rem;background:var(--bg2);border:1px solid var(--border2);border-radius:8px;padding:0.7rem 1rem;font-size:0.8rem;max-width:290px;transform:translateY(50px);opacity:0;transition:all 0.25s;z-index:999;font-weight:600;box-shadow:0 12px 36px rgba(0,0,0,0.6)}
+.toast.show{transform:translateY(0);opacity:1}
+.ts{border-color:rgba(22,163,74,0.5);color:var(--green2)}.ti{border-color:rgba(29,106,229,0.5);color:var(--blue3)}.tw{border-color:rgba(245,158,11,0.5);color:var(--gold2)}.te{border-color:rgba(220,38,38,0.5);color:#fca5a5}
+
+/* BADGES inline */
+.ibadge{display:inline-flex;align-items:center;padding:1px 7px;border-radius:8px;font-size:0.62rem;font-weight:700;margin-left:5px}
+.ib-g{background:rgba(22,163,74,0.12);color:var(--green2)}.ib-w{background:rgba(245,158,11,0.1);color:var(--gold2)}.ib-r{background:rgba(220,38,38,0.1);color:#fca5a5}.ib-b{background:rgba(29,106,229,0.12);color:var(--blue3)}
+
+/* LANDING */
+.land{background:var(--bg);min-height:100vh}
+.lnav{position:sticky;top:0;z-index:100;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(7,9,15,0.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.06)}
+.hero{min-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:5rem 2rem 3rem;text-align:center;position:relative;overflow:hidden}
+.herob{position:absolute;inset:0;pointer-events:none}
+.orb1{position:absolute;top:20%;left:50%;transform:translateX(-50%);width:700px;height:400px;background:radial-gradient(ellipse,rgba(29,106,229,0.1) 0%,transparent 65%)}
+.orb2{position:absolute;bottom:0;right:10%;width:300px;height:300px;background:radial-gradient(ellipse,rgba(217,119,6,0.06) 0%,transparent 60%)}
+.hgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px);background-size:55px 55px;mask-image:radial-gradient(ellipse 80% 50% at 50% 0%,black 20%,transparent 100%)}
+.hpill{display:inline-flex;align-items:center;gap:7px;background:rgba(29,106,229,0.1);border:1px solid rgba(29,106,229,0.25);border-radius:100px;padding:4px 14px 4px 5px;font-size:0.7rem;color:var(--blue3);font-weight:700;margin-bottom:1.5rem;letter-spacing:0.02em}
+.hpill-d{width:18px;height:18px;border-radius:50%;background:rgba(29,106,229,0.25);display:flex;align-items:center;justify-content:center;font-size:0.6rem}
+.hero h1{font-size:clamp(2.2rem,5vw,4rem);font-weight:900;letter-spacing:-0.04em;line-height:1.1;margin-bottom:1.1rem;max-width:800px;position:relative}
+.hl-b{background:linear-gradient(135deg,var(--blue2),var(--blue3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hl-g{background:linear-gradient(135deg,var(--gold2),var(--gold3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hdesc{font-size:1rem;color:var(--text2);max-width:540px;margin:0 auto 2.25rem;line-height:1.8;position:relative}
+.hctas{display:flex;gap:0.875rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem;position:relative}
+.hstats{display:flex;align-items:center;gap:2.25rem;flex-wrap:wrap;justify-content:center;position:relative}
+.hstat-v{font-size:1.6rem;font-weight:900;letter-spacing:-0.04em}
+.hstat-l{font-size:0.65rem;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-top:2px;text-align:center}
+.hdiv{width:1px;height:36px;background:rgba(255,255,255,0.08)}
+.vetbar{background:rgba(245,158,11,0.07);border-top:1px solid rgba(245,158,11,0.15);border-bottom:1px solid rgba(245,158,11,0.15);padding:1rem 2rem;display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;text-align:center}
+.how-sec{padding:4rem 2rem;max-width:1080px;margin:0 auto}
+.feat-sec{padding:4rem 2rem;background:var(--bg2);border-top:1px solid var(--border)}
+.feat-wrap{max-width:1080px;margin:0 auto}
+.why-sec{padding:4rem 2rem;max-width:1080px;margin:0 auto}
+.price-sec{padding:4rem 2rem;background:var(--bg2);border-top:1px solid var(--border)}
+.price-wrap{max-width:960px;margin:0 auto}
+.faq-sec{padding:4rem 2rem;max-width:780px;margin:0 auto}
+.cta-sec{padding:5rem 2rem;text-align:center;position:relative;overflow:hidden}
+.cta-sec::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:400px;background:radial-gradient(ellipse,rgba(29,106,229,0.08) 0%,transparent 65%);pointer-events:none}
+.sec-ey{display:inline-block;background:rgba(29,106,229,0.1);border:1px solid rgba(29,106,229,0.22);border-radius:100px;padding:3px 12px;font-size:0.66rem;font-weight:800;color:var(--blue3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.875rem}
+.sec-ey.gd{background:rgba(245,158,11,0.08);border-color:rgba(245,158,11,0.22);color:var(--gold2)}
+.sec-ey.gr{background:rgba(22,163,74,0.08);border-color:rgba(22,163,74,0.22);color:var(--green2)}
+.sec-h{font-size:clamp(1.6rem,3vw,2.5rem);font-weight:900;letter-spacing:-0.035em;line-height:1.15;margin-bottom:0.625rem}
+.sec-sub{font-size:0.9rem;color:var(--text2);line-height:1.75;max-width:560px}
+
+/* HOW IT WORKS */
+.hiw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.1rem;margin-top:2.5rem}
+.hiw-card{background:var(--card);border:1px solid var(--border);border-radius:var(--rl);padding:1.5rem;transition:border-color 0.2s}
+.hiw-card:hover{border-color:rgba(29,106,229,0.35)}
+.hiw-n{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,rgba(29,106,229,0.2),rgba(96,165,250,0.1));border:1px solid rgba(29,106,229,0.25);display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:900;color:var(--blue3);margin-bottom:1rem;font-family:'JetBrains Mono',monospace}
+.hiw-card h3{font-size:0.92rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:0.4rem}
+.hiw-card p{font-size:0.78rem;color:var(--text2);line-height:1.65}
+
+/* FEATURES */
+.fg-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin-top:2.5rem}
+.fgcard{background:var(--card);border:1px solid var(--border);border-radius:var(--rl);padding:1.6rem;transition:all 0.2s;position:relative;overflow:hidden}
+.fgcard:hover{border-color:rgba(29,106,229,0.3);transform:translateY(-2px)}
+.fgcard-glow{position:absolute;top:-35px;right:-35px;width:160px;height:160px;border-radius:50%;opacity:0.04;pointer-events:none}
+.fgic{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1.1rem}
+.fgcard h3{font-size:0.98rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:0.55rem}
+.fgcard p{font-size:0.8rem;color:var(--text2);line-height:1.7;margin-bottom:0.875rem}
+.flist{list-style:none;display:flex;flex-direction:column;gap:4px}
+.flist li{font-size:0.77rem;color:var(--text2);display:flex;align-items:flex-start;gap:6px;line-height:1.5}
+.flist li::before{content:"✓";color:var(--green2);font-weight:900;flex-shrink:0;margin-top:1px}
+
+/* WHY SUBSCRIBE */
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:2.5rem}
+.wcard{background:var(--card);border:1px solid var(--border);border-radius:var(--rl);padding:1.4rem;position:relative}
+.wcard-ic{font-size:2rem;margin-bottom:0.875rem}
+.wcard h3{font-size:0.92rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:0.4rem}
+.wcard p{font-size:0.78rem;color:var(--text2);line-height:1.65}
+.wcard .cost{display:inline-flex;align-items:center;gap:4px;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.2);border-radius:6px;padding:2px 8px;font-size:0.68rem;font-weight:800;color:#fca5a5;margin-top:0.5rem}
+.wcard .save{display:inline-flex;align-items:center;gap:4px;background:rgba(22,163,74,0.1);border:1px solid rgba(22,163,74,0.2);border-radius:6px;padding:2px 8px;font-size:0.68rem;font-weight:800;color:var(--green2);margin-top:0.5rem;margin-left:0.3rem}
+
+/* PRICING */
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin-top:2.5rem}
+.pcard{background:var(--card);border:1px solid var(--border);border-radius:var(--rxl);padding:1.75rem}
+.pcard.feat{border-color:rgba(245,158,11,0.35);background:rgba(245,158,11,0.02)}
+.pcard.fam{border-color:rgba(29,106,229,0.3)}
+.ptier{font-size:0.62rem;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);margin-bottom:0.35rem}
+.pop-tag{display:inline-block;background:linear-gradient(90deg,var(--gold),var(--gold2));color:#000;font-size:0.6rem;font-weight:900;padding:2px 9px;border-radius:100px;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.35rem}
+.pamount{font-size:2.2rem;font-weight:900;letter-spacing:-0.05em;margin:0.5rem 0 0.2rem;display:flex;align-items:flex-end;gap:3px}
+.pamount span{font-size:0.88rem;font-weight:500;color:var(--text3);letter-spacing:0;margin-bottom:3px}
+.pper{font-size:0.72rem;color:var(--text3);margin-bottom:1.25rem}
+.pfl{list-style:none;display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.5rem}
+.pfl li{font-size:0.78rem;color:var(--text2);display:flex;align-items:flex-start;gap:7px;line-height:1.5}
+.pfl .ck{color:var(--green2);font-weight:900;flex-shrink:0;margin-top:1px}
+.pfl .cx{color:var(--text3);flex-shrink:0;margin-top:1px}
+.pnote{font-size:0.67rem;color:var(--text3);text-align:center;margin-top:0.625rem}
+
+/* FAQ */
+.faq-item{border:1px solid var(--border);border-radius:var(--r);margin-bottom:0.55rem;overflow:hidden}
+.faq-q{padding:1rem 1.1rem;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-size:0.88rem;font-weight:700;letter-spacing:-0.01em;transition:background 0.18s;gap:1rem}
+.faq-q:hover{background:rgba(255,255,255,0.02)}
+.ftog{width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-size:0.7rem;flex-shrink:0;transition:all 0.25s;color:var(--text3)}
+.ftog.open{background:rgba(29,106,229,0.15);color:var(--blue3);transform:rotate(45deg)}
+.faq-a{display:none;padding:0 1.1rem 1rem;font-size:0.81rem;color:var(--text2);line-height:1.75}
+.faq-a.open{display:block}
+
+/* TESTIMONIALS */
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin-top:2.5rem}
+.tcard{background:var(--card);border:1px solid var(--border);border-radius:var(--rl);padding:1.4rem}
+.tstars{color:var(--gold2);font-size:0.8rem;letter-spacing:2px;margin-bottom:0.75rem}
+.ttext{font-size:0.8rem;color:var(--text2);line-height:1.7;margin-bottom:0.875rem;font-style:italic}
+.tauth{display:flex;align-items:center;gap:9px}
+.tava{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:900;color:#fff;flex-shrink:0}
+.tname{font-size:0.8rem;font-weight:800}
+.tloc{font-size:0.66rem;color:var(--text3)}
+
+/* FOOTER PAGES */
+.fp-inner{max-width:860px;margin:0 auto;padding:2rem 1.5rem}
+.fp-inner h1{font-size:2rem;font-weight:900;letter-spacing:-0.04em;margin-bottom:0.5rem}
+.fp-inner .lead{font-size:1rem;color:var(--text2);line-height:1.75;margin-bottom:2rem}
+.fp-inner h2{font-size:1.1rem;font-weight:800;letter-spacing:-0.02em;margin:1.5rem 0 0.625rem}
+.fp-inner p{font-size:0.875rem;color:var(--text2);line-height:1.8;margin-bottom:0.875rem}
+.fp-inner ul{list-style:none;display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1rem}
+.fp-inner ul li{font-size:0.875rem;color:var(--text2);display:flex;align-items:flex-start;gap:7px;line-height:1.6}
+.fp-inner ul li::before{content:"•";color:var(--blue3);flex-shrink:0;margin-top:2px}
+.fp-back{display:flex;align-items:center;gap:6px;font-size:0.8rem;color:var(--text3);cursor:pointer;margin-bottom:1.5rem;font-weight:600}
+.fp-back:hover{color:var(--text2)}
+.info-box{background:var(--card2);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem 1.25rem;margin:1.25rem 0}
+.info-box h4{font-size:0.84rem;font-weight:800;margin-bottom:0.4rem}
+.info-box p{font-size:0.8rem;color:var(--text2);margin-bottom:0;line-height:1.65}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2rem 1.5rem}
+.ft-inner{max-width:1080px;margin:0 auto}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:2rem}
+.ft-brand p{font-size:0.78rem;color:var(--text3);line-height:1.7;max-width:240px;margin-top:0.625rem}
+.ft-col h4{font-size:0.65rem;font-weight:900;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:0.75rem}
+.ft-col a{display:block;font-size:0.78rem;color:var(--text3);margin-bottom:0.4rem;cursor:pointer;transition:color 0.18s}
+.ft-col a:hover{color:var(--text2)}
+.ft-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:1.25rem;border-top:1px solid var(--border);flex-wrap:wrap;gap:0.75rem}
+.ft-bottom p{font-size:0.7rem;color:var(--text3)}
+.ft-links{display:flex;gap:1rem}
+.ft-links a{font-size:0.7rem;color:var(--text3);cursor:pointer;transition:color 0.18s}
+.ft-links a:hover{color:var(--text2)}
+</style>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- MODALS -->
+<div class="mov" id="m-appt">
+<div class="modal">
+  <div class="mhead"><h3>🗓 Set Appointment Alert</h3><span class="mx" onclick="cM('m-appt')">✕</span></div>
+  <div class="fr">
+    <div class="fg"><label class="fl">State</label><select class="fs" id="appt-st" onchange="updOff()"><option value="">Select State...</option></select></div>
+    <div class="fg"><label class="fl">Service Type</label><select class="fs"><option>Driver License (New)</option><option>Driver License Renewal</option><option>REAL ID</option><option>Vehicle Registration</option><option>Title Transfer</option><option>Knowledge Test</option><option>Road Test</option><option>ID Card</option><option>CDL</option></select></div>
+  </div>
+  <div class="fg"><label class="fl">DMV Office</label><select class="fs" id="off-sel"><option>Select state first...</option></select></div>
+  <div class="fr">
+    <div class="fg"><label class="fl">Preferred Date From</label><input class="fi" type="date"/></div>
+    <div class="fg"><label class="fl">Notify Via</label><select class="fs"><option>Email + SMS</option><option>Email only</option><option>SMS only</option></select></div>
+  </div>
+  <div class="mbtns"><button class="btn bo" onclick="cM('m-appt')">Cancel</button><button class="btn bp" onclick="addAppt()">Start Monitoring 🔔</button></div>
+</div>
+</div>
+
+<div class="mov" id="m-renewal">
+<div class="modal">
+  <div class="mhead"><h3>⏰ Add Renewal Reminder</h3><span class="mx" onclick="cM('m-renewal')">✕</span></div>
+  <div class="fg"><label class="fl">Type</label><select class="fs"><option>Driver License</option><option>Vehicle Registration</option><option>Auto Insurance</option><option>Vehicle Inspection</option><option>Passport</option><option>State ID</option><option>CDL</option></select></div>
+  <div class="fr">
+    <div class="fg"><label class="fl">Expiration Date</label><input class="fi" type="date"/></div>
+    <div class="fg"><label class="fl">ID / Plate Number</label><input class="fi" placeholder="e.g. 7ABC123"/></div>
+  </div>
+  <div class="fr">
+    <div class="fg"><label class="fl">Vehicle / Name</label><input class="fi" placeholder="e.g. Honda Civic 2021"/></div>
+    <div class="fg"><label class="fl">Notify Via</label><select class="fs"><option>Email + SMS</option><option>Email only</option><option>SMS only</option></select></div>
+  </div>
+  <div class="mbtns"><button class="btn bo" onclick="cM('m-renewal')">Cancel</button><button class="btn bg" onclick="addRenewal()">Add Reminder ✓</button></div>
+</div>
+</div>
+
+<div class="mov" id="m-upgrade">
+<div class="modal">
+  <div class="mhead"><h3>⭐ Upgrade Your Plan</h3><span class="mx" onclick="cM('m-upgrade')">✕</span></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:1rem">
+    <div style="background:var(--bg3);border:1px solid rgba(245,158,11,0.28);border-radius:var(--r);padding:1rem">
+      <div style="font-size:0.62rem;font-weight:900;color:var(--gold2);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.4rem">Pro Plan</div>
+      <div style="font-size:1.6rem;font-weight:900;letter-spacing:-0.04em;margin-bottom:0.625rem">$12<span style="font-size:0.8rem;font-weight:500;color:var(--text3)">/mo</span></div>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:3px;margin-bottom:0.875rem">
+        <li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--green2)">✓</span>Unlimited alerts</li>
+        <li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--green2)">✓</span>5 GB Doc Vault</li>
+        <li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--green2)">✓</span>SMS + Email</li>
+        <li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--green2)">✓</span>AI Assistant</li>
+        <li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--green2)">✓</span>All 50 states</li>
+      </ul>
+      <button class="btn bg" style="width:100%;font-size:0.78rem" onclick="doUpgrade('pro')">Get Pro →</button>
+    </div>
+    <div style="background:var(--bg3);border:1px solid rgba(29,106,229,0.28);border-radius:var(--r);padding:1rem">
+      <div style="font-size:0.62rem;font-weight:900;color:var(--blue3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.4rem">Family Plan</div>
+      <div style="font-size:1.6rem;font-weight:900;letter-spacing:-0.04em;margin-bottom:0.625rem">$40<span style="font-size:0.8rem;font-weight:500;color:var(--text3)">/mo</span></div>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:3px;margin-bottom:0.875rem">
+        <li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--blue3)">✓</span>Everything Pro</li>
+        <li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--blue3)">✓</span>5 members</li>
+        <li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--blue3)">✓</span>15 GB Vault</li>
+        <li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--blue3)">✓</span>Family dashboard</li>
+        <li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--blue3)">✓</span>Priority support</li>
+      </ul>
+      <button class="btn bp" style="width:100%;font-size:0.78rem" onclick="doUpgrade('family')">Get Family →</button>
+    </div>
+  </div>
+  <p style="font-size:0.7rem;color:var(--text3);text-align:center">🎖 Veterans: use code <strong style="color:var(--gold2)">VET50</strong> for 50% off · Secure checkout via Lemon Squeezy</p>
+</div>
+</div>
+
+<div class="mov" id="m-member">
+<div class="modal">
+  <div class="mhead"><h3>👤 Add Family Member</h3><span class="mx" onclick="cM('m-member')">✕</span></div>
+  <div class="fr"><div class="fg"><label class="fl">Full Name</label><input class="fi" id="mn" placeholder="Jane Doe"/></div><div class="fg"><label class="fl">Relationship</label><select class="fs"><option>Spouse/Partner</option><option>Child</option><option>Parent</option><option>Sibling</option><option>Other</option></select></div></div>
+  <div class="fg"><label class="fl">Email Address</label><input class="fi" id="me" type="email" placeholder="jane@email.com"/></div>
+  <div class="fg"><label class="fl">Their State</label><select class="fs" id="ms"></select></div>
+  <div class="mbtns"><button class="btn bo" onclick="cM('m-member')">Cancel</button><button class="btn bp" onclick="addMember()">Send Invite ✉</button></div>
+</div>
+</div>
+
+<!-- ==================== ALL FULL PAGES ==================== -->
+
+<!-- LANDING -->
+<div class="fp active" id="fp-land">
+<div class="land">
+  <nav class="lnav">
+    <div class="brand" style="cursor:pointer" onclick="showFP('fp-land')">
+      <div class="brand-ico">🏛</div>
+      <div><div class="brand-name">DMV Assistant</div><div class="brand-sub">dmvassistants.com</div></div>
+    </div>
+    <div style="display:none;align-items:center;gap:1.5rem" id="ln-links">
+      <a style="font-size:0.82rem;color:var(--text2);cursor:pointer;font-weight:500" onclick="scrollSec('s-features')">Features</a>
+      <a style="font-size:0.82rem;color:var(--text2);cursor:pointer;font-weight:500" onclick="scrollSec('s-why')">Why Subscribe</a>
+      <a style="font-size:0.82rem;color:var(--text2);cursor:pointer;font-weight:500" onclick="scrollSec('s-price')">Pricing</a>
+      <a style="font-size:0.82rem;color:var(--text2);cursor:pointer;font-weight:500" onclick="scrollSec('s-faq')">FAQ</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:0.55rem">
+      <button class="btn bo bsm" onclick="showFP('fp-login')">Sign In</button>
+      <button class="btn bp bsm" onclick="showFP('fp-signup')">Get Started Free</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="herob"><div class="orb1"></div><div class="orb2"></div><div class="hgrid"></div></div>
+    <div class="hpill"><div class="hpill-d">🛡</div>Trusted by 12,000+ US Residents & Veterans</div>
+    <h1>#1 DMV Appointment Alert &<br/><span class="hl-b">Renewal Reminder</span> App<br/>for <span class="hl-g">US Residents & Veterans</span></h1>
+    <p class="hdesc">Never miss a DMV appointment or renewal deadline again. Instant alerts, automated reminders, and a secure document vault — free to start.</p>
+    <div class="hctas">
+      <button class="btn bp blg" onclick="showFP('fp-signup')">🚀 Start Free — No Credit Card</button>
+      <button class="btn bgh blg" onclick="scrollSec('s-features')">See All Features ▼</button>
+    </div>
+    <div class="hstats">
+      <div><div class="hstat-v" style="color:var(--blue3)">50</div><div class="hstat-l">States Covered</div></div>
+      <div class="hdiv"></div>
+      <div><div class="hstat-v" style="color:var(--gold2)">12K+</div><div class="hstat-l">Active Users</div></div>
+      <div class="hdiv"></div>
+      <div><div class="hstat-v" style="color:var(--green2)">98%</div><div class="hstat-l">Alert Accuracy</div></div>
+      <div class="hdiv"></div>
+      <div><div class="hstat-v">4.9★</div><div class="hstat-l">User Rating</div></div>
+    </div>
+  </div>
+
+  <!-- VET BANNER -->
+  <div class="vetbar">
+    <span style="background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:100px;padding:3px 12px;font-size:0.68rem;font-weight:800;color:var(--gold2);text-transform:uppercase;letter-spacing:0.04em">🎖 Veteran Special</span>
+    <span style="font-size:0.84rem;color:var(--gold3);font-weight:500">US Veterans & Active Duty receive <strong>50% off Pro Plan</strong> — forever</span>
+    <span style="font-size:0.78rem;color:var(--gold2);font-weight:800;cursor:pointer;text-decoration:underline;text-underline-offset:3px" onclick="toast('Veteran code: VET50 — use at checkout!','w')">Claim Discount →</span>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="how-sec" id="s-hiw">
+    <div style="text-align:center">
+      <div class="sec-ey">Simple Process</div>
+      <h2 class="sec-h">Get Started in 3 Minutes</h2>
+      <p class="sec-sub" style="margin:0 auto">No technical knowledge needed. Sign up, enter your info, we handle everything — 24/7.</p>
+    </div>
+    <div class="hiw-grid">
+      <div class="hiw-card"><div class="hiw-n">01</div><h3>Create Free Account</h3><p>Sign up with email or Google in 60 seconds. No credit card needed for the free plan. Instant access to your dashboard.</p></div>
+      <div class="hiw-card"><div class="hiw-n">02</div><h3>Select Your State & DMV</h3><p>Choose from all 50 US states and your nearest DMV office. Select the service — REAL ID, license, registration, road test.</p></div>
+      <div class="hiw-card"><div class="hiw-n">03</div><h3>Add Your Renewal Dates</h3><p>Enter license expiry, vehicle registration, insurance dates. We send reminders at 60 days, 30 days, and 7 days before.</p></div>
+      <div class="hiw-card"><div class="hiw-n">04</div><h3>Receive Instant Alerts</h3><p>Get email and SMS the moment a DMV slot opens or a deadline is near. Book before anyone else — never miss again.</p></div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="feat-sec" id="s-features">
+  <div class="feat-wrap">
+    <div style="text-align:center">
+      <div class="sec-ey">Full Feature Set</div>
+      <h2 class="sec-h">Everything DMV in One Dashboard</h2>
+      <p class="sec-sub" style="margin:0 auto">Built for Americans who value their time and hate dealing with DMV delays.</p>
+    </div>
+    <div class="fg-grid">
+      <div class="fgcard"><div class="fgcard-glow" style="background:var(--blue2)"></div><div class="fgic" style="background:rgba(29,106,229,0.12);border:1px solid rgba(29,106,229,0.2)">🗓</div><h3>DMV Appointment Monitoring</h3><p>System checks availability every 30 minutes across all 50 states. Instant alert when a slot opens — before anyone else sees it.</p><ul class="flist"><li>Real-time monitoring every 30 min</li><li>All 50 states, 500+ DMV offices</li><li>License, REAL ID, Registration, Road Test</li><li>Instant Email + SMS notification</li><li>Set preferred date ranges</li></ul></div>
+      <div class="fgcard"><div class="fgcard-glow" style="background:var(--gold2)"></div><div class="fgic" style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2)">⏰</div><h3>Automatic Renewal Reminders</h3><p>Enter expiration dates once — get automated reminders at 60, 30, and 7 days before every renewal. Never pay a late fee again.</p><ul class="flist"><li>Driver license renewal reminders</li><li>Vehicle registration reminders</li><li>Auto insurance renewal alerts</li><li>Vehicle inspection / emissions</li><li>Custom reminder schedule</li></ul></div>
+      <div class="fgcard"><div class="fgcard-glow" style="background:var(--teal)"></div><div class="fgic" style="background:rgba(13,148,136,0.1);border:1px solid rgba(13,148,136,0.2)">📂</div><h3>Secure Document Vault</h3><p>Upload and store all DMV documents with AES-256 encryption. Access from any device. Share with insurance agent in one click.</p><ul class="flist"><li>Military-grade AES-256 encryption</li><li>License, title, registration, insurance</li><li>Track document expiry dates</li><li>Download or share securely</li><li>5 GB Pro / 15 GB Family</li></ul></div>
+      <div class="fgcard"><div class="fgcard-glow" style="background:var(--green)"></div><div class="fgic" style="background:rgba(22,163,74,0.1);border:1px solid rgba(22,163,74,0.2)">🤖</div><h3>AI DMV Assistant</h3><p>Ask any DMV question, get state-specific answers instantly. REAL ID checklists, best appointment times, online renewal eligibility.</p><ul class="flist"><li>State-specific requirements</li><li>REAL ID document checklist</li><li>Best times to visit DMV</li><li>Knowledge test tips</li><li>Title transfer guidance</li></ul></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.875rem;margin-top:1rem">
+      <div class="hiw-card" style="padding:1.1rem"><div style="font-size:1.3rem;margin-bottom:0.5rem">👨‍👩‍👧</div><h3>Family Plan</h3><p style="font-size:0.76rem;color:var(--text2);line-height:1.6;margin-top:0.3rem">5 members, all vehicles, all renewals under one subscription. Perfect for families.</p></div>
+      <div class="hiw-card" style="padding:1.1rem"><div style="font-size:1.3rem;margin-bottom:0.5rem">📊</div><h3>History & Exports</h3><p style="font-size:0.76rem;color:var(--text2);line-height:1.6;margin-top:0.3rem">Full alert history. One-click PDF and CSV export. Keep records for insurance or disputes.</p></div>
+      <div class="hiw-card" style="padding:1.1rem"><div style="font-size:1.3rem;margin-bottom:0.5rem">📱</div><h3>Mobile App (PWA)</h3><p style="font-size:0.76rem;color:var(--text2);line-height:1.6;margin-top:0.3rem">Install on iPhone or Android like a native app. Push notifications. No app store needed.</p></div>
+    </div>
+  </div>
+  </div>
+
+  <!-- WHY SUBSCRIBE -->
+  <div class="why-sec" id="s-why">
+    <div style="text-align:center">
+      <div class="sec-ey gd">Why Subscribe?</div>
+      <h2 class="sec-h">Real Costs of NOT Using DMV Assistant</h2>
+      <p class="sec-sub" style="margin:0 auto">These are real fees Americans pay every year because of missed DMV deadlines. $12/mo Pro plan pays for itself with just ONE avoided late fee.</p>
+    </div>
+    <div class="why-grid">
+      <div class="wcard"><div class="wcard-ic">🚗</div><h3>Late Registration Fee</h3><p>Most states charge $25–$100 late fee if you renew vehicle registration after expiry. California charges up to $200 for very late renewals.</p><div><span class="cost">⚠ Up to $200 fine</span><span class="save">✓ $12 saves you $188</span></div></div>
+      <div class="wcard"><div class="wcard-ic">🪪</div><h3>Driving with Expired License</h3><p>Driving with an expired license is a traffic violation — fine $100–$500 depending on state. Insurance may not cover accidents with expired license.</p><div><span class="cost">⚠ $100–$500 fine</span><span class="save">✓ Reminder prevents this</span></div></div>
+      <div class="wcard"><div class="wcard-ic">⏰</div><h3>Waiting Weeks for Appointment</h3><p>REAL ID and road test appointments in major cities like LA, NYC, Chicago book out 4–8 weeks. Without an alert, you wait longer than necessary.</p><div><span class="cost">⚠ 4–8 week wait</span><span class="save">✓ Alert gets you in faster</span></div></div>
+      <div class="wcard"><div class="wcard-ic">🛡</div><h3>Insurance Lapse</h3><p>Letting auto insurance expire even for 1 day can result in SR-22 requirements, higher premiums, and driving without coverage fines of $500–$1,000.</p><div><span class="cost">⚠ $500–$1,000 risk</span><span class="save">✓ Renewal alert saves you</span></div></div>
+      <div class="wcard"><div class="wcard-ic">✈️</div><h3>Denied at Airport</h3><p>Without REAL ID, you may be denied boarding for domestic US flights after May 2025. Missing the appointment means scrambling for a passport instead.</p><div><span class="cost">⚠ Missed flight risk</span><span class="save">✓ REAL ID alert solves this</span></div></div>
+      <div class="wcard"><div class="wcard-ic">👨‍👩‍👧</div><h3>Family DMV Chaos</h3><p>Managing renewals for spouse + 2 kids with cars? Without a system, something always slips. Family plan covers everyone for $40/mo total.</p><div><span class="cost">⚠ $40/mo for 5 people</span><span class="save">✓ $8 per person per month</span></div></div>
+    </div>
+  </div>
+
+  <!-- TESTIMONIALS -->
+  <div style="padding:4rem 2rem;background:var(--bg2);border-top:1px solid var(--border)">
+  <div style="max-width:1080px;margin:0 auto">
+    <div style="text-align:center"><div class="sec-ey gr">Reviews</div><h2 class="sec-h">What Users Are Saying</h2></div>
+    <div class="tgrid">
+      <div class="tcard"><div class="tstars">★★★★★</div><p class="ttext">"I tried for 3 weeks to get a REAL ID appointment in LA. DMV Assistant alerted me within 2 days. Booked it instantly. This app is a genuine lifesaver!"</p><div class="tauth"><div class="tava" style="background:linear-gradient(135deg,#1d6ae5,#3b82f6)">MR</div><div><div class="tname">Maria R.</div><div class="tloc">Los Angeles, California</div></div></div></div>
+      <div class="tcard" style="border-color:rgba(245,158,11,0.2)"><div class="tstars">★★★★★</div><p class="ttext">"As a veteran the 50% discount is great. But the reminders alone saved me — I used to always forget registration until I got pulled over. Never again."</p><div class="tauth"><div class="tava" style="background:linear-gradient(135deg,#d97706,#f59e0b)">JK</div><div><div class="tname">James K. 🎖</div><div class="tloc">Houston, TX — Army Veteran</div></div></div></div>
+      <div class="tcard"><div class="tstars">★★★★★</div><p class="ttext">"Family plan is perfect. I manage renewals for me, my husband, and our 2 kids with cars. Everything in one place. Worth every single penny."</p><div class="tauth"><div class="tava" style="background:linear-gradient(135deg,#0d9488,#22c55e)">SL</div><div><div class="tname">Sarah L.</div><div class="tloc">Chicago, Illinois</div></div></div></div>
+    </div>
+  </div>
+  </div>
+
+  <!-- PRICING -->
+  <div class="price-sec" id="s-price">
+  <div class="price-wrap">
+    <div style="text-align:center">
+      <div class="sec-ey">Transparent Pricing</div>
+      <h2 class="sec-h">Start Free. Upgrade When Ready.</h2>
+      <p class="sec-sub" style="margin:0 auto">No hidden fees. No contracts. The Pro plan pays for itself with just one avoided late fee per year.</p>
+    </div>
+    <div class="pgrid">
+      <div class="pcard"><div class="ptier">Free Forever</div><div class="pamount">$0<span>/mo</span></div><div class="pper">No credit card required</div><ul class="pfl"><li><span class="ck">✓</span>2 appointment alerts</li><li><span class="ck">✓</span>2 renewal reminders</li><li><span class="ck">✓</span>Dashboard access</li><li><span class="ck">✓</span>Email notifications</li><li><span class="cx">–</span>Document Vault</li><li><span class="cx">–</span>SMS alerts</li><li><span class="cx">–</span>AI Assistant</li><li><span class="cx">–</span>Family members</li></ul><button class="btn bo" style="width:100%" onclick="showFP('fp-signup')">Get Started Free</button></div>
+      <div class="pcard feat"><div class="pop-tag">Most Popular</div><div class="ptier">Pro Plan</div><div class="pamount">$12<span>/mo</span></div><div class="pper">or $108/year — save $36 · Cancel anytime</div><ul class="pfl"><li><span class="ck">✓</span>Unlimited appointment alerts</li><li><span class="ck">✓</span>Unlimited renewal reminders</li><li><span class="ck">✓</span>5 GB Document Vault</li><li><span class="ck">✓</span>Email + SMS alerts</li><li><span class="ck">✓</span>AI DMV Assistant</li><li><span class="ck">✓</span>All 50 US states</li><li><span class="ck">✓</span>PDF & CSV export</li><li><span class="cx">–</span>Family members</li></ul><button class="btn bg" style="width:100%" onclick="toast('Redirecting to Pro checkout...','w')">Get Pro — $12/mo</button><p class="pnote">🎖 Veterans: code VET50 for 50% off</p></div>
+      <div class="pcard fam"><div class="ptier">Family / Multi Plan</div><div class="pamount">$40<span>/mo</span></div><div class="pper">or $384/year — save $96 · Up to 5 members</div><ul class="pfl"><li><span class="ck">✓</span>Everything in Pro</li><li><span class="ck">✓</span>Up to 5 family members</li><li><span class="ck">✓</span>15 GB Document Vault</li><li><span class="ck">✓</span>Each member: own login</li><li><span class="ck">✓</span>Family renewal dashboard</li><li><span class="ck">✓</span>Bulk CSV export</li><li><span class="ck">✓</span>Priority email support</li><li><span class="ck">✓</span>Early access features</li></ul><button class="btn bp" style="width:100%" onclick="toast('Redirecting to Family checkout...','i')">Get Family — $40/mo</button><p class="pnote">Best value for families with multiple vehicles</p></div>
+    </div>
+  </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-sec" id="s-faq">
+    <div style="text-align:center">
+      <div class="sec-ey">FAQ</div>
+      <h2 class="sec-h">Frequently Asked Questions</h2>
+    </div>
+    <div id="faq-cont" style="margin-top:2rem"></div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-sec">
+    <div class="sec-ey" style="margin-bottom:1rem">Start Today — Free</div>
+    <h2 class="sec-h" style="font-size:2.5rem;position:relative">Stop Missing DMV Deadlines</h2>
+    <p class="sec-sub" style="margin:0.875rem auto 2.25rem;position:relative">Join 12,000+ Americans. Sign up free in 60 seconds.</p>
+    <div style="display:flex;gap:0.875rem;justify-content:center;flex-wrap:wrap;position:relative">
+      <button class="btn bp blg" onclick="showFP('fp-signup')">🚀 Create Free Account</button>
+      <button class="btn bg blg" onclick="toast('Veteran code: VET50 — 50% off Pro!','w')">🎖 Veteran Discount</button>
+    </div>
+    <p style="font-size:0.72rem;color:var(--text3);margin-top:1.25rem;position:relative">No credit card · Free forever plan · Cancel anytime</p>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+  <div class="ft-inner">
+    <div class="ft-grid">
+      <div class="ft-brand">
+        <div class="brand"><div class="brand-ico">🏛</div><div><div class="brand-name">DMV Assistant</div><div class="brand-sub">dmvassistants.com</div></div></div>
+        <p>The #1 DMV appointment alert and renewal reminder app for US residents and veterans. All 50 states covered.</p>
+        <div style="display:flex;gap:0.5rem;margin-top:0.875rem;flex-wrap:wrap">
+          <span style="background:rgba(29,106,229,0.1);border:1px solid rgba(29,106,229,0.22);border-radius:100px;padding:2px 10px;font-size:0.65rem;font-weight:700;color:var(--blue3)">🇺🇸 All 50 States</span>
+          <span style="background:rgba(22,163,74,0.1);border:1px solid rgba(22,163,74,0.22);border-radius:100px;padding:2px 10px;font-size:0.65rem;font-weight:700;color:var(--green2)">🔐 AES-256 Encrypted</span>
+        </div>
+      </div>
+      <div class="ft-col">
+        <h4>Product</h4>
+        <a onclick="scrollSec('s-features')">Features</a>
+        <a onclick="scrollSec('s-price')">Pricing</a>
+        <a onclick="scrollSec('s-why')">Why Subscribe</a>
+        <a onclick="showFP('fp-signup')">Sign Up Free</a>
+      </div>
+      <div class="ft-col">
+        <h4>DMV Services</h4>
+        <a onclick="showFooterPage('fp-realid')">REAL ID Guide</a>
+        <a onclick="showFooterPage('fp-renewal')">License Renewal</a>
+        <a onclick="showFooterPage('fp-registration')">Registration Guide</a>
+        <a onclick="showFooterPage('fp-title')">Title Transfer</a>
+        <a onclick="showFooterPage('fp-veteran')">Veteran Benefits</a>
+      </div>
+      <div class="ft-col">
+        <h4>Company</h4>
+        <a onclick="showFooterPage('fp-about')">About Us</a>
+        <a onclick="showFooterPage('fp-privacy')">Privacy Policy</a>
+        <a onclick="showFooterPage('fp-terms')">Terms of Service</a>
+        <a onclick="showFooterPage('fp-contact')">Contact Support</a>
+        <a onclick="showFooterPage('fp-blog')">Blog & DMV News</a>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <p>© 2026 DMV Assistant · dmvassistants.com · Not affiliated with any government DMV agency.</p>
+      <div class="ft-links"><a onclick="showFooterPage('fp-privacy')">Privacy</a><a onclick="showFooterPage('fp-terms')">Terms</a><a onclick="showFooterPage('fp-contact')">Contact</a></div>
+    </div>
+  </div>
+  </footer>
+</div>
+</div>
+
+<!-- LOGIN -->
+<div class="fp" id="fp-login">
+<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem;background:var(--bg)">
+  <div style="background:var(--card);border:1px solid var(--border2);border-radius:var(--rxl);padding:2rem;width:100%;max-width:390px">
+    <div style="text-align:center;margin-bottom:1.5rem"><div class="brand" style="justify-content:center;cursor:pointer" onclick="showFP('fp-land')"><div class="brand-ico" style="width:40px;height:40px;font-size:1.1rem">🏛</div><div><div class="brand-name" style="font-size:1rem">DMV Assistant</div></div></div></div>
+    <div style="font-size:1.2rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:0.25rem">Welcome back</div>
+    <div style="font-size:0.78rem;color:var(--text3);margin-bottom:1.5rem">Sign in to your account</div>
+    <button style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:0.58rem;background:rgba(255,255,255,0.04);border:1px solid var(--border2);border-radius:7px;cursor:pointer;font-size:0.82rem;font-family:'Manrope',sans-serif;color:var(--text);font-weight:600;margin-bottom:1rem;transition:all 0.2s" onclick="gLogin()">
+      <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      Continue with Google
+    </button>
+    <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem"><div style="flex:1;height:1px;background:var(--border)"></div><span style="font-size:0.68rem;color:var(--text3)">or</span><div style="flex:1;height:1px;background:var(--border)"></div></div>
+    <div class="fg"><label class="fl">Email</label><input class="fi" id="li-em" type="email" value="demo@dmvassistants.com"/></div>
+    <div class="fg"><label class="fl">Password</label><input class="fi" id="li-pw" type="password" value="demo1234"/></div>
+    <button class="btn bp" style="width:100%;padding:0.62rem;font-size:0.88rem" onclick="doLogin()">Sign In →</button>
+    <div style="text-align:center;font-size:0.76rem;color:var(--text3);margin-top:0.875rem">No account? <a style="color:var(--blue3);cursor:pointer;font-weight:700" onclick="showFP('fp-signup')">Sign up free</a> · <a style="color:var(--text3);cursor:pointer" onclick="showFP('fp-land')">← Home</a></div>
+  </div>
+</div>
+</div>
+
+<!-- SIGNUP -->
+<div class="fp" id="fp-signup">
+<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem;background:var(--bg)">
+  <div style="background:var(--card);border:1px solid var(--border2);border-radius:var(--rxl);padding:2rem;width:100%;max-width:400px">
+    <div style="text-align:center;margin-bottom:1.4rem"><div class="brand" style="justify-content:center;cursor:pointer" onclick="showFP('fp-land')"><div class="brand-ico" style="width:38px;height:38px;font-size:1rem">🏛</div><div><div class="brand-name">DMV Assistant</div></div></div></div>
+    <div style="font-size:1.2rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:0.2rem">Create your account</div>
+    <div style="font-size:0.78rem;color:var(--text3);margin-bottom:1.4rem">Free forever. Upgrade anytime.</div>
+    <button style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:0.55rem;background:rgba(255,255,255,0.04);border:1px solid var(--border2);border-radius:7px;cursor:pointer;font-size:0.82rem;font-family:'Manrope',sans-serif;color:var(--text);font-weight:600;margin-bottom:1rem" onclick="gLogin()">
+      <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      Sign up with Google
+    </button>
+    <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem"><div style="flex:1;height:1px;background:var(--border)"></div><span style="font-size:0.68rem;color:var(--text3)">or</span><div style="flex:1;height:1px;background:var(--border)"></div></div>
+    <div class="fr"><div class="fg"><label class="fl">First Name</label><input class="fi" id="su-fn" placeholder="John"/></div><div class="fg"><label class="fl">Last Name</label><input class="fi" id="su-ln" placeholder="Doe"/></div></div>
+    <div class="fg"><label class="fl">Email</label><input class="fi" id="su-em" type="email" placeholder="john@email.com"/></div>
+    <div class="fg"><label class="fl">Password</label><input class="fi" id="su-pw" type="password" placeholder="Min 8 characters"/></div>
+    <div class="fg"><label class="fl">Your State</label><select class="fs" id="su-st"></select></div>
+    <div style="display:flex;align-items:center;gap:7px;margin-bottom:1rem"><input type="checkbox" id="su-vet" style="accent-color:var(--gold2);width:auto"/><label for="su-vet" style="font-size:0.79rem;color:var(--text2);font-weight:600">🎖 US Veteran / Active Duty (50% off Pro)</label></div>
+    <button class="btn bp" style="width:100%;padding:0.62rem;font-size:0.88rem" onclick="doSignup()">Create Free Account →</button>
+    <div style="text-align:center;font-size:0.76rem;color:var(--text3);margin-top:0.875rem">Have account? <a style="color:var(--blue3);cursor:pointer;font-weight:700" onclick="showFP('fp-login')">Sign in</a> · <a style="color:var(--text3);cursor:pointer" onclick="showFP('fp-land')">← Home</a></div>
+  </div>
+</div>
+</div>
+
+<!-- FOOTER PAGES -->
+<div class="fp" id="fp-realid"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">DMV Guide</div><h1>REAL ID — Complete Guide</h1><p class="lead">Everything US residents need to know about getting a REAL ID — the federally compliant ID required for domestic air travel and federal buildings.</p><h2>What is REAL ID?</h2><p>REAL ID is a federally compliant driver's license or ID card issued by your state DMV. Since May 2025, you need a REAL ID (or US passport) to board domestic flights and enter federal buildings. Look for the gold or black star in the upper right corner of your license — that means it's REAL ID compliant.</p><h2>Required Documents (All States)</h2><ul><li>Proof of identity: US passport, birth certificate, or permanent resident card</li><li>Proof of Social Security Number: SSN card, W-2, or pay stub with full SSN</li><li>2 proofs of state residency: utility bill, bank statement, mortgage statement (dated within 60 days)</li><li>Your current driver's license (even if expiring)</li></ul><div class="info-box"><h4>💡 Pro Tip — Use DMV Assistant</h4><p>Book a REAL ID appointment as early as possible — slots fill up weeks in advance in major cities. Set an appointment alert on DMV Assistant to be notified the moment a slot opens near you.</p></div><h2>Fees</h2><p>Typically $30–$45 depending on your state — same as a regular license renewal in most cases. California: $35. New York: $40. Texas: $33.</p><h2>Important: Must Be In Person</h2><p>REAL ID cannot be obtained online. You must appear in person at your DMV with original documents — no photocopies accepted. Missing even one document means you'll need to reschedule.</p><button class="btn bp" onclick="showFP('fp-signup')">Set REAL ID Appointment Alert →</button></div></div>
+
+<div class="fp" id="fp-renewal"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">DMV Guide</div><h1>Driver License Renewal Guide</h1><p class="lead">How to renew your US driver's license — online options, required documents, fees, and state-specific rules.</p><h2>Renewal Cycles by State</h2><ul><li>California: Every 5 years ($35 fee)</li><li>Texas: Every 6 years ($25 fee)</li><li>New York: Every 8 years ($64.25 fee)</li><li>Florida: Every 8 years ($48 fee)</li><li>Illinois: Every 4 years ($30 fee)</li></ul><h2>Online vs In-Person Renewal</h2><p>Most states allow online renewal if: your address hasn't changed, your name hasn't changed, your vision still meets standards, and your last renewal wasn't also done online. Check your state DMV website or ask our AI Assistant.</p><h2>What Happens if License Expires?</h2><p>Driving with an expired license is a traffic violation. Fines range from $100–$500. If expired over 1 year, you may need to retake the knowledge test. Insurance may not cover accidents with an expired license.</p><div class="info-box"><h4>🔔 Set a Reminder on DMV Assistant</h4><p>Never let your license expire again. Add your expiration date to DMV Assistant — you'll receive email and SMS reminders at 60, 30, and 7 days before.</p></div><button class="btn bg" onclick="showFP('fp-signup')">Add License Renewal Reminder →</button></div></div>
+
+<div class="fp" id="fp-registration"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">DMV Guide</div><h1>Vehicle Registration Renewal Guide</h1><p class="lead">How to renew your vehicle registration in all 50 US states — online options, fees, smog requirements, and late penalties.</p><h2>When to Renew</h2><p>Most states require annual renewal. You should receive a renewal notice 60 days before expiry — but don't rely on postal mail. Use DMV Assistant to set an automated reminder.</p><h2>Online Renewal (Most States)</h2><p>You can renew online at your state DMV website if: your smog/emissions test is current (if required), no outstanding violations, and payment method is available. California, Texas, Florida, New York all offer online renewal.</p><h2>Smog Check States</h2><ul><li>Required: California, Texas, Arizona, Colorado, Illinois, Georgia, and 15+ others</li><li>Must be completed BEFORE you can renew registration</li><li>Cost: $30–$90 at certified smog check stations</li></ul><h2>Late Registration Fees</h2><ul><li>California: $15 late fee + 60% of registration fee if over 1 year late</li><li>Texas: $25 late fee for first month, increases after</li><li>Florida: $25–$250 depending on how late</li></ul><div class="info-box"><h4>💡 Avoid Late Fees with DMV Assistant</h4><p>The Pro plan ($12/mo) pays for itself with just ONE avoided late registration fee. Set reminders for all your vehicles today.</p></div><button class="btn bp" onclick="showFP('fp-signup')">Set Registration Reminders →</button></div></div>
+
+<div class="fp" id="fp-title"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">DMV Guide</div><h1>Vehicle Title Transfer Guide</h1><p class="lead">Step-by-step guide to transferring a vehicle title in the US — buying, selling, gifting, or inheriting a vehicle.</p><h2>When is a Title Transfer Needed?</h2><ul><li>Buying or selling a used vehicle</li><li>Receiving a vehicle as a gift</li><li>Inheriting a vehicle from a deceased person</li><li>Adding or removing a co-owner</li><li>Paying off a vehicle loan (lien release)</li></ul><h2>Required Documents</h2><ul><li>Signed title from seller (all owners must sign)</li><li>Odometer disclosure statement (vehicles under 10 years old)</li><li>Bill of sale (recommended — protects both buyer and seller)</li><li>Valid government-issued photo ID</li><li>Lien release letter if there was a loan on the vehicle</li><li>Payment for title fees and sales tax</li></ul><h2>Fees</h2><p>State title transfer fee: $15–$75. Plus state sales tax on the purchase price (typically 5–10%). California title fee: $21. Texas: $33. New York: $50.</p><h2>Timeline Warning</h2><p>Must be completed within 10–30 days after purchase (varies by state). Late transfers result in penalties. Store your bill of sale in the DMV Assistant document vault as proof during the transfer period.</p><button class="btn bg" onclick="showFP('fp-signup')">Store Title Documents Securely →</button></div></div>
+
+<div class="fp" id="fp-veteran"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Veteran Benefits</div><h1>🎖 DMV Benefits for US Veterans</h1><p class="lead">US veterans and active duty military receive special DMV benefits in most states — including free licenses, free plates, and reduced fees.</p><h2>Free or Discounted Licenses</h2><ul><li>California: Free DL renewal for veterans with honorable discharge</li><li>Florida: Free DL renewal for veterans</li><li>Texas: Free DL for 100% disabled veterans</li><li>New York: Veterans discount available at DMV offices</li><li>Most states: Honor or Veteran designation on license for free</li></ul><h2>Veteran License Plates</h2><p>All 50 states offer special veteran or military license plates. Most are free or low cost. Show your DD-214 or military ID at the DMV. These plates identify you as a veteran and often come with parking benefits.</p><h2>Priority DMV Service</h2><p>Many DMV locations offer priority lanes or appointments for veterans. Ask your local DMV or use our AI Assistant to find veteran-specific benefits in your state.</p><div class="info-box" style="border-color:rgba(245,158,11,0.3);background:rgba(245,158,11,0.04)"><h4>🎖 DMV Assistant Veteran Discount</h4><p>US Veterans and Active Duty receive <strong>50% off the Pro Plan</strong> — permanently. Use code <strong style="color:var(--gold2)">VET50</strong> at checkout. Our way of honoring your service.</p></div><button class="btn bg" onclick="showFP('fp-signup')">Claim Veteran Discount — 50% Off →</button></div></div>
+
+<div class="fp" id="fp-about"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Company</div><h1>About DMV Assistant</h1><p class="lead">DMV Assistant was built because dealing with the DMV shouldn't be stressful. We help Americans never miss a DMV appointment or renewal deadline again.</p><h2>Our Mission</h2><p>Every year, millions of Americans pay unnecessary late fees, miss flights because of no REAL ID, or wait weeks for DMV appointments that could have been caught earlier. DMV Assistant solves this with instant alerts, automated reminders, and AI-powered guidance — covering all 50 US states.</p><h2>Who We Serve</h2><ul><li>Individual US residents in all 50 states</li><li>US Veterans and Active Duty Military (50% discount)</li><li>Families managing multiple vehicles and drivers</li><li>Businesses managing vehicle fleets</li></ul><h2>Security & Privacy</h2><p>All documents are encrypted with AES-256 — the same standard used by major US banks. We are fully GDPR and CCPA compliant. We never sell your data to third parties. Your documents are yours alone.</p><h2>Contact</h2><p>Email: support@dmvassistants.com · Response within 24 hours · Priority support for Pro and Family plan users.</p><div class="info-box"><h4>⚠ Disclaimer</h4><p>DMV Assistant is an independent third-party service. We are NOT affiliated with any government DMV agency. For official transactions, always visit your state's official DMV website.</p></div></div></div>
+
+<div class="fp" id="fp-privacy"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Legal</div><h1>Privacy Policy</h1><p class="lead">Last updated: March 15, 2026. DMV Assistant is committed to protecting your privacy and personal data.</p><h2>Data We Collect</h2><ul><li>Account information: name, email address, state</li><li>DMV preferences: state, office, service type, alert settings</li><li>Document metadata: file names, expiry dates (encrypted)</li><li>Usage data: features used, alerts sent (anonymized)</li></ul><h2>How We Use Your Data</h2><ul><li>Send DMV appointment alerts and renewal reminders</li><li>Provide AI-powered DMV guidance</li><li>Process subscription payments via Lemon Squeezy</li><li>Improve our services (anonymized analytics only)</li></ul><h2>Data Security</h2><p>All documents and personal data are encrypted with AES-256. We use Supabase for secure database storage with row-level security. Payment processing is handled by Lemon Squeezy — we never store your card details.</p><h2>GDPR & CCPA Compliance</h2><p>You have the right to access, modify, or delete your personal data at any time. Contact support@dmvassistants.com for data requests. California residents have additional rights under CCPA.</p><h2>Contact</h2><p>Privacy questions: privacy@dmvassistants.com</p></div></div>
+
+<div class="fp" id="fp-terms"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Legal</div><h1>Terms of Service</h1><p class="lead">Last updated: March 15, 2026. By using DMV Assistant, you agree to these terms.</p><h2>Service Description</h2><p>DMV Assistant provides DMV appointment monitoring, renewal reminders, document storage, and AI assistance for US residents. We are not affiliated with any government DMV agency.</p><h2>Subscription Terms</h2><ul><li>Free plan: No charge, limited to 2 alerts and 2 reminders</li><li>Pro plan: $12/month or $108/year, billed via Lemon Squeezy</li><li>Family plan: $40/month or $384/year, up to 5 members</li><li>Cancel anytime — no cancellation fees</li><li>Refunds available within 7 days of purchase</li></ul><h2>Acceptable Use</h2><ul><li>For personal DMV management only</li><li>Do not share account credentials</li><li>Do not use for commercial resale of alerts</li><li>One account per person (Family plan for multiple people)</li></ul><h2>Limitation of Liability</h2><p>DMV Assistant provides alerts and reminders as a convenience service. We do not guarantee appointment availability or DMV system uptime. Always verify with your official state DMV website for official information.</p><h2>Contact</h2><p>Legal questions: legal@dmvassistants.com</p></div></div>
+
+<div class="fp" id="fp-contact"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Support</div><h1>Contact Support</h1><p class="lead">We're here to help. Typical response time: under 24 hours. Pro and Family plan users get priority support.</p><div class="info-box"><h4>📧 Email Support</h4><p>support@dmvassistants.com · Response within 24 hours (business days)</p></div><div class="info-box"><h4>⭐ Priority Support</h4><p>Pro and Family plan users get responses within 4 business hours. Login to your account and use the in-app support chat.</p></div><div class="info-box"><h4>🎖 Veteran Support</h4><p>Veterans with questions about the VET50 discount or veteran DMV benefits: veterans@dmvassistants.com</p></div><h2>Common Issues</h2><ul><li>Not receiving emails — check spam folder, add no-reply@dmvassistants.com to contacts</li><li>SMS not arriving — verify phone number in Settings, ensure country code is +1</li><li>Forgot password — use "Forgot Password" on the login page</li><li>Billing questions — login → Billing → Manage via Lemon Squeezy portal</li></ul><button class="btn bp" onclick="toast('Support email copied: support@dmvassistants.com','i')">Copy Support Email</button></div></div>
+
+<div class="fp" id="fp-blog"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Blog</div><h1>DMV News & Updates</h1><p class="lead">Latest DMV news, rule changes, and helpful guides for US residents and veterans.</p><div class="info-box"><h4>📰 REAL ID Deadline — What You Need to Know</h4><p>As of May 2025, REAL ID is required for domestic flights. Here's how to get yours quickly in all 50 states using DMV Assistant appointment alerts...</p></div><div class="info-box"><h4>📰 5 States With the Longest DMV Wait Times (2026)</h4><p>California, New York, Texas, Florida, and Illinois consistently have the longest DMV wait times. Here's how to beat the queue with appointment alerts...</p></div><div class="info-box"><h4>📰 Veteran DMV Benefits by State — 2026 Complete Guide</h4><p>Free licenses, veteran plates, reduced fees — a full breakdown of what each state offers to US veterans and active duty military...</p></div><div class="info-box"><h4>📰 Online vs In-Person DMV Renewal — State by State Guide</h4><p>Which states let you renew your license and registration completely online? Complete guide for all 50 states with direct links...</p></div></div></div>
+
+<!-- APP SHELL (Dashboard) -->
+<div class="fp" id="fp-app">
+<div class="shell">
+  <aside class="sidebar">
+    <div class="sb-head">
+      <div class="brand">
+        <div class="brand-ico">🏛</div>
+        <div><div class="brand-name">DMV Assistant</div><div class="brand-sub">dmvassistants.com</div></div>
+      </div>
+    </div>
+    <div class="nav-sec">Main</div>
+    <div class="ni active" onclick="showPg('pg-dash',this)"><span class="ni-ic">🏠</span>Dashboard</div>
+    <div class="ni" onclick="showPg('pg-appts',this)"><span class="ni-ic">🗓</span>Appointments</div>
+    <div class="ni" onclick="showPg('pg-renewals',this)"><span class="ni-ic">⏰</span>Renewals</div>
+    <div class="nav-sec">Documents</div>
+    <div class="ni" onclick="showPg('pg-vault',this)"><span class="ni-ic">📂</span>Document Vault</div>
+    <div class="nav-sec">Tools</div>
+    <div class="ni" onclick="showPg('pg-ai',this)"><span class="ni-ic">🤖</span>AI Assistant</div>
+    <div class="ni" onclick="showPg('pg-alerts',this)"><span class="ni-ic">🔔</span>Alert History</div>
+    <div class="ni" onclick="showPg('pg-family',this)"><span class="ni-ic">👨‍👩‍👧</span>Family</div>
+    <div class="nav-sec">Account</div>
+    <div class="ni" onclick="showPg('pg-billing',this)"><span class="ni-ic">💳</span>Billing & Plan</div>
+    <div class="ni" onclick="showPg('pg-settings',this)"><span class="ni-ic">⚙️</span>Settings</div>
+    <div class="ni" onclick="logout()"><span class="ni-ic">🚪</span>Sign Out</div>
+    <div class="sb-foot"><div class="urow"><div class="uava" id="sb-ava">JD</div><div><div class="uname" id="sb-name">John Doe</div><div class="uplan" id="sb-plan">Free Plan</div></div></div></div>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="tb-left"><h2 id="tb-t">Dashboard</h2><p id="tb-s">Sunday, March 15, 2026</p></div>
+      <div class="tb-right">
+        <span class="tbadge bfree" id="tb-badge">Free</span>
+        <div class="notifbtn" onclick="showPg('pg-alerts',null)">🔔<div class="ndot"></div></div>
+        <button class="btn bg bsm" onclick="oM('m-upgrade')">Upgrade ↗</button>
+      </div>
+    </div>
+    <div class="content">
+
+      <!-- DASHBOARD -->
+      <div class="pg active" id="pg-dash">
+        <div style="margin-bottom:1.2rem"><div style="font-size:0.68rem;color:var(--text3);margin-bottom:2px">Good morning,</div><div style="font-size:1.35rem;font-weight:900;letter-spacing:-0.03em" id="dg">John 👋</div></div>
+        <div class="stats">
+          <div class="stat s-blue"><div class="stat-l">Appt Alerts</div><div class="stat-v" style="color:var(--blue3)">2</div><div class="stat-s">Active monitoring</div><div class="stat-tr tup">↑ 1 slot today</div></div>
+          <div class="stat s-gold"><div class="stat-l">Renewals</div><div class="stat-v" style="color:var(--gold2)">3</div><div class="stat-s">Next in 28 days</div><div class="stat-tr twarn">⚠ 1 urgent</div></div>
+          <div class="stat s-green"><div class="stat-l">Documents</div><div class="stat-v" style="color:#5eead4">4</div><div class="stat-s">Stored & encrypted</div><div class="stat-tr tup">✓ 3 valid</div></div>
+          <div class="stat s-red"><div class="stat-l">Alerts Sent</div><div class="stat-v">12</div><div class="stat-s">This month</div><div class="stat-tr tup">Email + SMS</div></div>
+        </div>
+        <div class="banner bb"><div class="banner-ic">🎯</div><div class="banner-body"><div class="banner-t">Slot Found! REAL ID — Culver City DMV, California</div><div class="banner-s">Available: March 22, 2026 at 10:30 AM · 2 slots open</div><div class="banner-acts"><button class="btn bp bsm" onclick="toast('Opening CA DMV portal...','i')">Book Now →</button><button class="btn bgh bsm" onclick="this.closest('.banner').style.display='none'">Dismiss</button></div></div></div>
+        <div class="banner br"><div class="banner-ic">⚠️</div><div class="banner-body"><div class="banner-t">Driver License expires in 28 days — Action Required</div><div class="banner-s">CA DL #D2847391 · Expiry: April 11, 2026 · Fee ~$35</div><div class="banner-acts"><button class="btn bd bsm" onclick="toast('Opening CA DMV renewal...','i')">Renew Online →</button><button class="btn bgh bsm" onclick="oM('m-appt')">Book Appointment</button></div></div></div>
+        <div class="g2">
+          <div class="card"><div class="card-t">Upcoming Appointments</div>
+            <div class="arow"><div class="adot d-bl"></div><div class="ainfo"><div class="atit">REAL ID Application</div><div class="amet">Culver City DMV · California</div></div><div class="aright"><div class="adate" style="color:var(--blue3)">Mar 22</div><div class="astag">Slot Found ✓</div></div></div>
+            <div class="arow"><div class="adot d-gd"></div><div class="ainfo"><div class="atit">Vehicle Registration</div><div class="amet">Van Nuys DMV · California</div></div><div class="aright"><div class="adate" style="color:var(--gold2)">Monitoring</div><div class="astag">Every 30 min</div></div></div>
+            <div class="arow"><div class="adot d-rd"></div><div class="ainfo"><div class="atit">Driver License Renewal</div><div class="amet">Santa Monica DMV · CA</div></div><div class="aright"><div class="adate" style="color:#f87171">Apr 5</div><div class="astag">Upcoming</div></div></div>
+            <button class="btn bgh bsm" style="margin-top:0.75rem;width:100%" onclick="showPg('pg-appts',document.querySelectorAll('.ni')[1])">View All →</button>
+          </div>
+          <div class="card"><div class="card-t">Renewal Countdowns</div>
+            <div class="rrow"><div class="rtop"><span class="rname">🪪 Driver License</span><span class="rdays" style="color:#f87171">28 days</span></div><div class="ptrack"><div class="pfill p-red" style="width:12%"></div></div><div class="rsub">Expires Apr 11 · CA DL #D2847391</div></div>
+            <div class="rrow"><div class="rtop"><span class="rname">🚗 Registration</span><span class="rdays" style="color:var(--gold2)">47 days</span></div><div class="ptrack"><div class="pfill p-gold" style="width:38%"></div></div><div class="rsub">Expires Apr 30 · Honda Civic · 7ABC123</div></div>
+            <div class="rrow"><div class="rtop"><span class="rname">🛡 Insurance</span><span class="rdays" style="color:var(--green2)">92 days</span></div><div class="ptrack"><div class="pfill p-green" style="width:68%"></div></div><div class="rsub">Expires Jun 14 · State Farm</div></div>
+            <button class="btn bgh bsm" style="margin-top:0.75rem;width:100%" onclick="showPg('pg-renewals',document.querySelectorAll('.ni')[2])">Manage →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- APPOINTMENTS -->
+      <div class="pg" id="pg-appts">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem;flex-wrap:wrap;gap:0.75rem"><div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em">DMV Appointment Alerts</div><button class="btn bp bsm" onclick="oM('m-appt')">+ New Alert</button></div>
+        <div class="banner bb"><div class="banner-ic">🎯</div><div class="banner-body"><div class="banner-t">Slot Available — REAL ID, Culver City DMV, CA</div><div class="banner-s">March 22, 2026 @ 10:30 AM · Alert sent via Email + SMS</div><div class="banner-acts"><button class="btn bp bsm" onclick="toast('Opening CA DMV...','i')">Book Now →</button><button class="btn bgh bsm" onclick="toast('Dismissed','i')">Dismiss</button></div></div></div>
+        <div class="card">
+          <div class="card-t">Active Monitoring — All 50 States</div>
+          <div class="arow"><div class="adot d-bl"></div><div class="ainfo"><div class="atit">REAL ID — Culver City DMV <span class="ibadge ib-g">SLOT FOUND</span></div><div class="amet">California · Email + SMS</div></div><div class="aright"><div class="adate">Mar 22 @ 10:30</div><div class="astag">Since Mar 10</div></div></div>
+          <div class="arow"><div class="adot d-gd"></div><div class="ainfo"><div class="atit">Vehicle Registration — Van Nuys DMV <span class="ibadge ib-w">MONITORING</span></div><div class="amet">California · Email only</div></div><div class="aright"><div class="adate" style="color:var(--gold2)">Every 30 min</div><div class="astag">Since Mar 12</div></div></div>
+          <div style="margin-top:0.875rem;padding-top:0.875rem;border-top:1px solid var(--border)"><div style="font-size:0.62rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.5rem">All 50 States Available</div><div id="state-chips" style="display:flex;flex-wrap:wrap;gap:0.3rem"></div></div>
+        </div>
+      </div>
+
+      <!-- RENEWALS -->
+      <div class="pg" id="pg-renewals">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.75rem"><div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em">Renewal Reminders</div><button class="btn bg bsm" onclick="oM('m-renewal')">+ Add Reminder</button></div>
+        <div class="banner br" style="margin-bottom:1rem"><div class="banner-ic">⚠️</div><div class="banner-body"><div class="banner-t">Driver License expires in 28 days</div><div class="banner-s">CA DL #D2847391 · Fee ~$35 · dmv.ca.gov</div><div class="banner-acts"><button class="btn bd bsm" onclick="toast('Opening DMV...','i')">Renew Online →</button></div></div></div>
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.875rem"><div class="card-t" style="margin-bottom:0">All Reminders — Alerts at 60, 30 & 7 days</div><button class="btn bgh bsm" onclick="toast('Exporting CSV...','i')">⬇ CSV</button></div>
+          <div class="rrow"><div class="rtop"><div style="display:flex;align-items:center;gap:7px"><span class="rname">🪪 Driver License</span><span class="ibadge ib-r">28 DAYS</span></div><div style="display:flex;gap:0.3rem"><button class="btn bgh bsm" onclick="oM('m-renewal')">Edit</button><button class="btn bd bsm" onclick="toast('Removed','w')">✕</button></div></div><div class="ptrack"><div class="pfill p-red" style="width:12%"></div></div><div class="rsub">Apr 11, 2026 · CA DL #D2847391 · 60-day ✓ 30-day ✓</div></div>
+          <div class="rrow"><div class="rtop"><div style="display:flex;align-items:center;gap:7px"><span class="rname">🚗 Registration</span><span class="ibadge ib-w">47 DAYS</span></div><div style="display:flex;gap:0.3rem"><button class="btn bgh bsm" onclick="oM('m-renewal')">Edit</button><button class="btn bd bsm" onclick="toast('Removed','w')">✕</button></div></div><div class="ptrack"><div class="pfill p-gold" style="width:38%"></div></div><div class="rsub">Apr 30, 2026 · Honda Civic · Plate: 7ABC123 · 60-day ✓</div></div>
+          <div class="rrow"><div class="rtop"><div style="display:flex;align-items:center;gap:7px"><span class="rname">🛡 Insurance</span><span class="ibadge" style="background:rgba(22,163,74,0.1);color:var(--green2)">92 DAYS</span></div><div style="display:flex;gap:0.3rem"><button class="btn bgh bsm" onclick="oM('m-renewal')">Edit</button><button class="btn bd bsm" onclick="toast('Removed','w')">✕</button></div></div><div class="ptrack"><div class="pfill p-green" style="width:68%"></div></div><div class="rsub">Jun 14, 2026 · State Farm · Policy #SF2847</div></div>
+        </div>
+      </div>
+
+      <!-- VAULT -->
+      <div class="pg" id="pg-vault">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.75rem"><div><div style="font-size:0.65rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px">🔐 AES-256 Encrypted</div><div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em">Document Vault</div></div><button class="btn bp bsm" onclick="toast('Upload opens in live version','i')">+ Upload</button></div>
+        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem"><div style="flex:1;height:4px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden"><div style="width:18%;height:100%;background:linear-gradient(90deg,var(--blue2),var(--blue3));border-radius:2px"></div></div><span style="font-size:0.72rem;color:var(--text3)">0.9 GB / 5 GB</span></div>
+        <div class="dgrid">
+          <div class="dcard"><div class="dstatus"><span class="ibadge ib-r">EXPIRES SOON</span></div><div class="dic">🪪</div><div class="dname">Driver License</div><div class="dinfo">PDF · 245 KB · Mar 1, 2026</div><div class="dexp" style="color:#f87171">⚠ Apr 11, 2026</div><div class="dacts"><button class="btn bgh bsm" onclick="toast('Downloading...','i')">⬇</button><button class="btn bgh bsm" onclick="toast('Link copied!','s')">🔗</button><button class="btn bt bsm" onclick="toast('Preview opened','i')">👁</button></div></div>
+          <div class="dcard"><div class="dstatus"><span class="ibadge" style="background:rgba(22,163,74,0.1);color:var(--green2)">VALID</span></div><div class="dic">🚗</div><div class="dname">Vehicle Title</div><div class="dinfo">PDF · 512 KB · Feb 15</div><div class="dexp" style="color:var(--green2)">✓ No expiry</div><div class="dacts"><button class="btn bgh bsm" onclick="toast('Downloading...','i')">⬇</button><button class="btn bgh bsm" onclick="toast('Link copied!','s')">🔗</button><button class="btn bt bsm" onclick="toast('Preview opened','i')">👁</button></div></div>
+          <div class="dcard"><div class="dstatus"><span class="ibadge ib-w">EXPIRING</span></div><div class="dic">📋</div><div class="dname">Registration Papers</div><div class="dinfo">PDF · 1.1 MB · Jan 8</div><div class="dexp" style="color:var(--gold2)">⏱ Apr 30, 2026</div><div class="dacts"><button class="btn bgh bsm" onclick="toast('Downloading...','i')">⬇</button><button class="btn bgh bsm" onclick="toast('Link copied!','s')">🔗</button><button class="btn bt bsm" onclick="toast('Preview opened','i')">👁</button></div></div>
+          <div class="dcard"><div class="dstatus"><span class="ibadge" style="background:rgba(22,163,74,0.1);color:var(--green2)">VALID</span></div><div class="dic">🛡</div><div class="dname">Insurance Card</div><div class="dinfo">JPG · 89 KB · Mar 5</div><div class="dexp" style="color:var(--green2)">✓ Jun 2026</div><div class="dacts"><button class="btn bgh bsm" onclick="toast('Downloading...','i')">⬇</button><button class="btn bgh bsm" onclick="toast('Link copied!','s')">🔗</button><button class="btn bt bsm" onclick="toast('Preview opened','i')">👁</button></div></div>
+          <div class="dupload" onclick="toast('Upload requires Pro plan or live backend','w')"><div style="font-size:1.4rem;opacity:0.25">⬆️</div><span style="font-size:0.75rem;color:var(--text3)">Upload Document</span></div>
+        </div>
+      </div>
+
+      <!-- AI -->
+      <div class="pg" id="pg-ai">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.75rem"><div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em">AI DMV Assistant</div><select class="fs" style="width:auto;font-size:0.78rem" id="ai-st"><option value="">All States</option></select></div>
+        <div class="g2">
+          <div class="card" style="display:flex;flex-direction:column">
+            <div class="card-t">Chat with DMV AI</div>
+            <div class="chatbox" id="chatbox">
+              <div class="msg ai"><div class="mava m-ai">🤖</div><div class="mbub">Hi! I'm your AI DMV Assistant. Ask me anything — REAL ID requirements, best appointment times, renewal processes, or any state-specific DMV question!</div></div>
+              <div class="msg user"><div class="mava m-us" id="c-ava">JD</div><div class="mbub">What documents do I need for REAL ID in California?</div></div>
+              <div class="msg ai"><div class="mava m-ai">🤖</div><div class="mbub">For <strong>California REAL ID</strong> you need:<br/>• US passport OR birth certificate<br/>• Social Security card or W-2<br/>• 2 proofs of CA residency<br/>• Current CA driver license<br/><br/>💡 Tip: Tuesday–Thursday mornings have ~40% shorter DMV wait times!</div></div>
+            </div>
+            <div class="cinrow"><input class="cin" id="cin" placeholder="Ask any DMV question..." onkeydown="if(event.key==='Enter')sendMsg()"/><button class="btn bp bsm" onclick="sendMsg()">Send →</button></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:0.875rem">
+            <div class="card"><div class="card-t">Quick Questions</div>
+              <div style="display:flex;flex-direction:column;gap:0.35rem">
+                <button class="btn bgh bsm" style="text-align:left;justify-content:flex-start;font-size:0.78rem" onclick="qMsg('What documents are needed for REAL ID?')">🪪 REAL ID requirements</button>
+                <button class="btn bgh bsm" style="text-align:left;justify-content:flex-start;font-size:0.78rem" onclick="qMsg('What are the best times to visit DMV?')">⏰ Best times at DMV</button>
+                <button class="btn bgh bsm" style="text-align:left;justify-content:flex-start;font-size:0.78rem" onclick="qMsg('How do I renew vehicle registration?')">🚗 Registration renewal</button>
+                <button class="btn bgh bsm" style="text-align:left;justify-content:flex-start;font-size:0.78rem" onclick="qMsg('Can I renew my license online?')">💻 Online renewal options</button>
+                <button class="btn bgh bsm" style="text-align:left;justify-content:flex-start;font-size:0.78rem" onclick="qMsg('What is needed for a title transfer?')">📄 Title transfer process</button>
+                <button class="btn bgh bsm" style="text-align:left;justify-content:flex-start;font-size:0.78rem" onclick="qMsg('What DMV benefits do US Veterans get?')">🎖 Veteran DMV benefits</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ALERTS -->
+      <div class="pg" id="pg-alerts">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.75rem"><div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em">Alert History</div><div style="display:flex;gap:0.4rem"><button class="btn bo bsm" onclick="toast('Exporting PDF...','i')">⬇ PDF</button><button class="btn bo bsm" onclick="toast('Exporting CSV...','i')">⬇ CSV</button></div></div>
+        <div class="tabs"><div class="tab active" onclick="stab(this)">All</div><div class="tab" onclick="stab(this)">Appointments</div><div class="tab" onclick="stab(this)">Renewals</div><div class="tab" onclick="stab(this)">Documents</div></div>
+        <div class="ahrow"><div class="ahic" style="background:rgba(29,106,229,0.15)">📧</div><div class="ahbody"><div class="ahtit">Slot Found — REAL ID, Culver City DMV, CA</div><div class="ahtime">Today 9:42 AM · john@email.com</div></div><span class="ahtag">Email</span></div>
+        <div class="ahrow"><div class="ahic" style="background:rgba(245,158,11,0.12)">💬</div><div class="ahbody"><div class="ahtit">Reminder: Driver License expires in 30 days</div><div class="ahtime">Mar 12 · +1 (310) 555-0198</div></div><span class="ahtag">SMS</span></div>
+        <div class="ahrow"><div class="ahic" style="background:rgba(29,106,229,0.15)">📧</div><div class="ahbody"><div class="ahtit">Reminder: Vehicle Registration expires in 60 days</div><div class="ahtime">Mar 1 · john@email.com</div></div><span class="ahtag">Email</span></div>
+        <div class="ahrow"><div class="ahic" style="background:rgba(245,158,11,0.12)">💬</div><div class="ahbody"><div class="ahtit">Reminder: Driver License expires in 60 days</div><div class="ahtime">Feb 10 · +1 (310) 555-0198</div></div><span class="ahtag">SMS</span></div>
+        <div class="ahrow"><div class="ahic" style="background:rgba(13,148,136,0.15)">🔔</div><div class="ahbody"><div class="ahtit">Monitoring started — Vehicle Registration, Van Nuys DMV</div><div class="ahtime">Feb 3 · Dashboard + Email</div></div><span class="ahtag">Dashboard</span></div>
+      </div>
+
+      <!-- FAMILY -->
+      <div class="pg" id="pg-family">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.75rem"><div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em">Family Members</div><button class="btn bp bsm" onclick="chkFam()">+ Add Member</button></div>
+        <div class="banner bw" id="fam-banner"><div class="banner-ic">⭐</div><div class="banner-body"><div class="banner-t">Family Plan required to add members</div><div class="banner-s">Manage up to 5 family members, their vehicles & documents — $40/month total.</div><div class="banner-acts"><button class="btn bg bsm" onclick="doUpgrade('family')">Upgrade to Family → $40/mo</button></div></div></div>
+        <div id="mem-list">
+          <div class="memcard"><div class="memava" style="background:linear-gradient(135deg,#1d6ae5,#60a5fa);color:#fff">JD</div><div style="flex:1"><div style="font-size:0.84rem;font-weight:700">John Doe <span class="ibadge ib-b">OWNER</span></div><div style="font-size:0.68rem;color:var(--text3);margin-top:1px">john@email.com · California</div></div><button class="btn bgh bsm" onclick="toast('Profile settings','i')">Edit</button></div>
+        </div>
+        <div id="fam-locked" style="text-align:center;padding:2.5rem;color:var(--text3)"><div style="font-size:2.25rem;margin-bottom:0.625rem;opacity:0.25">👨‍👩‍👧</div><div style="font-size:0.875rem;font-weight:700;color:var(--text2);margin-bottom:0.3rem">Add up to 4 more family members</div><div style="font-size:0.78rem">Upgrade to Family Plan to unlock</div></div>
+      </div>
+
+      <!-- BILLING -->
+      <div class="pg" id="pg-billing">
+        <div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:1rem">Billing & Plan</div>
+        <div class="card" style="border-color:rgba(245,158,11,0.28);background:rgba(245,158,11,0.02);margin-bottom:1rem">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.875rem">
+            <div><div style="font-size:0.62rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:3px">Current Plan</div><div style="font-size:1.25rem;font-weight:900;letter-spacing:-0.03em" id="bill-plan">Free</div><div style="font-size:0.75rem;color:var(--text3);margin-top:3px" id="bill-desc">2 alerts · 2 reminders</div></div>
+            <div id="bill-act"><button class="btn bg bsm" onclick="oM('m-upgrade')">Upgrade ↗</button></div>
+          </div>
+        </div>
+        <div class="g3">
+          <div class="card"><div class="card-t" style="margin-bottom:0.5rem">Free</div><div style="font-size:1.5rem;font-weight:900;letter-spacing:-0.04em;margin-bottom:0.5rem">$0<span style="font-size:0.8rem;font-weight:400;color:var(--text3)">/mo</span></div><ul style="list-style:none;display:flex;flex-direction:column;gap:3px;margin-bottom:0.875rem"><li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--green2)">✓</span>2 alerts</li><li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--green2)">✓</span>2 reminders</li><li style="font-size:0.75rem;color:var(--text3);display:flex;gap:5px"><span>–</span>Vault</li><li style="font-size:0.75rem;color:var(--text3);display:flex;gap:5px"><span>–</span>SMS</li></ul><button class="btn bo" style="width:100%;font-size:0.75rem" disabled id="free-btn">Current</button></div>
+          <div class="card" style="border-color:rgba(245,158,11,0.3);background:rgba(245,158,11,0.02)"><div style="font-size:0.6rem;font-weight:900;text-transform:uppercase;letter-spacing:0.08em;background:linear-gradient(90deg,var(--gold),var(--gold2));color:#000;display:inline-block;padding:1px 8px;border-radius:100px;margin-bottom:0.35rem">Popular</div><div class="card-t" style="margin-bottom:0.35rem">Pro</div><div style="font-size:1.5rem;font-weight:900;letter-spacing:-0.04em;margin-bottom:0.5rem">$12<span style="font-size:0.8rem;font-weight:400;color:var(--text3)">/mo</span></div><ul style="list-style:none;display:flex;flex-direction:column;gap:3px;margin-bottom:0.875rem"><li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--green2)">✓</span>Unlimited</li><li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--green2)">✓</span>5 GB Vault</li><li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--green2)">✓</span>SMS+Email</li><li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--green2)">✓</span>AI Assistant</li></ul><button class="btn bg" style="width:100%;font-size:0.75rem" id="pro-btn" onclick="doUpgrade('pro')">Get Pro</button></div>
+          <div class="card" style="border-color:rgba(29,106,229,0.25)"><div class="card-t" style="margin-bottom:0.5rem">Family</div><div style="font-size:1.5rem;font-weight:900;letter-spacing:-0.04em;margin-bottom:0.5rem">$40<span style="font-size:0.8rem;font-weight:400;color:var(--text3)">/mo</span></div><ul style="list-style:none;display:flex;flex-direction:column;gap:3px;margin-bottom:0.875rem"><li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--blue3)">✓</span>5 members</li><li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--blue3)">✓</span>15 GB Vault</li><li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--blue3)">✓</span>Family dash</li><li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--blue3)">✓</span>Priority support</li></ul><button class="btn bp" style="width:100%;font-size:0.75rem" id="fam-btn" onclick="doUpgrade('family')">Get Family</button></div>
+        </div>
+        <div class="card" style="margin-top:0.875rem"><div class="card-t" style="margin-bottom:0.5rem">Lemon Squeezy — Secure Billing</div><p style="font-size:0.78rem;color:var(--text2);margin-bottom:0.875rem;line-height:1.65">Payments processed securely. Cancel anytime. Card never stored on our servers.</p><div style="display:flex;gap:0.5rem;flex-wrap:wrap"><button class="btn bgh bsm" onclick="toast('Opening billing portal...','i')">Manage Payment →</button><button class="btn bgh bsm" onclick="toast('Loading invoices...','i')">Invoices →</button><button class="btn bd bsm" onclick="toast('Cancellation submitted','w')">Cancel Subscription</button></div></div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="pg" id="pg-settings">
+        <div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:1rem">Settings</div>
+        <div style="display:flex;flex-direction:column;gap:0.875rem">
+          <div class="card"><div class="card-t" style="margin-bottom:0.75rem">Profile</div><div class="fr"><div class="fg"><label class="fl">First Name</label><input class="fi" id="s-fn" value="John"/></div><div class="fg"><label class="fl">Last Name</label><input class="fi" id="s-ln" value="Doe"/></div></div><div class="fg"><label class="fl">Email</label><input class="fi" value="john@email.com" type="email"/></div><div class="fg"><label class="fl">Phone (SMS alerts)</label><input class="fi" placeholder="+1 (555) 000-0000" type="tel"/></div><div class="fg"><label class="fl">Home State</label><select class="fs" id="s-st"></select></div><div style="display:flex;align-items:center;gap:7px;margin-bottom:0.75rem"><input type="checkbox" id="s-vet" style="accent-color:var(--gold2);width:auto"/><label for="s-vet" style="font-size:0.8rem;color:var(--text2);font-weight:600">🎖 US Veteran / Active Duty</label></div><button class="btn bp bsm" onclick="saveSettings()">Save Changes</button></div>
+          <div class="card"><div class="card-t" style="margin-bottom:0.75rem">Notifications</div><div style="display:flex;flex-direction:column;gap:0.55rem"><div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem">Email notifications<input type="checkbox" checked style="accent-color:var(--blue2);width:auto"/></div><div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem">SMS alerts<input type="checkbox" style="accent-color:var(--blue2);width:auto"/></div><div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem">60-day reminders<input type="checkbox" checked style="accent-color:var(--blue2);width:auto"/></div><div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem">30-day reminders<input type="checkbox" checked style="accent-color:var(--blue2);width:auto"/></div><div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem">7-day reminders<input type="checkbox" checked style="accent-color:var(--blue2);width:auto"/></div></div><button class="btn bp bsm" style="margin-top:0.75rem" onclick="toast('Preferences saved!','s')">Save Preferences</button></div>
+          <div class="card"><div class="card-t" style="margin-bottom:0.5rem">Security</div><div style="display:flex;gap:0.5rem;flex-wrap:wrap"><button class="btn bgh bsm" onclick="toast('Password reset email sent','s')">Change Password</button><button class="btn bgh bsm" onclick="toast('2FA available in live version','i')">Enable 2FA</button><button class="btn bd bsm" onclick="toast('Deletion request submitted','w')">Delete Account</button></div></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+</div>
+
+<script>
+const STATES=['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
+const OFFICES={'California':['Los Angeles — Culver City','Los Angeles — Van Nuys','Los Angeles — Santa Monica','San Francisco — Fell St','San Diego — Normal St','Sacramento — Broadway'],'Texas':['Houston — N Shepherd Dr','Dallas — Mockingbird Ln','Austin — E Rundberg Ln','San Antonio — Fredericksburg Rd'],'Florida':['Miami — NW 119th St','Orlando — E Colonial Dr','Tampa — Adamo Dr','Jacksonville — Blanding Blvd'],'New York':['NYC — Jamaica Ave','Brooklyn — Linden Blvd','Manhattan — 34th St','Buffalo — Dingens St'],'default':['Main Office — Downtown','North Branch Office','South Branch Office','East District Office']};
+const FAQS=[{q:'Is DMV Assistant free?',a:'Yes! Free plan is completely free forever — no credit card needed. Includes 2 appointment alerts and 2 renewal reminders. Pro plan is $12/mo for unlimited everything.'},{q:'How does appointment monitoring work?',a:'We check DMV slot availability every 30 minutes for your selected state and office. The moment a slot opens, you receive instant email and SMS — so you book before anyone else.'},{q:'All 50 states supported?',a:'Yes — all 50 US states are fully supported. Every state has major DMV offices covered. Select your state when setting up an alert.'},{q:'Are my documents secure?',a:'AES-256 military-grade encryption — same as major banks. Fully GDPR and CCPA compliant. Documents never shared with third parties.'},{q:'What is the veteran discount?',a:'US Veterans and Active Duty Military receive 50% off Pro Plan permanently. Use code VET50 at checkout.'},{q:'Can I manage my whole family?',a:'Yes! Family Plan ($40/mo) supports up to 5 family members each with their own login, alerts, and documents under one subscription.'},{q:'Is DMV Assistant government affiliated?',a:'No. We are an independent third-party service. Not affiliated with any government DMV agency. Always verify with your state\'s official DMV website for official transactions.'}];
+const AI_ANS={'real id':'For <strong>REAL ID</strong> you need: US passport or birth certificate, Social Security card, 2 proofs of state residency, and current driver license. Must be done in person. Book early — slots fill up weeks in advance!','best time':'<strong>Tuesday–Thursday mornings (8–10 AM)</strong> have the shortest waits — often under 20 minutes. Avoid Mondays, Fridays, and weeks after holidays.','renew':'Vehicle registration can be renewed <strong>online</strong> at your state DMV website if smog check is current and no outstanding violations. Check dmv.ca.gov (CA) or your state equivalent.','online':'Most states allow online license renewal if: no address change, no name change, vision still meets standards, and last renewal wasn\'t online. Very convenient!','title':'For title transfer: signed title from seller, odometer disclosure, bill of sale, your ID, and payment. Complete within 10–30 days of purchase to avoid penalties.','veteran':'Veterans get free or discounted licenses in most states, veteran license plates, and priority DMV service. Use code <strong>VET50</strong> for 50% off DMV Assistant Pro — our tribute to your service! 🎖'};
+const APP={user:null,plan:'free'};
+
+function init(){
+  ['appt-st','su-st','s-st','ai-st','ms'].forEach(id=>{const el=document.getElementById(id);if(!el)return;const isAi=id==='ai-st';el.innerHTML=(isAi?'<option value="">All States</option>':'<option value="">Select State...</option>')+STATES.map(s=>`<option>${s}</option>`).join('');});
+  const sc=document.getElementById('state-chips');if(sc){sc.innerHTML=STATES.slice(0,20).map(s=>`<span style="padding:2px 8px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:5px;font-size:0.68rem;color:var(--text2);cursor:default">${s}</span>`).join('')+`<span style="padding:2px 8px;font-size:0.68rem;color:var(--text3)">+30 more</span>`;}
+  const fc=document.getElementById('faq-cont');if(fc){FAQS.forEach((f,i)=>{fc.innerHTML+=`<div class="faq-item"><div class="faq-q" onclick="tfaq(${i})"><span>${f.q}</span><div class="ftog" id="ft${i}">+</div></div><div class="faq-a" id="fa${i}">${f.a}</div></div>`;});}
+}
+function tfaq(i){const a=document.getElementById('fa'+i),t=document.getElementById('ft'+i),op=a.classList.contains('open');document.querySelectorAll('.faq-a').forEach(e=>e.classList.remove('open'));document.querySelectorAll('.ftog').forEach(e=>{e.classList.remove('open');e.textContent='+';});if(!op){a.classList.add('open');t.classList.add('open');}}
+function updOff(){const s=document.getElementById('appt-st').value,o=OFFICES[s]||OFFICES['default'],sel=document.getElementById('off-sel');sel.innerHTML=o.map(x=>`<option>${x}</option>`).join('');}
+function showFP(id){document.querySelectorAll('.fp').forEach(p=>p.classList.remove('active'));const el=document.getElementById(id);if(el){el.classList.add('active');window.scrollTo(0,0);}}
+function showFooterPage(id){showFP(id);}
+function showPg(id,nav){document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));const el=document.getElementById(id);if(el)el.classList.add('active');if(nav){document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));nav.classList.add('active');}const t={'pg-dash':'Dashboard','pg-appts':'Appointment Alerts','pg-renewals':'Renewal Reminders','pg-vault':'Document Vault','pg-ai':'AI Assistant','pg-alerts':'Alert History','pg-family':'Family Members','pg-billing':'Billing & Plan','pg-settings':'Settings'};document.getElementById('tb-t').textContent=t[id]||'Dashboard';}
+function oM(id){document.getElementById(id).classList.add('open');}
+function cM(id){document.getElementById(id).classList.remove('open');}
+function scrollSec(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'});}
+
+let toastT;
+function toast(msg,type='i'){clearTimeout(toastT);const t=document.getElementById('toast');t.textContent=msg;t.className='toast show t'+type;toastT=setTimeout(()=>{t.className='toast';},3200);}
+
+function gLogin(){APP.user={name:'John Doe',email:'john@gmail.com',init:'JD'};loginOk();}
+function doLogin(){const e=document.getElementById('li-em').value;if(!e){toast('Enter email','e');return;}APP.user={name:e.split('@')[0],email:e,init:e.slice(0,2).toUpperCase()};loginOk();}
+function doSignup(){const fn=document.getElementById('su-fn').value,ln=document.getElementById('su-ln').value,em=document.getElementById('su-em').value,pw=document.getElementById('su-pw').value;if(!fn||!em||!pw){toast('Fill all fields','e');return;}if(pw.length<8){toast('Password min 8 chars','e');return;}APP.user={name:fn+' '+ln,email:em,init:(fn[0]+(ln?ln[0]:'')).toUpperCase()};const vet=document.getElementById('su-vet').checked;loginOk();toast(vet?'Welcome! 🎖 Code VET50 saved!':'Account created! Welcome 🎉','s');}
+function loginOk(){document.getElementById('sb-ava').textContent=APP.user.init||'JD';document.getElementById('sb-name').textContent=APP.user.name||'User';document.getElementById('c-ava').textContent=APP.user.init||'JD';document.getElementById('dg').textContent=(APP.user.name.split(' ')[0]||'there')+' 👋';showFP('fp-app');showPg('pg-dash',document.querySelector('.ni.active'));toast('Welcome, '+(APP.user.name.split(' ')[0]||'there')+'!','s');}
+function logout(){APP.user=null;APP.plan='free';showFP('fp-land');}
+
+function doUpgrade(plan){cM('m-upgrade');toast('Redirecting to Lemon Squeezy...','i');setTimeout(()=>{APP.plan=plan;const ip=plan==='pro',ifa=plan==='family';document.getElementById('tb-badge').className='tbadge '+(ifa?'bfam':ip?'bpro':'bfree');document.getElementById('tb-badge').textContent=ifa?'Family':ip?'Pro':'Free';document.getElementById('sb-plan').textContent=ifa?'Family Plan':ip?'Pro Plan':'Free Plan';document.getElementById('bill-plan').textContent=ifa?'Family':ip?'Pro':'Free';document.getElementById('bill-desc').textContent=ifa?'5 members · 15 GB · Unlimited':ip?'Unlimited · 5 GB · AI':'2 alerts · 2 reminders';document.getElementById('bill-act').innerHTML=`<span class="ibadge ${ifa?'ib-b':'ib-g'}" style="font-size:0.75rem;padding:3px 10px">✓ ${ifa?'Family':'Pro'} Active</span>`;document.getElementById('pro-btn').textContent=ip?'Current':'Get Pro';document.getElementById('pro-btn').disabled=ip;document.getElementById('fam-btn').textContent=ifa?'Current':'Get Family';document.getElementById('fam-btn').disabled=ifa;if(ifa){document.getElementById('fam-banner').style.display='none';document.getElementById('fam-locked').style.display='none';}toast(`🎉 ${ifa?'Family':'Pro'} plan activated!`,'s');},1500);}
+function chkFam(){if(APP.plan==='family')oM('m-member');else oM('m-upgrade');}
+function addMember(){const n=document.getElementById('mn').value;if(!n){toast('Enter name','e');return;}cM('m-member');const i=n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);const c=document.createElement('div');c.className='memcard';c.innerHTML=`<div class="memava" style="background:linear-gradient(135deg,#0d9488,#22c55e);color:#fff">${i}</div><div style="flex:1"><div style="font-size:0.84rem;font-weight:700">${n} <span class="ibadge ib-b">MEMBER</span></div><div style="font-size:0.68rem;color:var(--text3)">${document.getElementById('me').value}</div></div><button class="btn bd bsm" onclick="this.closest('.memcard').remove();toast('Member removed','w')">Remove</button>`;document.getElementById('mem-list').appendChild(c);toast(`${n} invited!`,'s');}
+function addAppt(){cM('m-appt');toast('Alert set! Monitoring every 30 min.','s');}
+function addRenewal(){cM('m-renewal');toast('Reminder set! Alerts at 60, 30 & 7 days.','s');}
+function stab(el){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');}
+function saveSettings(){const fn=document.getElementById('s-fn').value,ln=document.getElementById('s-ln').value;document.getElementById('sb-name').textContent=fn+' '+ln;document.getElementById('sb-ava').textContent=fn.slice(0,2).toUpperCase();toast('Settings saved!','s');}
+
+const AIKEYS=Object.keys(AI_ANS);
+function sendMsg(){const inp=document.getElementById('cin'),msg=inp.value.trim();if(!msg)return;const box=document.getElementById('chatbox');const um=document.createElement('div');um.className='msg user';um.innerHTML=`<div class="mava m-us">${APP.user?APP.user.init:'U'}</div><div class="mbub">${msg}</div>`;box.appendChild(um);inp.value='';box.scrollTop=9999;setTimeout(()=>{let resp='I can help with that! For specific state requirements, select your state above. Ask me about REAL ID, renewals, title transfers, or veteran benefits.';const lc=msg.toLowerCase();for(const k of AIKEYS){if(lc.includes(k)){resp=AI_ANS[k];break;}}const am=document.createElement('div');am.className='msg ai';am.innerHTML=`<div class="mava m-ai">🤖</div><div class="mbub">${resp}</div>`;box.appendChild(am);box.scrollTop=9999;},700);}
+function qMsg(q){document.getElementById('cin').value=q;sendMsg();showPg('pg-ai',document.querySelectorAll('.ni')[6]);}
+
+document.querySelectorAll('.mov').forEach(m=>m.addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');}));
+init();
+</script>
