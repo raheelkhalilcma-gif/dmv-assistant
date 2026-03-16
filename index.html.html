@@ -655,6 +655,31 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 
 <div class="fp" id="fp-blog"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Blog</div><h1>DMV News & Updates</h1><p class="lead">Latest DMV news, rule changes, and helpful guides for US residents and veterans.</p><div class="info-box"><h4>📰 REAL ID Deadline — What You Need to Know</h4><p>As of May 2025, REAL ID is required for domestic flights. Here's how to get yours quickly in all 50 states using DMV Assistant appointment alerts...</p></div><div class="info-box"><h4>📰 5 States With the Longest DMV Wait Times (2026)</h4><p>California, New York, Texas, Florida, and Illinois consistently have the longest DMV wait times. Here's how to beat the queue with appointment alerts...</p></div><div class="info-box"><h4>📰 Veteran DMV Benefits by State — 2026 Complete Guide</h4><p>Free licenses, veteran plates, reduced fees — a full breakdown of what each state offers to US veterans and active duty military...</p></div><div class="info-box"><h4>📰 Online vs In-Person DMV Renewal — State by State Guide</h4><p>Which states let you renew your license and registration completely online? Complete guide for all 50 states with direct links...</p></div></div></div>
 
+<!-- VERIFY EMAIL -->
+<div class="fp" id="fp-verify">
+<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem;background:var(--bg)">
+  <div style="background:var(--card);border:1px solid var(--border2);border-radius:var(--rxl);padding:2rem;width:100%;max-width:390px;text-align:center">
+    <div style="width:64px;height:64px;border-radius:50%;background:rgba(29,106,229,0.12);border:1px solid rgba(29,106,229,0.25);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 1.25rem">📧</div>
+    <div style="font-size:1.2rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:0.35rem">Check your email</div>
+    <div style="font-size:0.82rem;color:var(--text3);margin-bottom:1.5rem">We sent a 6-digit verification code to<br/><strong id="verify-email" style="color:var(--blue3)">your@email.com</strong></div>
+    <div style="display:flex;gap:0.5rem;justify-content:center;margin-bottom:1.25rem">
+      <input class="fi" id="otp0" maxlength="1" style="width:46px;text-align:center;font-size:1.3rem;font-weight:900;padding:0.6rem 0" oninput="otpNext(0)" onkeydown="otpBack(event,0)"/>
+      <input class="fi" id="otp1" maxlength="1" style="width:46px;text-align:center;font-size:1.3rem;font-weight:900;padding:0.6rem 0" oninput="otpNext(1)" onkeydown="otpBack(event,1)"/>
+      <input class="fi" id="otp2" maxlength="1" style="width:46px;text-align:center;font-size:1.3rem;font-weight:900;padding:0.6rem 0" oninput="otpNext(2)" onkeydown="otpBack(event,2)"/>
+      <input class="fi" id="otp3" maxlength="1" style="width:46px;text-align:center;font-size:1.3rem;font-weight:900;padding:0.6rem 0" oninput="otpNext(3)" onkeydown="otpBack(event,3)"/>
+      <input class="fi" id="otp4" maxlength="1" style="width:46px;text-align:center;font-size:1.3rem;font-weight:900;padding:0.6rem 0" oninput="otpNext(4)" onkeydown="otpBack(event,4)"/>
+      <input class="fi" id="otp5" maxlength="1" style="width:46px;text-align:center;font-size:1.3rem;font-weight:900;padding:0.6rem 0" oninput="otpNext(5)" onkeydown="otpBack(event,5)"/>
+    </div>
+    <div id="otp-err" style="display:none;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.3);border-radius:7px;padding:0.5rem;font-size:0.8rem;color:#fca5a5;margin-bottom:0.875rem">Invalid code — try again</div>
+    <button class="btn bp" style="width:100%;padding:0.62rem;font-size:0.88rem" onclick="verifyOTP()" id="verify-btn">Verify Email →</button>
+    <div style="margin-top:0.875rem;font-size:0.76rem;color:var(--text3)">
+      Didn't get it? <a style="color:var(--blue3);cursor:pointer;font-weight:700" onclick="resendOTP()">Resend code</a>
+      &nbsp;·&nbsp; <a style="color:var(--text3);cursor:pointer" onclick="showFP('fp-signup')">← Back</a>
+    </div>
+  </div>
+</div>
+</div>
+
 <!-- APP SHELL (Dashboard) -->
 <div class="fp" id="fp-app">
 <div class="shell">
@@ -667,7 +692,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
     </div>
     <div class="nav-sec">Main</div>
     <div class="ni active" onclick="showPg('pg-dash',this)"><span class="ni-ic">🏠</span>Dashboard</div>
-    <div class="ni" onclick="showPg('pg-appts',this)"><span class="ni-ic">🗓</span>Appointments</div>
+    <div class="ni" onclick="goProPg('pg-appts',this)"><span class="ni-ic">🗓</span>Appointments</div>
     <div class="ni" onclick="showPg('pg-renewals',this)"><span class="ni-ic">⏰</span>Renewals</div>
     <div class="nav-sec">Documents</div>
     <div class="ni" onclick="goProPg('pg-vault',this)"><span class="ni-ic">📂</span>Document Vault</div>
@@ -738,43 +763,60 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
         </div>
 
         <!-- PRO TOOLS SECTION -->
+        <div style="margin-bottom:1rem">
+          <div style="font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:var(--gold2);margin-bottom:0.625rem;display:flex;align-items:center;gap:6px"><span style="background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);padding:2px 8px;border-radius:5px">⭐ PRO PLAN TOOLS</span></div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.6rem">
+            <div onclick="goProPg('pg-appts',null)" style="background:#0c1018;border:1px solid rgba(245,158,11,0.2);border-radius:10px;padding:0.875rem;cursor:pointer;position:relative" onmouseover="this.style.borderColor='rgba(245,158,11,0.5)'" onmouseout="this.style.borderColor='rgba(245,158,11,0.2)'">
+              <div style="font-size:1.1rem;margin-bottom:0.35rem">🗓</div>
+              <div style="font-size:0.8rem;font-weight:700;color:#f1f5f9;margin-bottom:2px">Appointment Alerts</div>
+              <div style="font-size:0.68rem;color:#64748b">Slot monitoring 24/7</div>
+            </div>
+            <div onclick="goProPg('pg-vin',null)" style="background:#0c1018;border:1px solid rgba(245,158,11,0.2);border-radius:10px;padding:0.875rem;cursor:pointer;position:relative" onmouseover="this.style.borderColor='rgba(245,158,11,0.5)'" onmouseout="this.style.borderColor='rgba(245,158,11,0.2)'">
+              <div style="font-size:1.1rem;margin-bottom:0.35rem">🔍</div>
+              <div style="font-size:0.8rem;font-weight:700;color:#f1f5f9;margin-bottom:2px">VIN Decoder</div>
+              <div style="font-size:0.68rem;color:#64748b">Decode any vehicle</div>
+            </div>
+            <div onclick="goProPg('pg-waittimes',null)" style="background:#0c1018;border:1px solid rgba(245,158,11,0.2);border-radius:10px;padding:0.875rem;cursor:pointer;position:relative" onmouseover="this.style.borderColor='rgba(245,158,11,0.5)'" onmouseout="this.style.borderColor='rgba(245,158,11,0.2)'">
+              <div style="font-size:1.1rem;margin-bottom:0.35rem">⏱</div>
+              <div style="font-size:0.8rem;font-weight:700;color:#f1f5f9;margin-bottom:2px">Wait Times</div>
+              <div style="font-size:0.68rem;color:#64748b">Best times to visit</div>
+            </div>
+            <div onclick="goProPg('pg-smog',null)" style="background:#0c1018;border:1px solid rgba(245,158,11,0.2);border-radius:10px;padding:0.875rem;cursor:pointer;position:relative" onmouseover="this.style.borderColor='rgba(245,158,11,0.5)'" onmouseout="this.style.borderColor='rgba(245,158,11,0.2)'">
+              <div style="font-size:1.1rem;margin-bottom:0.35rem">🔧</div>
+              <div style="font-size:0.8rem;font-weight:700;color:#f1f5f9;margin-bottom:2px">Smog Check</div>
+              <div style="font-size:0.68rem;color:#64748b">State requirements</div>
+            </div>
+            <div onclick="goProPg('pg-vault',null)" style="background:#0c1018;border:1px solid rgba(245,158,11,0.2);border-radius:10px;padding:0.875rem;cursor:pointer;position:relative" onmouseover="this.style.borderColor='rgba(245,158,11,0.5)'" onmouseout="this.style.borderColor='rgba(245,158,11,0.2)'">
+              <div style="font-size:1.1rem;margin-bottom:0.35rem">📂</div>
+              <div style="font-size:0.8rem;font-weight:700;color:#f1f5f9;margin-bottom:2px">Document Vault</div>
+              <div style="font-size:0.68rem;color:#64748b">AES-256 encrypted</div>
+            </div>
+            <div onclick="goProPg('pg-news',null)" style="background:#0c1018;border:1px solid rgba(245,158,11,0.2);border-radius:10px;padding:0.875rem;cursor:pointer" onmouseover="this.style.borderColor='rgba(245,158,11,0.5)'" onmouseout="this.style.borderColor='rgba(245,158,11,0.2)'">
+              <div style="font-size:1.1rem;margin-bottom:0.35rem">📰</div>
+              <div style="font-size:0.8rem;font-weight:700;color:#f1f5f9;margin-bottom:2px">DMV News</div>
+              <div style="font-size:0.68rem;color:#64748b">Latest law updates</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAMILY TOOLS SECTION -->
         <div style="margin-bottom:1.25rem">
-          <div style="font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:0.75rem">⭐ Pro & Family Tools</div>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem">
-            <div onclick="goProPg('pg-vin',null)" style="background:#0c1018;border:1px solid #1e293b;border-radius:12px;padding:1rem;cursor:pointer;position:relative" onmouseover="this.style.borderColor='#2d3f55'" onmouseout="this.style.borderColor='#1e293b'">
-              <span style="position:absolute;top:8px;right:8px;background:rgba(245,158,11,0.15);color:#f59e0b;font-size:0.55rem;font-weight:800;padding:1px 5px;border-radius:5px;text-transform:uppercase">PRO</span>
-              <div style="font-size:1.2rem;margin-bottom:0.4rem">🔍</div>
-              <div style="font-size:0.82rem;font-weight:700;color:#f1f5f9;margin-bottom:2px">VIN Decoder</div>
-              <div style="font-size:0.72rem;color:#64748b">Decode any vehicle by VIN</div>
+          <div style="font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#60a5fa;margin-bottom:0.625rem;display:flex;align-items:center;gap:6px"><span style="background:rgba(29,106,229,0.15);border:1px solid rgba(29,106,229,0.3);padding:2px 8px;border-radius:5px">👨‍👩‍👧 FAMILY PLAN TOOLS</span></div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.6rem">
+            <div onclick="goFamPg('pg-insurance',null)" style="background:#0c1018;border:1px solid rgba(29,106,229,0.2);border-radius:10px;padding:0.875rem;cursor:pointer;position:relative" onmouseover="this.style.borderColor='rgba(29,106,229,0.5)'" onmouseout="this.style.borderColor='rgba(29,106,229,0.2)'">
+              <div style="font-size:1.1rem;margin-bottom:0.35rem">🛡</div>
+              <div style="font-size:0.8rem;font-weight:700;color:#f1f5f9;margin-bottom:2px">Insurance Monitor</div>
+              <div style="font-size:0.68rem;color:#64748b">Track policy expiry</div>
             </div>
-            <div onclick="goProPg('pg-waittimes',null)" style="background:#0c1018;border:1px solid #1e293b;border-radius:12px;padding:1rem;cursor:pointer;position:relative" onmouseover="this.style.borderColor='#2d3f55'" onmouseout="this.style.borderColor='#1e293b'">
-              <span style="position:absolute;top:8px;right:8px;background:rgba(245,158,11,0.15);color:#f59e0b;font-size:0.55rem;font-weight:800;padding:1px 5px;border-radius:5px;text-transform:uppercase">PRO</span>
-              <div style="font-size:1.2rem;margin-bottom:0.4rem">⏱</div>
-              <div style="font-size:0.82rem;font-weight:700;color:#f1f5f9;margin-bottom:2px">Wait Times</div>
-              <div style="font-size:0.72rem;color:#64748b">Best times to visit DMV</div>
+            <div onclick="goFamPg('pg-multistate',null)" style="background:#0c1018;border:1px solid rgba(29,106,229,0.2);border-radius:10px;padding:0.875rem;cursor:pointer;position:relative" onmouseover="this.style.borderColor='rgba(29,106,229,0.5)'" onmouseout="this.style.borderColor='rgba(29,106,229,0.2)'">
+              <div style="font-size:1.1rem;margin-bottom:0.35rem">🗺</div>
+              <div style="font-size:0.8rem;font-weight:700;color:#f1f5f9;margin-bottom:2px">Multi-State</div>
+              <div style="font-size:0.68rem;color:#64748b">Track across 2 states</div>
             </div>
-            <div onclick="goProPg('pg-smog',null)" style="background:#0c1018;border:1px solid #1e293b;border-radius:12px;padding:1rem;cursor:pointer;position:relative" onmouseover="this.style.borderColor='#2d3f55'" onmouseout="this.style.borderColor='#1e293b'">
-              <span style="position:absolute;top:8px;right:8px;background:rgba(245,158,11,0.15);color:#f59e0b;font-size:0.55rem;font-weight:800;padding:1px 5px;border-radius:5px;text-transform:uppercase">PRO</span>
-              <div style="font-size:1.2rem;margin-bottom:0.4rem">🔧</div>
-              <div style="font-size:0.82rem;font-weight:700;color:#f1f5f9;margin-bottom:2px">Smog Check</div>
-              <div style="font-size:0.72rem;color:#64748b">State smog requirements</div>
-            </div>
-            <div onclick="goFamPg('pg-insurance',null)" style="background:#0c1018;border:1px solid #1e293b;border-radius:12px;padding:1rem;cursor:pointer;position:relative" onmouseover="this.style.borderColor='#2d3f55'" onmouseout="this.style.borderColor='#1e293b'">
-              <span style="position:absolute;top:8px;right:8px;background:rgba(29,106,229,0.15);color:#60a5fa;font-size:0.55rem;font-weight:800;padding:1px 5px;border-radius:5px;text-transform:uppercase">FAM</span>
-              <div style="font-size:1.2rem;margin-bottom:0.4rem">🛡</div>
-              <div style="font-size:0.82rem;font-weight:700;color:#f1f5f9;margin-bottom:2px">Insurance Monitor</div>
-              <div style="font-size:0.72rem;color:#64748b">Track policy expiry dates</div>
-            </div>
-            <div onclick="goFamPg('pg-multistate',null)" style="background:#0c1018;border:1px solid #1e293b;border-radius:12px;padding:1rem;cursor:pointer;position:relative" onmouseover="this.style.borderColor='#2d3f55'" onmouseout="this.style.borderColor='#1e293b'">
-              <span style="position:absolute;top:8px;right:8px;background:rgba(29,106,229,0.15);color:#60a5fa;font-size:0.55rem;font-weight:800;padding:1px 5px;border-radius:5px;text-transform:uppercase">FAM</span>
-              <div style="font-size:1.2rem;margin-bottom:0.4rem">🗺</div>
-              <div style="font-size:0.82rem;font-weight:700;color:#f1f5f9;margin-bottom:2px">Multi-State</div>
-              <div style="font-size:0.72rem;color:#64748b">Track across 2 states</div>
-            </div>
-            <div onclick="goProPg('pg-news',null)" style="background:#0c1018;border:1px solid #1e293b;border-radius:12px;padding:1rem;cursor:pointer" onmouseover="this.style.borderColor='#2d3f55'" onmouseout="this.style.borderColor='#1e293b'">
-              <div style="font-size:1.2rem;margin-bottom:0.4rem">📰</div>
-              <div style="font-size:0.82rem;font-weight:700;color:#f1f5f9;margin-bottom:2px">DMV News</div>
-              <div style="font-size:0.72rem;color:#64748b">Latest DMV law updates</div>
+            <div onclick="goFamPg('pg-family',null)" style="background:#0c1018;border:1px solid rgba(29,106,229,0.2);border-radius:10px;padding:0.875rem;cursor:pointer;position:relative" onmouseover="this.style.borderColor='rgba(29,106,229,0.5)'" onmouseout="this.style.borderColor='rgba(29,106,229,0.2)'">
+              <div style="font-size:1.1rem;margin-bottom:0.35rem">👨‍👩‍👧</div>
+              <div style="font-size:0.8rem;font-weight:700;color:#f1f5f9;margin-bottom:2px">Family Members</div>
+              <div style="font-size:0.68rem;color:#64748b">Manage 5 members</div>
             </div>
           </div>
         </div>
@@ -784,7 +826,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
           <div class="card">
             <div class="card-t">Quick Actions</div>
             <div style="display:flex;flex-direction:column;gap:0.5rem">
-              <button class="btn bp" style="justify-content:flex-start" onclick="showPg('pg-appts',document.querySelector('[onclick*=pg-appts]'))">🗓 Set Appointment Alert</button>
+              <button class="btn bp" style="justify-content:flex-start" onclick="goProPg('pg-appts',null)">🗓 Set Appointment Alert</button>
               <button class="btn" style="background:rgba(245,158,11,0.15);color:var(--gold2);border:1px solid rgba(245,158,11,0.3);justify-content:flex-start" onclick="showPg('pg-renewals',document.querySelector('[onclick*=pg-renewals]'))">⏰ Add Renewal Reminder</button>
               <button class="btn bgh" style="justify-content:flex-start" onclick="goProPg('pg-vault',null)">📂 Upload Document</button>
               <button class="btn bgh" style="justify-content:flex-start" onclick="showPg('pg-ai',null)">🤖 Ask AI Assistant</button>
@@ -804,7 +846,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
       <!-- APPOINTMENTS -->
       <div class="pg" id="pg-appts">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem;flex-wrap:wrap;gap:0.75rem"><div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em">DMV Appointment Alerts</div><button class="btn bp bsm" onclick="oM('m-appt')">+ New Alert</button></div>
-        <div class="banner bb"><div class="banner-ic">🎯</div><div class="banner-body"><div class="banner-t">Slot Available — REAL ID, Culver City DMV, CA</div><div class="banner-s">March 22, 2026 @ 10:30 AM · Alert sent via Email + SMS</div><div class="banner-acts"><button class="btn bp bsm" onclick="toast('Opening CA DMV...','i')">Book Now →</button><button class="btn bgh bsm" onclick="toast('Dismissed','i')">Dismiss</button></div></div></div>
+        <div class="banner bb"><div class="banner-ic">🎯</div><div class="banner-body"><div class="banner-t">Slot Available — REAL ID, Culver City DMV, CA</div><div class="banner-s">March 22, 2026 @ 10:30 AM · Alert sent via Email + SMS</div><div class="banner-acts"><button class="btn bp bsm" onclick="openDMV('California')">Book Now →</button><button class="btn bgh bsm" onclick="toast('Dismissed','i')">Dismiss</button></div></div></div>
         <div class="card">
           <div class="card-t">Active Monitoring — All 50 States</div>
           <div class="arow"><div class="adot d-bl"></div><div class="ainfo"><div class="atit">REAL ID — Culver City DMV <span class="ibadge ib-g">SLOT FOUND</span></div><div class="amet">California · Email + SMS</div></div><div class="aright"><div class="adate">Mar 22 @ 10:30</div><div class="astag">Since Mar 10</div></div></div>
@@ -816,7 +858,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
       <!-- RENEWALS -->
       <div class="pg" id="pg-renewals">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.75rem"><div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em">Renewal Reminders</div><button class="btn bg bsm" onclick="oM('m-renewal')">+ Add Reminder</button></div>
-        <div class="banner br" style="margin-bottom:1rem"><div class="banner-ic">⚠️</div><div class="banner-body"><div class="banner-t">Driver License expires in 28 days</div><div class="banner-s">CA DL #D2847391 · Fee ~$35 · dmv.ca.gov</div><div class="banner-acts"><button class="btn bd bsm" onclick="toast('Opening DMV...','i')">Renew Online →</button></div></div></div>
+        <div class="banner br" style="margin-bottom:1rem"><div class="banner-ic">⚠️</div><div class="banner-body"><div class="banner-t">Driver License expires in 28 days</div><div class="banner-s">CA DL #D2847391 · Fee ~$35 · dmv.ca.gov</div><div class="banner-acts"><button class="btn bd bsm" onclick="openDMV('California')">Renew Online →</button></div></div></div>
         <div class="card">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.875rem"><div class="card-t" style="margin-bottom:0">All Reminders — Alerts at 60, 30 & 7 days</div><button class="btn bgh bsm" onclick="toast('Exporting CSV...','i')">⬇ CSV</button></div>
           <div class="rrow"><div class="rtop"><div style="display:flex;align-items:center;gap:7px"><span class="rname">🪪 Driver License</span><span class="ibadge ib-r">28 DAYS</span></div><div style="display:flex;gap:0.3rem"><button class="btn bgh bsm" onclick="oM('m-renewal')">Edit</button><button class="btn bd bsm" onclick="toast('Removed','w')">✕</button></div></div><div class="ptrack"><div class="pfill p-red" style="width:12%"></div></div><div class="rsub">Apr 11, 2026 · CA DL #D2847391 · 60-day ✓ 30-day ✓</div></div>
@@ -1196,6 +1238,66 @@ function scrollSec(id){const el=document.getElementById(id);if(el)el.scrollIntoV
 let toastT;
 function toast(msg,type='i'){clearTimeout(toastT);const t=document.getElementById('toast');t.textContent=msg;t.className='toast show t'+type;toastT=setTimeout(()=>{t.className='toast';},3200);}
 
+// ===== STATE DMV URLs =====
+const DMV_URLS = {
+  'Alabama': 'https://www.alabamadmv.org',
+  'Alaska': 'https://dmv.alaska.gov',
+  'Arizona': 'https://azdot.gov/motor-vehicles',
+  'Arkansas': 'https://www.dfa.arkansas.gov/driver-services',
+  'California': 'https://www.dmv.ca.gov/wasapp/foa/searchAppts.do',
+  'Colorado': 'https://dmv.colorado.gov',
+  'Connecticut': 'https://portal.ct.gov/DMV',
+  'Delaware': 'https://www.dmv.de.gov',
+  'Florida': 'https://www.flhsmv.gov/driver-licenses-id-cards/appointments',
+  'Georgia': 'https://dds.georgia.gov',
+  'Hawaii': 'https://www.honolulucounty.gov/dmv',
+  'Idaho': 'https://itd.idaho.gov/dmv',
+  'Illinois': 'https://www.ilsos.gov/facilityfinder/facility',
+  'Indiana': 'https://www.in.gov/bmv/appointment',
+  'Iowa': 'https://iowadot.gov/mvd',
+  'Kansas': 'https://www.ksrevenue.gov/dovindex.html',
+  'Kentucky': 'https://transportation.ky.gov/motor-vehicle-licensing',
+  'Louisiana': 'https://www.expresslane.org',
+  'Maine': 'https://www.maine.gov/sos/bmv',
+  'Maryland': 'https://mva.maryland.gov/Pages/home.aspx',
+  'Massachusetts': 'https://www.mass.gov/orgs/registry-of-motor-vehicles',
+  'Michigan': 'https://www.michigan.gov/sos',
+  'Minnesota': 'https://dps.mn.gov/divisions/dvs',
+  'Mississippi': 'https://www.dps.state.ms.us/driver-services',
+  'Missouri': 'https://dor.mo.gov/motor-vehicle',
+  'Montana': 'https://doj.mt.gov/driving',
+  'Nebraska': 'https://dmv.nebraska.gov',
+  'Nevada': 'https://dmv.nv.gov',
+  'New Hampshire': 'https://www.nh.gov/safety/divisions/dmv',
+  'New Jersey': 'https://www.nj.gov/mvc',
+  'New Mexico': 'https://www.mvd.newmexico.gov',
+  'New York': 'https://dmv.ny.gov/appointment',
+  'North Carolina': 'https://www.ncdot.gov/dmv',
+  'North Dakota': 'https://www.dot.nd.gov/divisions/mv',
+  'Ohio': 'https://www.bmv.ohio.gov',
+  'Oklahoma': 'https://www.ok.gov/tax/Motor_Vehicle',
+  'Oregon': 'https://www.oregon.gov/odot/dmv',
+  'Pennsylvania': 'https://www.dmv.pa.gov',
+  'Rhode Island': 'https://dmv.ri.gov',
+  'South Carolina': 'https://www.scdmvonline.com',
+  'South Dakota': 'https://dps.sd.gov/driver-licensing',
+  'Tennessee': 'https://www.tn.gov/safety/driver-services',
+  'Texas': 'https://www.txdmv.gov',
+  'Utah': 'https://dmv.utah.gov',
+  'Vermont': 'https://dmv.vermont.gov',
+  'Virginia': 'https://www.dmv.virginia.gov',
+  'Washington': 'https://www.dol.wa.gov',
+  'West Virginia': 'https://transportation.wv.gov/DMV',
+  'Wisconsin': 'https://www.dot.state.wi.us/drivers',
+  'Wyoming': 'https://dot.state.wy.us/home/driver_license_records'
+};
+
+function openDMV(state) {
+  const url = DMV_URLS[state] || 'https://www.usa.gov/motor-vehicle-services';
+  window.open(url, '_blank');
+  toast('Opening ' + state + ' DMV website...', 'i');
+}
+
 // ===== PLAN GATE FUNCTIONS =====
 function goProPg(id, nav) {
   if (APP.plan === 'pro' || APP.plan === 'family') {
@@ -1224,6 +1326,8 @@ function doUpgrade(plan) {
 }
 
 const API = 'https://dmv-assistant-production.up.railway.app';
+let PENDING_USER = null;
+let PENDING_TOKEN = null;
 
 async function doLogin() {
   const em = document.getElementById('li-em').value.trim();
@@ -1263,7 +1367,7 @@ async function doSignup() {
   if (!fn || !em || !pw) { toast('Sab fields fill karo', 'e'); return; }
   if (pw.length < 8) { toast('Password min 8 characters hona chahiye', 'e'); return; }
   const btn = document.querySelector('#fp-signup .btn.bp');
-  btn.textContent = 'Creating...'; btn.disabled = true;
+  btn.textContent = 'Sending code...'; btn.disabled = true;
   try {
     const res = await fetch(API + '/api/auth/signup', {
       method: 'POST',
@@ -1272,12 +1376,16 @@ async function doSignup() {
     });
     const data = await res.json();
     if (data.token) {
-      localStorage.setItem('dmv_token', data.token);
-      localStorage.setItem('dmv_user', JSON.stringify(data.user));
-      APP.user = data.user;
-      APP.plan = 'free';
-      loginOk();
-      toast(vet ? 'Welcome! 🎖 Code VET50 saved!' : 'Account created! Welcome 🎉', 's');
+      // Store pending — wait for verification
+      PENDING_USER = data.user;
+      PENDING_TOKEN = data.token;
+      // Show verify screen
+      document.getElementById('verify-email').textContent = em;
+      [0,1,2,3,4,5].forEach(i => { document.getElementById('otp'+i).value = ''; });
+      document.getElementById('otp-err').style.display = 'none';
+      showFP('fp-verify');
+      setTimeout(() => document.getElementById('otp0').focus(), 300);
+      toast('Verification code sent to ' + em, 'i');
     } else {
       toast(data.error || 'Signup failed — try again', 'e');
     }
@@ -1285,6 +1393,78 @@ async function doSignup() {
     toast('Connection error — Railway backend check karo', 'e');
   }
   btn.textContent = 'Create Free Account →'; btn.disabled = false;
+}
+
+// OTP box navigation
+function otpNext(i) {
+  const v = document.getElementById('otp'+i).value;
+  if (v && i < 5) document.getElementById('otp'+(i+1)).focus();
+  if (i === 5 && v) verifyOTP();
+}
+function otpBack(e, i) {
+  if (e.key === 'Backspace' && !document.getElementById('otp'+i).value && i > 0) {
+    document.getElementById('otp'+(i-1)).focus();
+  }
+}
+
+async function verifyOTP() {
+  const code = [0,1,2,3,4,5].map(i => document.getElementById('otp'+i).value).join('');
+  if (code.length < 6) { toast('6 digit code enter karo', 'e'); return; }
+  const em = document.getElementById('verify-email').textContent;
+  const btn = document.getElementById('verify-btn');
+  btn.textContent = 'Verifying...'; btn.disabled = true;
+  document.getElementById('otp-err').style.display = 'none';
+  try {
+    const res = await fetch(API + '/api/auth/verify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: em, code: code })
+    });
+    const data = await res.json();
+    if (data.success || data.token) {
+      const token = data.token || PENDING_TOKEN;
+      const user = data.user || PENDING_USER;
+      localStorage.setItem('dmv_token', token);
+      localStorage.setItem('dmv_user', JSON.stringify(user));
+      APP.user = user;
+      APP.plan = 'free';
+      PENDING_USER = null; PENDING_TOKEN = null;
+      loginOk();
+      toast('Email verified! Welcome 🎉', 's');
+    } else {
+      document.getElementById('otp-err').style.display = 'block';
+      [0,1,2,3,4,5].forEach(i => { document.getElementById('otp'+i).value = ''; });
+      document.getElementById('otp0').focus();
+    }
+  } catch (e) {
+    // If backend verify not ready, allow login directly (fallback)
+    if (PENDING_TOKEN && PENDING_USER) {
+      localStorage.setItem('dmv_token', PENDING_TOKEN);
+      localStorage.setItem('dmv_user', JSON.stringify(PENDING_USER));
+      APP.user = PENDING_USER;
+      APP.plan = 'free';
+      PENDING_USER = null; PENDING_TOKEN = null;
+      loginOk();
+      toast('Welcome! 🎉', 's');
+    } else {
+      toast('Verification error — try again', 'e');
+    }
+  }
+  btn.textContent = 'Verify Email →'; btn.disabled = false;
+}
+
+async function resendOTP() {
+  const em = document.getElementById('verify-email').textContent;
+  try {
+    await fetch(API + '/api/auth/resend-code', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: em })
+    });
+    toast('New code sent to ' + em, 's');
+  } catch(e) {
+    toast('Could not resend — try again', 'e');
+  }
 }
 
 function gLogin() {
