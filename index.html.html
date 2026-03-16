@@ -950,9 +950,9 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
       <div class="pg" id="pg-settings">
         <div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:1rem">Settings</div>
         <div style="display:flex;flex-direction:column;gap:0.875rem">
-          <div class="card"><div class="card-t" style="margin-bottom:0.75rem">Profile</div><div class="fr"><div class="fg"><label class="fl">First Name</label><input class="fi" id="s-fn" value="John"/></div><div class="fg"><label class="fl">Last Name</label><input class="fi" id="s-ln" value="Doe"/></div></div><div class="fg"><label class="fl">Email</label><input class="fi" value="john@email.com" type="email"/></div><div class="fg"><label class="fl">Phone (SMS alerts)</label><input class="fi" placeholder="+1 (555) 000-0000" type="tel"/></div><div class="fg"><label class="fl">Home State</label><select class="fs" id="s-st"></select></div><div style="display:flex;align-items:center;gap:7px;margin-bottom:0.75rem"><input type="checkbox" id="s-vet" style="accent-color:var(--gold2);width:auto"/><label for="s-vet" style="font-size:0.8rem;color:var(--text2);font-weight:600">🎖 US Veteran / Active Duty</label></div><button class="btn bp bsm" onclick="saveSettings()">Save Changes</button></div>
-          <div class="card"><div class="card-t" style="margin-bottom:0.75rem">Notifications</div><div style="display:flex;flex-direction:column;gap:0.55rem"><div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem">Email notifications<input type="checkbox" checked style="accent-color:var(--blue2);width:auto"/></div><div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem">SMS alerts<input type="checkbox" style="accent-color:var(--blue2);width:auto"/></div><div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem">60-day reminders<input type="checkbox" checked style="accent-color:var(--blue2);width:auto"/></div><div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem">30-day reminders<input type="checkbox" checked style="accent-color:var(--blue2);width:auto"/></div><div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem">7-day reminders<input type="checkbox" checked style="accent-color:var(--blue2);width:auto"/></div></div><button class="btn bp bsm" style="margin-top:0.75rem" onclick="toast('Preferences saved!','s')">Save Preferences</button></div>
-          <div class="card"><div class="card-t" style="margin-bottom:0.5rem">Security</div><div style="display:flex;gap:0.5rem;flex-wrap:wrap"><button class="btn bgh bsm" onclick="toast('Password reset email sent','s')">Change Password</button><button class="btn bgh bsm" onclick="toast('2FA available in live version','i')">Enable 2FA</button><button class="btn bd bsm" onclick="toast('Deletion request submitted','w')">Delete Account</button></div></div>
+          <div class="card"><div class="card-t" style="margin-bottom:0.75rem">Profile</div><div class="fr"><div class="fg"><label class="fl">First Name</label><input class="fi" id="s-fn" placeholder="First Name"/></div><div class="fg"><label class="fl">Last Name</label><input class="fi" id="s-ln" placeholder="Last Name"/></div></div><div class="fg"><label class="fl">Email</label><input class="fi" id="s-em" type="email" placeholder="your@email.com" readonly style="opacity:0.6;cursor:not-allowed"/></div><div class="fg"><label class="fl">Phone (SMS alerts)</label><input class="fi" id="s-ph" placeholder="+1 (555) 000-0000" type="tel"/></div><div class="fg"><label class="fl">Home State</label><select class="fs" id="s-st"></select></div><div style="display:flex;align-items:center;gap:7px;margin-bottom:0.75rem"><input type="checkbox" id="s-vet" style="accent-color:var(--gold2);width:auto"/><label for="s-vet" style="font-size:0.8rem;color:var(--text2);font-weight:600">🎖 US Veteran / Active Duty</label></div><button class="btn bp bsm" onclick="saveSettings()">Save Changes</button></div>
+          <div class="card"><div class="card-t" style="margin-bottom:0.75rem">Notifications</div><div style="display:flex;flex-direction:column;gap:0.55rem"><div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem">Email notifications<input type="checkbox" checked style="accent-color:var(--blue2);width:auto"/></div><div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem">SMS alerts (Pro)<input type="checkbox" style="accent-color:var(--blue2);width:auto"/></div><div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem">60-day reminders<input type="checkbox" checked style="accent-color:var(--blue2);width:auto"/></div><div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem">30-day reminders<input type="checkbox" checked style="accent-color:var(--blue2);width:auto"/></div><div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem">7-day reminders<input type="checkbox" checked style="accent-color:var(--blue2);width:auto"/></div></div><button class="btn bp bsm" style="margin-top:0.75rem" onclick="toast('Preferences saved!','s')">Save Preferences</button></div>
+          <div class="card"><div class="card-t" style="margin-bottom:0.5rem">Security</div><div style="display:flex;gap:0.5rem;flex-wrap:wrap"><button class="btn bgh bsm" onclick="toast('Password reset email sent','s')">Change Password</button><button class="btn bd bsm" onclick="logout()">Sign Out</button></div></div>
         </div>
       </div>
 
@@ -1366,8 +1366,9 @@ async function doSignup() {
   const vet = document.getElementById('su-vet').checked;
   if (!fn || !em || !pw) { toast('Sab fields fill karo', 'e'); return; }
   if (pw.length < 8) { toast('Password min 8 characters hona chahiye', 'e'); return; }
+  if (!em.includes('@')) { toast('Valid email enter karo', 'e'); return; }
   const btn = document.querySelector('#fp-signup .btn.bp');
-  btn.textContent = 'Sending code...'; btn.disabled = true;
+  btn.textContent = 'Creating account...'; btn.disabled = true;
   try {
     const res = await fetch(API + '/api/auth/signup', {
       method: 'POST',
@@ -1376,21 +1377,20 @@ async function doSignup() {
     });
     const data = await res.json();
     if (data.token) {
-      // Store pending — wait for verification
       PENDING_USER = data.user;
       PENDING_TOKEN = data.token;
-      // Show verify screen
       document.getElementById('verify-email').textContent = em;
       [0,1,2,3,4,5].forEach(i => { document.getElementById('otp'+i).value = ''; });
       document.getElementById('otp-err').style.display = 'none';
       showFP('fp-verify');
-      setTimeout(() => document.getElementById('otp0').focus(), 300);
-      toast('Verification code sent to ' + em, 'i');
+      setTimeout(() => { const o=document.getElementById('otp0'); if(o)o.focus(); }, 400);
+      toast('Verification code sent to ' + em + ' — check spam too!', 'i');
     } else {
       toast(data.error || 'Signup failed — try again', 'e');
     }
   } catch (e) {
-    toast('Connection error — Railway backend check karo', 'e');
+    toast('Connection error — check Railway backend', 'e');
+    console.error('Signup error:', e);
   }
   btn.textContent = 'Create Free Account →'; btn.disabled = false;
 }
@@ -1474,23 +1474,94 @@ function doLogin(){const e=document.getElementById('li-em').value;if(!e){toast('
 function doSignup(){const fn=document.getElementById('su-fn').value,ln=document.getElementById('su-ln').value,em=document.getElementById('su-em').value,pw=document.getElementById('su-pw').value;if(!fn||!em||!pw){toast('Fill all fields','e');return;}if(pw.length<8){toast('Password min 8 chars','e');return;}APP.user={name:fn+' '+ln,email:em,init:(fn[0]+(ln?ln[0]:'')).toUpperCase()};const vet=document.getElementById('su-vet').checked;loginOk();toast(vet?'Welcome! 🎖 Code VET50 saved!':'Account created! Welcome 🎉','s');}
 function loginOk(){
   const u = APP.user || {};
-  const fullName = u.name || (u.first_name ? `${u.first_name} ${u.last_name || ''}`.trim() : 'User');
-  const initials = fullName.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2) || 'U';
-  document.getElementById('sb-ava').textContent = initials;
-  document.getElementById('sb-name').textContent = fullName;
-  const planLabel = APP.plan === 'pro' ? 'Pro Plan' : APP.plan === 'family' ? 'Family Plan' : 'Free Plan';
-  document.getElementById('sb-plan').textContent = planLabel;
-  document.getElementById('tb-badge').className = 'tbadge ' + (APP.plan==='family'?'bfam':APP.plan==='pro'?'bpro':'bfree');
-  document.getElementById('tb-badge').textContent = APP.plan==='family'?'Family':APP.plan==='pro'?'Pro':'Free';
+  const firstName = u.first_name || (u.name ? u.name.split(' ')[0] : 'User');
+  const lastName = u.last_name || (u.name ? u.name.split(' ').slice(1).join(' ') : '');
+  const fullName = u.name || `${firstName} ${lastName}`.trim() || 'User';
+  const initials = fullName.split(' ').filter(Boolean).map(w=>w[0]).join('').toUpperCase().slice(0,2) || 'U';
+
+  // Sidebar
+  const sbAva = document.getElementById('sb-ava');
+  if(sbAva) sbAva.textContent = initials;
+  const sbName = document.getElementById('sb-name');
+  if(sbName) sbName.textContent = fullName;
+  const sbPlan = document.getElementById('sb-plan');
+  if(sbPlan) sbPlan.textContent = APP.plan==='pro'?'Pro Plan':APP.plan==='family'?'Family Plan':'Free Plan';
+
+  // Topbar badge
+  const badge = document.getElementById('tb-badge');
+  if(badge){
+    badge.className = 'tbadge '+(APP.plan==='family'?'bfam':APP.plan==='pro'?'bpro':'bfree');
+    badge.textContent = APP.plan==='family'?'Family':APP.plan==='pro'?'Pro':'Free';
+  }
+
+  // Dashboard greeting
   const dg = document.getElementById('dg');
-  if(dg) dg.textContent = fullName.split(' ')[0] + ' 👋';
-  const ca = document.getElementById('c-ava');
-  if(ca) ca.textContent = initials;
+  if(dg) dg.textContent = firstName + ' 👋';
+
+  // Account card
+  const accEmail = document.getElementById('acc-email');
+  if(accEmail) accEmail.textContent = u.email || '—';
+  const accState = document.getElementById('acc-state');
+  if(accState) accState.textContent = u.state || 'Not set';
+  const accPlan = document.getElementById('acc-plan');
+  if(accPlan) accPlan.textContent = APP.plan==='pro'?'Pro':APP.plan==='family'?'Family':'Free';
+
+  // Settings page — populate with real data
+  const sFn = document.getElementById('s-fn');
+  if(sFn) sFn.value = firstName;
+  const sLn = document.getElementById('s-ln');
+  if(sLn) sLn.value = lastName;
+  const sEm = document.getElementById('s-em');
+  if(sEm) sEm.value = u.email || '';
+  const sVet = document.getElementById('s-vet');
+  if(sVet) sVet.checked = u.is_veteran || false;
+
+  // Set state dropdown
+  if(u.state){
+    const sSt = document.getElementById('s-st');
+    if(sSt){
+      for(let i=0;i<sSt.options.length;i++){
+        if(sSt.options[i].value===u.state){sSt.selectedIndex=i;break;}
+      }
+    }
+  }
+
   showFP('fp-app');
   requestAnimationFrame(function(){
     const dashBtn = document.querySelector('#fp-app .ni');
-    showPg('pg-dash', dashBtn);
+    if(dashBtn) showPg('pg-dash', dashBtn);
   });
+}
+
+function saveSettings(){
+  const fn = document.getElementById('s-fn').value.trim();
+  const ln = document.getElementById('s-ln').value.trim();
+  const ph = document.getElementById('s-ph').value.trim();
+  const st = document.getElementById('s-st').value;
+  const vet = document.getElementById('s-vet').checked;
+  if(!fn){toast('Name required','e');return;}
+  const fullName = `${fn} ${ln}`.trim();
+  const initials = fullName.split(' ').filter(Boolean).map(w=>w[0]).join('').toUpperCase().slice(0,2);
+  // Update APP.user
+  if(APP.user){
+    APP.user.first_name = fn;
+    APP.user.last_name = ln;
+    APP.user.name = fullName;
+    APP.user.phone = ph;
+    APP.user.state = st;
+    APP.user.is_veteran = vet;
+    localStorage.setItem('dmv_user', JSON.stringify(APP.user));
+  }
+  // Update sidebar
+  const sbName = document.getElementById('sb-name');
+  if(sbName) sbName.textContent = fullName;
+  const sbAva = document.getElementById('sb-ava');
+  if(sbAva) sbAva.textContent = initials;
+  const dg = document.getElementById('dg');
+  if(dg) dg.textContent = fn + ' 👋';
+  const accState = document.getElementById('acc-state');
+  if(accState) accState.textContent = st || 'Not set';
+  toast('Settings saved!', 's');
 }
 
 function logout(){
@@ -1524,7 +1595,7 @@ function addMember(){const n=document.getElementById('mn').value;if(!n){toast('E
 function addAppt(){cM('m-appt');toast('Alert set! Monitoring every 30 min.','s');}
 function addRenewal(){cM('m-renewal');toast('Reminder set! Alerts at 60, 30 & 7 days.','s');}
 function stab(el){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');}
-function saveSettings(){const fn=document.getElementById('s-fn').value,ln=document.getElementById('s-ln').value;document.getElementById('sb-name').textContent=fn+' '+ln;document.getElementById('sb-ava').textContent=fn.slice(0,2).toUpperCase();toast('Settings saved!','s');}
+// saveSettings is defined above in loginOk section
 
 const AIKEYS=Object.keys(AI_ANS);
 function sendMsg(){const inp=document.getElementById('cin'),msg=inp.value.trim();if(!msg)return;const box=document.getElementById('chatbox');const um=document.createElement('div');um.className='msg user';um.innerHTML=`<div class="mava m-us">${APP.user?APP.user.init:'U'}</div><div class="mbub">${msg}</div>`;box.appendChild(um);inp.value='';box.scrollTop=9999;setTimeout(()=>{let resp='I can help with that! For specific state requirements, select your state above. Ask me about REAL ID, renewals, title transfers, or veteran benefits.';const lc=msg.toLowerCase();for(const k of AIKEYS){if(lc.includes(k)){resp=AI_ANS[k];break;}}const am=document.createElement('div');am.className='msg ai';am.innerHTML=`<div class="mava m-ai">🤖</div><div class="mbub">${resp}</div>`;box.appendChild(am);box.scrollTop=9999;},700);}
