@@ -60,7 +60,7 @@ body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--text);min
 .blg{padding:0.65rem 1.5rem;font-size:0.92rem;border-radius:10px}
 
 /* PAGES */
-.pg{display:none}.pg.active{display:block}
+.pg{display:none;min-height:60vh;background:var(--bg)}.pg.active{display:block}
 .fp{display:none;min-height:100vh}.fp.active{display:block}
 
 /* CARDS */
@@ -421,7 +421,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
   <div class="hero">
     <div class="herob"><div class="orb1"></div><div class="orb2"></div><div class="hgrid"></div></div>
     <div class="hpill"><div class="hpill-d">🛡</div>Trusted by 12,000+ US Residents & Veterans</div>
-    <h1>#1 DMV Appointment Alert &<br/><span class="hl-b">Renewal Reminder</span> App<br/>for <span class="hl-g">US Residents & Veterans</span></h1>
+    <h1>Your <span class="hl-b"> Smart DMV Assistant </span><br/>Alerts, Reminders & <br/><span class="hl-g">AI Tools in One Place.</span></h1>
     <p class="hdesc">Never miss a DMV appointment or renewal deadline again. Instant alerts, automated reminders, and a secure document vault — free to start.</p>
     <div class="hctas">
       <button class="btn bp blg" onclick="showFP('fp-signup')">🚀 Start Free — No Credit Card</button>
@@ -520,7 +520,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
       <p class="sec-sub" style="margin:0 auto">No hidden fees. No contracts. The Pro plan pays for itself with just one avoided late fee per year.</p>
     </div>
     <div class="pgrid">
-      <div class="pcard"><div class="ptier">Free Forever</div><div class="pamount">$0<span>/mo</span></div><div class="pper">No credit card required</div><ul class="pfl"><li><span class="ck">✓</span>2 appointment alerts</li><li><span class="ck">✓</span>2 renewal reminders</li><li><span class="ck">✓</span>Dashboard access</li><li><span class="ck">✓</span>Email notifications</li><li><span class="cx">–</span>Document Vault</li><li><span class="cx">–</span>SMS alerts</li><li><span class="cx">–</span>AI Assistant</li><li><span class="cx">–</span>Family members</li></ul><button class="btn bo" style="width:100%" onclick="showFP('fp-signup')">Get Started Free</button></div>
+      <div class="pcard"><div class="ptier">Free Forever</div><div class="pamount">$0<span>/mo</span></div><div class="pper">No credit card required</div><ul class="pfl"><li><span class="ck">✓</span>DMV Fee Calculator</li><li><span class="ck">✓</span>Appointment Checklist</li><li><span class="ck">✓</span>License Eligibility Check</li><li><span class="ck">✓</span>2 appointment alerts</li><li><span class="ck">✓</span>2 renewal reminders</li><li><span class="ck">✓</span>Email notifications</li><li><span class="cx">–</span>VIN Decoder, Wait Times, Smog</li><li><span class="cx">–</span>SMS + AI + Document Vault</li></ul><button class="btn bo" style="width:100%" onclick="showFP('fp-signup')">Get Started Free</button></div>
       <div class="pcard feat"><div class="pop-tag">Most Popular</div><div class="ptier">Pro Plan</div><div class="pamount">$12<span>/mo</span></div><div class="pper">or $108/year — save $36 · Cancel anytime</div><ul class="pfl"><li><span class="ck">✓</span>Unlimited appointment alerts</li><li><span class="ck">✓</span>Unlimited renewal reminders</li><li><span class="ck">✓</span>5 GB Document Vault</li><li><span class="ck">✓</span>Email + SMS alerts</li><li><span class="ck">✓</span>AI DMV Assistant</li><li><span class="ck">✓</span>All 50 US states</li><li><span class="ck">✓</span>PDF & CSV export</li><li><span class="cx">–</span>Family members</li></ul><button class="btn bg" style="width:100%" onclick="toast('Redirecting to Pro checkout...','w')">Get Pro — $12/mo</button><p class="pnote">🎖 Veterans: code VET50 for 50% off</p></div>
       <div class="pcard fam"><div class="ptier">Family / Multi Plan</div><div class="pamount">$40<span>/mo</span></div><div class="pper">or $384/year — save $96 · Up to 5 members</div><ul class="pfl"><li><span class="ck">✓</span>Everything in Pro</li><li><span class="ck">✓</span>Up to 5 family members</li><li><span class="ck">✓</span>15 GB Document Vault</li><li><span class="ck">✓</span>Each member: own login</li><li><span class="ck">✓</span>Family renewal dashboard</li><li><span class="ck">✓</span>Bulk CSV export</li><li><span class="ck">✓</span>Priority email support</li><li><span class="ck">✓</span>Early access features</li></ul><button class="btn bp" style="width:100%" onclick="toast('Redirecting to Family checkout...','i')">Get Family — $40/mo</button><p class="pnote">Best value for families with multiple vehicles</p></div>
     </div>
@@ -673,7 +673,15 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
     <div class="ni" onclick="showPg('pg-renewals',this)"><span class="ni-ic">⏰</span>Renewals</div>
     <div class="nav-sec">Documents</div>
     <div class="ni" onclick="showPg('pg-vault',this)"><span class="ni-ic">📂</span>Document Vault</div>
-    <div class="nav-sec">Tools</div>
+    <div class="nav-sec">Pro Tools</div>
+    <div class="ni" onclick="showPg('pg-vin',this)"><span class="ni-ic">🔍</span>VIN Decoder</div>
+    <div class="ni" onclick="showPg('pg-waittimes',this)"><span class="ni-ic">⏱</span>Wait Times</div>
+    <div class="ni" onclick="showPg('pg-smog',this)"><span class="ni-ic">🔧</span>Smog Check</div>
+    <div class="nav-sec">Family Tools</div>
+    <div class="ni" onclick="showPg('pg-insurance',this)"><span class="ni-ic">🛡</span>Insurance Monitor</div>
+    <div class="ni" onclick="showPg('pg-multistate',this)"><span class="ni-ic">🗺</span>Multi-State</div>
+    <div class="ni" onclick="showPg('pg-news',this)"><span class="ni-ic">📰</span>DMV News</div>
+    <div class="nav-sec">More</div>
     <div class="ni" onclick="showPg('pg-ai',this)"><span class="ni-ic">🤖</span>AI Assistant</div>
     <div class="ni" onclick="showPg('pg-alerts',this)"><span class="ni-ic">🔔</span>Alert History</div>
     <div class="ni" onclick="showPg('pg-family',this)"><span class="ni-ic">👨‍👩‍👧</span>Family</div>
@@ -696,27 +704,101 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 
       <!-- DASHBOARD -->
       <div class="pg active" id="pg-dash">
-        <div style="margin-bottom:1.2rem"><div style="font-size:0.68rem;color:var(--text3);margin-bottom:2px">Good morning,</div><div style="font-size:1.35rem;font-weight:900;letter-spacing:-0.03em" id="dg">John 👋</div></div>
-        <div class="stats">
-          <div class="stat s-blue"><div class="stat-l">Appt Alerts</div><div class="stat-v" style="color:var(--blue3)">2</div><div class="stat-s">Active monitoring</div><div class="stat-tr tup">↑ 1 slot today</div></div>
-          <div class="stat s-gold"><div class="stat-l">Renewals</div><div class="stat-v" style="color:var(--gold2)">3</div><div class="stat-s">Next in 28 days</div><div class="stat-tr twarn">⚠ 1 urgent</div></div>
-          <div class="stat s-green"><div class="stat-l">Documents</div><div class="stat-v" style="color:#5eead4">4</div><div class="stat-s">Stored & encrypted</div><div class="stat-tr tup">✓ 3 valid</div></div>
-          <div class="stat s-red"><div class="stat-l">Alerts Sent</div><div class="stat-v">12</div><div class="stat-s">This month</div><div class="stat-tr tup">Email + SMS</div></div>
+        <div style="margin-bottom:1.2rem">
+          <div style="font-size:0.68rem;color:var(--text3);margin-bottom:2px">Good morning,</div>
+          <div style="font-size:1.35rem;font-weight:900;letter-spacing:-0.03em" id="dg">Welcome 👋</div>
         </div>
-        <div class="banner bb"><div class="banner-ic">🎯</div><div class="banner-body"><div class="banner-t">Slot Found! REAL ID — Culver City DMV, California</div><div class="banner-s">Available: March 22, 2026 at 10:30 AM · 2 slots open</div><div class="banner-acts"><button class="btn bp bsm" onclick="toast('Opening CA DMV portal...','i')">Book Now →</button><button class="btn bgh bsm" onclick="this.closest('.banner').style.display='none'">Dismiss</button></div></div></div>
-        <div class="banner br"><div class="banner-ic">⚠️</div><div class="banner-body"><div class="banner-t">Driver License expires in 28 days — Action Required</div><div class="banner-s">CA DL #D2847391 · Expiry: April 11, 2026 · Fee ~$35</div><div class="banner-acts"><button class="btn bd bsm" onclick="toast('Opening CA DMV renewal...','i')">Renew Online →</button><button class="btn bgh bsm" onclick="oM('m-appt')">Book Appointment</button></div></div></div>
-        <div class="g2">
-          <div class="card"><div class="card-t">Upcoming Appointments</div>
-            <div class="arow"><div class="adot d-bl"></div><div class="ainfo"><div class="atit">REAL ID Application</div><div class="amet">Culver City DMV · California</div></div><div class="aright"><div class="adate" style="color:var(--blue3)">Mar 22</div><div class="astag">Slot Found ✓</div></div></div>
-            <div class="arow"><div class="adot d-gd"></div><div class="ainfo"><div class="atit">Vehicle Registration</div><div class="amet">Van Nuys DMV · California</div></div><div class="aright"><div class="adate" style="color:var(--gold2)">Monitoring</div><div class="astag">Every 30 min</div></div></div>
-            <div class="arow"><div class="adot d-rd"></div><div class="ainfo"><div class="atit">Driver License Renewal</div><div class="amet">Santa Monica DMV · CA</div></div><div class="aright"><div class="adate" style="color:#f87171">Apr 5</div><div class="astag">Upcoming</div></div></div>
-            <button class="btn bgh bsm" style="margin-top:0.75rem;width:100%" onclick="showPg('pg-appts',document.querySelectorAll('.ni')[1])">View All →</button>
+
+        <!-- STATS ROW -->
+        <div class="stats">
+          <div class="stat s-blue"><div class="stat-l">Appt Alerts</div><div class="stat-v" style="color:var(--blue3)">0</div><div class="stat-s">Active monitoring</div></div>
+          <div class="stat s-gold"><div class="stat-l">Renewals</div><div class="stat-v" style="color:var(--gold2)">0</div><div class="stat-s">Upcoming</div></div>
+          <div class="stat s-green"><div class="stat-l">Documents</div><div class="stat-v" style="color:var(--teal)">0</div><div class="stat-s">Stored</div></div>
+          <div class="stat"><div class="stat-l">Plan</div><div class="stat-v" style="font-size:1rem" id="dash-plan">Free</div><div class="stat-s" style="cursor:pointer;color:var(--blue3)" onclick="oM('m-upgrade')">Upgrade →</div></div>
+        </div>
+
+        <!-- FREE TOOLS SECTION -->
+        <div style="margin-bottom:1.25rem">
+          <div style="font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:0.75rem">🆓 Free DMV Tools — No Upgrade Needed</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.75rem">
+            <div onclick="showFP('fp-fee')" style="background:#0c1018;border:1px solid rgba(37,99,235,0.25);border-radius:12px;padding:1rem;cursor:pointer;transition:all 0.2s" onmouseover="this.style.borderColor='rgba(37,99,235,0.5)'" onmouseout="this.style.borderColor='rgba(37,99,235,0.25)'">
+              <div style="font-size:1.4rem;margin-bottom:0.5rem">💰</div>
+              <div style="font-size:0.84rem;font-weight:800;color:#f1f5f9;margin-bottom:3px">Fee Calculator</div>
+              <div style="font-size:0.74rem;color:#64748b;line-height:1.5">Exact DMV fees for any state & service</div>
+            </div>
+            <div onclick="showFP('fp-checklist')" style="background:#0c1018;border:1px solid rgba(245,158,11,0.25);border-radius:12px;padding:1rem;cursor:pointer;transition:all 0.2s" onmouseover="this.style.borderColor='rgba(245,158,11,0.5)'" onmouseout="this.style.borderColor='rgba(245,158,11,0.25)'">
+              <div style="font-size:1.4rem;margin-bottom:0.5rem">📋</div>
+              <div style="font-size:0.84rem;font-weight:800;color:#f1f5f9;margin-bottom:3px">Appt Checklist</div>
+              <div style="font-size:0.74rem;color:#64748b;line-height:1.5">Exact documents for your DMV visit</div>
+            </div>
+            <div onclick="showFP('fp-eligibility')" style="background:#0c1018;border:1px solid rgba(22,163,74,0.25);border-radius:12px;padding:1rem;cursor:pointer;transition:all 0.2s" onmouseover="this.style.borderColor='rgba(22,163,74,0.5)'" onmouseout="this.style.borderColor='rgba(22,163,74,0.25)'">
+              <div style="font-size:1.4rem;margin-bottom:0.5rem">✅</div>
+              <div style="font-size:0.84rem;font-weight:800;color:#f1f5f9;margin-bottom:3px">License Eligibility</div>
+              <div style="font-size:0.74rem;color:#64748b;line-height:1.5">Check if you qualify for a license</div>
+            </div>
           </div>
-          <div class="card"><div class="card-t">Renewal Countdowns</div>
-            <div class="rrow"><div class="rtop"><span class="rname">🪪 Driver License</span><span class="rdays" style="color:#f87171">28 days</span></div><div class="ptrack"><div class="pfill p-red" style="width:12%"></div></div><div class="rsub">Expires Apr 11 · CA DL #D2847391</div></div>
-            <div class="rrow"><div class="rtop"><span class="rname">🚗 Registration</span><span class="rdays" style="color:var(--gold2)">47 days</span></div><div class="ptrack"><div class="pfill p-gold" style="width:38%"></div></div><div class="rsub">Expires Apr 30 · Honda Civic · 7ABC123</div></div>
-            <div class="rrow"><div class="rtop"><span class="rname">🛡 Insurance</span><span class="rdays" style="color:var(--green2)">92 days</span></div><div class="ptrack"><div class="pfill p-green" style="width:68%"></div></div><div class="rsub">Expires Jun 14 · State Farm</div></div>
-            <button class="btn bgh bsm" style="margin-top:0.75rem;width:100%" onclick="showPg('pg-renewals',document.querySelectorAll('.ni')[2])">Manage →</button>
+        </div>
+
+        <!-- PRO TOOLS SECTION -->
+        <div style="margin-bottom:1.25rem">
+          <div style="font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:0.75rem">⭐ Pro & Family Tools</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem">
+            <div onclick="showPg('pg-vin',null)" style="background:#0c1018;border:1px solid #1e293b;border-radius:12px;padding:1rem;cursor:pointer;position:relative" onmouseover="this.style.borderColor='#2d3f55'" onmouseout="this.style.borderColor='#1e293b'">
+              <span style="position:absolute;top:8px;right:8px;background:rgba(245,158,11,0.15);color:#f59e0b;font-size:0.55rem;font-weight:800;padding:1px 5px;border-radius:5px;text-transform:uppercase">PRO</span>
+              <div style="font-size:1.2rem;margin-bottom:0.4rem">🔍</div>
+              <div style="font-size:0.82rem;font-weight:700;color:#f1f5f9;margin-bottom:2px">VIN Decoder</div>
+              <div style="font-size:0.72rem;color:#64748b">Decode any vehicle by VIN</div>
+            </div>
+            <div onclick="showPg('pg-waittimes',null)" style="background:#0c1018;border:1px solid #1e293b;border-radius:12px;padding:1rem;cursor:pointer;position:relative" onmouseover="this.style.borderColor='#2d3f55'" onmouseout="this.style.borderColor='#1e293b'">
+              <span style="position:absolute;top:8px;right:8px;background:rgba(245,158,11,0.15);color:#f59e0b;font-size:0.55rem;font-weight:800;padding:1px 5px;border-radius:5px;text-transform:uppercase">PRO</span>
+              <div style="font-size:1.2rem;margin-bottom:0.4rem">⏱</div>
+              <div style="font-size:0.82rem;font-weight:700;color:#f1f5f9;margin-bottom:2px">Wait Times</div>
+              <div style="font-size:0.72rem;color:#64748b">Best times to visit DMV</div>
+            </div>
+            <div onclick="showPg('pg-smog',null)" style="background:#0c1018;border:1px solid #1e293b;border-radius:12px;padding:1rem;cursor:pointer;position:relative" onmouseover="this.style.borderColor='#2d3f55'" onmouseout="this.style.borderColor='#1e293b'">
+              <span style="position:absolute;top:8px;right:8px;background:rgba(245,158,11,0.15);color:#f59e0b;font-size:0.55rem;font-weight:800;padding:1px 5px;border-radius:5px;text-transform:uppercase">PRO</span>
+              <div style="font-size:1.2rem;margin-bottom:0.4rem">🔧</div>
+              <div style="font-size:0.82rem;font-weight:700;color:#f1f5f9;margin-bottom:2px">Smog Check</div>
+              <div style="font-size:0.72rem;color:#64748b">State smog requirements</div>
+            </div>
+            <div onclick="showPg('pg-insurance',null)" style="background:#0c1018;border:1px solid #1e293b;border-radius:12px;padding:1rem;cursor:pointer;position:relative" onmouseover="this.style.borderColor='#2d3f55'" onmouseout="this.style.borderColor='#1e293b'">
+              <span style="position:absolute;top:8px;right:8px;background:rgba(29,106,229,0.15);color:#60a5fa;font-size:0.55rem;font-weight:800;padding:1px 5px;border-radius:5px;text-transform:uppercase">FAM</span>
+              <div style="font-size:1.2rem;margin-bottom:0.4rem">🛡</div>
+              <div style="font-size:0.82rem;font-weight:700;color:#f1f5f9;margin-bottom:2px">Insurance Monitor</div>
+              <div style="font-size:0.72rem;color:#64748b">Track policy expiry dates</div>
+            </div>
+            <div onclick="showPg('pg-multistate',null)" style="background:#0c1018;border:1px solid #1e293b;border-radius:12px;padding:1rem;cursor:pointer;position:relative" onmouseover="this.style.borderColor='#2d3f55'" onmouseout="this.style.borderColor='#1e293b'">
+              <span style="position:absolute;top:8px;right:8px;background:rgba(29,106,229,0.15);color:#60a5fa;font-size:0.55rem;font-weight:800;padding:1px 5px;border-radius:5px;text-transform:uppercase">FAM</span>
+              <div style="font-size:1.2rem;margin-bottom:0.4rem">🗺</div>
+              <div style="font-size:0.82rem;font-weight:700;color:#f1f5f9;margin-bottom:2px">Multi-State</div>
+              <div style="font-size:0.72rem;color:#64748b">Track across 2 states</div>
+            </div>
+            <div onclick="showPg('pg-news',null)" style="background:#0c1018;border:1px solid #1e293b;border-radius:12px;padding:1rem;cursor:pointer" onmouseover="this.style.borderColor='#2d3f55'" onmouseout="this.style.borderColor='#1e293b'">
+              <div style="font-size:1.2rem;margin-bottom:0.4rem">📰</div>
+              <div style="font-size:0.82rem;font-weight:700;color:#f1f5f9;margin-bottom:2px">DMV News</div>
+              <div style="font-size:0.72rem;color:#64748b">Latest DMV law updates</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- QUICK ACTIONS -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.875rem">
+          <div class="card">
+            <div class="card-t">Quick Actions</div>
+            <div style="display:flex;flex-direction:column;gap:0.5rem">
+              <button class="btn bp" style="justify-content:flex-start" onclick="showPg('pg-appts',document.querySelector('[onclick*=pg-appts]'))">🗓 Set Appointment Alert</button>
+              <button class="btn" style="background:rgba(245,158,11,0.15);color:var(--gold2);border:1px solid rgba(245,158,11,0.3);justify-content:flex-start" onclick="showPg('pg-renewals',document.querySelector('[onclick*=pg-renewals]'))">⏰ Add Renewal Reminder</button>
+              <button class="btn bgh" style="justify-content:flex-start" onclick="showPg('pg-vault',null)">📂 Upload Document</button>
+              <button class="btn bgh" style="justify-content:flex-start" onclick="showPg('pg-ai',null)">🤖 Ask AI Assistant</button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-t">Your Account</div>
+            <div style="font-size:0.85rem;color:var(--text2);line-height:2">
+              <div>📧 <span id="acc-email">—</span></div>
+              <div>🗺 <span id="acc-state">—</span></div>
+              <div>💳 Plan: <span id="acc-plan" style="color:var(--gold2);font-weight:700">Free</span></div>
+            </div>
           </div>
         </div>
       </div>
@@ -834,7 +916,242 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
         </div>
       </div>
 
-    </div>
+<!-- VIN DECODER PAGE -->
+      <div class="pg" id="pg-vin" style="padding:0">
+        <div style="padding:1.4rem 1.5rem">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.75rem">
+            <div>
+              <div style="font-size:0.62rem;color:#475569;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;margin-bottom:3px">PRO FEATURE</div>
+              <div style="font-size:1.25rem;font-weight:900;color:#f1f5f9;letter-spacing:-0.03em">🔍 VIN Decoder</div>
+            </div>
+            <span style="background:rgba(245,158,11,0.15);color:#f59e0b;border:1px solid rgba(245,158,11,0.3);padding:3px 10px;border-radius:20px;font-size:0.65rem;font-weight:800;text-transform:uppercase">Pro Only</span>
+          </div>
+          <div style="background:#0c1018;border:1px solid #1e293b;border-radius:14px;padding:1.25rem;margin-bottom:1rem">
+            <div style="font-size:0.62rem;color:#475569;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;margin-bottom:0.75rem">Decode Any Vehicle — Free via NHTSA Official Database</div>
+            <p style="font-size:0.84rem;color:#94a3b8;margin-bottom:1rem;line-height:1.65">Enter a 17-character VIN to instantly decode vehicle details — make, model, year, engine, country of manufacture, and more.</p>
+            <div style="display:flex;gap:0.625rem;margin-bottom:0.875rem">
+              <input id="vin-input" placeholder="Enter 17-char VIN e.g. 1HGBH41JXMN109186" maxlength="17" style="flex:1;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none;text-transform:uppercase" oninput="this.value=this.value.toUpperCase()"/>
+              <button onclick="decodeVIN()" style="padding:0.55rem 1.1rem;background:#2563eb;color:#fff;border:none;border-radius:7px;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:inherit">Decode →</button>
+            </div>
+            <div id="vin-loading" style="display:none;padding:1rem;text-align:center;color:#64748b;font-size:0.85rem">🔍 Decoding from NHTSA database...</div>
+            <div id="vin-error" style="display:none;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.25);border-radius:8px;padding:0.75rem;font-size:0.82rem;color:#fca5a5;margin-top:0.5rem"></div>
+            <div id="vin-result" style="display:none;margin-top:0.875rem">
+              <div style="font-size:0.65rem;color:#475569;text-transform:uppercase;font-weight:700;margin-bottom:0.625rem">Vehicle Details</div>
+              <div id="vin-cards" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.5rem"></div>
+            </div>
+          </div>
+          <div style="background:#0c1018;border:1px solid #1e293b;border-radius:14px;padding:1.25rem">
+            <div style="font-size:0.84rem;font-weight:800;color:#f1f5f9;margin-bottom:0.5rem">💡 Where to Find Your VIN?</div>
+            <p style="font-size:0.8rem;color:#94a3b8;line-height:1.65">Driver's side dashboard (visible through windshield), driver's door frame sticker, or your vehicle title and registration document. Always exactly 17 characters.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- DMV WAIT TIMES PAGE -->
+      <div class="pg" id="pg-waittimes" style="padding:0">
+        <div style="padding:1.4rem 1.5rem">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.75rem">
+            <div>
+              <div style="font-size:0.62rem;color:#475569;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;margin-bottom:3px">PRO FEATURE</div>
+              <div style="font-size:1.25rem;font-weight:900;color:#f1f5f9;letter-spacing:-0.03em">⏱ DMV Wait Time Guide</div>
+            </div>
+            <span style="background:rgba(245,158,11,0.15);color:#f59e0b;border:1px solid rgba(245,158,11,0.3);padding:3px 10px;border-radius:20px;font-size:0.65rem;font-weight:800;text-transform:uppercase">Pro Only</span>
+          </div>
+          <div style="background:#0c1018;border:1px solid #1e293b;border-radius:14px;padding:1.25rem;margin-bottom:1rem">
+            <div style="font-size:0.62rem;color:#475569;text-transform:uppercase;font-weight:700;margin-bottom:0.875rem">Best & Worst Times to Visit DMV</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1rem">
+              <div>
+                <label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px">Your State</label>
+                <select id="wt-state" onchange="showWaitTimes()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select State...</option></select>
+              </div>
+              <div>
+                <label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px">Service Type</label>
+                <select onchange="showWaitTimes()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option>Driver License</option><option>REAL ID</option><option>Registration</option><option>Road Test</option></select>
+              </div>
+            </div>
+            <div id="wt-result" style="display:none">
+              <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:0.4rem;margin-bottom:1rem" id="wt-days"></div>
+              <div style="background:rgba(22,163,74,0.08);border:1px solid rgba(22,163,74,0.2);border-radius:10px;padding:1rem;margin-bottom:0.75rem">
+                <div style="font-size:0.84rem;font-weight:800;color:#22c55e;margin-bottom:0.4rem">✅ Best Times to Visit</div>
+                <div id="wt-best" style="font-size:0.8rem;color:#94a3b8;line-height:1.65"></div>
+              </div>
+              <div style="background:rgba(220,38,38,0.07);border:1px solid rgba(220,38,38,0.18);border-radius:10px;padding:1rem">
+                <div style="font-size:0.84rem;font-weight:800;color:#f87171;margin-bottom:0.4rem">⚠️ Times to Avoid</div>
+                <div id="wt-avoid" style="font-size:0.8rem;color:#94a3b8;line-height:1.65"></div>
+              </div>
+            </div>
+          </div>
+          <div style="background:#0c1018;border:1px solid #1e293b;border-radius:14px;padding:1.25rem">
+            <div style="font-size:0.84rem;font-weight:800;color:#f1f5f9;margin-bottom:0.5rem">💡 Skip the Line Completely</div>
+            <p style="font-size:0.8rem;color:#94a3b8;line-height:1.65;margin-bottom:0.75rem">Use appointment alerts — we monitor your nearest DMV office every 30 minutes and notify you the moment a slot opens.</p>
+            <button onclick="showPg('pg-appts',null)" style="padding:0.4rem 0.9rem;background:rgba(37,99,235,0.15);border:1px solid rgba(37,99,235,0.3);border-radius:7px;color:#60a5fa;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:inherit">Set Appointment Alert →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SMOG CHECK PAGE -->
+      <div class="pg" id="pg-smog" style="padding:0">
+        <div style="padding:1.4rem 1.5rem">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.75rem">
+            <div>
+              <div style="font-size:0.62rem;color:#475569;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;margin-bottom:3px">PRO FEATURE</div>
+              <div style="font-size:1.25rem;font-weight:900;color:#f1f5f9;letter-spacing:-0.03em">🔧 Smog Check Reminder</div>
+            </div>
+            <span style="background:rgba(245,158,11,0.15);color:#f59e0b;border:1px solid rgba(245,158,11,0.3);padding:3px 10px;border-radius:20px;font-size:0.65rem;font-weight:800;text-transform:uppercase">Pro Only</span>
+          </div>
+          <div style="background:#0c1018;border:1px solid #1e293b;border-radius:14px;padding:1.25rem;margin-bottom:1rem">
+            <div style="font-size:0.62rem;color:#475569;text-transform:uppercase;font-weight:700;margin-bottom:0.875rem">Does Your State Require Smog Check?</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.875rem">
+              <div>
+                <label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px">Your State</label>
+                <select id="smog-state" onchange="checkSmog()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select State...</option></select>
+              </div>
+              <div>
+                <label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px">Vehicle Year</label>
+                <input id="smog-year" type="number" placeholder="e.g. 2018" min="1970" max="2026" oninput="checkSmog()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"/>
+              </div>
+            </div>
+            <div id="smog-result"></div>
+          </div>
+          <div style="background:#0c1018;border:1px solid #1e293b;border-radius:14px;padding:1.25rem">
+            <div style="font-size:0.62rem;color:#475569;text-transform:uppercase;font-weight:700;margin-bottom:0.75rem">States That Require Smog Check</div>
+            <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:0.75rem">
+              <span style="background:rgba(220,38,38,0.1);color:#f87171;font-size:0.72rem;padding:3px 9px;border-radius:6px;border:1px solid rgba(220,38,38,0.2)">California</span>
+              <span style="background:rgba(220,38,38,0.1);color:#f87171;font-size:0.72rem;padding:3px 9px;border-radius:6px;border:1px solid rgba(220,38,38,0.2)">Texas</span>
+              <span style="background:rgba(220,38,38,0.1);color:#f87171;font-size:0.72rem;padding:3px 9px;border-radius:6px;border:1px solid rgba(220,38,38,0.2)">Arizona</span>
+              <span style="background:rgba(220,38,38,0.1);color:#f87171;font-size:0.72rem;padding:3px 9px;border-radius:6px;border:1px solid rgba(220,38,38,0.2)">Colorado</span>
+              <span style="background:rgba(220,38,38,0.1);color:#f87171;font-size:0.72rem;padding:3px 9px;border-radius:6px;border:1px solid rgba(220,38,38,0.2)">Illinois</span>
+              <span style="background:rgba(220,38,38,0.1);color:#f87171;font-size:0.72rem;padding:3px 9px;border-radius:6px;border:1px solid rgba(220,38,38,0.2)">Georgia</span>
+              <span style="background:rgba(220,38,38,0.1);color:#f87171;font-size:0.72rem;padding:3px 9px;border-radius:6px;border:1px solid rgba(220,38,38,0.2)">Nevada</span>
+              <span style="background:rgba(220,38,38,0.1);color:#f87171;font-size:0.72rem;padding:3px 9px;border-radius:6px;border:1px solid rgba(220,38,38,0.2)">New York</span>
+              <span style="background:rgba(220,38,38,0.1);color:#f87171;font-size:0.72rem;padding:3px 9px;border-radius:6px;border:1px solid rgba(220,38,38,0.2)">Ohio</span>
+              <span style="background:rgba(22,163,74,0.1);color:#22c55e;font-size:0.72rem;padding:3px 9px;border-radius:6px;border:1px solid rgba(22,163,74,0.2)">Florida ✓ No</span>
+              <span style="background:rgba(22,163,74,0.1);color:#22c55e;font-size:0.72rem;padding:3px 9px;border-radius:6px;border:1px solid rgba(22,163,74,0.2)">Michigan ✓ No</span>
+              <span style="background:rgba(22,163,74,0.1);color:#22c55e;font-size:0.72rem;padding:3px 9px;border-radius:6px;border:1px solid rgba(22,163,74,0.2)">Pennsylvania ✓ No</span>
+            </div>
+            <p style="font-size:0.75rem;color:#64748b">Must complete smog BEFORE registration renewal. Cost: $30–$90 at certified stations.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- INSURANCE MONITOR PAGE -->
+      <div class="pg" id="pg-insurance" style="padding:0">
+        <div style="padding:1.4rem 1.5rem">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.75rem">
+            <div>
+              <div style="font-size:0.62rem;color:#475569;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;margin-bottom:3px">FAMILY FEATURE</div>
+              <div style="font-size:1.25rem;font-weight:900;color:#f1f5f9;letter-spacing:-0.03em">🛡 Insurance Expiry Monitor</div>
+            </div>
+            <span style="background:rgba(29,106,229,0.15);color:#60a5fa;border:1px solid rgba(29,106,229,0.3);padding:3px 10px;border-radius:20px;font-size:0.65rem;font-weight:800;text-transform:uppercase">Family Only</span>
+          </div>
+          <div style="background:#0c1018;border:1px solid #1e293b;border-radius:14px;padding:1.25rem;margin-bottom:1rem">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+              <div style="font-size:0.62rem;color:#475569;text-transform:uppercase;font-weight:700">Insurance Policies</div>
+              <button onclick="toast('Add policy form — connect backend to activate','i')" style="padding:0.3rem 0.75rem;background:#2563eb;color:#fff;border:none;border-radius:7px;font-size:0.74rem;font-weight:700;cursor:pointer;font-family:inherit">+ Add Policy</button>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:0.8rem 1rem;background:#111827;border-radius:10px;border:1px solid rgba(22,163,74,0.2);margin-bottom:0.5rem">
+              <div>
+                <div style="font-size:0.84rem;font-weight:700;color:#f1f5f9">🛡 Auto Insurance — Honda Civic</div>
+                <div style="font-size:0.72rem;color:#64748b;margin-top:3px">State Farm · Policy #SF2847</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-size:0.78rem;font-weight:800;color:#22c55e">92 days left</div>
+                <div style="font-size:0.68rem;color:#64748b">Jun 14, 2026</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:0.8rem 1rem;background:#111827;border-radius:10px;border:1px solid rgba(245,158,11,0.2)">
+              <div>
+                <div style="font-size:0.84rem;font-weight:700;color:#f1f5f9">🏠 Home Insurance</div>
+                <div style="font-size:0.72rem;color:#64748b;margin-top:3px">Allstate · Policy #AL9921</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-size:0.78rem;font-weight:800;color:#f59e0b">45 days left</div>
+                <div style="font-size:0.68rem;color:#64748b">Apr 28, 2026</div>
+              </div>
+            </div>
+          </div>
+          <div style="background:#0c1018;border:1px solid #1e293b;border-radius:14px;padding:1.25rem">
+            <div style="font-size:0.62rem;color:#475569;text-transform:uppercase;font-weight:700;margin-bottom:0.75rem">Why Insurance Monitoring Matters</div>
+            <div style="display:flex;flex-direction:column;gap:0.5rem">
+              <div style="font-size:0.82rem;color:#94a3b8;line-height:1.55;display:flex;gap:8px"><span style="color:#f87171;flex-shrink:0">⚠️</span>Driving without insurance: <strong style="color:#fca5a5">$500–$1,000 fine</strong> + license suspension in most states</div>
+              <div style="font-size:0.82rem;color:#94a3b8;line-height:1.55;display:flex;gap:8px"><span style="color:#f87171;flex-shrink:0">⚠️</span>Lapsed insurance = SR-22 requirement = higher premiums for 3+ years</div>
+              <div style="font-size:0.82rem;color:#94a3b8;line-height:1.55;display:flex;gap:8px"><span style="color:#22c55e;flex-shrink:0">✓</span><strong style="color:#22c55e">Automatic reminders at 60, 30 & 7 days before expiry</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MULTI-STATE PAGE -->
+      <div class="pg" id="pg-multistate" style="padding:0">
+        <div style="padding:1.4rem 1.5rem">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.75rem">
+            <div>
+              <div style="font-size:0.62rem;color:#475569;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;margin-bottom:3px">FAMILY FEATURE</div>
+              <div style="font-size:1.25rem;font-weight:900;color:#f1f5f9;letter-spacing:-0.03em">🗺 Multi-State Tracking</div>
+            </div>
+            <span style="background:rgba(29,106,229,0.15);color:#60a5fa;border:1px solid rgba(29,106,229,0.3);padding:3px 10px;border-radius:20px;font-size:0.65rem;font-weight:800;text-transform:uppercase">Family Only</span>
+          </div>
+          <div style="background:#0c1018;border:1px solid #1e293b;border-radius:14px;padding:1.25rem;margin-bottom:1rem">
+            <div style="font-size:0.62rem;color:#475569;text-transform:uppercase;font-weight:700;margin-bottom:0.875rem">Track DMV Across 2 States</div>
+            <p style="font-size:0.84rem;color:#94a3b8;line-height:1.65;margin-bottom:1rem">Have vehicles or family in different states? Track all DMV renewals and appointments across 2 states from one dashboard.</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;margin-bottom:1rem">
+              <div style="background:#111827;border:1px solid rgba(37,99,235,0.25);border-radius:10px;padding:1rem">
+                <div style="font-size:0.78rem;font-weight:800;color:#60a5fa;margin-bottom:0.5rem">📍 Primary State</div>
+                <select id="ms-primary" style="width:100%;padding:0.5rem 0.75rem;background:#0c1018;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.78rem;font-family:inherit;outline:none"><option value="">Select State...</option></select>
+                <div style="font-size:0.7rem;color:#475569;margin-top:0.4rem">Your main residence</div>
+              </div>
+              <div style="background:#111827;border:1px solid rgba(245,158,11,0.25);border-radius:10px;padding:1rem">
+                <div style="font-size:0.78rem;font-weight:800;color:#f59e0b;margin-bottom:0.5rem">📍 Secondary State</div>
+                <select id="ms-secondary" style="width:100%;padding:0.5rem 0.75rem;background:#0c1018;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.78rem;font-family:inherit;outline:none"><option value="">Select State...</option></select>
+                <div style="font-size:0.7rem;color:#475569;margin-top:0.4rem">Vacation / other state</div>
+              </div>
+            </div>
+            <button onclick="toast('Multi-state tracking activated!','s')" style="padding:0.45rem 1rem;background:#2563eb;color:#fff;border:none;border-radius:7px;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:inherit">Activate Multi-State Tracking →</button>
+          </div>
+          <div style="background:#0c1018;border:1px solid #1e293b;border-radius:14px;padding:1.25rem">
+            <div style="font-size:0.62rem;color:#475569;text-transform:uppercase;font-weight:700;margin-bottom:0.75rem">Who Uses This?</div>
+            <div style="display:flex;flex-direction:column;gap:0.5rem">
+              <div style="font-size:0.82rem;color:#94a3b8;display:flex;gap:8px">🏠 Snowbirds — Florida + New York</div>
+              <div style="font-size:0.82rem;color:#94a3b8;display:flex;gap:8px">🚛 Truck drivers operating across state lines</div>
+              <div style="font-size:0.82rem;color:#94a3b8;display:flex;gap:8px">👨‍👩‍👧 Families with college students in other states</div>
+              <div style="font-size:0.82rem;color:#94a3b8;display:flex;gap:8px">🏢 Business owners with vehicles in multiple states</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DMV NEWS PAGE -->
+      <div class="pg" id="pg-news" style="padding:0">
+        <div style="padding:1.4rem 1.5rem">
+          <div style="font-size:1.25rem;font-weight:900;color:#f1f5f9;letter-spacing:-0.03em;margin-bottom:1.25rem">📰 DMV News & Law Updates</div>
+          <div style="display:flex;flex-direction:column;gap:0.75rem">
+            <div onclick="toast('Full article — blog feature coming soon','i')" style="background:#0c1018;border:1px solid #1e293b;border-left:3px solid #60a5fa;border-radius:14px;padding:1.25rem;cursor:pointer">
+              <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:0.5rem">
+                <div style="font-size:0.9rem;font-weight:800;color:#f1f5f9">REAL ID Enforcement — What You Must Know in 2026</div>
+                <span style="background:rgba(220,38,38,0.12);color:#f87171;font-size:0.62rem;font-weight:800;padding:2px 8px;border-radius:6px;white-space:nowrap;border:1px solid rgba(220,38,38,0.2)">URGENT</span>
+              </div>
+              <div style="font-size:0.8rem;color:#94a3b8;line-height:1.65;margin-bottom:0.5rem">As of May 2025, REAL ID is required for all domestic flights and federal building entry. Here is exactly what to do in your state to get compliant fast.</div>
+              <div style="font-size:0.7rem;color:#475569">March 10, 2026 · 3 min read · All States</div>
+            </div>
+            <div onclick="toast('Full article coming soon','i')" style="background:#0c1018;border:1px solid #1e293b;border-left:3px solid #f59e0b;border-radius:14px;padding:1.25rem;cursor:pointer">
+              <div style="font-size:0.9rem;font-weight:800;color:#f1f5f9;margin-bottom:0.5rem">California DMV Fee Increase — New 2026 Rates</div>
+              <div style="font-size:0.8rem;color:#94a3b8;line-height:1.65;margin-bottom:0.5rem">California DMV has updated registration fees for 2026. Vehicles over $35,000 now face higher county fees. Complete breakdown by vehicle type and county.</div>
+              <div style="font-size:0.7rem;color:#475569">March 5, 2026 · 2 min read · California</div>
+            </div>
+            <div onclick="toast('Full article coming soon','i')" style="background:#0c1018;border:1px solid #1e293b;border-left:3px solid #22c55e;border-radius:14px;padding:1.25rem;cursor:pointer">
+              <div style="font-size:0.9rem;font-weight:800;color:#f1f5f9;margin-bottom:0.5rem">Texas DPS Online Services Expansion 2026</div>
+              <div style="font-size:0.8rem;color:#94a3b8;line-height:1.65;margin-bottom:0.5rem">Texas DPS now allows more license renewals and ID updates completely online. Full list of eligible services and step-by-step guide included.</div>
+              <div style="font-size:0.7rem;color:#475569">February 28, 2026 · 2 min read · Texas</div>
+            </div>
+            <div onclick="toast('Full article coming soon','i')" style="background:#0c1018;border:1px solid #1e293b;border-left:3px solid #f59e0b;border-radius:14px;padding:1.25rem;cursor:pointer">
+              <div style="font-size:0.9rem;font-weight:800;color:#f1f5f9;margin-bottom:0.5rem">🎖 Veteran DMV Benefits — 2026 Complete Guide by State</div>
+              <div style="font-size:0.8rem;color:#94a3b8;line-height:1.65;margin-bottom:0.5rem">Free licenses, reduced fees, veteran plates and priority service — full breakdown for US veterans and active duty military across all 50 states.</div>
+              <div style="font-size:0.7rem;color:#475569">February 20, 2026 · 5 min read · All States · Veterans</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
   </main>
 </div>
 </div>
@@ -847,7 +1164,7 @@ const AI_ANS={'real id':'For <strong>REAL ID</strong> you need: US passport or b
 const APP={user:null,plan:'free'};
 
 function init(){
-  ['appt-st','su-st','s-st','ai-st','ms'].forEach(id=>{const el=document.getElementById(id);if(!el)return;const isAi=id==='ai-st';el.innerHTML=(isAi?'<option value="">All States</option>':'<option value="">Select State...</option>')+STATES.map(s=>`<option>${s}</option>`).join('');});
+  ['appt-st','su-st','s-st','ai-st','ms','wt-state','smog-state','ms-primary','ms-secondary','fee-state','chk-state','elig-state'].forEach(id=>{const el=document.getElementById(id);if(!el)return;const isAi=id==='ai-st';el.innerHTML=(isAi?'<option value="">All States</option>':'<option value="">Select State...</option>')+STATES.map(s=>`<option>${s}</option>`).join('');});
   const sc=document.getElementById('state-chips');if(sc){sc.innerHTML=STATES.slice(0,20).map(s=>`<span style="padding:2px 8px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:5px;font-size:0.68rem;color:var(--text2);cursor:default">${s}</span>`).join('')+`<span style="padding:2px 8px;font-size:0.68rem;color:var(--text3)">+30 more</span>`;}
   const fc=document.getElementById('faq-cont');if(fc){FAQS.forEach((f,i)=>{fc.innerHTML+=`<div class="faq-item"><div class="faq-q" onclick="tfaq(${i})"><span>${f.q}</span><div class="ftog" id="ft${i}">+</div></div><div class="faq-a" id="fa${i}">${f.a}</div></div>`;});}
 }
@@ -855,7 +1172,24 @@ function tfaq(i){const a=document.getElementById('fa'+i),t=document.getElementBy
 function updOff(){const s=document.getElementById('appt-st').value,o=OFFICES[s]||OFFICES['default'],sel=document.getElementById('off-sel');sel.innerHTML=o.map(x=>`<option>${x}</option>`).join('');}
 function showFP(id){document.querySelectorAll('.fp').forEach(p=>p.classList.remove('active'));const el=document.getElementById(id);if(el){el.classList.add('active');window.scrollTo(0,0);}}
 function showFooterPage(id){showFP(id);}
-function showPg(id,nav){document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));const el=document.getElementById(id);if(el)el.classList.add('active');if(nav){document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));nav.classList.add('active');}const t={'pg-dash':'Dashboard','pg-appts':'Appointment Alerts','pg-renewals':'Renewal Reminders','pg-vault':'Document Vault','pg-ai':'AI Assistant','pg-alerts':'Alert History','pg-family':'Family Members','pg-billing':'Billing & Plan','pg-settings':'Settings'};document.getElementById('tb-t').textContent=t[id]||'Dashboard';}
+function showPg(id,nav){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
+  const el=document.getElementById(id);
+  if(el)el.classList.add('active');
+  if(nav){
+    document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
+    nav.classList.add('active');
+  }
+  const t={'pg-dash':'Dashboard','pg-appts':'Appointment Alerts','pg-renewals':'Renewal Reminders','pg-vault':'Document Vault','pg-ai':'AI Assistant','pg-alerts':'Alert History','pg-family':'Family Members','pg-billing':'Billing & Plan','pg-settings':'Settings','pg-vin':'VIN Decoder','pg-waittimes':'DMV Wait Times','pg-smog':'Smog Check Reminder','pg-insurance':'Insurance Monitor','pg-multistate':'Multi-State Tracking','pg-news':'DMV News & Updates'};
+  // Update account info on dashboard
+  function upd(id,val){const el=document.getElementById(id);if(el)el.textContent=val;}
+  upd('acc-email',u.email||'—');
+  upd('acc-state',u.state||'Not set');
+  upd('acc-plan',u.plan==='pro'?'Pro':u.plan==='family'?'Family':'Free');
+  upd('dash-plan',u.plan==='pro'?'Pro':u.plan==='family'?'Family':'Free');
+  const tbt=document.getElementById('tb-t');
+  if(tbt)tbt.textContent=t[id]||'Dashboard';
+}
 function oM(id){document.getElementById(id).classList.add('open');}
 function cM(id){document.getElementById(id).classList.remove('open');}
 function scrollSec(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'});}
@@ -866,7 +1200,19 @@ function toast(msg,type='i'){clearTimeout(toastT);const t=document.getElementByI
 function gLogin(){APP.user={name:'John Doe',email:'john@gmail.com',init:'JD'};loginOk();}
 function doLogin(){const e=document.getElementById('li-em').value;if(!e){toast('Enter email','e');return;}APP.user={name:e.split('@')[0],email:e,init:e.slice(0,2).toUpperCase()};loginOk();}
 function doSignup(){const fn=document.getElementById('su-fn').value,ln=document.getElementById('su-ln').value,em=document.getElementById('su-em').value,pw=document.getElementById('su-pw').value;if(!fn||!em||!pw){toast('Fill all fields','e');return;}if(pw.length<8){toast('Password min 8 chars','e');return;}APP.user={name:fn+' '+ln,email:em,init:(fn[0]+(ln?ln[0]:'')).toUpperCase()};const vet=document.getElementById('su-vet').checked;loginOk();toast(vet?'Welcome! 🎖 Code VET50 saved!':'Account created! Welcome 🎉','s');}
-function loginOk(){document.getElementById('sb-ava').textContent=APP.user.init||'JD';document.getElementById('sb-name').textContent=APP.user.name||'User';document.getElementById('c-ava').textContent=APP.user.init||'JD';document.getElementById('dg').textContent=(APP.user.name.split(' ')[0]||'there')+' 👋';showFP('fp-app');showPg('pg-dash',document.querySelector('.ni.active'));toast('Welcome, '+(APP.user.name.split(' ')[0]||'there')+'!','s');}
+function loginOk(){
+  document.getElementById('sb-ava').textContent=APP.user.init||'JD';
+  document.getElementById('sb-name').textContent=APP.user.name||'User';
+  const ca=document.getElementById('c-ava');if(ca)ca.textContent=APP.user.init||'JD';
+  const dg=document.getElementById('dg');if(dg)dg.textContent=(APP.user.name.split(' ')[0]||'there')+' 👋';
+  showFP('fp-app');
+  // Wait for fp-app to be visible, then activate dashboard
+  requestAnimationFrame(function(){
+    const dashBtn=document.querySelector('#fp-app .ni');
+    showPg('pg-dash',dashBtn);
+    toast('Welcome, '+(APP.user.name.split(' ')[0]||'there')+'!','s');
+  });
+}
 function logout(){APP.user=null;APP.plan='free';showFP('fp-land');}
 
 function doUpgrade(plan){cM('m-upgrade');toast('Redirecting to Lemon Squeezy...','i');setTimeout(()=>{APP.plan=plan;const ip=plan==='pro',ifa=plan==='family';document.getElementById('tb-badge').className='tbadge '+(ifa?'bfam':ip?'bpro':'bfree');document.getElementById('tb-badge').textContent=ifa?'Family':ip?'Pro':'Free';document.getElementById('sb-plan').textContent=ifa?'Family Plan':ip?'Pro Plan':'Free Plan';document.getElementById('bill-plan').textContent=ifa?'Family':ip?'Pro':'Free';document.getElementById('bill-desc').textContent=ifa?'5 members · 15 GB · Unlimited':ip?'Unlimited · 5 GB · AI':'2 alerts · 2 reminders';document.getElementById('bill-act').innerHTML=`<span class="ibadge ${ifa?'ib-b':'ib-g'}" style="font-size:0.75rem;padding:3px 10px">✓ ${ifa?'Family':'Pro'} Active</span>`;document.getElementById('pro-btn').textContent=ip?'Current':'Get Pro';document.getElementById('pro-btn').disabled=ip;document.getElementById('fam-btn').textContent=ifa?'Current':'Get Family';document.getElementById('fam-btn').disabled=ifa;if(ifa){document.getElementById('fam-banner').style.display='none';document.getElementById('fam-locked').style.display='none';}toast(`🎉 ${ifa?'Family':'Pro'} plan activated!`,'s');},1500);}
@@ -881,6 +1227,252 @@ const AIKEYS=Object.keys(AI_ANS);
 function sendMsg(){const inp=document.getElementById('cin'),msg=inp.value.trim();if(!msg)return;const box=document.getElementById('chatbox');const um=document.createElement('div');um.className='msg user';um.innerHTML=`<div class="mava m-us">${APP.user?APP.user.init:'U'}</div><div class="mbub">${msg}</div>`;box.appendChild(um);inp.value='';box.scrollTop=9999;setTimeout(()=>{let resp='I can help with that! For specific state requirements, select your state above. Ask me about REAL ID, renewals, title transfers, or veteran benefits.';const lc=msg.toLowerCase();for(const k of AIKEYS){if(lc.includes(k)){resp=AI_ANS[k];break;}}const am=document.createElement('div');am.className='msg ai';am.innerHTML=`<div class="mava m-ai">🤖</div><div class="mbub">${resp}</div>`;box.appendChild(am);box.scrollTop=9999;},700);}
 function qMsg(q){document.getElementById('cin').value=q;sendMsg();showPg('pg-ai',document.querySelectorAll('.ni')[6]);}
 
+
+// ===== FEE CALCULATOR =====
+const FEE_DATA={
+  California:{dl_new:38,dl_renew:35,realid:35,reg_new:68,reg_renew:68,title:21,id_card:28,dl_dup:28,road_test:7,knowledge:38},
+  Texas:{dl_new:25,dl_renew:25,realid:25,reg_new:51,reg_renew:51,title:33,id_card:16,dl_dup:11,road_test:10,knowledge:0},
+  Florida:{dl_new:48,dl_renew:48,realid:48,reg_new:225,reg_renew:225,title:77,id_card:25,dl_dup:31,road_test:10,knowledge:0},
+  'New York':{dl_new:64,dl_renew:64,realid:30,reg_new:64,reg_renew:64,title:50,id_card:10,dl_dup:17,road_test:40,knowledge:0},
+  default:{dl_new:35,dl_renew:32,realid:35,reg_new:75,reg_renew:65,title:35,id_card:20,dl_dup:15,road_test:10,knowledge:5}
+};
+const SVC_NAMES={dl_new:'New Driver License',dl_renew:'License Renewal',realid:'REAL ID',reg_new:'New Registration',reg_renew:'Registration Renewal',title:'Title Transfer',id_card:'State ID Card',dl_dup:'Duplicate License',road_test:'Road Test',knowledge:'Knowledge Test'};
+function calcFee(){
+  const st=document.getElementById('fee-state').value;
+  const sv=document.getElementById('fee-service').value;
+  if(!st||!sv)return;
+  const fees=FEE_DATA[st]||FEE_DATA.default;
+  const base=fees[sv]||30;
+  const val=parseFloat(document.getElementById('fee-value').value)||0;
+  const tax=sv.includes('reg')&&val>0?Math.round(val*0.065):0;
+  const late=document.getElementById('fee-late').checked?25:0;
+  const total=base+tax+late+3;
+  let html=`<div style="display:flex;justify-content:space-between;padding:0.5rem 0;border-bottom:0.5px solid #1e293b;font-size:0.84rem;color:#f1f5f9"><span>${SVC_NAMES[sv]||sv} Fee</span><span style="color:#60a5fa;font-weight:700">$${base}.00</span></div>`;
+  if(tax>0)html+=`<div style="display:flex;justify-content:space-between;padding:0.5rem 0;border-bottom:0.5px solid #1e293b;font-size:0.84rem;color:#f1f5f9"><span>Sales Tax (6.5% of $${val.toLocaleString()})</span><span style="color:#60a5fa;font-weight:700">$${tax}.00</span></div>`;
+  html+=`<div style="display:flex;justify-content:space-between;padding:0.5rem 0;border-bottom:0.5px solid #1e293b;font-size:0.84rem;color:#f1f5f9"><span>Processing Fee</span><span style="color:#60a5fa;font-weight:700">$3.00</span></div>`;
+  if(late>0)html+=`<div style="display:flex;justify-content:space-between;padding:0.5rem 0;border-bottom:0.5px solid #1e293b;font-size:0.84rem;color:#f87171"><span>⚠ Late Penalty</span><span style="font-weight:700">$${late}.00</span></div>`;
+  html+=`<div style="display:flex;justify-content:space-between;padding:0.75rem 0 0;font-size:0.95rem;font-weight:900;color:#f1f5f9"><span>Total Estimated</span><span style="color:#f59e0b">$${total}.00</span></div>`;
+  document.getElementById('fee-breakdown').innerHTML=html;
+  document.getElementById('fee-result').style.display='block';
+}
+
+// ===== APPOINTMENT CHECKLIST =====
+const CHK_DATA={
+  realid:{docs:['Valid US Passport OR Certified Birth Certificate','Social Security Card or W-2 showing full SSN','Utility bill or bank statement (within 60 days) — 1st residency proof','Mortgage/lease agreement — 2nd residency proof','Current Driver License or State ID','Name change docs if applicable (marriage cert, court order)'],note:'⚠️ ALL documents must be ORIGINALS — no photocopies. Missing even one = wasted trip!'},
+  dl_new:{docs:['Proof of identity (birth cert, passport, or green card)','Social Security Number (card, W-2, or tax return)','2 proofs of state residency (utility bill, bank statement)','Parental consent form (if under 18)'],note:'💡 First timers must pass knowledge test + vision screening. Study the DMV handbook!'},
+  dl_renew:{docs:['Current driver license (even if recently expired)','Proof of current address if changed','Payment for renewal fee'],note:'💡 Many states allow online renewal! Check your state DMV website first — you may not need to visit in person.'},
+  reg_renew:{docs:['Renewal notice OR current registration card','Proof of insurance','Payment for registration fee','Smog certificate (CA, TX, AZ and others require this)'],note:'💡 Get smog check done FIRST if your state requires it — saves a second trip!'},
+  title:{docs:['Signed title from seller (ALL owners must sign)','Odometer Disclosure Statement','Bill of Sale (recommended)','Valid government-issued photo ID','Lien Release Letter (if vehicle had a loan)','Payment for title fee and sales tax'],note:'⚠️ Complete title transfer within 10–30 days of purchase to avoid penalties!'},
+  id_card:{docs:['Proof of identity (birth certificate or passport)','Social Security Number','2 proofs of state residency'],note:'💡 State ID is perfect for non-drivers. Same process as REAL ID in most states.'},
+  cdl:{docs:['Valid driver license','DOT Medical Examiner Certificate','Social Security Card','2 proofs of state residency','CDL permit (if upgrading)'],note:'⚠️ CDL requires DOT medical exam, skills test, and knowledge tests. Allow extra time.'},
+  road_test:{docs:["Valid learner's permit (held for required time)","Proof of insurance for the test vehicle","Vehicle registration","Licensed adult (21+) to accompany you"],note:"💡 Practice parallel parking, 3-point turns, and highway merging. Book early morning — examiners are fresher!"}
+};
+function loadChecklist(){
+  const sv=document.getElementById('chk-service').value;
+  if(!sv)return;
+  const data=CHK_DATA[sv];
+  if(!data)return;
+  const total=data.docs.length;
+  document.getElementById('chk-total').textContent=total;
+  document.getElementById('chk-done').textContent='0';
+  document.getElementById('chk-prog').style.width='0%';
+  document.getElementById('chk-items').innerHTML=data.docs.map((d,i)=>`<div id="ci${i}" onclick="toggleChk(${i},${total})" style="display:flex;align-items:center;gap:10px;padding:0.65rem 0.875rem;background:#111827;border-radius:10px;margin-bottom:0.4rem;cursor:pointer;border:1px solid #1e293b;transition:all 0.18s"><div id="cb${i}" style="width:20px;height:20px;border-radius:5px;border:2px solid #2d3f55;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.7rem;color:#22c55e"></div><div style="font-size:0.84rem;color:#f1f5f9;font-weight:500" id="ct${i}">${d}</div></div>`).join('');
+  const ne=document.getElementById('chk-notes');
+  if(data.note){ne.innerHTML=data.note;ne.style.display='block';}else{ne.style.display='none';}
+  document.getElementById('chk-result').style.display='block';
+}
+function toggleChk(i,total){
+  const item=document.getElementById('ci'+i);
+  const box=document.getElementById('cb'+i);
+  const txt=document.getElementById('ct'+i);
+  const checked=item.dataset.checked==='1';
+  item.dataset.checked=checked?'0':'1';
+  if(!checked){
+    item.style.background='rgba(22,163,74,0.08)';item.style.borderColor='rgba(22,163,74,0.25)';
+    box.style.background='#22c55e';box.style.borderColor='#22c55e';box.textContent='✓';
+    txt.style.textDecoration='line-through';txt.style.color='#475569';
+  }else{
+    item.style.background='#111827';item.style.borderColor='#1e293b';
+    box.style.background='';box.style.borderColor='#2d3f55';box.textContent='';
+    txt.style.textDecoration='';txt.style.color='#f1f5f9';
+  }
+  const done=document.querySelectorAll('[id^=ci][data-checked="1"]').length;
+  document.getElementById('chk-done').textContent=done;
+  document.getElementById('chk-prog').style.width=Math.round((done/total)*100)+'%';
+  if(done===total)toast('✅ All docs ready — you are good to go!','s');
+}
+
+// ===== LICENSE ELIGIBILITY =====
+function checkElig(){
+  const state=document.getElementById('elig-state').value;
+  const type=document.getElementById('elig-type').value;
+  const age=parseInt(document.getElementById('elig-age').value)||0;
+  const status=document.getElementById('elig-status').value;
+  const suspended=document.getElementById('elig-suspended').checked;
+  const dui=document.getElementById('elig-dui').checked;
+  const vision=document.getElementById('elig-vision').checked;
+  if(!state||!type||!age||!status)return;
+  const minAge={regular:16,cdl:18,motorcycle:16,learner:15};
+  const req=minAge[type]||16;
+  let cards=[];
+  if(!suspended&&!dui&&age>=req)cards.push({t:'pass',h:`🎉 You Appear Eligible for a ${type.toUpperCase()} in ${state}!`,d:`Based on your answers, you meet basic requirements. Use the Appointment Checklist to see what documents to bring.`});
+  if(age<req)cards.push({t:'fail',h:`❌ Age Requirement Not Met`,d:`Minimum age for ${type} in ${state} is ${req} years. You need ${req-age} more year(s).`});
+  else if(age>=req)cards.push({t:'pass',h:'✅ Age Requirement Met',d:`You meet the minimum age of ${req} for ${state}.`});
+  if(suspended)cards.push({t:'fail',h:'❌ License Suspended/Revoked',d:'You cannot apply while suspended. Complete the reinstatement process first. Contact your state DMV.'});
+  if(dui)cards.push({t:'warn',h:'⚠️ DUI History — Restrictions Apply',d:'A DUI may require SR-22 insurance, extended suspension, or programs before reinstatement. Check with your state DMV.'});
+  if(status==='visa')cards.push({t:'warn',h:'⚠️ Visa Holder — Check Visa Type',d:'Most visa holders can get a license. Bring visa/I-94, passport, and proof of residency. License may be tied to visa expiry.'});
+  if(status==='daca')cards.push({t:'warn',h:'⚠️ DACA — Most States Eligible',d:'DACA recipients can get licenses in most states. Bring EAD card, DACA approval notice, SSN, and proof of residency.'});
+  if(status==='military')cards.push({t:'pass',h:'🎖 Military/Veteran — Full Eligibility',d:'Active military and veterans have full eligibility and may qualify for fee waivers in many states.'});
+  if(vision)cards.push({t:'pass',h:'👓 Glasses/Contacts — Allowed',d:`You can get a license with corrective lenses. Your license will have a restriction code. Always wear correction when driving.`});
+  const colors={pass:{bg:'rgba(22,163,74,0.08)',border:'rgba(22,163,74,0.25)',color:'#22c55e'},fail:{bg:'rgba(220,38,38,0.08)',border:'rgba(220,38,38,0.2)',color:'#f87171'},warn:{bg:'rgba(245,158,11,0.07)',border:'rgba(245,158,11,0.2)',color:'#f59e0b'}};
+  document.getElementById('elig-result').innerHTML=cards.map(c=>`<div style="background:${colors[c.t].bg};border:1px solid ${colors[c.t].border};border-radius:10px;padding:1rem;margin-bottom:0.5rem"><div style="font-size:0.88rem;font-weight:800;color:${colors[c.t].color};margin-bottom:4px">${c.h}</div><div style="font-size:0.8rem;color:${colors[c.t].color};opacity:0.85;line-height:1.6">${c.d}</div></div>`).join('');
+  document.getElementById('elig-result').style.display='block';
+}
+
 document.querySelectorAll('.mov').forEach(m=>m.addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');}));
+
+// ===== VIN DECODER =====
+function decodeVIN(){
+  const vin=document.getElementById('vin-input').value.trim().toUpperCase();
+  if(vin.length!==17){const e=document.getElementById('vin-error');e.textContent='VIN must be exactly 17 characters.';e.style.display='block';return;}
+  document.getElementById('vin-error').style.display='none';
+  document.getElementById('vin-result').style.display='none';
+  document.getElementById('vin-loading').style.display='block';
+  fetch('https://vpic.nhtsa.dot.gov/api/vehicles/decodevinvalues/'+vin+'?format=json')
+    .then(r=>r.json())
+    .then(data=>{
+      document.getElementById('vin-loading').style.display='none';
+      const r=data.Results[0];
+      const fields=[{l:'Make',v:r.Make},{l:'Model',v:r.Model},{l:'Year',v:r.ModelYear},{l:'Body',v:r.BodyClass},{l:'Engine',v:r.EngineCylinders?r.EngineCylinders+' Cyl':''},{l:'Fuel',v:r.FuelTypePrimary},{l:'Drive',v:r.DriveType},{l:'Manufacturer',v:r.Manufacturer},{l:'Country',v:r.PlantCountry}].filter(f=>f.v&&f.v!='Not Applicable'&&f.v);
+      document.getElementById('vin-cards').innerHTML=fields.map(f=>`<div style="background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:0.625rem 0.75rem"><div style="font-size:0.62rem;color:var(--text3);font-weight:700;text-transform:uppercase;margin-bottom:2px">${f.l}</div><div style="font-size:0.84rem;font-weight:700">${f.v}</div></div>`).join('');
+      document.getElementById('vin-result').style.display='block';
+      toast('VIN decoded!','s');
+    })
+    .catch(()=>{document.getElementById('vin-loading').style.display='none';document.getElementById('vin-error').textContent='Could not decode. Check internet.';document.getElementById('vin-error').style.display='block';});
+}
+
+// ===== WAIT TIMES =====
+function showWaitTimes(){
+  const state=document.getElementById('wt-state').value;
+  if(!state)return;
+  const days=[{d:'Mon',w:'High',c:'#f87171'},{d:'Tue',w:'Low',c:'var(--green2)'},{d:'Wed',w:'Low',c:'var(--green2)'},{d:'Thu',w:'Medium',c:'var(--gold2)'},{d:'Fri',w:'High',c:'#f87171'},{d:'Sat',w:'Very High',c:'#dc2626'},{d:'Sun',w:'Closed',c:'var(--text3)'}];
+  document.getElementById('wt-days').innerHTML=days.map(x=>`<div style="text-align:center;background:var(--card2);border-radius:7px;padding:0.5rem 0.25rem"><div style="font-size:0.65rem;font-weight:700;color:var(--text3);margin-bottom:3px">${x.d}</div><div style="font-size:0.68rem;font-weight:800;color:${x.c}">${x.w}</div></div>`).join('');
+  document.getElementById('wt-best').innerHTML=`<strong style="color:var(--text)">For ${state}:</strong> Tuesday, Wednesday, or Thursday — arrive 8:00–8:30 AM. Mid-morning on weekdays (10–11 AM) is also good.`;
+  document.getElementById('wt-avoid').innerHTML='Monday mornings (post-weekend backlog), Friday afternoons, first week of month, week after major holidays, and last 3 days of month.';
+  document.getElementById('wt-result').style.display='block';
+}
+
+// ===== SMOG CHECK =====
+const SMOG_REQUIRED=['California','Texas','Arizona','Colorado','Illinois','Georgia','Nevada','New York','Ohio','Virginia','Maryland','New Jersey','Connecticut','Delaware','Maine','Massachusetts','New Hampshire','Rhode Island','Vermont'];
+function checkSmog(){
+  const state=document.getElementById('smog-state').value;
+  const year=parseInt(document.getElementById('smog-year').value)||0;
+  if(!state)return;
+  const required=SMOG_REQUIRED.includes(state);
+  const thisYear=new Date().getFullYear();
+  const newExempt=year>0&&year>=(thisYear-7);
+  const oldExempt=year>0&&year<=1975;
+  const res=document.getElementById('smog-result');
+  if(!required){
+    res.innerHTML=`<div style="background:rgba(22,163,74,0.08);border:1px solid rgba(22,163,74,0.2);border-radius:8px;padding:1rem"><div style="font-size:0.9rem;font-weight:800;color:var(--green2);margin-bottom:4px">✅ No Smog Check Required in ${state}</div><div style="font-size:0.8rem;color:var(--text2);line-height:1.65">${state} does not require a smog/emissions test for registration renewal. You can renew without a smog certificate.</div></div>`;
+  } else if(newExempt||oldExempt){
+    res.innerHTML=`<div style="background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.2);border-radius:8px;padding:1rem"><div style="font-size:0.9rem;font-weight:800;color:var(--gold2);margin-bottom:4px">⚠️ ${state} Requires Smog — Vehicle May Be Exempt</div><div style="font-size:0.8rem;color:var(--text2);line-height:1.65">${oldExempt?'Vehicles 1975 or older':'Newer vehicles (last 6-8 years)'} may be exempt in many counties. Verify at the official ${state} DMV website.</div></div>`;
+  } else {
+    res.innerHTML=`<div style="background:rgba(220,38,38,0.07);border:1px solid rgba(220,38,38,0.18);border-radius:8px;padding:1rem"><div style="font-size:0.9rem;font-weight:800;color:#f87171;margin-bottom:4px">🔧 Smog Check Required in ${state}</div><div style="font-size:0.8rem;color:var(--text2);line-height:1.65">Complete smog check BEFORE renewing registration. Visit a certified smog station ($30–$90). Use certificate for DMV or online renewal.</div></div>`;
+  }
+  res.style.display='block';
+}
+
+// ===== POPULATE NEW DROPDOWNS in init =====
+// Populate new dropdowns
+['wt-state','smog-state','ms-primary','ms-secondary'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el&&el.options.length<=1){
+    STATES.forEach(s=>{const o=document.createElement('option');o.value=s;o.textContent=s;el.appendChild(o);});
+  }
+});
 init();
 </script>
+
+</body>
+</html>
+
+<!-- DMV FEE CALCULATOR -->
+<div class="fp" id="fp-fee">
+  <div style="max-width:760px;margin:0 auto;padding:2rem 1.5rem;min-height:100vh;background:var(--bg)">
+    <div style="margin-bottom:1.5rem"><span onclick="showFP('fp-land')" style="font-size:0.84rem;color:var(--blue3);font-weight:700;cursor:pointer">← Back to Home</span></div>
+    <div style="margin-bottom:1.75rem">
+      <div style="display:inline-block;background:rgba(22,163,74,0.1);border:1px solid rgba(22,163,74,0.25);border-radius:100px;padding:3px 12px;font-size:0.65rem;font-weight:800;color:#22c55e;text-transform:uppercase;margin-bottom:0.75rem">Free Tool</div>
+      <h2 style="font-size:1.8rem;font-weight:900;color:#f1f5f9;letter-spacing:-0.04em;margin-bottom:0.5rem">💰 DMV Fee Calculator</h2>
+      <p style="font-size:0.9rem;color:#94a3b8;line-height:1.7">Select your state and service — see exact fees, taxes, and late penalties before visiting DMV.</p>
+    </div>
+    <div style="background:#0c1018;border:1px solid #1e293b;border-radius:16px;padding:1.5rem;margin-bottom:1.25rem">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;margin-bottom:0.875rem">
+        <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">State</label><select id="fee-state" onchange="calcFee()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select State...</option></select></div>
+        <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">Service</label><select id="fee-service" onchange="calcFee()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select...</option><option value="dl_new">New Driver License</option><option value="dl_renew">License Renewal</option><option value="realid">REAL ID</option><option value="reg_new">New Registration</option><option value="reg_renew">Registration Renewal</option><option value="title">Title Transfer</option><option value="id_card">State ID Card</option><option value="dl_dup">Duplicate License</option><option value="road_test">Road Test</option><option value="knowledge">Knowledge Test</option></select></div>
+      </div>
+      <div style="margin-bottom:0.875rem"><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">Vehicle Value (optional — for registration tax)</label><input id="fee-value" type="number" placeholder="e.g. 25000" oninput="calcFee()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"/></div>
+      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-bottom:1rem"><input type="checkbox" id="fee-late" onchange="calcFee()" style="accent-color:#ef4444;width:auto"/><span style="font-size:0.84rem;color:#94a3b8">Include late renewal penalty (+$25)</span></label>
+      <div id="fee-result" style="display:none;background:#111827;border-radius:10px;padding:1.1rem"><div id="fee-breakdown"></div></div>
+      <div style="margin-top:1rem;padding:0.75rem;background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.2);border-radius:8px;font-size:0.78rem;color:#f59e0b">💡 Fees are approximate. Always verify with your official state DMV website.</div>
+    </div>
+    <div style="background:#0c1018;border:1px solid #1e293b;border-radius:16px;padding:1.25rem"><div style="font-size:0.84rem;font-weight:800;color:#f1f5f9;margin-bottom:0.5rem">Avoid Late Fees — Set a Free Reminder</div><p style="font-size:0.8rem;color:#94a3b8;line-height:1.65;margin-bottom:0.875rem">DMV Assistant sends reminders 60, 30 & 7 days before expiry — free forever.</p><button onclick="showFP('fp-signup')" style="padding:0.4rem 0.9rem;background:#2563eb;color:#fff;border:none;border-radius:7px;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:inherit">Sign Up Free →</button></div>
+  </div>
+</div>
+
+<!-- APPOINTMENT CHECKLIST -->
+<div class="fp" id="fp-checklist">
+  <div style="max-width:760px;margin:0 auto;padding:2rem 1.5rem;min-height:100vh;background:var(--bg)">
+    <div style="margin-bottom:1.5rem"><span onclick="showFP('fp-land')" style="font-size:0.84rem;color:var(--blue3);font-weight:700;cursor:pointer">← Back to Home</span></div>
+    <div style="margin-bottom:1.75rem">
+      <div style="display:inline-block;background:rgba(22,163,74,0.1);border:1px solid rgba(22,163,74,0.25);border-radius:100px;padding:3px 12px;font-size:0.65rem;font-weight:800;color:#22c55e;text-transform:uppercase;margin-bottom:0.75rem">Free Tool</div>
+      <h2 style="font-size:1.8rem;font-weight:900;color:#f1f5f9;letter-spacing:-0.04em;margin-bottom:0.5rem">📋 DMV Appointment Checklist</h2>
+      <p style="font-size:0.9rem;color:#94a3b8;line-height:1.7">Select your service — get exact documents to bring. Check them off before leaving home. Zero wasted trips.</p>
+    </div>
+    <div style="background:#0c1018;border:1px solid #1e293b;border-radius:16px;padding:1.5rem;margin-bottom:1.25rem">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;margin-bottom:1rem">
+        <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">Service</label><select id="chk-service" onchange="loadChecklist()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select...</option><option value="realid">REAL ID</option><option value="dl_new">New License</option><option value="dl_renew">License Renewal</option><option value="reg_renew">Registration Renewal</option><option value="title">Title Transfer</option><option value="id_card">State ID Card</option><option value="cdl">CDL License</option><option value="road_test">Road Test</option></select></div>
+        <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">State</label><select id="chk-state" onchange="loadChecklist()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select State...</option></select></div>
+      </div>
+      <div id="chk-result" style="display:none">
+        <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem"><div style="font-size:0.65rem;color:#475569;font-weight:700;text-transform:uppercase">Documents Required</div><div style="font-size:0.78rem;color:#94a3b8"><span id="chk-done">0</span>/<span id="chk-total">0</span> ready</div></div>
+        <div style="background:#1e293b;border-radius:6px;height:6px;margin-bottom:0.875rem;overflow:hidden"><div id="chk-prog" style="height:100%;background:linear-gradient(90deg,#16a34a,#22c55e);border-radius:6px;width:0%;transition:width 0.3s"></div></div>
+        <div id="chk-items"></div>
+        <div id="chk-notes" style="display:none;margin-top:0.875rem;padding:0.875rem;background:rgba(37,99,235,0.07);border:1px solid rgba(37,99,235,0.2);border-radius:8px;font-size:0.78rem;color:#60a5fa;line-height:1.65"></div>
+      </div>
+    </div>
+    <div style="background:#0c1018;border:1px solid #1e293b;border-radius:16px;padding:1.25rem"><div style="font-size:0.84rem;font-weight:800;color:#f1f5f9;margin-bottom:0.5rem">🗓 Get Alerted When Slots Open</div><p style="font-size:0.8rem;color:#94a3b8;line-height:1.65;margin-bottom:0.875rem">DMV Assistant monitors appointment slots every 30 min across all 50 states.</p><button onclick="showFP('fp-signup')" style="padding:0.4rem 0.9rem;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:7px;color:#f59e0b;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:inherit">Set Appointment Alert →</button></div>
+  </div>
+</div>
+
+<!-- LICENSE ELIGIBILITY -->
+<div class="fp" id="fp-eligibility">
+  <div style="max-width:760px;margin:0 auto;padding:2rem 1.5rem;min-height:100vh;background:var(--bg)">
+    <div style="margin-bottom:1.5rem"><span onclick="showFP('fp-land')" style="font-size:0.84rem;color:var(--blue3);font-weight:700;cursor:pointer">← Back to Home</span></div>
+    <div style="margin-bottom:1.75rem">
+      <div style="display:inline-block;background:rgba(22,163,74,0.1);border:1px solid rgba(22,163,74,0.25);border-radius:100px;padding:3px 12px;font-size:0.65rem;font-weight:800;color:#22c55e;text-transform:uppercase;margin-bottom:0.75rem">Free Tool</div>
+      <h2 style="font-size:1.8rem;font-weight:900;color:#f1f5f9;letter-spacing:-0.04em;margin-bottom:0.5rem">✅ License Eligibility Check</h2>
+      <p style="font-size:0.9rem;color:#94a3b8;line-height:1.7">Answer a few questions — instantly know if you qualify for a license in your state.</p>
+    </div>
+    <div style="background:#0c1018;border:1px solid #1e293b;border-radius:16px;padding:1.5rem;margin-bottom:1.25rem">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;margin-bottom:0.875rem">
+        <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">State</label><select id="elig-state" onchange="checkElig()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select State...</option></select></div>
+        <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">License Type</label><select id="elig-type" onchange="checkElig()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select...</option><option value="regular">Regular (Class D)</option><option value="cdl">Commercial (CDL)</option><option value="motorcycle">Motorcycle</option><option value="learner">Learner Permit</option></select></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;margin-bottom:0.875rem">
+        <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">Your Age</label><input id="elig-age" type="number" placeholder="e.g. 17" min="14" max="100" oninput="checkElig()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"/></div>
+        <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">Status</label><select id="elig-status" onchange="checkElig()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select...</option><option value="citizen">US Citizen</option><option value="resident">Permanent Resident</option><option value="visa">Visa Holder</option><option value="daca">DACA Recipient</option><option value="military">Military/Veteran</option></select></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.5rem;margin-bottom:0.875rem">
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" id="elig-suspended" onchange="checkElig()" style="accent-color:#ef4444;width:auto"/><span style="font-size:0.84rem;color:#94a3b8">License is suspended or revoked</span></label>
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" id="elig-dui" onchange="checkElig()" style="accent-color:#ef4444;width:auto"/><span style="font-size:0.84rem;color:#94a3b8">DUI/DWI conviction in last 10 years</span></label>
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" id="elig-vision" onchange="checkElig()" style="accent-color:#2563eb;width:auto"/><span style="font-size:0.84rem;color:#94a3b8">I wear glasses or contact lenses</span></label>
+      </div>
+      <div id="elig-result"></div>
+    </div>
+    <div style="background:#0c1018;border:1px solid #1e293b;border-radius:16px;padding:1.25rem"><div style="font-size:0.84rem;font-weight:800;color:#f1f5f9;margin-bottom:0.5rem">📋 Get Your Documents Checklist</div><p style="font-size:0.8rem;color:#94a3b8;line-height:1.65;margin-bottom:0.875rem">Once eligible, use our checklist to see exactly what to bring to DMV.</p><button onclick="showFP('fp-checklist')" style="padding:0.4rem 0.9rem;background:rgba(22,163,74,0.12);border:1px solid rgba(22,163,74,0.28);border-radius:7px;color:#22c55e;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:inherit">Open Checklist →</button></div>
+  </div>
+</div>
+
+</body>
+</html>
