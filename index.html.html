@@ -608,13 +608,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
     <div style="text-align:center;margin-bottom:1.5rem"><div class="brand" style="justify-content:center;cursor:pointer" onclick="showFP('fp-land')"><div class="brand-ico" style="width:40px;height:40px;font-size:1.1rem">🏛</div><div><div class="brand-name" style="font-size:1rem">DMV Assistant</div></div></div></div>
     <div style="font-size:1.2rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:0.25rem">Welcome back</div>
     <div style="font-size:0.78rem;color:var(--text3);margin-bottom:1.5rem">Sign in to your account</div>
-    <button style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:0.58rem;background:rgba(255,255,255,0.04);border:1px solid var(--border2);border-radius:7px;cursor:pointer;font-size:0.82rem;font-family:'Manrope',sans-serif;color:var(--text);font-weight:600;margin-bottom:1rem;transition:all 0.2s" onclick="gLogin()">
-      <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-      Continue with Google
-    </button>
-    <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem"><div style="flex:1;height:1px;background:var(--border)"></div><span style="font-size:0.68rem;color:var(--text3)">or</span><div style="flex:1;height:1px;background:var(--border)"></div></div>
-    <div class="fg"><label class="fl">Email</label><input class="fi" id="li-em" type="email" value="demo@dmvassistants.com"/></div>
-    <div class="fg"><label class="fl">Password</label><input class="fi" id="li-pw" type="password" value="demo1234"/></div>
+    <div class="fg"><label class="fl">Email</label><input class="fi" id="li-em" type="email" placeholder="you@email.com"/></div>
+    <div class="fg"><label class="fl">Password</label><input class="fi" id="li-pw" type="password" placeholder="••••••••"/></div>
     <button class="btn bp" style="width:100%;padding:0.62rem;font-size:0.88rem" onclick="doLogin()">Sign In →</button>
     <div style="text-align:center;font-size:0.76rem;color:var(--text3);margin-top:0.875rem">No account? <a style="color:var(--blue3);cursor:pointer;font-weight:700" onclick="showFP('fp-signup')">Sign up free</a> · <a style="color:var(--text3);cursor:pointer" onclick="showFP('fp-land')">← Home</a></div>
   </div>
@@ -628,11 +623,6 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
     <div style="text-align:center;margin-bottom:1.4rem"><div class="brand" style="justify-content:center;cursor:pointer" onclick="showFP('fp-land')"><div class="brand-ico" style="width:38px;height:38px;font-size:1rem">🏛</div><div><div class="brand-name">DMV Assistant</div></div></div></div>
     <div style="font-size:1.2rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:0.2rem">Create your account</div>
     <div style="font-size:0.78rem;color:var(--text3);margin-bottom:1.4rem">Free forever. Upgrade anytime.</div>
-    <button style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:0.55rem;background:rgba(255,255,255,0.04);border:1px solid var(--border2);border-radius:7px;cursor:pointer;font-size:0.82rem;font-family:'Manrope',sans-serif;color:var(--text);font-weight:600;margin-bottom:1rem" onclick="gLogin()">
-      <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-      Sign up with Google
-    </button>
-    <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem"><div style="flex:1;height:1px;background:var(--border)"></div><span style="font-size:0.68rem;color:var(--text3)">or</span><div style="flex:1;height:1px;background:var(--border)"></div></div>
     <div class="fr"><div class="fg"><label class="fl">First Name</label><input class="fi" id="su-fn" placeholder="John"/></div><div class="fg"><label class="fl">Last Name</label><input class="fi" id="su-ln" placeholder="Doe"/></div></div>
     <div class="fg"><label class="fl">Email</label><input class="fi" id="su-em" type="email" placeholder="john@email.com"/></div>
     <div class="fg"><label class="fl">Password</label><input class="fi" id="su-pw" type="password" placeholder="Min 8 characters"/></div>
@@ -680,7 +670,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
     <div class="ni" onclick="showPg('pg-appts',this)"><span class="ni-ic">🗓</span>Appointments</div>
     <div class="ni" onclick="showPg('pg-renewals',this)"><span class="ni-ic">⏰</span>Renewals</div>
     <div class="nav-sec">Documents</div>
-    <div class="ni" onclick="showPg('pg-vault',this)"><span class="ni-ic">📂</span>Document Vault</div>
+    <div class="ni" onclick="goProPg('pg-vault',this)"><span class="ni-ic">📂</span>Document Vault</div>
     <div class="nav-sec">Pro Tools</div>
     <div class="ni" onclick="goProPg('pg-vin',this)"><span class="ni-ic">🔍</span>VIN Decoder</div>
     <div class="ni" onclick="goProPg('pg-waittimes',this)"><span class="ni-ic">⏱</span>Wait Times</div>
@@ -796,7 +786,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
             <div style="display:flex;flex-direction:column;gap:0.5rem">
               <button class="btn bp" style="justify-content:flex-start" onclick="showPg('pg-appts',document.querySelector('[onclick*=pg-appts]'))">🗓 Set Appointment Alert</button>
               <button class="btn" style="background:rgba(245,158,11,0.15);color:var(--gold2);border:1px solid rgba(245,158,11,0.3);justify-content:flex-start" onclick="showPg('pg-renewals',document.querySelector('[onclick*=pg-renewals]'))">⏰ Add Renewal Reminder</button>
-              <button class="btn bgh" style="justify-content:flex-start" onclick="showPg('pg-vault',null)">📂 Upload Document</button>
+              <button class="btn bgh" style="justify-content:flex-start" onclick="goProPg('pg-vault',null)">📂 Upload Document</button>
               <button class="btn bgh" style="justify-content:flex-start" onclick="showPg('pg-ai',null)">🤖 Ask AI Assistant</button>
             </div>
           </div>
@@ -1233,27 +1223,121 @@ function doUpgrade(plan) {
   window.open(url, '_blank');
 }
 
+const API = 'https://dmv-assistant-production.up.railway.app';
+
+async function doLogin() {
+  const em = document.getElementById('li-em').value.trim();
+  const pw = document.getElementById('li-pw').value;
+  if (!em || !pw) { toast('Email aur password enter karo', 'e'); return; }
+  const btn = document.querySelector('#fp-login .btn.bp');
+  btn.textContent = 'Signing in...'; btn.disabled = true;
+  try {
+    const res = await fetch(API + '/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: em, password: pw })
+    });
+    const data = await res.json();
+    if (data.token) {
+      localStorage.setItem('dmv_token', data.token);
+      localStorage.setItem('dmv_user', JSON.stringify(data.user));
+      APP.user = data.user;
+      APP.plan = data.user.plan || 'free';
+      loginOk();
+    } else {
+      toast(data.error || 'Email ya password galat hai', 'e');
+    }
+  } catch (e) {
+    toast('Connection error — try again', 'e');
+  }
+  btn.textContent = 'Sign In →'; btn.disabled = false;
+}
+
+async function doSignup() {
+  const fn = document.getElementById('su-fn').value.trim();
+  const ln = document.getElementById('su-ln').value.trim();
+  const em = document.getElementById('su-em').value.trim();
+  const pw = document.getElementById('su-pw').value;
+  const st = document.getElementById('su-st').value;
+  const vet = document.getElementById('su-vet').checked;
+  if (!fn || !em || !pw) { toast('Sab fields fill karo', 'e'); return; }
+  if (pw.length < 8) { toast('Password min 8 characters hona chahiye', 'e'); return; }
+  const btn = document.querySelector('#fp-signup .btn.bp');
+  btn.textContent = 'Creating...'; btn.disabled = true;
+  try {
+    const res = await fetch(API + '/api/auth/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ firstName: fn, lastName: ln, email: em, password: pw, state: st, isVeteran: vet })
+    });
+    const data = await res.json();
+    if (data.token) {
+      localStorage.setItem('dmv_token', data.token);
+      localStorage.setItem('dmv_user', JSON.stringify(data.user));
+      APP.user = data.user;
+      APP.plan = 'free';
+      loginOk();
+      toast(vet ? 'Welcome! 🎖 Code VET50 saved!' : 'Account created! Welcome 🎉', 's');
+    } else {
+      toast(data.error || 'Signup failed — try again', 'e');
+    }
+  } catch (e) {
+    toast('Connection error — Railway backend check karo', 'e');
+  }
+  btn.textContent = 'Create Free Account →'; btn.disabled = false;
+}
+
 function gLogin() {
-  APP.user = { name: 'John Doe', email: 'john@gmail.com', init: 'JD' };
-  APP.plan = 'free';
-  loginOk();
+  toast('Google login abhi available nahi — email se sign in karo', 'w');
 }
 function doLogin(){const e=document.getElementById('li-em').value;if(!e){toast('Enter email','e');return;}APP.user={name:e.split('@')[0],email:e,init:e.slice(0,2).toUpperCase()};loginOk();}
 function doSignup(){const fn=document.getElementById('su-fn').value,ln=document.getElementById('su-ln').value,em=document.getElementById('su-em').value,pw=document.getElementById('su-pw').value;if(!fn||!em||!pw){toast('Fill all fields','e');return;}if(pw.length<8){toast('Password min 8 chars','e');return;}APP.user={name:fn+' '+ln,email:em,init:(fn[0]+(ln?ln[0]:'')).toUpperCase()};const vet=document.getElementById('su-vet').checked;loginOk();toast(vet?'Welcome! 🎖 Code VET50 saved!':'Account created! Welcome 🎉','s');}
 function loginOk(){
-  document.getElementById('sb-ava').textContent=APP.user.init||'JD';
-  document.getElementById('sb-name').textContent=APP.user.name||'User';
-  const ca=document.getElementById('c-ava');if(ca)ca.textContent=APP.user.init||'JD';
-  const dg=document.getElementById('dg');if(dg)dg.textContent=(APP.user.name.split(' ')[0]||'there')+' 👋';
+  const u = APP.user || {};
+  const fullName = u.name || (u.first_name ? `${u.first_name} ${u.last_name || ''}`.trim() : 'User');
+  const initials = fullName.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2) || 'U';
+  document.getElementById('sb-ava').textContent = initials;
+  document.getElementById('sb-name').textContent = fullName;
+  const planLabel = APP.plan === 'pro' ? 'Pro Plan' : APP.plan === 'family' ? 'Family Plan' : 'Free Plan';
+  document.getElementById('sb-plan').textContent = planLabel;
+  document.getElementById('tb-badge').className = 'tbadge ' + (APP.plan==='family'?'bfam':APP.plan==='pro'?'bpro':'bfree');
+  document.getElementById('tb-badge').textContent = APP.plan==='family'?'Family':APP.plan==='pro'?'Pro':'Free';
+  const dg = document.getElementById('dg');
+  if(dg) dg.textContent = fullName.split(' ')[0] + ' 👋';
+  const ca = document.getElementById('c-ava');
+  if(ca) ca.textContent = initials;
   showFP('fp-app');
-  // Wait for fp-app to be visible, then activate dashboard
   requestAnimationFrame(function(){
-    const dashBtn=document.querySelector('#fp-app .ni');
-    showPg('pg-dash',dashBtn);
-    toast('Welcome, '+(APP.user.name.split(' ')[0]||'there')+'!','s');
+    const dashBtn = document.querySelector('#fp-app .ni');
+    showPg('pg-dash', dashBtn);
   });
 }
-function logout(){APP.user=null;APP.plan='free';showFP('fp-land');}
+
+function logout(){
+  APP.user = null;
+  APP.plan = 'free';
+  localStorage.removeItem('dmv_token');
+  localStorage.removeItem('dmv_user');
+  showFP('fp-land');
+  toast('Signed out', 'i');
+}
+
+// Restore session on page load
+window.addEventListener('DOMContentLoaded', function(){
+  init();
+  const saved = localStorage.getItem('dmv_user');
+  const token = localStorage.getItem('dmv_token');
+  if (saved && token) {
+    try {
+      APP.user = JSON.parse(saved);
+      APP.plan = APP.user.plan || 'free';
+      loginOk();
+    } catch(e) {
+      localStorage.removeItem('dmv_user');
+      localStorage.removeItem('dmv_token');
+    }
+  }
+});
 
 function chkFam(){if(APP.plan==='family')oM('m-member');else oM('m-upgrade');}
 function addMember(){const n=document.getElementById('mn').value;if(!n){toast('Enter name','e');return;}cM('m-member');const i=n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);const c=document.createElement('div');c.className='memcard';c.innerHTML=`<div class="memava" style="background:linear-gradient(135deg,#0d9488,#22c55e);color:#fff">${i}</div><div style="flex:1"><div style="font-size:0.84rem;font-weight:700">${n} <span class="ibadge ib-b">MEMBER</span></div><div style="font-size:0.68rem;color:var(--text3)">${document.getElementById('me').value}</div></div><button class="btn bd bsm" onclick="this.closest('.memcard').remove();toast('Member removed','w')">Remove</button>`;document.getElementById('mem-list').appendChild(c);toast(`${n} invited!`,'s');}
@@ -1430,7 +1514,6 @@ function checkSmog(){
     STATES.forEach(s=>{const o=document.createElement('option');o.value=s;o.textContent=s;el.appendChild(o);});
   }
 });
-init();
 </script>
 
 <!-- Tool pages continue below - inside body -->
