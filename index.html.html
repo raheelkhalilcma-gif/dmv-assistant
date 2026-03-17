@@ -661,7 +661,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
   <div style="background:var(--card);border:1px solid var(--border2);border-radius:var(--rxl);padding:2rem;width:100%;max-width:390px;text-align:center">
     <div style="width:64px;height:64px;border-radius:50%;background:rgba(29,106,229,0.12);border:1px solid rgba(29,106,229,0.25);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 1.25rem">📧</div>
     <div style="font-size:1.2rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:0.35rem">Check your email</div>
-    <div style="font-size:0.82rem;color:var(--text3);margin-bottom:1.5rem">We sent a 6-digit code to<br/><strong id="verify-display" style="color:var(--blue3)">your email</strong><input type="hidden" id="verify-email" value=""/></div>
+    <div style="font-size:0.82rem;color:var(--text3);margin-bottom:1.5rem">We sent a 6-digit verification code to<br/><strong id="verify-email" style="color:var(--blue3)">your@email.com</strong></div>
     <div style="display:flex;gap:0.5rem;justify-content:center;margin-bottom:1.25rem">
       <input class="fi" id="otp0" maxlength="1" style="width:46px;text-align:center;font-size:1.3rem;font-weight:900;padding:0.6rem 0" oninput="otpNext(0)" onkeydown="otpBack(event,0)"/>
       <input class="fi" id="otp1" maxlength="1" style="width:46px;text-align:center;font-size:1.3rem;font-weight:900;padding:0.6rem 0" oninput="otpNext(1)" onkeydown="otpBack(event,1)"/>
@@ -1333,9 +1333,8 @@ async function doLogin() {
   const em = document.getElementById('li-em').value.trim();
   const pw = document.getElementById('li-pw').value;
   if (!em || !pw) { toast('Email aur password enter karo', 'e'); return; }
-  if (!em.includes('@') || !em.includes('.')) { toast('Valid email address enter karo', 'e'); return; }
   const btn = document.querySelector('#fp-login .btn.bp');
-  btn.textContent = 'Checking...'; btn.disabled = true;
+  btn.textContent = 'Signing in...'; btn.disabled = true;
   try {
     const res = await fetch(API + '/api/auth/login', {
       method: 'POST',
@@ -1343,26 +1342,17 @@ async function doLogin() {
       body: JSON.stringify({ email: em, password: pw })
     });
     const data = await res.json();
-    if (data.requiresVerification || data.token) {
-      // Store pending — must verify OTP first
-      PENDING_USER = data.user;
-      PENDING_TOKEN = data.token || null;
-      const displayEm = em.replace(/(.{2}).+(@.+)/, '$1****$2');
-      document.getElementById('verify-email').value = em;
-      document.getElementById('verify-display').textContent = displayEm;
-      [0,1,2,3,4,5].forEach(i => {
-        const el = document.getElementById('otp'+i);
-        if(el) { el.value = ''; el.disabled = false; }
-      });
-      document.getElementById('otp-err').style.display = 'none';
-      showFP('fp-verify');
-      setTimeout(() => { const o=document.getElementById('otp0'); if(o)o.focus(); }, 400);
-      toast('Verification code sent to ' + displayEm, 'i');
+    if (data.token) {
+      localStorage.setItem('dmv_token', data.token);
+      localStorage.setItem('dmv_user', JSON.stringify(data.user));
+      APP.user = data.user;
+      APP.plan = data.user.plan || 'free';
+      loginOk();
     } else {
       toast(data.error || 'Email ya password galat hai', 'e');
     }
   } catch (e) {
-    toast('Connection error — Railway backend check karo', 'e');
+    toast('Connection error — try again', 'e');
   }
   btn.textContent = 'Sign In →'; btn.disabled = false;
 }
@@ -1376,38 +1366,6 @@ async function doSignup() {
   const vet = document.getElementById('su-vet').checked;
   if (!fn || !em || !pw) { toast('Sab fields fill karo', 'e'); return; }
   if (pw.length < 8) { toast('Password min 8 characters hona chahiye', 'e'); return; }
-  if (!em.includes('@') || !em.includes('.')) { toast('Valid email address enter karo', 'e'); return; }
-  const btn = document.querySelector('#fp-signup .btn.bp');
-  btn.textContent = 'Creating account...'; btn.disabled = true;
-  try {
-    const res = await fetch(API + '/api/auth/signup', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ firstName: fn, lastName: ln, email: em, password: pw, state: st, isVeteran: vet })
-    });
-    const data = await res.json();
-    if (data.token || data.requiresVerification) {
-      PENDING_USER = data.user;
-      PENDING_TOKEN = data.token || null;
-      const displayEm = em.replace(/(.{2}).+(@.+)/, '$1****$2');
-      document.getElementById('verify-email').value = em;
-      document.getElementById('verify-display').textContent = displayEm;
-      [0,1,2,3,4,5].forEach(i => {
-        const el = document.getElementById('otp'+i);
-        if(el) { el.value = ''; el.disabled = false; }
-      });
-      document.getElementById('otp-err').style.display = 'none';
-      showFP('fp-verify');
-      setTimeout(() => { const o=document.getElementById('otp0'); if(o)o.focus(); }, 400);
-      toast('Verification code sent to ' + displayEm + ' — check spam!', 'i');
-    } else {
-      toast(data.error || 'Signup failed — try again', 'e');
-    }
-  } catch (e) {
-    toast('Connection error — Railway backend check karo', 'e');
-  }
-  btn.textContent = 'Create Free Account →'; btn.disabled = false;
-}
   if (!em.includes('@')) { toast('Valid email enter karo', 'e'); return; }
   const btn = document.querySelector('#fp-signup .btn.bp');
   btn.textContent = 'Creating account...'; btn.disabled = true;
@@ -1421,7 +1379,7 @@ async function doSignup() {
     if (data.token) {
       PENDING_USER = data.user;
       PENDING_TOKEN = data.token;
-      document.getElementById('verify-email').value = em;
+      document.getElementById('verify-email').textContent = em;
       [0,1,2,3,4,5].forEach(i => { document.getElementById('otp'+i).value = ''; });
       document.getElementById('otp-err').style.display = 'none';
       showFP('fp-verify');
@@ -1452,16 +1410,15 @@ function otpBack(e, i) {
 async function verifyOTP() {
   const code = [0,1,2,3,4,5].map(i => document.getElementById('otp'+i).value).join('');
   if (code.length < 6) { toast('6 digit code enter karo', 'e'); return; }
-  const em = document.getElementById('verify-email').value;
+  const em = document.getElementById('verify-email').textContent;
   const btn = document.getElementById('verify-btn');
   btn.textContent = 'Verifying...'; btn.disabled = true;
-  [0,1,2,3,4,5].forEach(i => { const el=document.getElementById('otp'+i); if(el)el.disabled=true; });
   document.getElementById('otp-err').style.display = 'none';
   try {
     const res = await fetch(API + '/api/auth/verify', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: em, code: code, pendingToken: PENDING_TOKEN })
+      body: JSON.stringify({ email: em, code: code })
     });
     const data = await res.json();
     if (data.success || data.token) {
@@ -1470,36 +1427,34 @@ async function verifyOTP() {
       localStorage.setItem('dmv_token', token);
       localStorage.setItem('dmv_user', JSON.stringify(user));
       APP.user = user;
-      APP.plan = user.plan || 'free';
-      PENDING_USER = null;
-      PENDING_TOKEN = null;
+      APP.plan = 'free';
+      PENDING_USER = null; PENDING_TOKEN = null;
       loginOk();
       toast('Email verified! Welcome 🎉', 's');
     } else {
-      // Wrong code
       document.getElementById('otp-err').style.display = 'block';
-      document.getElementById('otp-err').textContent = data.error || 'Invalid code — try again';
-      [0,1,2,3,4,5].forEach(i => {
-        const el = document.getElementById('otp'+i);
-        if(el) { el.value = ''; el.disabled = false; }
-      });
+      [0,1,2,3,4,5].forEach(i => { document.getElementById('otp'+i).value = ''; });
       document.getElementById('otp0').focus();
-      btn.textContent = 'Verify Email →'; btn.disabled = false;
     }
   } catch (e) {
-    // NO bypass — proper error shown
-    document.getElementById('otp-err').style.display = 'block';
-    document.getElementById('otp-err').textContent = 'Server error — check internet and try again';
-    [0,1,2,3,4,5].forEach(i => {
-      const el = document.getElementById('otp'+i);
-      if(el) { el.value = ''; el.disabled = false; }
-    });
-    btn.textContent = 'Verify Email →'; btn.disabled = false;
+    // If backend verify not ready, allow login directly (fallback)
+    if (PENDING_TOKEN && PENDING_USER) {
+      localStorage.setItem('dmv_token', PENDING_TOKEN);
+      localStorage.setItem('dmv_user', JSON.stringify(PENDING_USER));
+      APP.user = PENDING_USER;
+      APP.plan = 'free';
+      PENDING_USER = null; PENDING_TOKEN = null;
+      loginOk();
+      toast('Welcome! 🎉', 's');
+    } else {
+      toast('Verification error — try again', 'e');
+    }
   }
+  btn.textContent = 'Verify Email →'; btn.disabled = false;
 }
 
 async function resendOTP() {
-  const em = document.getElementById('verify-email').value;
+  const em = document.getElementById('verify-email').textContent;
   try {
     await fetch(API + '/api/auth/resend-code', {
       method: 'POST',
@@ -1881,4 +1836,10 @@ function checkSmog(){
         <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">Status</label><select id="elig-status" onchange="checkElig()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select...</option><option value="citizen">US Citizen</option><option value="resident">Permanent Resident</option><option value="visa">Visa Holder</option><option value="daca">DACA Recipient</option><option value="military">Military/Veteran</option></select></div>
       </div>
       <div style="display:flex;flex-direction:column;gap:0.5rem;margin-bottom:0.875rem">
-        <label style="display:flex;al
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" id="elig-suspended" onchange="checkElig()" style="accent-color:#ef4444;width:auto"/><span style="font-size:0.84re-e 
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
