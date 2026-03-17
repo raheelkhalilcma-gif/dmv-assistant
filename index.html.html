@@ -661,7 +661,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
   <div style="background:var(--card);border:1px solid var(--border2);border-radius:var(--rxl);padding:2rem;width:100%;max-width:390px;text-align:center">
     <div style="width:64px;height:64px;border-radius:50%;background:rgba(29,106,229,0.12);border:1px solid rgba(29,106,229,0.25);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 1.25rem">📧</div>
     <div style="font-size:1.2rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:0.35rem">Check your email</div>
-    <div style="font-size:0.82rem;color:var(--text3);margin-bottom:1.5rem">We sent a 6-digit verification code to<br/><strong id="verify-email" style="color:var(--blue3)">your@email.com</strong></div>
+    <div style="font-size:0.82rem;color:var(--text3);margin-bottom:1.5rem">We sent a 6-digit verification code to<br/><strong id="verify-email" style="color:var(--blue3)"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f28b9d8780b2979f939b9edc919d9f">[email&#160;protected]</a></strong></div>
     <div style="display:flex;gap:0.5rem;justify-content:center;margin-bottom:1.25rem">
       <input class="fi" id="otp0" maxlength="1" style="width:46px;text-align:center;font-size:1.3rem;font-weight:900;padding:0.6rem 0" oninput="otpNext(0)" onkeydown="otpBack(event,0)"/>
       <input class="fi" id="otp1" maxlength="1" style="width:46px;text-align:center;font-size:1.3rem;font-weight:900;padding:0.6rem 0" oninput="otpNext(1)" onkeydown="otpBack(event,1)"/>
@@ -1197,6 +1197,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 </div>
 
 <script>
+
 const STATES=['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
 const OFFICES={'California':['Los Angeles — Culver City','Los Angeles — Van Nuys','Los Angeles — Santa Monica','San Francisco — Fell St','San Diego — Normal St','Sacramento — Broadway'],'Texas':['Houston — N Shepherd Dr','Dallas — Mockingbird Ln','Austin — E Rundberg Ln','San Antonio — Fredericksburg Rd'],'Florida':['Miami — NW 119th St','Orlando — E Colonial Dr','Tampa — Adamo Dr','Jacksonville — Blanding Blvd'],'New York':['NYC — Jamaica Ave','Brooklyn — Linden Blvd','Manhattan — 34th St','Buffalo — Dingens St'],'default':['Main Office — Downtown','North Branch Office','South Branch Office','East District Office']};
 const FAQS=[{q:'Is DMV Assistant free?',a:'Yes! Free plan is completely free forever — no credit card needed. Includes 2 appointment alerts and 2 renewal reminders. Pro plan is $12/mo for unlimited everything.'},{q:'How does appointment monitoring work?',a:'We check DMV slot availability every 30 minutes for your selected state and office. The moment a slot opens, you receive instant email and SMS — so you book before anyone else.'},{q:'All 50 states supported?',a:'Yes — all 50 US states are fully supported. Every state has major DMV offices covered. Select your state when setting up an alert.'},{q:'Are my documents secure?',a:'AES-256 military-grade encryption — same as major banks. Fully GDPR and CCPA compliant. Documents never shared with third parties.'},{q:'What is the veteran discount?',a:'US Veterans and Active Duty Military receive 50% off Pro Plan permanently. Use code VET50 at checkout.'},{q:'Can I manage my whole family?',a:'Yes! Family Plan ($40/mo) supports up to 5 family members each with their own login, alerts, and documents under one subscription.'},{q:'Is DMV Assistant government affiliated?',a:'No. We are an independent third-party service. Not affiliated with any government DMV agency. Always verify with your state\'s official DMV website for official transactions.'}];
@@ -1470,8 +1471,6 @@ async function resendOTP() {
 function gLogin() {
   toast('Google login abhi available nahi — email se sign in karo', 'w');
 }
-function doLogin(){const e=document.getElementById('li-em').value;if(!e){toast('Enter email','e');return;}APP.user={name:e.split('@')[0],email:e,init:e.slice(0,2).toUpperCase()};loginOk();}
-function doSignup(){const fn=document.getElementById('su-fn').value,ln=document.getElementById('su-ln').value,em=document.getElementById('su-em').value,pw=document.getElementById('su-pw').value;if(!fn||!em||!pw){toast('Fill all fields','e');return;}if(pw.length<8){toast('Password min 8 chars','e');return;}APP.user={name:fn+' '+ln,email:em,init:(fn[0]+(ln?ln[0]:'')).toUpperCase()};const vet=document.getElementById('su-vet').checked;loginOk();toast(vet?'Welcome! 🎖 Code VET50 saved!':'Account created! Welcome 🎉','s');}
 function loginOk(){
   const u = APP.user || {};
   const firstName = u.first_name || (u.name ? u.name.split(' ')[0] : 'User');
@@ -1765,81 +1764,13 @@ function checkSmog(){
     STATES.forEach(s=>{const o=document.createElement('option');o.value=s;o.textContent=s;el.appendChild(o);});
   }
 });
+
+document.querySelectorAll('.mov').forEach(m => m.addEventListener('click', function(e) {
+  if (e.target === this) this.classList.remove('open');
+}));
+
+init();
+
 </script>
-
-<!-- Tool pages continue below - inside body -->
-
-<!-- DMV FEE CALCULATOR -->
-<div class="fp" id="fp-fee">
-  <div style="max-width:760px;margin:0 auto;padding:2rem 1.5rem;min-height:100vh;background:var(--bg)">
-    <div style="margin-bottom:1.5rem"><span onclick="showFP('fp-land')" style="font-size:0.84rem;color:var(--blue3);font-weight:700;cursor:pointer">← Back to Home</span></div>
-    <div style="margin-bottom:1.75rem">
-      <div style="display:inline-block;background:rgba(22,163,74,0.1);border:1px solid rgba(22,163,74,0.25);border-radius:100px;padding:3px 12px;font-size:0.65rem;font-weight:800;color:#22c55e;text-transform:uppercase;margin-bottom:0.75rem">Free Tool</div>
-      <h2 style="font-size:1.8rem;font-weight:900;color:#f1f5f9;letter-spacing:-0.04em;margin-bottom:0.5rem">💰 DMV Fee Calculator</h2>
-      <p style="font-size:0.9rem;color:#94a3b8;line-height:1.7">Select your state and service — see exact fees, taxes, and late penalties before visiting DMV.</p>
-    </div>
-    <div style="background:#0c1018;border:1px solid #1e293b;border-radius:16px;padding:1.5rem;margin-bottom:1.25rem">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;margin-bottom:0.875rem">
-        <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">State</label><select id="fee-state" onchange="calcFee()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select State...</option></select></div>
-        <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">Service</label><select id="fee-service" onchange="calcFee()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select...</option><option value="dl_new">New Driver License</option><option value="dl_renew">License Renewal</option><option value="realid">REAL ID</option><option value="reg_new">New Registration</option><option value="reg_renew">Registration Renewal</option><option value="title">Title Transfer</option><option value="id_card">State ID Card</option><option value="dl_dup">Duplicate License</option><option value="road_test">Road Test</option><option value="knowledge">Knowledge Test</option></select></div>
-      </div>
-      <div style="margin-bottom:0.875rem"><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">Vehicle Value (optional — for registration tax)</label><input id="fee-value" type="number" placeholder="e.g. 25000" oninput="calcFee()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"/></div>
-      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-bottom:1rem"><input type="checkbox" id="fee-late" onchange="calcFee()" style="accent-color:#ef4444;width:auto"/><span style="font-size:0.84rem;color:#94a3b8">Include late renewal penalty (+$25)</span></label>
-      <div id="fee-result" style="display:none;background:#111827;border-radius:10px;padding:1.1rem"><div id="fee-breakdown"></div></div>
-      <div style="margin-top:1rem;padding:0.75rem;background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.2);border-radius:8px;font-size:0.78rem;color:#f59e0b">💡 Fees are approximate. Always verify with your official state DMV website.</div>
-    </div>
-    <div style="background:#0c1018;border:1px solid #1e293b;border-radius:16px;padding:1.25rem"><div style="font-size:0.84rem;font-weight:800;color:#f1f5f9;margin-bottom:0.5rem">Avoid Late Fees — Set a Free Reminder</div><p style="font-size:0.8rem;color:#94a3b8;line-height:1.65;margin-bottom:0.875rem">DMV Assistant sends reminders 60, 30 & 7 days before expiry — free forever.</p><button onclick="showFP('fp-signup')" style="padding:0.4rem 0.9rem;background:#2563eb;color:#fff;border:none;border-radius:7px;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:inherit">Sign Up Free →</button></div>
-  </div>
-</div>
-
-<!-- APPOINTMENT CHECKLIST -->
-<div class="fp" id="fp-checklist">
-  <div style="max-width:760px;margin:0 auto;padding:2rem 1.5rem;min-height:100vh;background:var(--bg)">
-    <div style="margin-bottom:1.5rem"><span onclick="showFP('fp-land')" style="font-size:0.84rem;color:var(--blue3);font-weight:700;cursor:pointer">← Back to Home</span></div>
-    <div style="margin-bottom:1.75rem">
-      <div style="display:inline-block;background:rgba(22,163,74,0.1);border:1px solid rgba(22,163,74,0.25);border-radius:100px;padding:3px 12px;font-size:0.65rem;font-weight:800;color:#22c55e;text-transform:uppercase;margin-bottom:0.75rem">Free Tool</div>
-      <h2 style="font-size:1.8rem;font-weight:900;color:#f1f5f9;letter-spacing:-0.04em;margin-bottom:0.5rem">📋 DMV Appointment Checklist</h2>
-      <p style="font-size:0.9rem;color:#94a3b8;line-height:1.7">Select your service — get exact documents to bring. Check them off before leaving home. Zero wasted trips.</p>
-    </div>
-    <div style="background:#0c1018;border:1px solid #1e293b;border-radius:16px;padding:1.5rem;margin-bottom:1.25rem">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;margin-bottom:1rem">
-        <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">Service</label><select id="chk-service" onchange="loadChecklist()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select...</option><option value="realid">REAL ID</option><option value="dl_new">New License</option><option value="dl_renew">License Renewal</option><option value="reg_renew">Registration Renewal</option><option value="title">Title Transfer</option><option value="id_card">State ID Card</option><option value="cdl">CDL License</option><option value="road_test">Road Test</option></select></div>
-        <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">State</label><select id="chk-state" onchange="loadChecklist()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select State...</option></select></div>
-      </div>
-      <div id="chk-result" style="display:none">
-        <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem"><div style="font-size:0.65rem;color:#475569;font-weight:700;text-transform:uppercase">Documents Required</div><div style="font-size:0.78rem;color:#94a3b8"><span id="chk-done">0</span>/<span id="chk-total">0</span> ready</div></div>
-        <div style="background:#1e293b;border-radius:6px;height:6px;margin-bottom:0.875rem;overflow:hidden"><div id="chk-prog" style="height:100%;background:linear-gradient(90deg,#16a34a,#22c55e);border-radius:6px;width:0%;transition:width 0.3s"></div></div>
-        <div id="chk-items"></div>
-        <div id="chk-notes" style="display:none;margin-top:0.875rem;padding:0.875rem;background:rgba(37,99,235,0.07);border:1px solid rgba(37,99,235,0.2);border-radius:8px;font-size:0.78rem;color:#60a5fa;line-height:1.65"></div>
-      </div>
-    </div>
-    <div style="background:#0c1018;border:1px solid #1e293b;border-radius:16px;padding:1.25rem"><div style="font-size:0.84rem;font-weight:800;color:#f1f5f9;margin-bottom:0.5rem">🗓 Get Alerted When Slots Open</div><p style="font-size:0.8rem;color:#94a3b8;line-height:1.65;margin-bottom:0.875rem">DMV Assistant monitors appointment slots every 30 min across all 50 states.</p><button onclick="showFP('fp-signup')" style="padding:0.4rem 0.9rem;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:7px;color:#f59e0b;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:inherit">Set Appointment Alert →</button></div>
-  </div>
-</div>
-
-<!-- LICENSE ELIGIBILITY -->
-<div class="fp" id="fp-eligibility">
-  <div style="max-width:760px;margin:0 auto;padding:2rem 1.5rem;min-height:100vh;background:var(--bg)">
-    <div style="margin-bottom:1.5rem"><span onclick="showFP('fp-land')" style="font-size:0.84rem;color:var(--blue3);font-weight:700;cursor:pointer">← Back to Home</span></div>
-    <div style="margin-bottom:1.75rem">
-      <div style="display:inline-block;background:rgba(22,163,74,0.1);border:1px solid rgba(22,163,74,0.25);border-radius:100px;padding:3px 12px;font-size:0.65rem;font-weight:800;color:#22c55e;text-transform:uppercase;margin-bottom:0.75rem">Free Tool</div>
-      <h2 style="font-size:1.8rem;font-weight:900;color:#f1f5f9;letter-spacing:-0.04em;margin-bottom:0.5rem">✅ License Eligibility Check</h2>
-      <p style="font-size:0.9rem;color:#94a3b8;line-height:1.7">Answer a few questions — instantly know if you qualify for a license in your state.</p>
-    </div>
-    <div style="background:#0c1018;border:1px solid #1e293b;border-radius:16px;padding:1.5rem;margin-bottom:1.25rem">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;margin-bottom:0.875rem">
-        <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">State</label><select id="elig-state" onchange="checkElig()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select State...</option></select></div>
-        <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">License Type</label><select id="elig-type" onchange="checkElig()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select...</option><option value="regular">Regular (Class D)</option><option value="cdl">Commercial (CDL)</option><option value="motorcycle">Motorcycle</option><option value="learner">Learner Permit</option></select></div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;margin-bottom:0.875rem">
-        <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">Your Age</label><input id="elig-age" type="number" placeholder="e.g. 17" min="14" max="100" oninput="checkElig()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"/></div>
-        <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">Status</label><select id="elig-status" onchange="checkElig()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select...</option><option value="citizen">US Citizen</option><option value="resident">Permanent Resident</option><option value="visa">Visa Holder</option><option value="daca">DACA Recipient</option><option value="military">Military/Veteran</option></select></div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:0.5rem;margin-bottom:0.875rem">
-        <label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" id="elig-suspended" onchange="checkElig()" style="accent-color:#ef4444;width:auto"/><span style="font-size:0.84re-e 
-    </div>
-  </div>
-</div>
-
 </body>
 </html>
