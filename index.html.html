@@ -1626,6 +1626,8 @@ function qMsg(q){document.getElementById('cin').value=q;sendMsg();showPg('pg-ai'
 function calcFee(){
   const st=document.getElementById('fee-state').value;
   const sv=document.getElementById('fee-service').value;
+  // Show DMV link as soon as state is selected
+  showDMVLink(st,'fee-dmv-link');
   if(!st||!sv)return;
   const fees=FEE_DATA[st]||FEE_DATA.default;
   const base=fees[sv]||30;
@@ -1655,6 +1657,9 @@ const CHK_DATA={
 };
 function loadChecklist(){
   const sv=document.getElementById('chk-service').value;
+  // Show DMV link when state is selected
+  const chkSt=document.getElementById('chk-state')?document.getElementById('chk-state').value:'';
+  if(chkSt) showDMVLink(chkSt,'chk-dmv-link');
   if(!sv)return;
   const data=CHK_DATA[sv];
   if(!data)return;
@@ -1862,16 +1867,16 @@ const DMV_LINKS = {
 };
 
 function showDMVLink(state, containerId) {
-  if (!state || !DMV_LINKS[state]) return;
+  if (!state) return;
   const el = document.getElementById(containerId);
   if (!el) return;
-  el.innerHTML = `
-    <a href="${DMV_LINKS[state]}" target="_blank" rel="noopener" 
-       style="display:inline-flex;align-items:center;gap:6px;background:rgba(29,106,229,0.1);border:1px solid rgba(29,106,229,0.25);border-radius:8px;padding:0.5rem 0.875rem;font-size:0.8rem;font-weight:700;color:#60a5fa;text-decoration:none;margin-top:0.875rem;transition:all 0.2s"
-       onmouseover="this.style.background='rgba(29,106,229,0.2)'" 
-       onmouseout="this.style.background='rgba(29,106,229,0.1)'">
-      🔗 Official ${state} DMV Website ↗
-    </a>`;
+  const link = DMV_LINKS[state] || '#';
+  el.innerHTML = `<div style="margin-top:0.875rem;padding:0.875rem;background:rgba(29,106,229,0.07);border:1px solid rgba(29,106,229,0.2);border-radius:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem">
+    <div style="font-size:0.82rem;color:#94a3b8">📋 Always verify fees & requirements at the official source:</div>
+    <a href="${link}" target="_blank" rel="noopener" 
+       style="display:inline-flex;align-items:center;gap:5px;background:#2563eb;border-radius:7px;padding:0.4rem 0.875rem;font-size:0.78rem;font-weight:700;color:#fff;text-decoration:none;white-space:nowrap">
+      🔗 ${state} Official DMV ↗
+    </a></div>`;
   el.style.display = 'block';
 }
 
