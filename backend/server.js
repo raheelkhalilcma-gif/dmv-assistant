@@ -48,3 +48,18 @@ const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`DMV Assistant API running on port ${PORT}`);
 });
+const familyRoutes = require('./routes/family');
+app.use('/api/family', familyRoutes);
+
+// Also add DELETE routes for alerts and renewals in their files:
+// backend/routes/alerts.js mein:
+// router.delete('/:id', auth, async (req,res)=>{
+//   await supabase.from('alerts').delete().eq('id',req.params.id).eq('user_id',req.user.userId);
+//   res.json({success:true});
+// });
+
+// backend/routes/renewals.js mein:
+// router.delete('/:id', auth, async (req,res)=>{
+//   await supabase.from('reminders').delete().eq('id',req.params.id).eq('user_id',req.user.userId);
+//   res.json({success:true});
+// });
