@@ -1832,6 +1832,49 @@ async function doForgotPassword() {
 
 function openBillingPortal(){window.open('https://app.lemonsqueezy.com/my-orders','_blank');toast('Opening billing portal...','i');}
 
+// ===== OFFICIAL DMV LINKS =====
+const DMV_LINKS = {
+  'Alabama':'https://www.alabamadmv.org','Alaska':'https://dmv.alaska.gov',
+  'Arizona':'https://azdot.gov/motor-vehicles','Arkansas':'https://www.dfa.arkansas.gov/driver-services',
+  'California':'https://www.dmv.ca.gov','Colorado':'https://dmv.colorado.gov',
+  'Connecticut':'https://portal.ct.gov/DMV','Delaware':'https://www.dmv.de.gov',
+  'Florida':'https://www.flhsmv.gov','Georgia':'https://dds.georgia.gov',
+  'Hawaii':'https://www.hawaii.gov/hdot','Idaho':'https://itd.idaho.gov/dmv',
+  'Illinois':'https://www.ilsos.gov/departments/drivers','Indiana':'https://www.in.gov/bmv',
+  'Iowa':'https://iowadot.gov/mvd','Kansas':'https://www.ksrevenue.gov/dovindex.html',
+  'Kentucky':'https://drive.ky.gov','Louisiana':'https://omv.la.gov',
+  'Maine':'https://www.maine.gov/sos/bmv','Maryland':'https://mva.maryland.gov',
+  'Massachusetts':'https://www.mass.gov/orgs/registry-of-motor-vehicles','Michigan':'https://www.michigan.gov/sos',
+  'Minnesota':'https://dps.mn.gov/divisions/dvs','Mississippi':'https://www.dps.state.ms.us/driver-services',
+  'Missouri':'https://dor.mo.gov/motor-vehicle','Montana':'https://dojmt.gov/driving',
+  'Nebraska':'https://dmv.nebraska.gov','Nevada':'https://dmv.nv.gov',
+  'New Hampshire':'https://www.nh.gov/safety/divisions/dmv','New Jersey':'https://www.nj.gov/mvc',
+  'New Mexico':'https://www.mvd.newmexico.gov','New York':'https://dmv.ny.gov',
+  'North Carolina':'https://www.ncdot.gov/dmv','North Dakota':'https://www.dot.nd.gov/divisions/mv',
+  'Ohio':'https://www.bmv.ohio.gov','Oklahoma':'https://www.ok.gov/tax/Vehicles',
+  'Oregon':'https://www.oregon.gov/odot/dmv','Pennsylvania':'https://www.dmv.pa.gov',
+  'Rhode Island':'https://dmv.ri.gov','South Carolina':'https://www.scdmvonline.com',
+  'South Dakota':'https://dor.sd.gov/motor-vehicles','Tennessee':'https://www.tn.gov/safety/driver-services',
+  'Texas':'https://www.txdmv.gov','Utah':'https://dmv.utah.gov',
+  'Vermont':'https://dmv.vermont.gov','Virginia':'https://www.dmv.virginia.gov',
+  'Washington':'https://www.dol.wa.gov','West Virginia':'https://transportation.wv.gov/dmv',
+  'Wisconsin':'https://www.dot.wisconsin.gov/drivers','Wyoming':'https://dot.state.wy.us/home/titles_plates_registration_drivers_license'
+};
+
+function showDMVLink(state, containerId) {
+  if (!state || !DMV_LINKS[state]) return;
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML = `
+    <a href="${DMV_LINKS[state]}" target="_blank" rel="noopener" 
+       style="display:inline-flex;align-items:center;gap:6px;background:rgba(29,106,229,0.1);border:1px solid rgba(29,106,229,0.25);border-radius:8px;padding:0.5rem 0.875rem;font-size:0.8rem;font-weight:700;color:#60a5fa;text-decoration:none;margin-top:0.875rem;transition:all 0.2s"
+       onmouseover="this.style.background='rgba(29,106,229,0.2)'" 
+       onmouseout="this.style.background='rgba(29,106,229,0.1)'">
+      🔗 Official ${state} DMV Website ↗
+    </a>`;
+  el.style.display = 'block';
+}
+
 </script>
 
 <!-- FORGOT PASSWORD PAGE -->
@@ -1872,13 +1915,14 @@ function openBillingPortal(){window.open('https://app.lemonsqueezy.com/my-orders
   </div>
   <div style="background:#0c1018;border:1px solid #1e293b;border-radius:16px;padding:1.5rem;margin-bottom:1.25rem">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;margin-bottom:0.875rem">
-      <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">State</label><select id="fee-state" onchange="calcFee()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select State...</option></select></div>
+      <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">State</label><select id="fee-state" onchange="calcFee();showDMVLink(this.value,'fee-dmv-link')" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select State...</option></select></div>
       <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">Service</label><select id="fee-service" onchange="calcFee()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select...</option><option value="dl_new">New Driver License</option><option value="dl_renew">License Renewal</option><option value="realid">REAL ID</option><option value="reg_new">New Registration</option><option value="reg_renew">Registration Renewal</option><option value="title">Title Transfer</option><option value="id_card">State ID Card</option><option value="dl_dup">Duplicate License</option><option value="road_test">Road Test</option><option value="knowledge">Knowledge Test</option></select></div>
     </div>
     <div style="margin-bottom:0.875rem"><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">Vehicle Value (for tax)</label><input id="fee-value" type="number" placeholder="e.g. 25000" oninput="calcFee()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"/></div>
     <label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-bottom:1rem"><input type="checkbox" id="fee-late" onchange="calcFee()" style="accent-color:#ef4444;width:auto"/><span style="font-size:0.84rem;color:#94a3b8">Include late renewal penalty (+$25)</span></label>
     <div id="fee-result" style="display:none;background:#111827;border-radius:10px;padding:1.1rem"><div id="fee-breakdown"></div></div>
     <div style="margin-top:1rem;padding:0.75rem;background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.2);border-radius:8px;font-size:0.78rem;color:#f59e0b">💡 Fees are approximate. Always verify with your state DMV website.</div>
+    <div id="fee-dmv-link" style="display:none"></div>
   </div>
 </div>
 </div>
@@ -1899,13 +1943,14 @@ function openBillingPortal(){window.open('https://app.lemonsqueezy.com/my-orders
   <div style="background:#0c1018;border:1px solid #1e293b;border-radius:16px;padding:1.5rem;margin-bottom:1.25rem">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;margin-bottom:1rem">
       <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">Service</label><select id="chk-service" onchange="loadChecklist()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select...</option><option value="realid">REAL ID</option><option value="dl_new">New License</option><option value="dl_renew">License Renewal</option><option value="reg_renew">Registration Renewal</option><option value="title">Title Transfer</option><option value="id_card">State ID</option><option value="cdl">CDL License</option><option value="road_test">Road Test</option></select></div>
-      <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">State</label><select id="chk-state" onchange="loadChecklist()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select State...</option></select></div>
+      <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">State</label><select id="chk-state" onchange="loadChecklist();showDMVLink(this.value,'chk-dmv-link')" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select State...</option></select></div>
     </div>
     <div id="chk-result" style="display:none">
       <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem"><div style="font-size:0.65rem;color:#475569;font-weight:700;text-transform:uppercase">Documents Required</div><div style="font-size:0.78rem;color:#94a3b8"><span id="chk-done">0</span>/<span id="chk-total">0</span> ready</div></div>
       <div style="background:#1e293b;border-radius:6px;height:6px;margin-bottom:0.875rem;overflow:hidden"><div id="chk-prog" style="height:100%;background:linear-gradient(90deg,#16a34a,#22c55e);border-radius:6px;width:0%;transition:width 0.3s"></div></div>
       <div id="chk-items"></div>
       <div id="chk-notes" style="display:none;margin-top:0.875rem;padding:0.875rem;background:rgba(37,99,235,0.07);border:1px solid rgba(37,99,235,0.2);border-radius:8px;font-size:0.78rem;color:#60a5fa;line-height:1.65"></div>
+      <div id="chk-dmv-link" style="display:none"></div>
     </div>
   </div>
 </div>
@@ -1926,7 +1971,7 @@ function openBillingPortal(){window.open('https://app.lemonsqueezy.com/my-orders
   </div>
   <div style="background:#0c1018;border:1px solid #1e293b;border-radius:16px;padding:1.5rem;margin-bottom:1.25rem">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;margin-bottom:0.875rem">
-      <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">State</label><select id="elig-state" onchange="checkElig()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select State...</option></select></div>
+      <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">State</label><select id="elig-state" onchange="checkElig();showDMVLink(this.value,'elig-dmv-link')" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select State...</option></select></div>
       <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">License Type</label><select id="elig-type" onchange="checkElig()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select...</option><option value="regular">Regular (Class D)</option><option value="cdl">Commercial (CDL)</option><option value="motorcycle">Motorcycle</option><option value="learner">Learner Permit</option></select></div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;margin-bottom:0.875rem">
@@ -1939,6 +1984,7 @@ function openBillingPortal(){window.open('https://app.lemonsqueezy.com/my-orders
       <label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" id="elig-vision" onchange="checkElig()" style="accent-color:#2563eb;width:auto"/><span style="font-size:0.84rem;color:#94a3b8">Wear glasses/contacts</span></label>
     </div>
     <div id="elig-result"></div>
+    <div id="elig-dmv-link" style="display:none"></div>
   </div>
   <div style="background:#0c1018;border:1px solid #1e293b;border-radius:16px;padding:1.25rem"><div style="font-size:0.84rem;font-weight:800;color:#f1f5f9;margin-bottom:0.5rem">📋 Get Documents Checklist</div><p style="font-size:0.8rem;color:#94a3b8;line-height:1.65;margin-bottom:0.875rem">See exactly what to bring to DMV.</p><button onclick="showFP('fp-checklist')" style="padding:0.4rem 0.9rem;background:rgba(22,163,74,0.12);border:1px solid rgba(22,163,74,0.28);border-radius:7px;color:#22c55e;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:inherit">Open Checklist →</button></div>
 </div>
