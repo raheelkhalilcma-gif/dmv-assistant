@@ -166,5 +166,72 @@ router.get('/me', async (req, res) => {
     res.json({ user: { ...user, isVeteran: user.is_veteran } });
   } catch (err) { res.status(401).json({ error: 'Invalid token' }); }
 });
+// ─── POST /api/auth/forgot-password ────────────────────────
+// Add this route to backend/routes/auth.js BEFORE module.exports
 
+router.post('/forgot-password', async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) return res.status(400).json({ error: 'Email required' });
+
+    const cleanEmail = email.toLowerCase().trim();
+
+    // Check if user exists
+    const { data: user } = await supabase
+      .from('users')
+      .select('id, name')
+      .eq('email', cleanEmail)
+      .single();
+
+    // Always return success (don't reveal if email exists)
+    if (!user) {
+      return res.json({ success: true });
+    }
+
+    // Generate reset token
+    const crypto = require('crypto');
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    const resetExpiry = new Date(Date.now() + 30 * 60 * 1000); // 30 minutes
+
+    // Save reset token to DB
+    await supabase
+      .from('users')
+      .update({
+        reset_token: resetToken,
+        reset_token_expiry: resetExpiry.toISOString()
+      })
+      .eq('email', cleanEmail);
+
+    // Send reset email
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    const resetLink = `${process.env.FRONTEND_URL || 'https://dmv-assistant.vercel.app'}?reset=${resetToken}&email=${encodeURIComponent(cleanEmail)}`;
+
+    await sgMail.send({
+      to: cleanEmail,
+      from: { email: process.env.FROM_EMAIL || 'alerts@dmvassistants.com', name: 'DMV Assistant' },
+      subject: 'DMV Assistant — Reset Your Password',
+      html: `
+        <div style="font-family:Arial,sans-serif;max-width:480px;margin:0 auto;padding:2rem;background:#07090f;color:#f1f5f9;border-radius:12px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:1.5rem">
+            <div style="width:40px;height:40px;border-radius:9px;background:linear-gradient(135deg,#1d6ae5,#0d47a1);display:flex;align-items:center;justify-content:center;font-size:1.1rem">🏛</div>
+            <div style="font-size:1.1rem;font-weight:900;color:#f1f5f9">DMV Assistant</div>
+          </div>
+          <h2 style="color:#f1f5f9;margin-bottom:0.5rem">Reset Your Password</h2>
+          <p style="color:#94a3b8;font-size:0.9rem;margin-bottom:1.5rem;line-height:1.6">Hi ${user.name ? user.name.split(' ')[0] : 'there'}, click the button below to reset your password. This link expires in 30 minutes.</p>
+          <a href="${resetLink}" style="display:inline-block;background:#2563eb;color:#fff;text-decoration:none;padding:0.75rem 1.5rem;border-radius:8px;font-weight:700;font-size:0.9rem;margin-bottom:1.5rem">Reset Password →</a>
+          <p style="color:#475569;font-size:0.75rem;line-height:1.6">If you didn't request this, ignore this email. Your password won't change.</p>
+          <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid #1e293b">
+            <p style="color:#475569;font-size:0.72rem;margin:0">DMV Assistant · dmvassistants.com</p>
+          </div>
+        </div>
+      `
+    });
+
+    res.json({ success: true });
+
+  } catch (err) {
+    console.error('Forgot password error:', err);
+    res.status(500).json({ error: 'Server error — try again' });
+  }
+});
 module.exports = router;
