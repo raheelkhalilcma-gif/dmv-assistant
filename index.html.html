@@ -861,7 +861,11 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 
       <!-- APPOINTMENTS -->
       <div class="pg" id="pg-appts">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem;flex-wrap:wrap;gap:0.75rem"><div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em">DMV Appointment Alerts</div><button class="btn bp bsm" onclick="oM('m-appt')">+ New Alert</button></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem;flex-wrap:wrap;gap:0.75rem">
+          <div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em">DMV Appointment Alerts</div>
+          <button class="btn bp bsm" onclick="oM('m-appt')">+ New Alert</button>
+        </div>
+        <div id="alerts-list"><div style="padding:1rem;text-align:center;color:var(--text3);font-size:0.84rem">Loading alerts...</div></div>
         <div class="banner bb"><div class="banner-ic">🎯</div><div class="banner-body"><div class="banner-t">Slot Available — REAL ID, Culver City DMV, CA</div><div class="banner-s">March 22, 2026 @ 10:30 AM · Alert sent via Email + SMS</div><div class="banner-acts"><button class="btn bp bsm" onclick="openDMV('California')">Book Now →</button><button class="btn bgh bsm" onclick="toast('Dismissed','i')">Dismiss</button></div></div></div>
         <div class="card">
           <div class="card-t">Active Monitoring — All 50 States</div>
@@ -873,7 +877,11 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 
       <!-- RENEWALS -->
       <div class="pg" id="pg-renewals">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.75rem"><div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em">Renewal Reminders</div><button class="btn bg bsm" onclick="oM('m-renewal')">+ Add Reminder</button></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.75rem">
+          <div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em">Renewal Reminders</div>
+          <button class="btn bg bsm" onclick="oM('m-renewal')">+ Add Reminder</button>
+        </div>
+        <div id="renewals-list"><div style="padding:1rem;text-align:center;color:var(--text3);font-size:0.84rem">Loading reminders...</div></div>
         <div class="banner br" style="margin-bottom:1rem"><div class="banner-ic">⚠️</div><div class="banner-body"><div class="banner-t">Driver License expires in 28 days</div><div class="banner-s">CA DL #D2847391 · Fee ~$35 · dmv.ca.gov</div><div class="banner-acts"><button class="btn bd bsm" onclick="openDMV('California')">Renew Online →</button></div></div></div>
         <div class="card">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.875rem"><div class="card-t" style="margin-bottom:0">All Reminders — Alerts at 60, 30 & 7 days</div><button class="btn bgh bsm" onclick="toast('Exporting CSV...','i')">⬇ CSV</button></div>
@@ -937,7 +945,11 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 
       <!-- FAMILY -->
       <div class="pg" id="pg-family">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.75rem"><div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em">Family Members</div><button class="btn bp bsm" onclick="chkFam()">+ Add Member</button></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.75rem">
+          <div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em">Family Members</div>
+          <button class="btn bp bsm" onclick="chkFam()">+ Add Member</button>
+        </div>
+        <div id="family-list"><div style="padding:1rem;text-align:center;color:var(--text3);font-size:0.84rem">Family plan required to add members.</div></div>
         <div class="banner bw" id="fam-banner"><div class="banner-ic">⭐</div><div class="banner-body"><div class="banner-t">Family Plan required to add members</div><div class="banner-s">Manage up to 5 family members, their vehicles & documents — $40/month total.</div><div class="banner-acts"><button class="btn bg bsm" onclick="doUpgrade('family')">Upgrade to Family → $40/mo</button></div></div></div>
         <div id="mem-list">
           <div class="memcard"><div class="memava" style="background:linear-gradient(135deg,#1d6ae5,#60a5fa);color:#fff">JD</div><div style="flex:1"><div style="font-size:0.84rem;font-weight:700">John Doe <span class="ibadge ib-b">OWNER</span></div><div style="font-size:0.68rem;color:var(--text3);margin-top:1px"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="107a7f787e50757d71797c3e737f7d">[email&#160;protected]</a> · California</div></div><button class="btn bgh bsm" onclick="toast('Profile settings','i')">Edit</button></div>
@@ -1212,8 +1224,9 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 </div>
 </div>
 
-<script>
 
+
+<script>
 const STATES=['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
 const OFFICES={'California':['Los Angeles — Culver City','Los Angeles — Van Nuys','Los Angeles — Santa Monica','San Francisco — Fell St','San Diego — Normal St','Sacramento — Broadway'],'Texas':['Houston — N Shepherd Dr','Dallas — Mockingbird Ln','Austin — E Rundberg Ln','San Antonio — Fredericksburg Rd'],'Florida':['Miami — NW 119th St','Orlando — E Colonial Dr','Tampa — Adamo Dr','Jacksonville — Blanding Blvd'],'New York':['NYC — Jamaica Ave','Brooklyn — Linden Blvd','Manhattan — 34th St','Buffalo — Dingens St'],'default':['Main Office — Downtown','North Branch Office','South Branch Office','East District Office']};
 const FAQS=[{q:'Is DMV Assistant free?',a:'Yes! Free plan is completely free forever — no credit card needed. Includes 2 appointment alerts and 2 renewal reminders. Pro plan is $12/mo for unlimited everything.'},{q:'How does appointment monitoring work?',a:'We check DMV slot availability every 30 minutes for your selected state and office. The moment a slot opens, you receive instant email and SMS — so you book before anyone else.'},{q:'All 50 states supported?',a:'Yes — all 50 US states are fully supported. Every state has major DMV offices covered. Select your state when setting up an alert.'},{q:'Are my documents secure?',a:'AES-256 military-grade encryption — same as major banks. Fully GDPR and CCPA compliant. Documents never shared with third parties.'},{q:'What is the veteran discount?',a:'US Veterans and Active Duty Military receive 50% off Pro Plan permanently. Use code VET50 at checkout.'},{q:'Can I manage my whole family?',a:'Yes! Family Plan ($40/mo) supports up to 5 family members each with their own login, alerts, and documents under one subscription.'},{q:'Is DMV Assistant government affiliated?',a:'No. We are an independent third-party service. Not affiliated with any government DMV agency. Always verify with your state\'s official DMV website for official transactions.'}];
@@ -1239,6 +1252,10 @@ function showPg(id,nav){
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
   const el=document.getElementById(id);
   if(el)el.classList.add('active');
+  // Refresh data on page switch
+  if(id==='pg-appts') loadAlerts();
+  else if(id==='pg-renewals') loadRenewals();
+  else if(id==='pg-family') loadFamilyMembers();
   if(nav){
     document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
     nav.classList.add('active');
@@ -1326,7 +1343,6 @@ function goProPg(id, nav) {
   if (APP.plan === 'pro' || APP.plan === 'family') {
     showPg(id, nav);
   } else {
-    toast('Pro plan required — upgrade to access this feature!', 'w');
     oM('m-upgrade');
   }
 }
@@ -1334,7 +1350,6 @@ function goFamPg(id, nav) {
   if (APP.plan === 'family') {
     showPg(id, nav);
   } else {
-    toast('Family plan required — upgrade to access this feature!', 'w');
     oM('m-upgrade');
   }
 }
@@ -1552,6 +1567,15 @@ function loginOk(){
     const dashBtn = document.querySelector('#fp-app .ni');
     if(dashBtn) showPg('pg-dash', dashBtn);
   });
+
+  // Load plan-based features
+  applyPlanUI();
+  // Load real data from backend
+  setTimeout(function(){
+    loadAlerts();
+    loadRenewals();
+    if(APP.plan==='family') loadFamilyMembers();
+  }, 300);
 }
 
 function saveSettings(){
@@ -1612,9 +1636,93 @@ window.addEventListener('DOMContentLoaded', function(){
 });
 
 function chkFam(){if(APP.plan==='family')oM('m-member');else oM('m-upgrade');}
-function addMember(){const n=document.getElementById('mn').value;if(!n){toast('Enter name','e');return;}cM('m-member');const i=n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);const c=document.createElement('div');c.className='memcard';c.innerHTML=`<div class="memava" style="background:linear-gradient(135deg,#0d9488,#22c55e);color:#fff">${i}</div><div style="flex:1"><div style="font-size:0.84rem;font-weight:700">${n} <span class="ibadge ib-b">MEMBER</span></div><div style="font-size:0.68rem;color:var(--text3)">${document.getElementById('me').value}</div></div><button class="btn bd bsm" onclick="this.closest('.memcard').remove();toast('Member removed','w')">Remove</button>`;document.getElementById('mem-list').appendChild(c);toast(`${n} invited!`,'s');}
-function addAppt(){cM('m-appt');toast('Alert set! Monitoring every 30 min.','s');}
-function addRenewal(){cM('m-renewal');toast('Reminder set! Alerts at 60, 30 & 7 days.','s');}
+async function addMember(){
+  const n=document.getElementById('mn').value.trim();
+  const eml=document.getElementById('me')?document.getElementById('me').value.trim():'';
+  const relEl=document.querySelector('#m-member select');
+  const rel=relEl?relEl.value:'';
+  if(!n){toast('Name required','e');return;}
+  const token=localStorage.getItem('dmv_token');
+  if(!token){toast('Please login first','e');return;}
+  const btn=document.querySelector('#m-member .btn.bp');
+  if(btn){btn.textContent='Adding...';btn.disabled=true;}
+  try{
+    const res=await fetch(API+'/api/family/members',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
+      body:JSON.stringify({name:n,email:eml,relationship:rel})
+    });
+    const data=await res.json();
+    if(data.id||data.member){
+      cM('m-member');
+      toast('✅ Family member added!','s');
+      loadFamilyMembers();
+    } else {
+      toast(data.error||'Could not add member','e');
+    }
+  }catch(e){toast('Connection error','e');}
+  if(btn){btn.textContent='Add Member';btn.disabled=false;}
+}
+async function addAppt(){
+  const state = document.getElementById('appt-st').value;
+  const office = document.getElementById('off-sel') ? document.getElementById('off-sel').value : '';
+  const serviceEl = document.querySelector('#m-appt select:nth-of-type(2)');
+  const service = serviceEl ? serviceEl.value : '';
+  const token = localStorage.getItem('dmv_token');
+  if(!state){toast('State select karo','e');return;}
+  if(!token){toast('Please login first','e');return;}
+  const btn = document.querySelector('#m-appt .btn.bp');
+  if(btn){btn.textContent='Saving...';btn.disabled=true;}
+  try{
+    const res = await fetch(API+'/api/alerts',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
+      body:JSON.stringify({state,office,service,status:'active'})
+    });
+    const data = await res.json();
+    if(data.id || data.alert){
+      cM('m-appt');
+      toast('✅ Alert set! We will notify you when a slot opens.','s');
+      loadAlerts();
+    } else {
+      toast(data.error||'Could not save alert','e');
+    }
+  }catch(e){
+    toast('Connection error — try again','e');
+  }
+  if(btn){btn.textContent='Set Alert';btn.disabled=false;}
+}
+async function addRenewal(){
+  const typeEl = document.querySelector('#m-renewal select');
+  const dateEl = document.querySelector('#m-renewal input[type=date]');
+  const noteEl = document.querySelector('#m-renewal input[placeholder*="plate"], #m-renewal input[placeholder*="ID"]');
+  const type = typeEl ? typeEl.value : '';
+  const expDate = dateEl ? dateEl.value : '';
+  const note = noteEl ? noteEl.value : '';
+  const token = localStorage.getItem('dmv_token');
+  if(!expDate){toast('Expiration date enter karo','e');return;}
+  if(!token){toast('Please login first','e');return;}
+  const btn = document.querySelector('#m-renewal .btn');
+  if(btn){btn.textContent='Saving...';btn.disabled=true;}
+  try{
+    const res = await fetch(API+'/api/renewals',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
+      body:JSON.stringify({type,expiration_date:expDate,note,status:'active'})
+    });
+    const data = await res.json();
+    if(data.id || data.reminder){
+      cM('m-renewal');
+      toast('✅ Reminder set! You will get alerts at 60, 30 & 7 days.','s');
+      loadRenewals();
+    } else {
+      toast(data.error||'Could not save reminder','e');
+    }
+  }catch(e){
+    toast('Connection error — try again','e');
+  }
+  if(btn){btn.textContent='Save Reminder';btn.disabled=false;}
+}
 function stab(el){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');}
 // saveSettings is defined above in loginOk section
 
@@ -1746,7 +1854,7 @@ function decodeVIN(){
       const fields=[{l:'Make',v:r.Make},{l:'Model',v:r.Model},{l:'Year',v:r.ModelYear},{l:'Body',v:r.BodyClass},{l:'Engine',v:r.EngineCylinders?r.EngineCylinders+' Cyl':''},{l:'Fuel',v:r.FuelTypePrimary},{l:'Drive',v:r.DriveType},{l:'Manufacturer',v:r.Manufacturer},{l:'Country',v:r.PlantCountry}].filter(f=>f.v&&f.v!='Not Applicable'&&f.v);
       document.getElementById('vin-cards').innerHTML=fields.map(f=>`<div style="background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:0.625rem 0.75rem"><div style="font-size:0.62rem;color:var(--text3);font-weight:700;text-transform:uppercase;margin-bottom:2px">${f.l}</div><div style="font-size:0.84rem;font-weight:700">${f.v}</div></div>`).join('');
       document.getElementById('vin-result').style.display='block';
-      toast('VIN decoded!','s');
+      
     })
     .catch(()=>{document.getElementById('vin-loading').style.display='none';document.getElementById('vin-error').textContent='Could not decode. Check internet.';document.getElementById('vin-error').style.display='block';});
 }
@@ -1844,7 +1952,7 @@ async function doForgotPassword() {
 // ===== ELIGIBILITY =====
 
 
-function openBillingPortal(){window.open('https://app.lemonsqueezy.com/my-orders','_blank');toast('Opening billing portal...','i');}
+function openBillingPortal(){window.open('https://app.lemonsqueezy.com/my-orders','_blank');}
 
 // ===== OFFICIAL DMV LINKS =====
 const DMV_LINKS = {
@@ -1887,6 +1995,193 @@ function showDMVLink(state, containerId) {
       🔗 ${state} Official DMV ↗
     </a></div>`;
   el.style.display = 'block';
+}
+
+function goToAlert() {
+  if (APP && APP.user) {
+    showFP('fp-app');
+    setTimeout(function() {
+      const ni = document.querySelector('[onclick*="pg-appts"]');
+      showPg('pg-appts', ni);
+      toast('Add your appointment alert below', 'i');
+    }, 100);
+  } else {
+    showFP('fp-signup');
+  }
+}
+function goToRenewal() {
+  if (APP && APP.user) {
+    showFP('fp-app');
+    setTimeout(function() {
+      const ni = document.querySelector('[onclick*="pg-renewals"]');
+      showPg('pg-renewals', ni);
+      toast('Add your renewal reminder below', 'i');
+    }, 100);
+  } else {
+    showFP('fp-signup');
+  }
+}
+
+async function loadAlerts(){
+  const token = localStorage.getItem('dmv_token');
+  if(!token) return;
+  try{
+    const res = await fetch(API+'/api/alerts',{headers:{'Authorization':'Bearer '+token}});
+    const data = await res.json();
+    const alerts = data.alerts || data || [];
+    const container = document.getElementById('alerts-list');
+    const statEl = document.getElementById('stat-alerts');
+    if(statEl) statEl.textContent = alerts.length;
+    if(container){
+      if(alerts.length===0){
+        container.innerHTML='<div style="padding:1rem;text-align:center;color:var(--text3);font-size:0.84rem">No active alerts yet. Click "+ New Alert" to add one.</div>';
+      } else {
+        container.innerHTML = alerts.map(a=>`
+          <div style="display:flex;align-items:center;gap:10px;padding:0.75rem;background:var(--card2);border-radius:var(--r);border:1px solid var(--border);margin-bottom:0.4rem">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--green2);flex-shrink:0;animation:pu 2s infinite"></div>
+            <div style="flex:1">
+              <div style="font-size:0.84rem;font-weight:700">${a.state} — ${a.office||'Any Office'}</div>
+              <div style="font-size:0.7rem;color:var(--text3)">${a.service||'Driver License'} · Monitoring every 30 min</div>
+            </div>
+            <button onclick="deleteAlert('${a.id}')" style="padding:2px 8px;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.2);border-radius:5px;font-size:0.7rem;color:#f87171;cursor:pointer;font-family:inherit">Delete</button>
+          </div>`).join('');
+      }
+    }
+  }catch(e){console.log('Load alerts error:',e);}
+}
+
+async function deleteAlert(id){
+  const token = localStorage.getItem('dmv_token');
+  if(!token||!id) return;
+  try{
+    await fetch(API+'/api/alerts/'+id,{method:'DELETE',headers:{'Authorization':'Bearer '+token}});
+    toast('Alert deleted','i');
+    loadAlerts();
+  }catch(e){toast('Could not delete','e');}
+}
+
+async function loadRenewals(){
+  const token = localStorage.getItem('dmv_token');
+  if(!token) return;
+  try{
+    const res = await fetch(API+'/api/renewals',{headers:{'Authorization':'Bearer '+token}});
+    const data = await res.json();
+    const renewals = data.reminders || data || [];
+    const container = document.getElementById('renewals-list');
+    const statEl = document.getElementById('stat-renewals');
+    if(statEl) statEl.textContent = renewals.length;
+    if(container){
+      if(renewals.length===0){
+        container.innerHTML='<div style="padding:1rem;text-align:center;color:var(--text3);font-size:0.84rem">No reminders yet. Click "+ Add Reminder" to add one.</div>';
+      } else {
+        container.innerHTML = renewals.map(r=>{
+          const days = Math.ceil((new Date(r.expiration_date)-new Date())/(1000*60*60*24));
+          const color = days<=7?'#f87171':days<=30?'var(--gold2)':'var(--green2)';
+          return `<div style="padding:0.75rem;background:var(--card2);border-radius:var(--r);border:1px solid var(--border);margin-bottom:0.4rem">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+              <div style="font-size:0.84rem;font-weight:700">${r.type||'Renewal'}</div>
+              <div style="font-size:0.78rem;font-weight:800;color:${color}">${days>0?days+' days left':'Expired!'}</div>
+            </div>
+            <div style="height:4px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden;margin-bottom:4px">
+              <div style="height:100%;border-radius:2px;background:${color};width:${Math.min(100,Math.max(5,(365-days)/365*100))}%"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div style="font-size:0.7rem;color:var(--text3)">Expires: ${new Date(r.expiration_date).toLocaleDateString()}</div>
+              <button onclick="deleteRenewal('${r.id}')" style="padding:2px 8px;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.2);border-radius:5px;font-size:0.7rem;color:#f87171;cursor:pointer;font-family:inherit">Delete</button>
+            </div>
+          </div>`;
+        }).join('');
+      }
+    }
+  }catch(e){console.log('Load renewals error:',e);}
+}
+
+async function deleteRenewal(id){
+  const token = localStorage.getItem('dmv_token');
+  if(!id||!token) return;
+  try{
+    await fetch(API+'/api/renewals/'+id,{method:'DELETE',headers:{'Authorization':'Bearer '+token}});
+    toast('Reminder deleted','i');
+    loadRenewals();
+  }catch(e){toast('Could not delete','e');}
+}
+
+async function loadFamilyMembers(){
+  const token=localStorage.getItem('dmv_token');
+  if(!token) return;
+  try{
+    const res=await fetch(API+'/api/family/members',{headers:{'Authorization':'Bearer '+token}});
+    const data=await res.json();
+    const members=data.members||data||[];
+    const container=document.getElementById('family-list');
+    if(container){
+      if(members.length===0){
+        container.innerHTML='<div style="padding:1rem;text-align:center;color:var(--text3);font-size:0.84rem">No family members yet. Add up to 5 members.</div>';
+      } else {
+        container.innerHTML=members.map(m=>`
+          <div class="memcard" style="display:flex;align-items:center;gap:12px;padding:0.75rem;background:var(--card2);border-radius:var(--r);border:1px solid var(--border);margin-bottom:0.5rem">
+            <div class="memava" style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--blue2),var(--blue3));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.85rem;color:#fff;flex-shrink:0">
+              ${m.name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2)}
+            </div>
+            <div style="flex:1">
+              <div style="font-size:0.84rem;font-weight:700">${m.name}</div>
+              <div style="font-size:0.72rem;color:var(--text3)">${m.relationship||''} ${m.email?'· '+m.email:''}</div>
+            </div>
+            <button onclick="deleteMember('${m.id}')" style="padding:2px 8px;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.2);border-radius:5px;font-size:0.7rem;color:#f87171;cursor:pointer;font-family:inherit">Remove</button>
+          </div>`).join('');
+      }
+    }
+  }catch(e){console.log('Load family error:',e);}
+}
+
+async function deleteMember(id){
+  const token=localStorage.getItem('dmv_token');
+  if(!id||!token) return;
+  try{
+    await fetch(API+'/api/family/members/'+id,{method:'DELETE',headers:{'Authorization':'Bearer '+token}});
+    toast('Member removed','i');
+    loadFamilyMembers();
+  }catch(e){toast('Could not remove','e');}
+}
+
+
+function applyPlanUI(){
+  const plan = APP.plan || 'free';
+  // Update all plan displays
+  const planEls = document.querySelectorAll('#dash-plan,#acc-plan,#bill-plan,#sb-plan');
+  planEls.forEach(el=>{
+    if(el) el.textContent = plan==='pro'?'Pro':plan==='family'?'Family':'Free';
+  });
+  // Show/hide pro tools in sidebar
+  document.querySelectorAll('[data-pro]').forEach(el=>{
+    el.style.display=(plan==='pro'||plan==='family')?'':'none';
+  });
+  document.querySelectorAll('[data-fam]').forEach(el=>{
+    el.style.display=(plan==='family')?'':'none';
+  });
+  // Update upgrade button
+  const upgradeBtn = document.getElementById('bill-act');
+  if(upgradeBtn){
+    if(plan==='free'){
+      upgradeBtn.innerHTML='<button class="btn bg bsm" onclick="oM(\'m-upgrade\')">Upgrade ↗</button>';
+    } else {
+      upgradeBtn.innerHTML='<button class="btn bgh bsm" onclick="openBillingPortal()">Manage Billing →</button>';
+    }
+  }
+  // Dashboard pro tools — show lock for free users
+  const proTools = document.querySelectorAll('.pro-tool-card');
+  proTools.forEach(el=>{
+    const isPro = plan==='pro'||plan==='family';
+    const isFam = plan==='family';
+    const needsFam = el.dataset.fam;
+    const allowed = needsFam ? isFam : isPro;
+    if(allowed){
+      el.style.opacity='1';
+      el.style.pointerEvents='auto';
+    } else {
+      el.style.opacity='0.5';
+    }
+  });
 }
 
 </script>
@@ -1974,13 +2269,13 @@ function showDMVLink(state, containerId) {
   <div style="background:#0c1018;border:1px solid #1e293b;border-radius:16px;padding:1.25rem;margin-bottom:1rem">
     <div style="font-size:0.9rem;font-weight:800;color:#f1f5f9;margin-bottom:0.4rem">⏰ Avoid Late Fees — Set a Free Reminder</div>
     <p style="font-size:0.82rem;color:#94a3b8;line-height:1.65;margin-bottom:0.875rem">DMV Assistant sends reminders 60, 30 & 7 days before expiry — free forever.</p>
-    <button onclick="showFP('fp-signup')" style="padding:0.5rem 1.1rem;background:#2563eb;color:#fff;border:none;border-radius:7px;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:inherit">Sign Up Free →</button>
+    <button onclick="goToRenewal()" style="padding:0.5rem 1.1rem;background:#2563eb;color:#fff;border:none;border-radius:7px;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:inherit">Set Renewal Reminder →</button>
   </div>
   <!-- BOTTOM CTA 2: Appointment Alert -->
   <div style="background:#0c1018;border:1px solid #1e293b;border-radius:16px;padding:1.25rem">
     <div style="font-size:0.9rem;font-weight:800;color:#f1f5f9;margin-bottom:0.4rem">🗓 Get Alerted When Slots Open</div>
     <p style="font-size:0.82rem;color:#94a3b8;line-height:1.65;margin-bottom:0.875rem">DMV Assistant monitors appointment slots every 30 min across all 50 states.</p>
-    <button onclick="showFP('fp-signup')" style="padding:0.5rem 1.1rem;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:7px;color:#f59e0b;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:inherit">Set Appointment Alert →</button>
+    <button onclick="goToAlert()" style="padding:0.5rem 1.1rem;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:7px;color:#f59e0b;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:inherit">Set Appointment Alert →</button>
   </div>
 </div>
 </div>
@@ -2039,7 +2334,7 @@ function showDMVLink(state, containerId) {
   <div style="background:#0c1018;border:1px solid #1e293b;border-radius:16px;padding:1.25rem">
     <div style="font-size:0.9rem;font-weight:800;color:#f1f5f9;margin-bottom:0.4rem">🗓 Get Alerted When Slots Open</div>
     <p style="font-size:0.82rem;color:#94a3b8;line-height:1.65;margin-bottom:0.875rem">DMV Assistant monitors appointment slots every 30 min across all 50 states.</p>
-    <button onclick="showFP('fp-signup')" style="padding:0.5rem 1.1rem;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:7px;color:#f59e0b;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:inherit">Set Appointment Alert →</button>
+    <button onclick="goToAlert()" style="padding:0.5rem 1.1rem;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:7px;color:#f59e0b;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:inherit">Set Appointment Alert →</button>
   </div>
 </div>
 </div>
