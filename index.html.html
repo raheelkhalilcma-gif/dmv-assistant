@@ -586,7 +586,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
       <div class="ft-col">
         <h4>Company</h4>
         <a onclick="showFooterPage('fp-about')">About Us</a>
-        <a onclick="showFooterPage('fp-privacy')">Privacy Policy</a>
+        <a onclick="showFooterPage('fp-privacy')">Privacy Policy</a><a onclick="showFooterPage('fp-refund')">Refund Policy</a>
         <a onclick="showFooterPage('fp-terms')">Terms of Service</a>
         <a onclick="showFooterPage('fp-contact')">Contact Support</a>
         <a onclick="showFooterPage('fp-blog')">Blog & DMV News</a>
@@ -594,7 +594,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
     </div>
     <div class="ft-bottom">
       <p>© 2026 DMV Assistant · dmvassistants.com · Not affiliated with any government DMV agency.</p>
-      <div class="ft-links"><a onclick="showFooterPage('fp-privacy')">Privacy</a><a onclick="showFooterPage('fp-terms')">Terms</a><a onclick="showFooterPage('fp-contact')">Contact</a></div>
+      <div class="ft-links"><a onclick="showFooterPage('fp-privacy')">Privacy</a><a onclick="showFooterPage('fp-refund')">Refund</a><a onclick="showFooterPage('fp-terms')">Terms</a><a onclick="showFooterPage('fp-contact')">Contact</a></div>
     </div>
   </div>
   </footer>
@@ -626,6 +626,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
     <div class="fr"><div class="fg"><label class="fl">First Name</label><input class="fi" id="su-fn" placeholder="John"/></div><div class="fg"><label class="fl">Last Name</label><input class="fi" id="su-ln" placeholder="Doe"/></div></div>
     <div class="fg"><label class="fl">Email</label><input class="fi" id="su-em" type="email" placeholder="john@email.com"/></div>
     <div class="fg"><label class="fl">Password</label><input class="fi" id="su-pw" type="password" placeholder="Min 8 characters"/></div>
+    <div class="fg"><label class="fl">Phone Number (for SMS alerts)</label><input class="fi" id="su-phone" type="tel" placeholder="+1 (555) 000-0000"/></div>
     <div class="fg"><label class="fl">Your State</label><select class="fs" id="su-st"></select></div>
     <div style="display:flex;align-items:center;gap:7px;margin-bottom:1rem"><input type="checkbox" id="su-vet" style="accent-color:var(--gold2);width:auto"/><label for="su-vet" style="font-size:0.79rem;color:var(--text2);font-weight:600">🎖 US Veteran / Active Duty (50% off Pro)</label></div>
     <button class="btn bp" style="width:100%;padding:0.62rem;font-size:0.88rem" onclick="doSignup()">Create Free Account →</button>
@@ -1205,7 +1206,7 @@ const AI_ANS={'real id':'For <strong>REAL ID</strong> you need: US passport or b
 const APP={user:null,plan:'free'};
 
 function init(){
-  ['appt-st','su-st','s-st','ai-st','ms','wt-state','smog-state','ms-primary','ms-secondary','fee-state','chk-state','elig-state'].forEach(id=>{const el=document.getElementById(id);if(!el)return;const isAi=id==='ai-st';el.innerHTML=(isAi?'<option value="">All States</option>':'<option value="">Select State...</option>')+STATES.map(s=>`<option>${s}</option>`).join('');});
+  ['appt-st','su-st','s-st','ai-st','ms','fee-state','chk-state','elig-state','wt-state','smog-state','ms-primary','ms-secondary','fee-state','chk-state','elig-state'].forEach(id=>{const el=document.getElementById(id);if(!el)return;const isAi=id==='ai-st';el.innerHTML=(isAi?'<option value="">All States</option>':'<option value="">Select State...</option>')+STATES.map(s=>`<option>${s}</option>`).join('');});
   const sc=document.getElementById('state-chips');if(sc){sc.innerHTML=STATES.slice(0,20).map(s=>`<span style="padding:2px 8px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:5px;font-size:0.68rem;color:var(--text2);cursor:default">${s}</span>`).join('')+`<span style="padding:2px 8px;font-size:0.68rem;color:var(--text3)">+30 more</span>`;}
   const fc=document.getElementById('faq-cont');if(fc){FAQS.forEach((f,i)=>{fc.innerHTML+=`<div class="faq-item"><div class="faq-q" onclick="tfaq(${i})"><span>${f.q}</span><div class="ftog" id="ft${i}">+</div></div><div class="faq-a" id="fa${i}">${f.a}</div></div>`;});}
 }
@@ -1370,11 +1371,12 @@ async function doSignup() {
   if (!em.includes('@')) { toast('Valid email enter karo', 'e'); return; }
   const btn = document.querySelector('#fp-signup .btn.bp');
   btn.textContent = 'Creating account...'; btn.disabled = true;
+  const phone = document.getElementById('su-phone') ? document.getElementById('su-phone').value.trim() : '';
   try {
     const res = await fetch(API + '/api/auth/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ firstName: fn, lastName: ln, email: em, password: pw, state: st, isVeteran: vet })
+      body: JSON.stringify({ firstName: fn, lastName: ln, email: em, password: pw, state: st, isVeteran: vet, phone: phone })
     });
     const data = await res.json();
     if (data.token) {
@@ -1411,7 +1413,7 @@ function otpBack(e, i) {
 async function verifyOTP() {
   const code = [0,1,2,3,4,5].map(i => document.getElementById('otp'+i).value).join('');
   if (code.length < 6) { toast('6 digit code enter karo', 'e'); return; }
-  const em = document.getElementById('verify-email').textContent;
+  const em = document.getElementById('verify-email').value || document.getElementById('verify-display').textContent;
   const btn = document.getElementById('verify-btn');
   btn.textContent = 'Verifying...'; btn.disabled = true;
   document.getElementById('otp-err').style.display = 'none';
@@ -1454,8 +1456,17 @@ async function verifyOTP() {
   btn.textContent = 'Verify Email →'; btn.disabled = false;
 }
 
+function openBillingPortal() {
+  // Lemon Squeezy customer portal
+  const email = APP.user ? APP.user.email : '';
+  if (!email) { toast('Please login first', 'e'); return; }
+  // Open Lemon Squeezy customer portal
+  window.open('https://app.lemonsqueezy.com/my-orders', '_blank');
+  toast('Opening billing portal...', 'i');
+}
+
 async function resendOTP() {
-  const em = document.getElementById('verify-email').textContent;
+  const em = document.getElementById('verify-email').value || document.getElementById('verify-display').textContent;
   try {
     await fetch(API + '/api/auth/resend-code', {
       method: 'POST',
@@ -1772,5 +1783,140 @@ document.querySelectorAll('.mov').forEach(m => m.addEventListener('click', funct
 init();
 
 </script>
+
+<!-- DMV FEE CALCULATOR PAGE -->
+<div class="fp" id="fp-fee">
+<div style="max-width:760px;margin:0 auto;padding:2rem 1.5rem;min-height:100vh;background:var(--bg)">
+  <div style="margin-bottom:1.5rem;display:flex;gap:1rem;align-items:center">
+    <span onclick="showFP('fp-land')" style="font-size:0.84rem;color:var(--text3);font-weight:700;cursor:pointer">← Home</span>
+    <span style="color:var(--text3)">·</span>
+    <span onclick="showFP('fp-app');setTimeout(()=>{const d=document.querySelector('[onclick*=pg-dash]');showPg('pg-dash',d);},100)" style="font-size:0.84rem;color:var(--blue3);font-weight:700;cursor:pointer">🏠 Dashboard</span>
+  </div>
+  <div style="margin-bottom:1.75rem">
+    <div style="display:inline-block;background:rgba(22,163,74,0.1);border:1px solid rgba(22,163,74,0.25);border-radius:100px;padding:3px 12px;font-size:0.65rem;font-weight:800;color:#22c55e;text-transform:uppercase;margin-bottom:0.75rem">Free Tool</div>
+    <h2 style="font-size:1.8rem;font-weight:900;color:#f1f5f9;letter-spacing:-0.04em;margin-bottom:0.5rem">💰 DMV Fee Calculator</h2>
+    <p style="font-size:0.9rem;color:#94a3b8;line-height:1.7">Select your state and service — see exact fees before visiting DMV.</p>
+  </div>
+  <div style="background:#0c1018;border:1px solid #1e293b;border-radius:16px;padding:1.5rem;margin-bottom:1.25rem">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;margin-bottom:0.875rem">
+      <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">State</label><select id="fee-state" onchange="calcFee()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select State...</option></select></div>
+      <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">Service</label><select id="fee-service" onchange="calcFee()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select...</option><option value="dl_new">New Driver License</option><option value="dl_renew">License Renewal</option><option value="realid">REAL ID</option><option value="reg_new">New Registration</option><option value="reg_renew">Registration Renewal</option><option value="title">Title Transfer</option><option value="id_card">State ID Card</option><option value="dl_dup">Duplicate License</option><option value="road_test">Road Test</option><option value="knowledge">Knowledge Test</option></select></div>
+    </div>
+    <div style="margin-bottom:0.875rem"><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">Vehicle Value (for registration tax)</label><input id="fee-value" type="number" placeholder="e.g. 25000" oninput="calcFee()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"/></div>
+    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-bottom:1rem"><input type="checkbox" id="fee-late" onchange="calcFee()" style="accent-color:#ef4444;width:auto"/><span style="font-size:0.84rem;color:#94a3b8">Include late renewal penalty (+$25)</span></label>
+    <div id="fee-result" style="display:none;background:#111827;border-radius:10px;padding:1.1rem"><div id="fee-breakdown"></div></div>
+    <div style="margin-top:1rem;padding:0.75rem;background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.2);border-radius:8px;font-size:0.78rem;color:#f59e0b">💡 Fees are approximate. Always verify with your official state DMV website.</div>
+  </div>
+  <div style="background:#0c1018;border:1px solid #1e293b;border-radius:16px;padding:1.25rem"><div style="font-size:0.84rem;font-weight:800;color:#f1f5f9;margin-bottom:0.5rem">Avoid Late Fees — Set a Free Reminder</div><p style="font-size:0.8rem;color:#94a3b8;line-height:1.65;margin-bottom:0.875rem">DMV Assistant sends reminders 60, 30 & 7 days before expiry.</p><button onclick="showFP('fp-signup')" style="padding:0.4rem 0.9rem;background:#2563eb;color:#fff;border:none;border-radius:7px;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:inherit">Sign Up Free →</button></div>
+</div>
+</div>
+
+<!-- APPOINTMENT CHECKLIST PAGE -->
+<div class="fp" id="fp-checklist">
+<div style="max-width:760px;margin:0 auto;padding:2rem 1.5rem;min-height:100vh;background:var(--bg)">
+  <div style="margin-bottom:1.5rem;display:flex;gap:1rem;align-items:center">
+    <span onclick="showFP('fp-land')" style="font-size:0.84rem;color:var(--text3);font-weight:700;cursor:pointer">← Home</span>
+    <span style="color:var(--text3)">·</span>
+    <span onclick="showFP('fp-app');setTimeout(()=>{const d=document.querySelector('[onclick*=pg-dash]');showPg('pg-dash',d);},100)" style="font-size:0.84rem;color:var(--blue3);font-weight:700;cursor:pointer">🏠 Dashboard</span>
+  </div>
+  <div style="margin-bottom:1.75rem">
+    <div style="display:inline-block;background:rgba(22,163,74,0.1);border:1px solid rgba(22,163,74,0.25);border-radius:100px;padding:3px 12px;font-size:0.65rem;font-weight:800;color:#22c55e;text-transform:uppercase;margin-bottom:0.75rem">Free Tool</div>
+    <h2 style="font-size:1.8rem;font-weight:900;color:#f1f5f9;letter-spacing:-0.04em;margin-bottom:0.5rem">📋 DMV Appointment Checklist</h2>
+    <p style="font-size:0.9rem;color:#94a3b8;line-height:1.7">Select your service — get exact documents to bring. Zero wasted trips.</p>
+  </div>
+  <div style="background:#0c1018;border:1px solid #1e293b;border-radius:16px;padding:1.5rem;margin-bottom:1.25rem">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;margin-bottom:1rem">
+      <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">Service</label><select id="chk-service" onchange="loadChecklist()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select...</option><option value="realid">REAL ID</option><option value="dl_new">New License</option><option value="dl_renew">License Renewal</option><option value="reg_renew">Registration Renewal</option><option value="title">Title Transfer</option><option value="id_card">State ID Card</option><option value="cdl">CDL License</option><option value="road_test">Road Test</option></select></div>
+      <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">State</label><select id="chk-state" onchange="loadChecklist()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select State...</option></select></div>
+    </div>
+    <div id="chk-result" style="display:none">
+      <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem"><div style="font-size:0.65rem;color:#475569;font-weight:700;text-transform:uppercase">Documents Required</div><div style="font-size:0.78rem;color:#94a3b8"><span id="chk-done">0</span>/<span id="chk-total">0</span> ready</div></div>
+      <div style="background:#1e293b;border-radius:6px;height:6px;margin-bottom:0.875rem;overflow:hidden"><div id="chk-prog" style="height:100%;background:linear-gradient(90deg,#16a34a,#22c55e);border-radius:6px;width:0%;transition:width 0.3s"></div></div>
+      <div id="chk-items"></div>
+      <div id="chk-notes" style="display:none;margin-top:0.875rem;padding:0.875rem;background:rgba(37,99,235,0.07);border:1px solid rgba(37,99,235,0.2);border-radius:8px;font-size:0.78rem;color:#60a5fa;line-height:1.65"></div>
+    </div>
+  </div>
+  <div style="background:#0c1018;border:1px solid #1e293b;border-radius:16px;padding:1.25rem"><div style="font-size:0.84rem;font-weight:800;color:#f1f5f9;margin-bottom:0.5rem">🗓 Get Alerted When Slots Open</div><p style="font-size:0.8rem;color:#94a3b8;line-height:1.65;margin-bottom:0.875rem">We monitor appointment slots every 30 min across all 50 states.</p><button onclick="showFP('fp-signup')" style="padding:0.4rem 0.9rem;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:7px;color:#f59e0b;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:inherit">Set Appointment Alert →</button></div>
+</div>
+</div>
+
+<!-- LICENSE ELIGIBILITY PAGE -->
+<div class="fp" id="fp-eligibility">
+<div style="max-width:760px;margin:0 auto;padding:2rem 1.5rem;min-height:100vh;background:var(--bg)">
+  <div style="margin-bottom:1.5rem;display:flex;gap:1rem;align-items:center">
+    <span onclick="showFP('fp-land')" style="font-size:0.84rem;color:var(--text3);font-weight:700;cursor:pointer">← Home</span>
+    <span style="color:var(--text3)">·</span>
+    <span onclick="showFP('fp-app');setTimeout(()=>{const d=document.querySelector('[onclick*=pg-dash]');showPg('pg-dash',d);},100)" style="font-size:0.84rem;color:var(--blue3);font-weight:700;cursor:pointer">🏠 Dashboard</span>
+  </div>
+  <div style="margin-bottom:1.75rem">
+    <div style="display:inline-block;background:rgba(22,163,74,0.1);border:1px solid rgba(22,163,74,0.25);border-radius:100px;padding:3px 12px;font-size:0.65rem;font-weight:800;color:#22c55e;text-transform:uppercase;margin-bottom:0.75rem">Free Tool</div>
+    <h2 style="font-size:1.8rem;font-weight:900;color:#f1f5f9;letter-spacing:-0.04em;margin-bottom:0.5rem">✅ License Eligibility Check</h2>
+    <p style="font-size:0.9rem;color:#94a3b8;line-height:1.7">Know if you qualify for a driver's license in your state.</p>
+  </div>
+  <div style="background:#0c1018;border:1px solid #1e293b;border-radius:16px;padding:1.5rem;margin-bottom:1.25rem">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;margin-bottom:0.875rem">
+      <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">State</label><select id="elig-state" onchange="checkElig()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select State...</option></select></div>
+      <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">License Type</label><select id="elig-type" onchange="checkElig()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select...</option><option value="regular">Regular (Class D)</option><option value="cdl">Commercial (CDL)</option><option value="motorcycle">Motorcycle</option><option value="learner">Learner Permit</option></select></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;margin-bottom:0.875rem">
+      <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">Your Age</label><input id="elig-age" type="number" placeholder="e.g. 17" min="14" max="100" oninput="checkElig()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"/></div>
+      <div><label style="display:block;font-size:0.65rem;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:4px">Status</label><select id="elig-status" onchange="checkElig()" style="width:100%;padding:0.55rem 0.8rem;background:#111827;border:1px solid #2d3f55;border-radius:7px;color:#f1f5f9;font-size:0.82rem;font-family:inherit;outline:none"><option value="">Select...</option><option value="citizen">US Citizen</option><option value="resident">Permanent Resident</option><option value="visa">Visa Holder</option><option value="daca">DACA Recipient</option><option value="military">Military/Veteran</option></select></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:0.5rem;margin-bottom:0.875rem">
+      <label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" id="elig-suspended" onchange="checkElig()" style="accent-color:#ef4444;width:auto"/><span style="font-size:0.84rem;color:#94a3b8">License suspended/revoked</span></label>
+      <label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" id="elig-dui" onchange="checkElig()" style="accent-color:#ef4444;width:auto"/><span style="font-size:0.84rem;color:#94a3b8">DUI/DWI in last 10 years</span></label>
+      <label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" id="elig-vision" onchange="checkElig()" style="accent-color:#2563eb;width:auto"/><span style="font-size:0.84rem;color:#94a3b8">Wear glasses/contacts</span></label>
+    </div>
+    <div id="elig-result"></div>
+  </div>
+  <div style="background:#0c1018;border:1px solid #1e293b;border-radius:16px;padding:1.25rem"><div style="font-size:0.84rem;font-weight:800;color:#f1f5f9;margin-bottom:0.5rem">📋 Get Your Documents Checklist</div><p style="font-size:0.8rem;color:#94a3b8;line-height:1.65;margin-bottom:0.875rem">See exactly what to bring to DMV.</p><button onclick="showFP('fp-checklist')" style="padding:0.4rem 0.9rem;background:rgba(22,163,74,0.12);border:1px solid rgba(22,163,74,0.28);border-radius:7px;color:#22c55e;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:inherit">Open Checklist →</button></div>
+</div>
+</div>
+
+<!-- REFUND POLICY PAGE -->
+<div class="fp" id="fp-refund"><div class="fp-inner">
+  <div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div>
+  <div class="sec-ey" style="margin-bottom:0.75rem">Legal</div>
+  <h1>Refund Policy</h1>
+  <p class="lead">Last updated: March 17, 2026. DMV Assistant is committed to fair and transparent refund practices.</p>
+  
+  <h2>7-Day Money-Back Guarantee</h2>
+  <p>If you are not satisfied with DMV Assistant Pro or Family plan, you may request a full refund within <strong>7 days</strong> of your initial purchase. No questions asked.</p>
+  
+  <h2>How to Request a Refund</h2>
+  <ul>
+    <li>Email us at <strong>support@dmvassistants.com</strong> within 7 days of purchase</li>
+    <li>Include your order number (found in your Lemon Squeezy receipt email)</li>
+    <li>Refunds are processed within 5-10 business days</li>
+    <li>Refund will be returned to your original payment method</li>
+  </ul>
+  
+  <h2>Subscription Cancellations</h2>
+  <p>You may cancel your subscription at any time. After cancellation:</p>
+  <ul>
+    <li>Your plan remains active until the end of the current billing period</li>
+    <li>You will NOT be charged for the next billing cycle</li>
+    <li>Your data is retained for 30 days after cancellation</li>
+    <li>To cancel: Login → Billing → Manage Subscription → Cancel</li>
+  </ul>
+  
+  <h2>Non-Refundable Items</h2>
+  <ul>
+    <li>Subscriptions older than 7 days (except in exceptional circumstances)</li>
+    <li>Annual plan renewals after 7 days of the renewal date</li>
+  </ul>
+  
+  <h2>Exceptional Circumstances</h2>
+  <p>We review refund requests on a case-by-case basis for exceptional circumstances such as accidental duplicate purchases or technical issues preventing access. Contact us at support@dmvassistants.com.</p>
+  
+  <h2>Contact</h2>
+  <p>Refund requests: <strong>support@dmvassistants.com</strong><br/>Response within 24 hours on business days.</p>
+  
+  <div class="info-box" style="border-color:rgba(29,106,229,0.3);background:rgba(29,106,229,0.04)">
+    <h4>💡 Powered by Lemon Squeezy</h4>
+    <p>All payments are processed securely by Lemon Squeezy. You can also manage your subscription and request refunds directly through the Lemon Squeezy customer portal.</p>
+  </div>
+  <button class="btn bp" onclick="window.open('https://app.lemonsqueezy.com/my-orders','_blank')">Open Billing Portal →</button>
+</div></div>
 </body>
 </html>
