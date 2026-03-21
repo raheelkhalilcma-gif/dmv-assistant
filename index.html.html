@@ -919,15 +919,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
           🔐 All documents are AES-256 encrypted. Only you can access them. Max 10MB per file.
         </div>
       </div>
-        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem"><div style="flex:1;height:4px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden"><div style="width:18%;height:100%;background:linear-gradient(90deg,var(--blue2),var(--blue3));border-radius:2px"></div></div><span style="font-size:0.72rem;color:var(--text3)">0.9 GB / 5 GB</span></div>
-        <div class="dgrid">
-          <div class="dcard"><div class="dstatus"><span class="ibadge ib-r">EXPIRES SOON</span></div><div class="dic">🪪</div><div class="dname">Driver License</div><div class="dinfo">PDF · 245 KB · Mar 1, 2026</div><div class="dexp" style="color:#f87171">⚠ Apr 11, 2026</div><div class="dacts"><button class="btn bgh bsm" onclick="toast('Downloading...','i')">⬇</button><button class="btn bgh bsm" onclick="toast('Link copied!','s')">🔗</button><button class="btn bt bsm" onclick="toast('Preview opened','i')">👁</button></div></div>
-          <div class="dcard"><div class="dstatus"><span class="ibadge" style="background:rgba(22,163,74,0.1);color:var(--green2)">VALID</span></div><div class="dic">🚗</div><div class="dname">Vehicle Title</div><div class="dinfo">PDF · 512 KB · Feb 15</div><div class="dexp" style="color:var(--green2)">✓ No expiry</div><div class="dacts"><button class="btn bgh bsm" onclick="toast('Downloading...','i')">⬇</button><button class="btn bgh bsm" onclick="toast('Link copied!','s')">🔗</button><button class="btn bt bsm" onclick="toast('Preview opened','i')">👁</button></div></div>
-          <div class="dcard"><div class="dstatus"><span class="ibadge ib-w">EXPIRING</span></div><div class="dic">📋</div><div class="dname">Registration Papers</div><div class="dinfo">PDF · 1.1 MB · Jan 8</div><div class="dexp" style="color:var(--gold2)">⏱ Apr 30, 2026</div><div class="dacts"><button class="btn bgh bsm" onclick="toast('Downloading...','i')">⬇</button><button class="btn bgh bsm" onclick="toast('Link copied!','s')">🔗</button><button class="btn bt bsm" onclick="toast('Preview opened','i')">👁</button></div></div>
-          <div class="dcard"><div class="dstatus"><span class="ibadge" style="background:rgba(22,163,74,0.1);color:var(--green2)">VALID</span></div><div class="dic">🛡</div><div class="dname">Insurance Card</div><div class="dinfo">JPG · 89 KB · Mar 5</div><div class="dexp" style="color:var(--green2)">✓ Jun 2026</div><div class="dacts"><button class="btn bgh bsm" onclick="toast('Downloading...','i')">⬇</button><button class="btn bgh bsm" onclick="toast('Link copied!','s')">🔗</button><button class="btn bt bsm" onclick="toast('Preview opened','i')">👁</button></div></div>
-          <div class="dupload" onclick="toast('Upload requires Pro plan or live backend','w')"><div style="font-size:1.4rem;opacity:0.25">⬆️</div><span style="font-size:0.75rem;color:var(--text3)">Upload Document</span></div>
         </div>
-      </div>
 
       <!-- AI -->
       <div class="pg" id="pg-ai">
@@ -2439,7 +2431,8 @@ async function uploadDocument(file) {
     formData.append('file', file);
     formData.append('name', file.name);
     formData.append('size', file.size);
-    formData.append('type', file.type);
+    formData.append('type', file.type || 'application/octet-stream');
+    formData.append('mime_type', file.type || 'application/octet-stream');
     
     const res = await fetch(API + '/api/documents/upload', {
       method: 'POST',
@@ -2449,7 +2442,10 @@ async function uploadDocument(file) {
     const data = await res.json();
     
     if(res.ok || data.id) {
-      toast('✅ Document uploaded successfully!', 's');
+      toast('✅ Document uploaded!', 's');
+      // Reset file input
+      const fi = document.getElementById('vault-file-input');
+      if(fi) fi.value = '';
       loadDocuments();
     } else {
       toast(data.error || 'Upload failed — try again', 'e');
@@ -2464,38 +2460,63 @@ async function uploadDocument(file) {
 async function loadDocuments() {
   const token = localStorage.getItem('dmv_token');
   if(!token) return;
+  const list = document.getElementById('vault-docs-list');
+  if(list) list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--text3);font-size:0.84rem">Loading...</div>';
   try {
-    const res = await fetch(API + '/api/documents', {headers:{'Authorization':'Bearer '+token}});
+    const res = await fetch(API + '/api/documents', {
+      headers: {'Authorization': 'Bearer ' + token}
+    });
     const data = await res.json();
     const docs = data.documents || data || [];
+    console.log('Documents loaded:', docs.length, docs);
+
+    // Update stat counter
     const statDocs = document.getElementById('stat-docs');
     if(statDocs) statDocs.textContent = docs.length;
-    const vaultList = document.getElementById('vault-docs-list');
-    if(!vaultList) return;
+
+    // Update vault list
+    if(!list) return;
     if(docs.length === 0) {
-      vaultList.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--text3);font-size:0.84rem">No documents yet. Click Upload to add your first document.</div>';
-    } else {
-      const icons = {'application/pdf':'📄','image/jpeg':'🖼','image/png':'🖼'};
-      let html = '';
-      docs.forEach(function(d) {
-        const icon = icons[d.mime_type] || '📎';
-        const kb = d.size ? Math.round(d.size/1024) + ' KB' : '';
-        const date = new Date(d.created_at).toLocaleDateString();
-        const name = (d.name || d.file_name || 'Document').replace(/"/g,'');
-        const id = d.id;
-        html += '<div style="display:flex;align-items:center;gap:12px;padding:0.875rem;background:var(--card2);border-radius:var(--r);border:1px solid var(--border);margin-bottom:0.5rem">'
-          + '<div style="font-size:1.5rem">'+icon+'</div>'
-          + '<div style="flex:1;min-width:0">'
-          + '<div style="font-size:0.84rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+name+'</div>'
-          + '<div style="font-size:0.7rem;color:var(--text3)">'+kb+' · '+date+'</div></div>'
-          + '<div style="display:flex;gap:6px">'
-          + '<button onclick="downloadDoc(this.dataset.id)" data-id="'+id+'" style="padding:4px 10px;background:rgba(37,99,235,0.1);border:1px solid rgba(37,99,235,0.25);border-radius:5px;font-size:0.72rem;color:var(--blue3);cursor:pointer;font-family:inherit">⬇</button>'
-          + '<button onclick="deleteDoc(this.dataset.id)" data-id="'+id+'" style="padding:4px 10px;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.2);border-radius:5px;font-size:0.72rem;color:#f87171;cursor:pointer;font-family:inherit">🗑</button>'
-          + '</div></div>';
-      });
-      vaultList.innerHTML = html;
+      list.innerHTML = '<div style="text-align:center;padding:2rem 1rem">'
+        + '<div style="font-size:2rem;margin-bottom:0.75rem">📂</div>'
+        + '<div style="font-size:0.9rem;font-weight:700;color:var(--text);margin-bottom:0.4rem">No documents yet</div>'
+        + '<div style="font-size:0.8rem;color:var(--text3)">Click "+ Upload" to add your first document.</div></div>';
+      return;
     }
-  } catch(e) { console.error('Load docs error:', e); }
+
+    let html = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:0.75rem">';
+    docs.forEach(function(d) {
+      const ext = (d.name||'').split('.').pop().toUpperCase();
+      const icon = {'PDF':'📄','JPG':'🖼','JPEG':'🖼','PNG':'🖼','DOC':'📝','DOCX':'📝'}[ext] || '📎';
+      const kb = d.size ? (d.size > 1048576 ? (d.size/1048576).toFixed(1)+' MB' : Math.round(d.size/1024)+' KB') : '';
+      const date = d.created_at ? new Date(d.created_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '';
+      const name = (d.name || 'Document').substring(0, 30);
+      const id = d.id;
+      html += '<div style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:1rem;position:relative">'
+        + '<div style="font-size:2rem;margin-bottom:0.5rem">'+icon+'</div>'
+        + '<div style="font-size:0.84rem;font-weight:700;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+name+'</div>'
+        + '<div style="font-size:0.7rem;color:var(--text3);margin-bottom:0.75rem">'+kb+(kb&&date?' · ':'')+date+'</div>'
+        + '<div style="display:flex;gap:6px">'
+        + '<button data-id="'+id+'" onclick="downloadDoc(this.dataset.id)" style="flex:1;padding:5px;background:rgba(37,99,235,0.1);border:1px solid rgba(37,99,235,0.25);border-radius:6px;font-size:0.72rem;color:var(--blue3);cursor:pointer;font-family:inherit">⬇ Download</button>'
+        + '<button data-id="'+id+'" onclick="deleteDoc(this.dataset.id)" style="padding:5px 8px;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.2);border-radius:6px;font-size:0.72rem;color:#f87171;cursor:pointer;font-family:inherit">🗑</button>'
+        + '</div></div>';
+    });
+    html += '</div>';
+    list.innerHTML = html;
+
+    // Update storage bar
+    const totalBytes = docs.reduce(function(sum,d){ return sum+(d.size||0); }, 0);
+    const totalMB = (totalBytes/1048576).toFixed(1);
+    const pct = Math.min(100, (totalBytes/(50*1048576))*100);
+    const bar = document.getElementById('vault-bar');
+    const label = document.getElementById('vault-size-label');
+    if(bar) bar.style.width = pct + '%';
+    if(label) label.textContent = totalMB + ' / 50 MB used';
+
+  } catch(e) {
+    console.error('Load docs error:', e);
+    if(list) list.innerHTML = '<div style="text-align:center;padding:1.5rem;color:var(--text3);font-size:0.84rem">Could not load documents — <a style="color:var(--blue3);cursor:pointer" onclick="loadDocuments()">try again</a></div>';
+  }
 }
 
 async function downloadDoc(id) {
@@ -2527,6 +2548,9 @@ async function deleteDoc(id) {
     loadDocuments();
   } catch(e) { toast('Could not delete','e'); }
 }
+
+
+
 
 
 
