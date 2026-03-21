@@ -65,3 +65,5 @@ app.use('/api/family', familyRoutes);
 // });
 // const familyRoutes = require('./routes/family');
 // app.use('/api/family', familyRoutes);
+const documentsRoutes = require('./routes/documents');
+app.use('/api/documents', documentsRoutes);
