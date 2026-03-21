@@ -333,12 +333,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
   <div class="mhead"><h3>🗓 Set Appointment Alert</h3><span class="mx" onclick="cM('m-appt')">✕</span></div>
   <div class="fr">
     <div class="fg"><label class="fl">State</label><select class="fs" id="appt-st" onchange="updOff()"><option value="">Select State...</option></select></div>
-    <div class="fg"><label class="fl">Service Type</label><select class="fs"><option>Driver License (New)</option><option>Driver License Renewal</option><option>REAL ID</option><option>Vehicle Registration</option><option>Title Transfer</option><option>Knowledge Test</option><option>Road Test</option><option>ID Card</option><option>CDL</option></select></div>
+    <div class="fg"><label class="fl">Service Type</label><select class="fs" id="appt-svc"><option>Driver License (New)</option><option>Driver License Renewal</option><option>REAL ID</option><option>Vehicle Registration</option><option>Title Transfer</option><option>Knowledge Test</option><option>Road Test</option><option>ID Card</option><option>CDL</option></select></div>
   </div>
   <div class="fg"><label class="fl">DMV Office</label><select class="fs" id="off-sel"><option>Select state first...</option></select></div>
   <div class="fr">
-    <div class="fg"><label class="fl">Preferred Date From</label><input class="fi" type="date"/></div>
-    <div class="fg"><label class="fl">Notify Via</label><select class="fs"><option>Email + SMS</option><option>Email only</option><option>SMS only</option></select></div>
+    <div class="fg"><label class="fl">Preferred Date From</label><input class="fi" type="date" id="appt-date"/></div>
+    <div class="fg"><label class="fl">Notify Via</label><select class="fs" id="appt-notify"><option>Email + SMS</option><option>Email only</option><option>SMS only</option></select></div>
   </div>
   <div class="mbtns"><button class="btn bo" onclick="cM('m-appt')">Cancel</button><button class="btn bp" onclick="addAppt()">Start Monitoring 🔔</button></div>
 </div>
@@ -347,14 +347,14 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 <div class="mov" id="m-renewal">
 <div class="modal">
   <div class="mhead"><h3>⏰ Add Renewal Reminder</h3><span class="mx" onclick="cM('m-renewal')">✕</span></div>
-  <div class="fg"><label class="fl">Type</label><select class="fs"><option>Driver License</option><option>Vehicle Registration</option><option>Auto Insurance</option><option>Vehicle Inspection</option><option>Passport</option><option>State ID</option><option>CDL</option></select></div>
+  <div class="fg"><label class="fl">Type</label><select class="fs" id="ren-type"><option>Driver License</option><option>Vehicle Registration</option><option>Auto Insurance</option><option>Vehicle Inspection</option><option>Passport</option><option>State ID</option><option>CDL</option></select></div>
   <div class="fr">
-    <div class="fg"><label class="fl">Expiration Date</label><input class="fi" type="date"/></div>
-    <div class="fg"><label class="fl">ID / Plate Number</label><input class="fi" placeholder="e.g. 7ABC123"/></div>
+    <div class="fg"><label class="fl">Expiration Date</label><input class="fi" type="date" id="ren-date"/></div>
+    <div class="fg"><label class="fl">ID / Plate Number</label><input class="fi" id="ren-plate" placeholder="e.g. 7ABC123"/></div>
   </div>
   <div class="fr">
-    <div class="fg"><label class="fl">Vehicle / Name</label><input class="fi" placeholder="e.g. Honda Civic 2021"/></div>
-    <div class="fg"><label class="fl">Notify Via</label><select class="fs"><option>Email + SMS</option><option>Email only</option><option>SMS only</option></select></div>
+    <div class="fg"><label class="fl">Vehicle / Name</label><input class="fi" id="ren-name" placeholder="e.g. Honda Civic 2021"/></div>
+    <div class="fg"><label class="fl">Notify Via</label><select class="fs" id="ren-notify"><option>Email + SMS</option><option>Email only</option><option>SMS only</option></select></div>
   </div>
   <div class="mbtns"><button class="btn bo" onclick="cM('m-renewal')">Cancel</button><button class="btn bg" onclick="addRenewal()">Add Reminder ✓</button></div>
 </div>
@@ -396,7 +396,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 <div class="mov" id="m-member">
 <div class="modal">
   <div class="mhead"><h3>👤 Add Family Member</h3><span class="mx" onclick="cM('m-member')">✕</span></div>
-  <div class="fr"><div class="fg"><label class="fl">Full Name</label><input class="fi" id="mn" placeholder="Jane Doe"/></div><div class="fg"><label class="fl">Relationship</label><select class="fs"><option>Spouse/Partner</option><option>Child</option><option>Parent</option><option>Sibling</option><option>Other</option></select></div></div>
+  <div class="fr"><div class="fg"><label class="fl">Full Name</label><input class="fi" id="mn" placeholder="Jane Doe"/></div><div class="fg"><label class="fl">Relationship</label><select class="fs" id="mem-rel"><option>Spouse/Partner</option><option>Child</option><option>Parent</option><option>Sibling</option><option>Other</option></select></div></div>
   <div class="fg"><label class="fl">Email Address</label><input class="fi" id="me" type="email" placeholder="jane@email.com"/></div>
   <div class="fg"><label class="fl">Their State</label><select class="fs" id="ms"></select></div>
   <div class="mbtns"><button class="btn bo" onclick="cM('m-member')">Cancel</button><button class="btn bp" onclick="addMember()">Send Invite ✉</button></div>
@@ -586,15 +586,15 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
       <div class="ft-col">
         <h4>Company</h4>
         <a onclick="showFooterPage('fp-about')">About Us</a>
-        <a onclick="showFooterPage('fp-privacy')">Privacy Policy</a>
-        <a onclick="showFooterPage('fp-terms')">Terms of Service</a>
+        <a onclick="showFooterPage('fp-privacy')">Privacy Policy</a><a onclick="showFooterPage('fp-refund')">Refund Policy</a>
+        <a onclick="showFooterPage('fp-terms')">Terms</a><a onclick="showFooterPage('fp-refund')">Refund Policy of Service</a>
         <a onclick="showFooterPage('fp-contact')">Contact Support</a>
         <a onclick="showFooterPage('fp-blog')">Blog & DMV News</a>
       </div>
     </div>
     <div class="ft-bottom">
       <p>© 2026 DMV Assistant · dmvassistants.com · Not affiliated with any government DMV agency.</p>
-      <div class="ft-links"><a onclick="showFooterPage('fp-privacy')">Privacy</a><a onclick="showFooterPage('fp-terms')">Terms</a><a onclick="showFooterPage('fp-contact')">Contact</a></div>
+      <div class="ft-links"><a onclick="showFooterPage('fp-privacy')">Privacy</a><a onclick="showFooterPage('fp-terms')">Terms</a><a onclick="showFooterPage('fp-refund')">Refund Policy</a><a onclick="showFooterPage('fp-contact')">Contact</a></div>
     </div>
   </div>
   </footer>
@@ -620,6 +620,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
       <a onclick="showFP('fp-forgot')" style="font-size:0.75rem;color:var(--blue3);cursor:pointer;font-weight:600">Forgot password?</a>
     </div>
     <button class="btn bp" style="width:100%;padding:0.62rem;font-size:0.88rem" onclick="doLogin()">Sign In →</button>
+    <div style="margin:0.875rem 0;display:flex;align-items:center;gap:8px"><div style="flex:1;height:1px;background:var(--border)"></div><span style="font-size:0.72rem;color:var(--text3)">or</span><div style="flex:1;height:1px;background:var(--border)"></div></div>
+    <button onclick="gLogin()" style="width:100%;padding:0.55rem;background:transparent;border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:0.84rem;font-weight:600;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg> Continue with Google</button>
     <div style="text-align:center;font-size:0.76rem;color:var(--text3);margin-top:0.875rem">No account? <a style="color:var(--blue3);cursor:pointer;font-weight:700" onclick="showFP('fp-signup')">Sign up free</a> · <a style="color:var(--text3);cursor:pointer" onclick="showFP('fp-land')">← Home</a></div>
   </div>
 </div>
@@ -645,6 +647,11 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
     <div class="fg"><label class="fl">Your State</label><select class="fs" id="su-st"></select></div>
     <div style="display:flex;align-items:center;gap:7px;margin-bottom:1rem"><input type="checkbox" id="su-vet" style="accent-color:var(--gold2);width:auto"/><label for="su-vet" style="font-size:0.79rem;color:var(--text2);font-weight:600">🎖 US Veteran / Active Duty (50% off Pro)</label></div>
     <button class="btn bp" style="width:100%;padding:0.62rem;font-size:0.88rem" onclick="doSignup()">Create Free Account →</button>
+    <div style="margin:0.875rem 0;display:flex;align-items:center;gap:8px"><div style="flex:1;height:1px;background:var(--border)"></div><span style="font-size:0.72rem;color:var(--text3)">or</span><div style="flex:1;height:1px;background:var(--border)"></div></div>
+    <button onclick="gLogin()" style="width:100%;padding:0.55rem;background:transparent;border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:0.84rem;font-weight:600;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px">
+      <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      Continue with Google
+    </button>
     <div style="text-align:center;font-size:0.76rem;color:var(--text3);margin-top:0.875rem">Have account? <a style="color:var(--blue3);cursor:pointer;font-weight:700" onclick="showFP('fp-login')">Sign in</a> · <a style="color:var(--text3);cursor:pointer" onclick="showFP('fp-land')">← Home</a></div>
   </div>
 </div>
@@ -667,7 +674,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 
 <div class="fp" id="fp-terms"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Legal</div><h1>Terms of Service</h1><p class="lead">Last updated: March 15, 2026. By using DMV Assistant, you agree to these terms.</p><h2>Service Description</h2><p>DMV Assistant provides DMV appointment monitoring, renewal reminders, document storage, and AI assistance for US residents. We are not affiliated with any government DMV agency.</p><h2>Subscription Terms</h2><ul><li>Free plan: No charge, limited to 2 alerts and 2 reminders</li><li>Pro plan: $12/month or $108/year, billed via Lemon Squeezy</li><li>Family plan: $40/month or $384/year, up to 5 members</li><li>Cancel anytime — no cancellation fees</li><li>Refunds available within 7 days of purchase</li></ul><h2>Acceptable Use</h2><ul><li>For personal DMV management only</li><li>Do not share account credentials</li><li>Do not use for commercial resale of alerts</li><li>One account per person (Family plan for multiple people)</li></ul><h2>Limitation of Liability</h2><p>DMV Assistant provides alerts and reminders as a convenience service. We do not guarantee appointment availability or DMV system uptime. Always verify with your official state DMV website for official information.</p><h2>Contact</h2><p>Legal questions: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d6bab3b1b7ba96b2bba0b7a5a5bfa5a2b7b8a2a5f8b5b9bb">[email&#160;protected]</a></p></div></div>
 
-<div class="fp" id="fp-contact"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Support</div><h1>Contact Support</h1><p class="lead">We're here to help. Typical response time: under 24 hours. Pro and Family plan users get priority support.</p><div class="info-box"><h4>📧 Email Support</h4><p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9feceaefeff0edebdffbf2e9feececf6ecebfef1ebecb1fcf0f2">[email&#160;protected]</a> · Response within 24 hours (business days)</p></div><div class="info-box"><h4>⭐ Priority Support</h4><p>Pro and Family plan users get responses within 4 business hours. Login to your account and use the in-app support chat.</p></div><div class="info-box"><h4>🎖 Veteran Support</h4><p>Veterans with questions about the VET50 discount or veteran DMV benefits: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="304655445542515e4370545d46514343594344515e44431e535f5d">[email&#160;protected]</a></p></div><h2>Common Issues</h2><ul><li>Not receiving emails — check spam folder, add <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="781617550a1d081401381c150e190b0b110b0c19160c0b561b1715">[email&#160;protected]</a> to contacts</li><li>SMS not arriving — verify phone number in Settings, ensure country code is +1</li><li>Forgot password — use "Forgot Password" on the login page</li><li>Billing questions — login → Billing → Manage via Lemon Squeezy portal</li></ul><button class="btn bp" onclick="toast('Support email copied: support@dmvassistants.com','i')">Copy Support Email</button></div></div>
+<div class="fp" id="fp-contact"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Support</div><h1>Contact Support</h1><p class="lead">We're here to help. Typical response time: under 24 hours. Pro and Family plan users get priority support.</p><div class="info-box"><h4>📧 Email Support</h4><p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9feceaefeff0edebdffbf2e9feececf6ecebfef1ebecb1fcf0f2">[email&#160;protected]</a> · Response within 24 hours (business days)</p></div><div class="info-box"><h4>⭐ Priority Support</h4><p>Pro and Family plan users get responses within 4 business hours. Login to your account and use the in-app support chat.</p></div><div class="info-box"><h4>🎖 Veteran Support</h4><p>Veterans with questions about the VET50 discount or veteran DMV benefits: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="304655445542515e4370545d46514343594344515e44431e535f5d">[email&#160;protected]</a></p></div><h2>Common Issues</h2><ul><li>Not receiving emails — check spam folder, add <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="781617550a1d081401381c150e190b0b110b0c19160c0b561b1715">[email&#160;protected]</a> to contacts</li><li>SMS not arriving — verify phone number in Settings, ensure country code is +1</li><li>Forgot password — use "Forgot Password" on the login page</li><li>Billing questions — login → Billing → Manage via Lemon Squeezy portal</li></ul><button class="btn bp" onclick="toast('Support email copied: alerts@dmvassistants.com','i')">Copy Support Email</button></div></div>
 
 <div class="fp" id="fp-blog"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Blog</div><h1>DMV News & Updates</h1><p class="lead">Latest DMV news, rule changes, and helpful guides for US residents and veterans.</p><div class="info-box"><h4>📰 REAL ID Deadline — What You Need to Know</h4><p>As of May 2025, REAL ID is required for domestic flights. Here's how to get yours quickly in all 50 states using DMV Assistant appointment alerts...</p></div><div class="info-box"><h4>📰 5 States With the Longest DMV Wait Times (2026)</h4><p>California, New York, Texas, Florida, and Illinois consistently have the longest DMV wait times. Here's how to beat the queue with appointment alerts...</p></div><div class="info-box"><h4>📰 Veteran DMV Benefits by State — 2026 Complete Guide</h4><p>Free licenses, veteran plates, reduced fees — a full breakdown of what each state offers to US veterans and active duty military...</p></div><div class="info-box"><h4>📰 Online vs In-Person DMV Renewal — State by State Guide</h4><p>Which states let you renew your license and registration completely online? Complete guide for all 50 states with direct links...</p></div></div></div>
 
@@ -732,7 +739,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
   </aside>
   <main class="main">
     <div class="topbar">
-      <div class="tb-left"><h2 id="tb-t">Dashboard</h2><p id="tb-s">Sunday, March 15, 2026</p></div>
+      <div class="tb-left"><h2 id="tb-t">Dashboard</h2><p id="tb-s">Loading...</p></div>
       <div class="tb-right">
         <span class="tbadge bfree" id="tb-badge">Free</span>
         <div class="notifbtn" onclick="showPg('pg-alerts',null)">🔔<div class="ndot"></div></div>
@@ -1226,6 +1233,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 
 
 
+
 <script>
 const STATES=['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
 const OFFICES={'California':['Los Angeles — Culver City','Los Angeles — Van Nuys','Los Angeles — Santa Monica','San Francisco — Fell St','San Diego — Normal St','Sacramento — Broadway'],'Texas':['Houston — N Shepherd Dr','Dallas — Mockingbird Ln','Austin — E Rundberg Ln','San Antonio — Fredericksburg Rd'],'Florida':['Miami — NW 119th St','Orlando — E Colonial Dr','Tampa — Adamo Dr','Jacksonville — Blanding Blvd'],'New York':['NYC — Jamaica Ave','Brooklyn — Linden Blvd','Manhattan — 34th St','Buffalo — Dingens St'],'default':['Main Office — Downtown','North Branch Office','South Branch Office','East District Office']};
@@ -1234,6 +1242,31 @@ const AI_ANS={'real id':'For <strong>REAL ID</strong> you need: US passport or b
 const APP={user:null,plan:'free'};
 
 function init(){
+  // Handle password reset from email link
+  const urlParams = new URLSearchParams(window.location.search);
+  const resetToken = urlParams.get('reset');
+  const resetEmail = urlParams.get('email');
+  if(resetToken && resetEmail){
+    // Show reset password page
+    document.getElementById('reset-email-hidden').value = resetEmail;
+    document.getElementById('reset-token-hidden').value = resetToken;
+    showFP('fp-reset-pw');
+    return;
+  }
+  // Check if already logged in
+  const token = localStorage.getItem('dmv_token');
+  const user = localStorage.getItem('dmv_user');
+  if(token && user){
+    try{
+      APP.user = JSON.parse(user);
+      APP.plan = APP.user.plan || 'free';
+      loginOk();
+    } catch(e){
+      localStorage.removeItem('dmv_token');
+      localStorage.removeItem('dmv_user');
+    }
+  }
+
   ['appt-st','su-st','s-st','ai-st','ms','wt-state','smog-state','ms-primary','ms-secondary','fee-state','chk-state','elig-state'].forEach(id=>{const el=document.getElementById(id);if(!el)return;const isAi=id==='ai-st';el.innerHTML=(isAi?'<option value="">All States</option>':'<option value="">Select State...</option>')+STATES.map(s=>`<option>${s}</option>`).join('');});
   const sc=document.getElementById('state-chips');if(sc){sc.innerHTML=STATES.slice(0,20).map(s=>`<span style="padding:2px 8px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:5px;font-size:0.68rem;color:var(--text2);cursor:default">${s}</span>`).join('')+`<span style="padding:2px 8px;font-size:0.68rem;color:var(--text3)">+30 more</span>`;}
   const fc=document.getElementById('faq-cont');if(fc){FAQS.forEach((f,i)=>{fc.innerHTML+=`<div class="faq-item"><div class="faq-q" onclick="tfaq(${i})"><span>${f.q}</span><div class="ftog" id="ft${i}">+</div></div><div class="faq-a" id="fa${i}">${f.a}</div></div>`;});}
@@ -1508,6 +1541,11 @@ async function resendOTP() {
 function gLogin() {
   toast('Google login abhi available nahi — email se sign in karo', 'w');
 }
+function getLocalDate(){
+  const now = new Date();
+  const opts = {weekday:'long',year:'numeric',month:'long',day:'numeric'};
+  return now.toLocaleDateString('en-US', opts);
+}
 function loginOk(){
   const u = APP.user || {};
   const firstName = u.first_name || (u.name ? u.name.split(' ')[0] : 'User');
@@ -1529,6 +1567,9 @@ function loginOk(){
     badge.className = 'tbadge '+(APP.plan==='family'?'bfam':APP.plan==='pro'?'bpro':'bfree');
     badge.textContent = APP.plan==='family'?'Family':APP.plan==='pro'?'Pro':'Free';
   }
+  // Set local date/time
+  const tbS = document.getElementById('tb-s');
+  if(tbS) tbS.textContent = getLocalDate();
 
   // Dashboard greeting
   const dg = document.getElementById('dg');
@@ -1637,91 +1678,108 @@ window.addEventListener('DOMContentLoaded', function(){
 
 function chkFam(){if(APP.plan==='family')oM('m-member');else oM('m-upgrade');}
 async function addMember(){
-  const n=document.getElementById('mn').value.trim();
-  const eml=document.getElementById('me')?document.getElementById('me').value.trim():'';
-  const relEl=document.querySelector('#m-member select');
-  const rel=relEl?relEl.value:'';
+  const n = document.getElementById('mn') ? document.getElementById('mn').value.trim() : '';
+  const eml = document.getElementById('me') ? document.getElementById('me').value.trim() : '';
+  const rel = document.getElementById('mem-rel') ? document.getElementById('mem-rel').value : '';
+  const state = document.getElementById('ms') ? document.getElementById('ms').value : '';
   if(!n){toast('Name required','e');return;}
-  const token=localStorage.getItem('dmv_token');
-  if(!token){toast('Please login first','e');return;}
-  const btn=document.querySelector('#m-member .btn.bp');
+  const token = localStorage.getItem('dmv_token');
+  if(!token){showFP('fp-login');return;}
+  const btn = document.querySelector('#m-member .btn.bp');
   if(btn){btn.textContent='Adding...';btn.disabled=true;}
   try{
-    const res=await fetch(API+'/api/family/members',{
+    const res = await fetch(API+'/api/family/members',{
       method:'POST',
       headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
-      body:JSON.stringify({name:n,email:eml,relationship:rel})
+      body:JSON.stringify({name:n, email:eml||null, relationship:rel, state:state||null})
     });
-    const data=await res.json();
-    if(data.id||data.member){
+    const data = await res.json();
+    if(data.id || data.member || (data && !data.error)){
       cM('m-member');
       toast('✅ Family member added!','s');
       loadFamilyMembers();
     } else {
       toast(data.error||'Could not add member','e');
     }
-  }catch(e){toast('Connection error','e');}
+  }catch(e){
+    toast('Connection error','e');
+    console.error('addMember error:',e);
+  }
   if(btn){btn.textContent='Add Member';btn.disabled=false;}
 }
 async function addAppt(){
-  const state = document.getElementById('appt-st').value;
+  const state = document.getElementById('appt-st') ? document.getElementById('appt-st').value : '';
   const office = document.getElementById('off-sel') ? document.getElementById('off-sel').value : '';
-  const serviceEl = document.querySelector('#m-appt select:nth-of-type(2)');
-  const service = serviceEl ? serviceEl.value : '';
+  const service = document.getElementById('appt-svc') ? document.getElementById('appt-svc').value : 'Driver License (New)';
+  const prefDate = document.getElementById('appt-date') ? document.getElementById('appt-date').value : '';
+  const notify = document.getElementById('appt-notify') ? document.getElementById('appt-notify').value : 'Email + SMS';
   const token = localStorage.getItem('dmv_token');
   if(!state){toast('State select karo','e');return;}
-  if(!token){toast('Please login first','e');return;}
+  if(!token){showFP('fp-login');return;}
   const btn = document.querySelector('#m-appt .btn.bp');
   if(btn){btn.textContent='Saving...';btn.disabled=true;}
   try{
     const res = await fetch(API+'/api/alerts',{
       method:'POST',
       headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
-      body:JSON.stringify({state,office,service,status:'active'})
+      body:JSON.stringify({
+        state: state,
+        office: office||'Any',
+        service_type: service,
+        preferred_date: prefDate||null,
+        notify_via: notify,
+        status: 'active'
+      })
     });
     const data = await res.json();
-    if(data.id || data.alert){
+    if(data.id || data.alert || res.ok){
       cM('m-appt');
-      toast('✅ Alert set! We will notify you when a slot opens.','s');
+      toast('✅ Alert set! Monitoring every 30 min.','s');
       loadAlerts();
     } else {
-      toast(data.error||'Could not save alert','e');
+      toast(data.error||'Could not save — try again','e');
     }
   }catch(e){
-    toast('Connection error — try again','e');
+    toast('Connection error — check internet','e');
   }
-  if(btn){btn.textContent='Set Alert';btn.disabled=false;}
+  if(btn){btn.textContent='Start Monitoring 🔔';btn.disabled=false;}
 }
 async function addRenewal(){
-  const typeEl = document.querySelector('#m-renewal select');
-  const dateEl = document.querySelector('#m-renewal input[type=date]');
-  const noteEl = document.querySelector('#m-renewal input[placeholder*="plate"], #m-renewal input[placeholder*="ID"]');
-  const type = typeEl ? typeEl.value : '';
-  const expDate = dateEl ? dateEl.value : '';
-  const note = noteEl ? noteEl.value : '';
+  const type = document.getElementById('ren-type') ? document.getElementById('ren-type').value : 'Driver License';
+  const expDate = document.getElementById('ren-date') ? document.getElementById('ren-date').value : '';
+  const plate = document.getElementById('ren-plate') ? document.getElementById('ren-plate').value : '';
+  const name = document.getElementById('ren-name') ? document.getElementById('ren-name').value : '';
+  const notify = document.getElementById('ren-notify') ? document.getElementById('ren-notify').value : 'Email + SMS';
   const token = localStorage.getItem('dmv_token');
   if(!expDate){toast('Expiration date enter karo','e');return;}
-  if(!token){toast('Please login first','e');return;}
-  const btn = document.querySelector('#m-renewal .btn');
+  if(!token){showFP('fp-login');return;}
+  const btn = document.querySelector('#m-renewal .btn.bg');
   if(btn){btn.textContent='Saving...';btn.disabled=true;}
   try{
     const res = await fetch(API+'/api/renewals',{
       method:'POST',
       headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
-      body:JSON.stringify({type,expiration_date:expDate,note,status:'active'})
+      body:JSON.stringify({
+        type: type,
+        expiry_date: expDate,
+        plate_number: plate||null,
+        vehicle_name: name||null,
+        notify_via: notify,
+        status: 'active'
+      })
     });
     const data = await res.json();
-    if(data.id || data.reminder){
+    if(data.id || data.reminder || res.ok){
       cM('m-renewal');
-      toast('✅ Reminder set! You will get alerts at 60, 30 & 7 days.','s');
+      toast('✅ Reminder set! Alerts at 60, 30 & 7 days.','s');
       loadRenewals();
     } else {
-      toast(data.error||'Could not save reminder','e');
+      toast(data.error||'Could not save — try again','e');
     }
   }catch(e){
-    toast('Connection error — try again','e');
+    toast('Connection error — check internet','e');
   }
-  if(btn){btn.textContent='Save Reminder';btn.disabled=false;}
+  if(btn){btn.textContent='Add Reminder ✓';btn.disabled=false;}
 }
 function stab(el){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');}
 // saveSettings is defined above in loginOk section
@@ -2184,6 +2242,36 @@ function applyPlanUI(){
   });
 }
 
+async function doResetPassword(){
+  const email = document.getElementById('reset-email-hidden').value;
+  const token = document.getElementById('reset-token-hidden').value;
+  const pw = document.getElementById('reset-new-pw').value;
+  const pw2 = document.getElementById('reset-confirm-pw').value;
+  if(!pw || pw.length < 8){toast('Password min 8 characters','e');return;}
+  if(pw !== pw2){toast('Passwords do not match','e');return;}
+  const btn = document.getElementById('reset-pw-btn');
+  if(btn){btn.textContent='Resetting...';btn.disabled=true;}
+  try{
+    const res = await fetch(API+'/api/auth/reset-password',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email,token,newPassword:pw})
+    });
+    const data = await res.json();
+    if(data.success){
+      toast('✅ Password reset! Please sign in.','s');
+      // Clean URL
+      window.history.replaceState({},'',window.location.pathname);
+      showFP('fp-login');
+    } else {
+      toast(data.error||'Reset failed — try again','e');
+    }
+  }catch(e){
+    toast('Connection error','e');
+  }
+  if(btn){btn.textContent='Reset Password';btn.disabled=false;}
+}
+
 </script>
 
 <!-- FORGOT PASSWORD PAGE -->
@@ -2381,11 +2469,40 @@ function applyPlanUI(){
   <h2>7-Day Money-Back Guarantee</h2>
   <p>If you are not satisfied with DMV Assistant Pro or Family plan, request a full refund within <strong>7 days</strong> of your initial purchase. No questions asked.</p>
   <h2>How to Request a Refund</h2>
-  <ul><li>Email <strong>support@dmvassistants.com</strong> within 7 days of purchase</li><li>Include your order number from your Lemon Squeezy receipt</li><li>Refunds processed within 5-10 business days</li></ul>
+  <ul><li>Email <strong>alerts@dmvassistants.com</strong> within 7 days of purchase</li><li>Include your order number from your Lemon Squeezy receipt</li><li>Refunds processed within 5-10 business days</li></ul>
   <h2>Subscription Cancellation</h2>
   <ul><li>Cancel anytime — your plan stays active until end of billing period</li><li>You will NOT be charged for the next cycle</li><li>To cancel: Login → Billing → Manage Subscription → Cancel</li></ul>
   <div class="info-box"><h4>💡 Powered by Lemon Squeezy</h4><p>All payments processed securely. Manage subscriptions directly at the Lemon Squeezy customer portal.</p></div>
   <button class="btn bp" onclick="window.open('https://app.lemonsqueezy.com/my-orders','_blank')">Open Billing Portal →</button>
 </div></div>
+
+<!-- RESET PASSWORD PAGE -->
+<div class="fp" id="fp-reset-pw">
+<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem;background:var(--bg)">
+  <div style="background:var(--card);border:1px solid var(--border2);border-radius:var(--rxl);padding:2rem;width:100%;max-width:390px;text-align:center">
+    <div style="width:56px;height:56px;border-radius:50%;background:rgba(22,163,74,0.12);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 1rem">🔐</div>
+    <div style="font-size:1.2rem;font-weight:900;margin-bottom:0.25rem">Create New Password</div>
+    <div style="font-size:0.78rem;color:var(--text3);margin-bottom:1.5rem">Enter your new password below</div>
+    <input type="hidden" id="reset-email-hidden"/>
+    <input type="hidden" id="reset-token-hidden"/>
+    <div class="fg" style="text-align:left;margin-bottom:0.75rem">
+      <label class="fl">New Password</label>
+      <div style="position:relative">
+        <input class="fi" id="reset-new-pw" type="password" placeholder="Min 8 characters" style="padding-right:2.75rem"/>
+        <span onclick="togglePw('reset-new-pw','reset-eye1')" id="reset-eye1" style="position:absolute;right:0.75rem;top:50%;transform:translateY(-50%);cursor:pointer;font-size:0.95rem;color:var(--text3)">👁</span>
+      </div>
+    </div>
+    <div class="fg" style="text-align:left;margin-bottom:1rem">
+      <label class="fl">Confirm Password</label>
+      <input class="fi" id="reset-confirm-pw" type="password" placeholder="Repeat password"/>
+    </div>
+    <button id="reset-pw-btn" class="btn bp" style="width:100%;padding:0.62rem;font-size:0.88rem" onclick="doResetPassword()">Reset Password →</button>
+    <div style="margin-top:0.875rem;font-size:0.76rem;color:var(--text3)">
+      <a style="color:var(--blue3);cursor:pointer" onclick="showFP('fp-login')">← Back to Sign In</a>
+    </div>
+  </div>
+</div>
+</div>
+
 </body>
 </html>
