@@ -63,3 +63,5 @@ app.use('/api/family', familyRoutes);
 //   await supabase.from('reminders').delete().eq('id',req.params.id).eq('user_id',req.user.userId);
 //   res.json({success:true});
 // });
+// const familyRoutes = require('./routes/family');
+// app.use('/api/family', familyRoutes);
