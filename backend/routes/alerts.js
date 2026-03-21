@@ -100,3 +100,15 @@ router.delete('/:id', authMiddleware, async (req, res) => {
 });
 
 module.exports = router;
+router.delete('/:id', async (req, res) => {
+  try {
+    const token = (req.headers.authorization || '').replace('Bearer ', '');
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    await supabase.from('alerts').delete()
+      .eq('id', req.params.id)
+      .eq('user_id', decoded.userId);
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: 'Could not delete' });
+  }
+});
