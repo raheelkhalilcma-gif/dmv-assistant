@@ -1703,78 +1703,130 @@ async function addMember(){
   if(btn){btn.textContent='Add Member';btn.disabled=false;}
 }
 async function addAppt(){
-  const state = document.getElementById('appt-st') ? document.getElementById('appt-st').value : '';
-  const office = document.getElementById('off-sel') ? document.getElementById('off-sel').value : '';
-  const service = document.getElementById('appt-svc') ? document.getElementById('appt-svc').value : 'Driver License (New)';
-  const prefDate = document.getElementById('appt-date') ? document.getElementById('appt-date').value : '';
-  const notify = document.getElementById('appt-notify') ? document.getElementById('appt-notify').value : 'Email + SMS';
+  const stEl = document.getElementById('appt-st');
+  const offEl = document.getElementById('off-sel');
+  const svcEl = document.getElementById('appt-svc');
+  const dateEl = document.getElementById('appt-date');
+  const notifyEl = document.getElementById('appt-notify');
+
+  const state = stEl ? stEl.value : '';
+  const office = offEl ? (offEl.value || 'Any Office') : 'Any Office';
+  const service = svcEl ? (svcEl.value || 'Driver License (New)') : 'Driver License (New)';
+  const prefDate = dateEl ? dateEl.value : null;
+  const notify = notifyEl ? notifyEl.value : 'Email + SMS';
   const token = localStorage.getItem('dmv_token');
-  if(!state){toast('State select karo','e');return;}
-  if(!token){showFP('fp-login');return;}
+
+  if(!state){ toast('Please select a state','e'); return; }
+  if(!token){ showFP('fp-login'); return; }
+
+  // ── Plan limit check ──
+  const plan = APP.plan || 'free';
+  if(plan === 'free'){
+    try{
+      const chk = await fetch(API+'/api/alerts',{headers:{'Authorization':'Bearer '+token}});
+      const chkData = await chk.json();
+      const existing = chkData.alerts || chkData || [];
+      if(existing.length >= 2){
+        cM('m-appt');
+        toast('Free plan: max 2 alerts. Upgrade for unlimited!','w');
+        setTimeout(()=>oM('m-upgrade'), 800);
+        return;
+      }
+    }catch(e){}
+  }
+
+  const payload = {
+    state: state,
+    office: office,
+    service_type: service,
+    preferred_date: prefDate || null,
+    notify_via: notify,
+    status: 'active'
+  };
+
   const btn = document.querySelector('#m-appt .btn.bp');
-  if(btn){btn.textContent='Saving...';btn.disabled=true;}
+  if(btn){ btn.textContent='Saving...'; btn.disabled=true; }
   try{
     const res = await fetch(API+'/api/alerts',{
       method:'POST',
       headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
-      body:JSON.stringify({
-        state: state,
-        office: office||'Any',
-        service_type: service,
-        preferred_date: prefDate||null,
-        notify_via: notify,
-        status: 'active'
-      })
+      body: JSON.stringify(payload)
     });
     const data = await res.json();
-    if(data.id || data.alert || res.ok){
+    if(res.ok || data.id || data.alert){
       cM('m-appt');
       toast('✅ Alert set! Monitoring every 30 min.','s');
       loadAlerts();
     } else {
-      toast(data.error||'Could not save — try again','e');
+      toast(data.error || 'Could not save alert','e');
     }
   }catch(e){
-    toast('Connection error — check internet','e');
+    toast('Connection error','e');
   }
-  if(btn){btn.textContent='Start Monitoring 🔔';btn.disabled=false;}
+  if(btn){ btn.textContent='Start Monitoring 🔔'; btn.disabled=false; }
 }
 async function addRenewal(){
-  const type = document.getElementById('ren-type') ? document.getElementById('ren-type').value : 'Driver License';
-  const expDate = document.getElementById('ren-date') ? document.getElementById('ren-date').value : '';
-  const plate = document.getElementById('ren-plate') ? document.getElementById('ren-plate').value : '';
-  const name = document.getElementById('ren-name') ? document.getElementById('ren-name').value : '';
-  const notify = document.getElementById('ren-notify') ? document.getElementById('ren-notify').value : 'Email + SMS';
+  const typeEl = document.getElementById('ren-type');
+  const dateEl = document.getElementById('ren-date');
+  const plateEl = document.getElementById('ren-plate');
+  const nameEl = document.getElementById('ren-name');
+  const notifyEl = document.getElementById('ren-notify');
+
+  const type = typeEl ? (typeEl.value || 'Driver License') : 'Driver License';
+  const expDate = dateEl ? dateEl.value : '';
+  const plate = plateEl ? plateEl.value : '';
+  const name = nameEl ? nameEl.value : '';
+  const notify = notifyEl ? notifyEl.value : 'Email + SMS';
   const token = localStorage.getItem('dmv_token');
-  if(!expDate){toast('Expiration date enter karo','e');return;}
-  if(!token){showFP('fp-login');return;}
+
+  if(!expDate){ toast('Please enter expiration date','e'); return; }
+  if(!token){ showFP('fp-login'); return; }
+
+  // ── Plan limit check ──
+  const plan = APP.plan || 'free';
+  if(plan === 'free'){
+    try{
+      const chk = await fetch(API+'/api/renewals',{headers:{'Authorization':'Bearer '+token}});
+      const chkData = await chk.json();
+      const existing = chkData.reminders || chkData || [];
+      if(existing.length >= 2){
+        cM('m-renewal');
+        toast('Free plan: max 2 reminders. Upgrade for unlimited!','w');
+        setTimeout(()=>oM('m-upgrade'), 800);
+        return;
+      }
+    }catch(e){}
+  }
+
+  const payload = {
+    type: type,
+    expiry_date: expDate,
+    plate_number: plate || null,
+    vehicle_name: name || null,
+    notify_via: notify,
+    status: 'active'
+  };
+
   const btn = document.querySelector('#m-renewal .btn.bg');
-  if(btn){btn.textContent='Saving...';btn.disabled=true;}
+  if(btn){ btn.textContent='Saving...'; btn.disabled=true; }
   try{
     const res = await fetch(API+'/api/renewals',{
       method:'POST',
       headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
-      body:JSON.stringify({
-        type: type,
-        expiry_date: expDate,
-        plate_number: plate||null,
-        vehicle_name: name||null,
-        notify_via: notify,
-        status: 'active'
-      })
+      body: JSON.stringify(payload)
     });
     const data = await res.json();
-    if(data.id || data.reminder || res.ok){
+    if(res.ok || data.id || data.reminder){
       cM('m-renewal');
       toast('✅ Reminder set! Alerts at 60, 30 & 7 days.','s');
       loadRenewals();
     } else {
-      toast(data.error||'Could not save — try again','e');
+      toast(data.error || 'Could not save reminder','e');
     }
   }catch(e){
-    toast('Connection error — check internet','e');
+    toast('Connection error','e');
   }
-  if(btn){btn.textContent='Add Reminder ✓';btn.disabled=false;}
+  if(btn){ btn.textContent='Add Reminder ✓'; btn.disabled=false; }
 }
 function stab(el){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');}
 // saveSettings is defined above in loginOk section
