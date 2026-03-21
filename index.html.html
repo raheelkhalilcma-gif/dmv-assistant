@@ -52,7 +52,7 @@ body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--text);min
 .bfam{background:rgba(29,106,229,0.15);color:var(--blue3);border:1px solid rgba(29,106,229,0.3)}
 .notifbtn{width:32px;height:32px;border-radius:7px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.85rem;cursor:pointer;position:relative}
 .ndot{position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:var(--gold2);border:1.5px solid var(--bg2)}
-.content{padding:1.4rem 1.5rem;flex:1}
+.content{padding:1.4rem 1.5rem;flex:1;min-width:0;overflow-x:hidden}
 
 /* BTN */
 .btn{padding:0.42rem 0.95rem;border-radius:7px;border:none;cursor:pointer;font-family:'Manrope',sans-serif;font-size:0.8rem;font-weight:700;transition:all 0.18s;display:inline-flex;align-items:center;gap:5px}
@@ -66,7 +66,7 @@ body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--text);min
 .blg{padding:0.65rem 1.5rem;font-size:0.92rem;border-radius:10px}
 
 /* PAGES */
-.pg{display:none;min-height:60vh;background:var(--bg)}.pg.active{display:block}
+.pg{display:none;background:var(--bg);width:100%;min-height:0}.pg.active{display:block}
 .fp{display:none;position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;overflow-y:auto;background:var(--bg)}.fp.active{display:block}
 
 /* CARDS */
@@ -923,7 +923,33 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 
       <!-- AI -->
       <div class="pg" id="pg-ai">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.75rem"><div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em">AI DMV Assistant</div><select class="fs" style="width:auto;font-size:0.78rem" id="ai-st"><option value="">All States</option></select></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.75rem">
+          <div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em">🤖 AI DMV Assistant</div>
+          <select class="fs" style="width:auto;font-size:0.78rem" id="ai-st"><option value="">All States</option></select>
+        </div>
+        <!-- Quick questions -->
+        <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem">
+          <button class="btn bgh bsm" onclick="qMsg('How do I get a REAL ID?')">REAL ID requirements</button>
+          <button class="btn bgh bsm" onclick="qMsg('How do I renew my driver license?')">License renewal</button>
+          <button class="btn bgh bsm" onclick="qMsg('What documents do I need for registration?')">Registration docs</button>
+          <button class="btn bgh bsm" onclick="qMsg('How long does DMV take?')">DMV wait times</button>
+        </div>
+        <!-- Chat box -->
+        <div class="card" style="padding:0;overflow:hidden;display:flex;flex-direction:column;height:420px">
+          <div id="chatbox" style="flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:0.75rem">
+            <div style="display:flex;gap:10px;align-items:flex-start">
+              <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--blue2),var(--blue3));display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0">🤖</div>
+              <div style="background:var(--card2);border-radius:10px;padding:0.75rem;font-size:0.84rem;color:var(--text2);line-height:1.6;max-width:85%">
+                Hi! I'm your DMV Assistant. Ask me anything about licenses, registration, REAL ID, or any DMV process. Select your state above for state-specific answers.
+              </div>
+            </div>
+          </div>
+          <div style="padding:0.75rem;border-top:1px solid var(--border);display:flex;gap:0.5rem">
+            <input class="fi" id="cin" placeholder="Ask anything about DMV..." style="flex:1;margin:0" onkeydown="if(event.key==='Enter')sendMsg()"/>
+            <button class="btn bp bsm" onclick="sendMsg()">Send →</button>
+          </div>
+        </div>
+      </div>
         <div class="g2">
           <div class="card" style="display:flex;flex-direction:column">
             <div class="card-t">Chat with DMV AI</div>
@@ -951,7 +977,21 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 
       <!-- ALERTS -->
       <div class="pg" id="pg-alerts">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.75rem"><div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em">Alert History</div><div style="display:flex;gap:0.4rem"><button class="btn bo bsm" onclick="toast('Exporting PDF...','i')">⬇ PDF</button><button class="btn bo bsm" onclick="toast('Exporting CSV...','i')">⬇ CSV</button></div></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.75rem">
+          <div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em">🔔 Alert History</div>
+          <div style="display:flex;gap:0.4rem">
+            <button class="btn bo bsm" onclick="exportAlertHistory('pdf')">⬇ PDF</button>
+            <button class="btn bo bsm" onclick="exportAlertHistory('csv')">⬇ CSV</button>
+          </div>
+        </div>
+        <div id="alert-history-list">
+          <div style="text-align:center;padding:3rem 1rem">
+            <div style="font-size:2.5rem;margin-bottom:1rem">🔔</div>
+            <div style="font-size:0.9rem;font-weight:700;color:var(--text);margin-bottom:0.4rem">No alert history yet</div>
+            <div style="font-size:0.8rem;color:var(--text3)">When DMV appointment slots are found, they will appear here.</div>
+          </div>
+        </div>
+      </div>
         <div class="tabs"><div class="tab active" onclick="stab(this)">All</div><div class="tab" onclick="stab(this)">Appointments</div><div class="tab" onclick="stab(this)">Renewals</div><div class="tab" onclick="stab(this)">Documents</div></div>
         <div class="ahrow"><div class="ahic" style="background:rgba(29,106,229,0.15)">📧</div><div class="ahbody"><div class="ahtit">Slot Found — REAL ID, Culver City DMV, CA</div><div class="ahtime">Today 9:42 AM · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="43292c2b2d03262e222a2f6d202c2e">[email&#160;protected]</a></div></div><span class="ahtag">Email</span></div>
         <div class="ahrow"><div class="ahic" style="background:rgba(245,158,11,0.12)">💬</div><div class="ahbody"><div class="ahtit">Reminder: Driver License expires in 30 days</div><div class="ahtime">Mar 12 · +1 (310) 555-0198</div></div><span class="ahtag">SMS</span></div>
@@ -1275,6 +1315,9 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 
 
 
+
+
+
 const STATES=['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
 const OFFICES={'California':['Los Angeles — Culver City','Los Angeles — Van Nuys','Los Angeles — Santa Monica','San Francisco — Fell St','San Diego — Normal St','Sacramento — Broadway'],'Texas':['Houston — N Shepherd Dr','Dallas — Mockingbird Ln','Austin — E Rundberg Ln','San Antonio — Fredericksburg Rd'],'Florida':['Miami — NW 119th St','Orlando — E Colonial Dr','Tampa — Adamo Dr','Jacksonville — Blanding Blvd'],'New York':['NYC — Jamaica Ave','Brooklyn — Linden Blvd','Manhattan — 34th St','Buffalo — Dingens St'],'default':['Main Office — Downtown','North Branch Office','South Branch Office','East District Office']};
 const FAQS=[{q:'Is DMV Assistant free?',a:'Yes! Free plan is completely free forever — no credit card needed. Includes 2 appointment alerts and 2 renewal reminders. Pro plan is $12/mo for unlimited everything.'},{q:'How does appointment monitoring work?',a:'We check DMV slot availability every 30 minutes for your selected state and office. The moment a slot opens, you receive instant email and SMS — so you book before anyone else.'},{q:'All 50 states supported?',a:'Yes — all 50 US states are fully supported. Every state has major DMV offices covered. Select your state when setting up an alert.'},{q:'Are my documents secure?',a:'AES-256 military-grade encryption — same as major banks. Fully GDPR and CCPA compliant. Documents never shared with third parties.'},{q:'What is the veteran discount?',a:'US Veterans and Active Duty Military receive 50% off Pro Plan permanently. Use code VET50 at checkout.'},{q:'Can I manage my whole family?',a:'Yes! Family Plan ($40/mo) supports up to 5 family members each with their own login, alerts, and documents under one subscription.'},{q:'Is DMV Assistant government affiliated?',a:'No. We are an independent third-party service. Not affiliated with any government DMV agency. Always verify with your state\'s official DMV website for official transactions.'}];
@@ -1324,7 +1367,13 @@ function showFooterPage(id){showFP(id);}
 function showPg(id,nav){
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
   const el=document.getElementById(id);
-  if(el)el.classList.add('active');
+  if(el){
+    el.classList.add('active');
+    // Scroll to top of content area
+    const cont = document.querySelector('.content') || document.querySelector('.main');
+    if(cont) cont.scrollTop = 0;
+    window.scrollTo(0,0);
+  }
   // Refresh data on page switch
   if(id==='pg-appts') loadAlerts();
   else if(id==='pg-renewals') loadRenewals();
@@ -2461,61 +2510,85 @@ async function loadDocuments() {
   const token = localStorage.getItem('dmv_token');
   if(!token) return;
   const list = document.getElementById('vault-docs-list');
-  if(list) list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--text3);font-size:0.84rem">Loading...</div>';
+  if(list) list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--text3)">Loading...</div>';
   try {
-    const res = await fetch(API + '/api/documents', {
-      headers: {'Authorization': 'Bearer ' + token}
-    });
+    const res = await fetch(API + '/api/documents', {headers:{'Authorization':'Bearer '+token}});
     const data = await res.json();
     const docs = data.documents || data || [];
-    console.log('Documents loaded:', docs.length, docs);
 
-    // Update stat counter
     const statDocs = document.getElementById('stat-docs');
     if(statDocs) statDocs.textContent = docs.length;
-
-    // Update vault list
     if(!list) return;
+
     if(docs.length === 0) {
-      list.innerHTML = '<div style="text-align:center;padding:2rem 1rem">'
-        + '<div style="font-size:2rem;margin-bottom:0.75rem">📂</div>'
-        + '<div style="font-size:0.9rem;font-weight:700;color:var(--text);margin-bottom:0.4rem">No documents yet</div>'
-        + '<div style="font-size:0.8rem;color:var(--text3)">Click "+ Upload" to add your first document.</div></div>';
+      list.innerHTML = '<div style="text-align:center;padding:3rem 1rem"><div style="font-size:2.5rem;margin-bottom:0.75rem">📂</div><div style="font-size:0.9rem;font-weight:700;color:var(--text);margin-bottom:0.4rem">No documents yet</div><div style="font-size:0.8rem;color:var(--text3)">Click "+ Upload" to add your first document.</div></div>';
       return;
     }
 
-    let html = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:0.75rem">';
+    // Group by category (folder)
+    const folders = {
+      'License & ID': [],
+      'Vehicle': [],
+      'Insurance': [],
+      'Other': []
+    };
+    
     docs.forEach(function(d) {
-      const ext = (d.name||'').split('.').pop().toUpperCase();
-      const icon = {'PDF':'📄','JPG':'🖼','JPEG':'🖼','PNG':'🖼','DOC':'📝','DOCX':'📝'}[ext] || '📎';
-      const kb = d.size ? (d.size > 1048576 ? (d.size/1048576).toFixed(1)+' MB' : Math.round(d.size/1024)+' KB') : '';
-      const date = d.created_at ? new Date(d.created_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '';
-      const name = (d.name || 'Document').substring(0, 30);
-      const id = d.id;
-      html += '<div style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:1rem;position:relative">'
-        + '<div style="font-size:2rem;margin-bottom:0.5rem">'+icon+'</div>'
-        + '<div style="font-size:0.84rem;font-weight:700;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+name+'</div>'
-        + '<div style="font-size:0.7rem;color:var(--text3);margin-bottom:0.75rem">'+kb+(kb&&date?' · ':'')+date+'</div>'
-        + '<div style="display:flex;gap:6px">'
-        + '<button data-id="'+id+'" onclick="downloadDoc(this.dataset.id)" style="flex:1;padding:5px;background:rgba(37,99,235,0.1);border:1px solid rgba(37,99,235,0.25);border-radius:6px;font-size:0.72rem;color:var(--blue3);cursor:pointer;font-family:inherit">⬇ Download</button>'
-        + '<button data-id="'+id+'" onclick="deleteDoc(this.dataset.id)" style="padding:5px 8px;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.2);border-radius:6px;font-size:0.72rem;color:#f87171;cursor:pointer;font-family:inherit">🗑</button>'
-        + '</div></div>';
+      const name = (d.name || '').toLowerCase();
+      if(name.includes('license') || name.includes('id') || name.includes('passport') || name.includes('real id')) {
+        folders['License & ID'].push(d);
+      } else if(name.includes('vehicle') || name.includes('title') || name.includes('registration') || name.includes('car') || name.includes('truck')) {
+        folders['Vehicle'].push(d);
+      } else if(name.includes('insurance') || name.includes('policy') || name.includes('coverage')) {
+        folders['Insurance'].push(d);
+      } else {
+        folders['Other'].push(d);
+      }
     });
-    html += '</div>';
+
+    const folderIcons = {'License & ID':'🪪', 'Vehicle':'🚗', 'Insurance':'🛡', 'Other':'📎'};
+    let html = '';
+
+    Object.keys(folders).forEach(function(folderName) {
+      const folderDocs = folders[folderName];
+      if(folderDocs.length === 0) return;
+
+      html += '<div style="margin-bottom:1.25rem">';
+      html += '<div style="display:flex;align-items:center;gap:6px;font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.07em;color:var(--text3);margin-bottom:0.625rem">';
+      html += '<span>'+folderIcons[folderName]+'</span> '+folderName+' <span style="color:var(--text3);font-weight:400">('+folderDocs.length+')</span></div>';
+      html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:0.625rem">';
+
+      folderDocs.forEach(function(d) {
+        const ext = (d.name||'').split('.').pop().toUpperCase();
+        const icon = {'PDF':'📄','JPG':'🖼','JPEG':'🖼','PNG':'🖼','DOC':'📝','DOCX':'📝'}[ext] || '📎';
+        const kb = d.size ? (d.size > 1048576 ? (d.size/1048576).toFixed(1)+' MB' : Math.round(d.size/1024)+' KB') : '';
+        const date = d.created_at ? new Date(d.created_at).toLocaleDateString('en-US',{month:'short',day:'numeric'}) : '';
+        const name = (d.name||'Document').substring(0, 22);
+        html += '<div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:0.875rem">';
+        html += '<div style="font-size:1.75rem;margin-bottom:0.4rem">'+icon+'</div>';
+        html += '<div style="font-size:0.8rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:2px" title="'+(d.name||'')+'">'+name+'</div>';
+        html += '<div style="font-size:0.68rem;color:var(--text3);margin-bottom:0.625rem">'+kb+(kb&&date?' · ':'')+date+'</div>';
+        html += '<div style="display:flex;gap:5px">';
+        html += '<button data-id="'+d.id+'" onclick="downloadDoc(this.dataset.id)" style="flex:1;padding:4px;background:rgba(37,99,235,0.1);border:1px solid rgba(37,99,235,0.25);border-radius:5px;font-size:0.68rem;color:var(--blue3);cursor:pointer;font-family:inherit">⬇</button>';
+        html += '<button data-id="'+d.id+'" onclick="deleteDoc(this.dataset.id)" style="padding:4px 8px;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.2);border-radius:5px;font-size:0.68rem;color:#f87171;cursor:pointer;font-family:inherit">🗑</button>';
+        html += '</div></div>';
+      });
+
+      html += '</div></div>';
+    });
+
     list.innerHTML = html;
 
-    // Update storage bar
-    const totalBytes = docs.reduce(function(sum,d){ return sum+(d.size||0); }, 0);
-    const totalMB = (totalBytes/1048576).toFixed(1);
-    const pct = Math.min(100, (totalBytes/(50*1048576))*100);
+    // Storage bar
+    const totalBytes = docs.reduce(function(s,d){return s+(d.size||0);},0);
     const bar = document.getElementById('vault-bar');
     const label = document.getElementById('vault-size-label');
-    if(bar) bar.style.width = pct + '%';
-    if(label) label.textContent = totalMB + ' / 50 MB used';
+    if(bar) bar.style.width = Math.min(100,(totalBytes/(50*1048576))*100)+'%';
+    if(label) label.textContent = (totalBytes/1048576).toFixed(1)+' / 50 MB used';
 
   } catch(e) {
     console.error('Load docs error:', e);
-    if(list) list.innerHTML = '<div style="text-align:center;padding:1.5rem;color:var(--text3);font-size:0.84rem">Could not load documents — <a style="color:var(--blue3);cursor:pointer" onclick="loadDocuments()">try again</a></div>';
+    if(list) list.innerHTML = '<div style="text-align:center;padding:1.5rem;color:var(--text3)">Could not load — <a style="color:var(--blue3);cursor:pointer" onclick="loadDocuments()">retry</a></div>';
   }
 }
 
@@ -2549,16 +2622,13 @@ async function deleteDoc(id) {
   } catch(e) { toast('Could not delete','e'); }
 }
 
+function exportAlertHistory(format) {
+  toast('Export feature coming soon!', 'i');
+}
 
 
 
-
-
-
-
-
-
-</script>)">
+</script>
   <div style="background:var(--card);border:1px solid var(--border2);border-radius:var(--rxl);padding:2rem;width:100%;max-width:390px;text-align:center">
     <div style="width:56px;height:56px;border-radius:50%;background:rgba(29,106,229,0.12);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 1rem">🔑</div>
     <div style="font-size:1.2rem;font-weight:900;margin-bottom:0.25rem">Reset Password</div>
