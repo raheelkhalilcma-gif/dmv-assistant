@@ -235,3 +235,48 @@ router.post('/forgot-password', async (req, res) => {
   }
 });
 module.exports = router;
+router.post('/reset-password', async (req, res) => {
+  try {
+    const { email, token, newPassword } = req.body;
+    if (!email || !token || !newPassword) {
+      return res.status(400).json({ error: 'All fields required' });
+    }
+    if (newPassword.length < 8) {
+      return res.status(400).json({ error: 'Password must be at least 8 characters' });
+    }
+
+    const cleanEmail = email.toLowerCase().trim();
+
+    // Check token in DB
+    const { data: user } = await supabase
+      .from('users')
+      .select('id, reset_token, reset_token_expiry')
+      .eq('email', cleanEmail)
+      .single();
+
+    if (!user) return res.status(400).json({ error: 'User not found' });
+    if (user.reset_token !== token) return res.status(400).json({ error: 'Invalid or expired reset link' });
+    if (new Date(user.reset_token_expiry) < new Date()) {
+      return res.status(400).json({ error: 'Reset link expired — request a new one' });
+    }
+
+    // Hash new password
+    const passwordHash = await bcrypt.hash(newPassword, 12);
+
+    // Update password and clear token
+    await supabase
+      .from('users')
+      .update({
+        password_hash: passwordHash,
+        reset_token: null,
+        reset_token_expiry: null
+      })
+      .eq('email', cleanEmail);
+
+    res.json({ success: true });
+
+  } catch (err) {
+    console.error('Reset password error:', err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
