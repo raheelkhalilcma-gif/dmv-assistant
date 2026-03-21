@@ -67,7 +67,7 @@ body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--text);min
 
 /* PAGES */
 .pg{display:none;min-height:60vh;background:var(--bg)}.pg.active{display:block}
-.fp{display:none;min-height:100vh}.fp.active{display:block}
+.fp{display:none;position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;overflow-y:auto;background:var(--bg)}.fp.active{display:block}
 
 /* CARDS */
 .card{background:var(--card);border:1px solid var(--border);border-radius:var(--rl);padding:1.2rem}
@@ -163,7 +163,7 @@ body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--text);min
 .memava{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.74rem;font-weight:900;flex-shrink:0}
 
 /* MODAL */
-.mov{position:fixed;inset:0;background:rgba(0,0,0,0.82);backdrop-filter:blur(8px);z-index:200;display:none;align-items:center;justify-content:center;padding:1rem}
+.mov{position:fixed;inset:0;background:rgba(0,0,0,0.82);backdrop-filter:blur(8px);z-index:99999;display:none;align-items:center;justify-content:center;padding:1rem}
 .mov.open{display:flex}
 .modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--rxl);padding:1.6rem;max-width:470px;width:100%;max-height:88vh;overflow-y:auto}
 .mhead{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.1rem}
@@ -450,7 +450,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
   <div class="vetbar">
     <span style="background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:100px;padding:3px 12px;font-size:0.68rem;font-weight:800;color:var(--gold2);text-transform:uppercase;letter-spacing:0.04em">🎖 Veteran Special</span>
     <span style="font-size:0.84rem;color:var(--gold3);font-weight:500">US Veterans & Active Duty receive <strong>50% off Pro Plan</strong> — forever</span>
-    <span style="font-size:0.78rem;color:var(--gold2);font-weight:800;cursor:pointer;text-decoration:underline;text-underline-offset:3px" onclick="toast('Veteran code: VET50 — use at checkout!','w')">Claim Discount →</span>
+    <span style="font-size:0.78rem;color:var(--gold2);font-weight:800;cursor:pointer;text-decoration:underline;text-underline-offset:3px" onclick="showVetDiscount()">Claim Discount →</span>
   </div>
 
   <!-- HOW IT WORKS -->
@@ -528,7 +528,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
       <p class="sec-sub" style="margin:0 auto">No hidden fees. No contracts. The Pro plan pays for itself with just one avoided late fee per year.</p>
     </div>
     <div class="pgrid">
-      <div class="pcard"><div class="ptier">Free Forever</div><div class="pamount">$0<span>/mo</span></div><div class="pper">No credit card required</div><ul class="pfl"><li><span class="ck">✓</span>DMV Fee Calculator</li><li><span class="ck">✓</span>Appointment Checklist</li><li><span class="ck">✓</span>License Eligibility Check</li><li><span class="ck">✓</span>2 appointment alerts</li><li><span class="ck">✓</span>2 renewal reminders</li><li><span class="ck">✓</span>Email notifications</li><li><span class="cx">–</span>VIN Decoder, Wait Times, Smog</li><li><span class="cx">–</span>SMS + AI + Document Vault</li></ul><button class="btn bo" style="width:100%" onclick="showFP('fp-signup')">Get Started Free</button></div>
+      <div class="pcard"><div class="ptier">Free Forever</div><div class="pamount">$0<span>/mo</span></div><div class="pper">No credit card required</div><ul class="pfl"><li><span class="ck">✓</span>DMV Fee Calculator</li><li><span class="ck">✓</span>Appointment Checklist</li><li><span class="ck">✓</span>License Eligibility Check</li><li><span class="ck">✓</span>Up to 5 renewal reminders</li><li><span class="ck">✓</span>Email notifications</li><li><span class="cx">–</span>VIN Decoder, Wait Times, Smog</li><li><span class="cx">–</span>SMS + AI + Document Vault</li></ul><button class="btn bo" style="width:100%" onclick="showFP('fp-signup')">Get Started Free</button></div>
       <div class="pcard feat"><div class="pop-tag">Most Popular</div><div class="ptier">Pro Plan</div><div class="pamount">$12<span>/mo</span></div><div class="pper">or $108/year — save $36 · Cancel anytime</div><ul class="pfl"><li><span class="ck">✓</span>Unlimited appointment alerts</li><li><span class="ck">✓</span>Unlimited renewal reminders</li><li><span class="ck">✓</span>5 GB Document Vault</li><li><span class="ck">✓</span>Email + SMS alerts</li><li><span class="ck">✓</span>AI DMV Assistant</li><li><span class="ck">✓</span>All 50 US states</li><li><span class="ck">✓</span>PDF & CSV export</li><li><span class="cx">–</span>Family members</li></ul><button class="btn bg" style="width:100%" onclick="doUpgrade('pro')">Get Pro — $12/mo</button><p class="pnote">🎖 Veterans: code VET50 for 50% off</p></div>
       <div class="pcard fam"><div class="ptier">Family / Multi Plan</div><div class="pamount">$40<span>/mo</span></div><div class="pper">or $384/year — save $96 · Up to 5 members</div><ul class="pfl"><li><span class="ck">✓</span>Everything in Pro</li><li><span class="ck">✓</span>Up to 5 family members</li><li><span class="ck">✓</span>15 GB Document Vault</li><li><span class="ck">✓</span>Each member: own login</li><li><span class="ck">✓</span>Family renewal dashboard</li><li><span class="ck">✓</span>Bulk CSV export</li><li><span class="ck">✓</span>Priority email support</li><li><span class="ck">✓</span>Early access features</li></ul><button class="btn bp" style="width:100%" onclick="doUpgrade('family')">Get Family — $40/mo</button><p class="pnote">Best value for families with multiple vehicles</p></div>
     </div>
@@ -551,7 +551,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
     <p class="sec-sub" style="margin:0.875rem auto 2.25rem;position:relative">Join 12,000+ Americans. Sign up free in 60 seconds.</p>
     <div style="display:flex;gap:0.875rem;justify-content:center;flex-wrap:wrap;position:relative">
       <button class="btn bp blg" onclick="showFP('fp-signup')">🚀 Create Free Account</button>
-      <button class="btn bg blg" onclick="toast('Veteran code: VET50 — 50% off Pro!','w')">🎖 Veteran Discount</button>
+      <button class="btn bg blg" onclick="showVetDiscount()">🎖 Veteran Discount</button>
     </div>
     <p style="font-size:0.72rem;color:var(--text3);margin-top:1.25rem;position:relative">No credit card · Free forever plan · Cancel anytime</p>
   </div>
@@ -586,15 +586,15 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
       <div class="ft-col">
         <h4>Company</h4>
         <a onclick="showFooterPage('fp-about')">About Us</a>
-        <a onclick="showFooterPage('fp-privacy')">Privacy Policy</a><a onclick="showFooterPage('fp-refund')">Refund Policy</a>
-        <a onclick="showFooterPage('fp-terms')">Terms</a><a onclick="showFooterPage('fp-refund')">Refund Policy of Service</a>
+        <a onclick="showFooterPage('fp-privacy')">Privacy Policy</a>
+        <a onclick="showFooterPage('fp-terms')">Terms</a>
         <a onclick="showFooterPage('fp-contact')">Contact Support</a>
         <a onclick="showFooterPage('fp-blog')">Blog & DMV News</a>
       </div>
     </div>
     <div class="ft-bottom">
       <p>© 2026 DMV Assistant · dmvassistants.com · Not affiliated with any government DMV agency.</p>
-      <div class="ft-links"><a onclick="showFooterPage('fp-privacy')">Privacy</a><a onclick="showFooterPage('fp-terms')">Terms</a><a onclick="showFooterPage('fp-refund')">Refund Policy</a><a onclick="showFooterPage('fp-contact')">Contact</a></div>
+      <div class="ft-links"><a onclick="showFooterPage('fp-privacy')">Privacy</a><a onclick="showFooterPage('fp-terms')">Terms</a><a onclick="showFooterPage('fp-contact')">Contact</a></div>
     </div>
   </div>
   </footer>
@@ -661,7 +661,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 
 <div class="fp" id="fp-title"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">DMV Guide</div><h1>Vehicle Title Transfer Guide</h1><p class="lead">Step-by-step guide to transferring a vehicle title in the US — buying, selling, gifting, or inheriting a vehicle.</p><h2>When is a Title Transfer Needed?</h2><ul><li>Buying or selling a used vehicle</li><li>Receiving a vehicle as a gift</li><li>Inheriting a vehicle from a deceased person</li><li>Adding or removing a co-owner</li><li>Paying off a vehicle loan (lien release)</li></ul><h2>Required Documents</h2><ul><li>Signed title from seller (all owners must sign)</li><li>Odometer disclosure statement (vehicles under 10 years old)</li><li>Bill of sale (recommended — protects both buyer and seller)</li><li>Valid government-issued photo ID</li><li>Lien release letter if there was a loan on the vehicle</li><li>Payment for title fees and sales tax</li></ul><h2>Fees</h2><p>State title transfer fee: $15–$75. Plus state sales tax on the purchase price (typically 5–10%). California title fee: $21. Texas: $33. New York: $50.</p><h2>Timeline Warning</h2><p>Must be completed within 10–30 days after purchase (varies by state). Late transfers result in penalties. Store your bill of sale in the DMV Assistant document vault as proof during the transfer period.</p><button class="btn bg" onclick="showFP('fp-signup')">Store Title Documents Securely →</button></div></div>
 
-<div class="fp" id="fp-veteran"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Veteran Benefits</div><h1>🎖 DMV Benefits for US Veterans</h1><p class="lead">US veterans and active duty military receive special DMV benefits in most states — including free licenses, free plates, and reduced fees.</p><h2>Free or Discounted Licenses</h2><ul><li>California: Free DL renewal for veterans with honorable discharge</li><li>Florida: Free DL renewal for veterans</li><li>Texas: Free DL for 100% disabled veterans</li><li>New York: Veterans discount available at DMV offices</li><li>Most states: Honor or Veteran designation on license for free</li></ul><h2>Veteran License Plates</h2><p>All 50 states offer special veteran or military license plates. Most are free or low cost. Show your DD-214 or military ID at the DMV. These plates identify you as a veteran and often come with parking benefits.</p><h2>Priority DMV Service</h2><p>Many DMV locations offer priority lanes or appointments for veterans. Ask your local DMV or use our AI Assistant to find veteran-specific benefits in your state.</p><div class="info-box" style="border-color:rgba(245,158,11,0.3);background:rgba(245,158,11,0.04)"><h4>🎖 DMV Assistant Veteran Discount</h4><p>US Veterans and Active Duty receive <strong>50% off the Pro Plan</strong> — permanently. Use code <strong style="color:var(--gold2)">VET50</strong> at checkout. Our way of honoring your service.</p></div><button class="btn bg" onclick="showFP('fp-signup')">Claim Veteran Discount — 50% Off →</button></div></div>
+<div class="fp" id="fp-veteran"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Veteran Benefits</div><h1>🎖 DMV Benefits for US Veterans</h1><div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.3);border-radius:12px;padding:1rem 1.25rem;margin:1rem 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem"><div><div style="font-size:0.9rem;font-weight:800;color:var(--gold2)">🎖 50% Off Pro Plan — Veterans Only</div><div style="font-size:0.78rem;color:var(--text2);margin-top:2px">Use code <strong style="color:var(--gold2);font-family:monospace;font-size:0.9rem">VET50</strong> at checkout — permanent discount</div></div><button onclick="showVetDiscount()" class="btn" style="background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.4);color:var(--gold2);font-weight:700;padding:0.45rem 1rem;font-size:0.82rem;white-space:nowrap">Claim Discount →</button></div><p class="lead">US veterans and active duty military receive special DMV benefits in most states — including free licenses, free plates, and reduced fees.</p><h2>Free or Discounted Licenses</h2><ul><li>California: Free DL renewal for veterans with honorable discharge</li><li>Florida: Free DL renewal for veterans</li><li>Texas: Free DL for 100% disabled veterans</li><li>New York: Veterans discount available at DMV offices</li><li>Most states: Honor or Veteran designation on license for free</li></ul><h2>Veteran License Plates</h2><p>All 50 states offer special veteran or military license plates. Most are free or low cost. Show your DD-214 or military ID at the DMV. These plates identify you as a veteran and often come with parking benefits.</p><h2>Priority DMV Service</h2><p>Many DMV locations offer priority lanes or appointments for veterans. Ask your local DMV or use our AI Assistant to find veteran-specific benefits in your state.</p><div class="info-box" style="border-color:rgba(245,158,11,0.3);background:rgba(245,158,11,0.04)"><h4>🎖 DMV Assistant Veteran Discount</h4><p>US Veterans and Active Duty receive <strong>50% off the Pro Plan</strong> — permanently. Use code <strong style="color:var(--gold2)">VET50</strong> at checkout. Our way of honoring your service.</p></div><button class="btn bg" onclick="showFP('fp-signup')">Claim Veteran Discount — 50% Off →</button></div></div>
 
 <div class="fp" id="fp-about"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Company</div><h1>About DMV Assistant</h1><p class="lead">DMV Assistant was built because dealing with the DMV shouldn't be stressful. We help Americans never miss a DMV appointment or renewal deadline again.</p><h2>Our Mission</h2><p>Every year, millions of Americans pay unnecessary late fees, miss flights because of no REAL ID, or wait weeks for DMV appointments that could have been caught earlier. DMV Assistant solves this with instant alerts, automated reminders, and AI-powered guidance — covering all 50 US states.</p><h2>Who We Serve</h2><ul><li>Individual US residents in all 50 states</li><li>US Veterans and Active Duty Military (50% discount)</li><li>Families managing multiple vehicles and drivers</li><li>Businesses managing vehicle fleets</li></ul><h2>Security & Privacy</h2><p>All documents are encrypted with AES-256 — the same standard used by major US banks. We are fully GDPR and CCPA compliant. We never sell your data to third parties. Your documents are yours alone.</p><h2>Contact</h2><p>Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bccfc9ccccd3cec8fcd8d1caddcfcfd5cfc8ddd2c8cf92dfd3d1">[email&#160;protected]</a> · Response within 24 hours · Priority support for Pro and Family plan users.</p><div class="info-box"><h4>⚠ Disclaimer</h4><p>DMV Assistant is an independent third-party service. We are NOT affiliated with any government DMV agency. For official transactions, always visit your state's official DMV website.</p></div></div></div>
 
@@ -679,7 +679,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
   <div style="background:var(--card);border:1px solid var(--border2);border-radius:var(--rxl);padding:2rem;width:100%;max-width:390px;text-align:center">
     <div style="width:64px;height:64px;border-radius:50%;background:rgba(29,106,229,0.12);border:1px solid rgba(29,106,229,0.25);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 1.25rem">📧</div>
     <div style="font-size:1.2rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:0.35rem">Check your email</div>
-    <div style="font-size:0.82rem;color:var(--text3);margin-bottom:1.5rem">We sent a 6-digit verification code to<br/><strong id="verify-email" style="color:var(--blue3)"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f28b9d8780b2979f939b9edc919d9f">[email&#160;protected]</a></strong></div>
+    <div style="font-size:0.82rem;color:var(--text3);margin-bottom:1.5rem">We sent a 6-digit code to<br/><strong id="verify-display" style="color:var(--blue3)">your email</strong><input type="hidden" id="verify-email" value=""/></div>
     <div style="display:flex;gap:0.5rem;justify-content:center;margin-bottom:1.25rem">
       <input class="fi" id="otp0" maxlength="1" style="width:46px;text-align:center;font-size:1.3rem;font-weight:900;padding:0.6rem 0" oninput="otpNext(0)" onkeydown="otpBack(event,0)"/>
       <input class="fi" id="otp1" maxlength="1" style="width:46px;text-align:center;font-size:1.3rem;font-weight:900;padding:0.6rem 0" oninput="otpNext(1)" onkeydown="otpBack(event,1)"/>
@@ -690,9 +690,10 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
     </div>
     <div id="otp-err" style="display:none;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.3);border-radius:7px;padding:0.5rem;font-size:0.8rem;color:#fca5a5;margin-bottom:0.875rem">Invalid code — try again</div>
     <button class="btn bp" style="width:100%;padding:0.62rem;font-size:0.88rem" onclick="verifyOTP()" id="verify-btn">Verify Email →</button>
-    <div style="margin-top:0.875rem;font-size:0.76rem;color:var(--text3)">
-      Didn't get it? <a style="color:var(--blue3);cursor:pointer;font-weight:700" onclick="resendOTP()">Resend code</a>
-      &nbsp;·&nbsp; <a style="color:var(--text3);cursor:pointer" onclick="showFP('fp-signup')">← Back</a>
+    <div style="margin-top:1rem;padding:0.75rem;background:rgba(37,99,235,0.07);border:1px solid rgba(37,99,235,0.15);border-radius:8px">
+      <div style="font-size:0.76rem;color:var(--text3);margin-bottom:0.4rem">Didn't receive the code?</div>
+      <button onclick="resendOTP()" id="resend-btn" style="background:transparent;border:1px solid rgba(37,99,235,0.4);border-radius:6px;padding:0.35rem 0.875rem;font-size:0.78rem;font-weight:700;color:var(--blue3);cursor:pointer;font-family:inherit;width:100%;margin-bottom:0.4rem">🔄 Resend Code</button>
+      <a style="font-size:0.72rem;color:var(--text3);cursor:pointer" onclick="showFP('fp-signup')">← Back to Sign Up</a>
     </div>
   </div>
 </div>
@@ -710,7 +711,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
     </div>
     <div class="nav-sec">Main</div>
     <div class="ni active" onclick="showPg('pg-dash',this)"><span class="ni-ic">🏠</span>Dashboard</div>
-    <div class="ni" onclick="goProPg('pg-appts',this)"><span class="ni-ic">🗓</span>Appointments</div>
+    <div class="ni" id="nav-appts" onclick="goProPg('pg-appts',this)" style="display:none"><span class="ni-ic">🗓</span>Appointments</div>
     <div class="ni" onclick="showPg('pg-renewals',this)"><span class="ni-ic">⏰</span>Renewals</div>
     <div class="nav-sec">Documents</div>
     <div class="ni" onclick="goProPg('pg-vault',this)"><span class="ni-ic">📂</span>Document Vault</div>
@@ -752,9 +753,9 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 
         <!-- STATS ROW -->
         <div class="stats">
-          <div class="stat s-blue"><div class="stat-l">Appt Alerts</div><div class="stat-v" style="color:var(--blue3)">0</div><div class="stat-s">Active monitoring</div></div>
-          <div class="stat s-gold"><div class="stat-l">Renewals</div><div class="stat-v" style="color:var(--gold2)">0</div><div class="stat-s">Upcoming</div></div>
-          <div class="stat s-green"><div class="stat-l">Documents</div><div class="stat-v" style="color:var(--teal)">0</div><div class="stat-s">Stored</div></div>
+          <div class="stat s-blue" id="stat-appt-card" style="display:none"><div class="stat-l">Appt Alerts</div><div class="stat-v" style="color:var(--blue3)" id="stat-alerts">0</div><div class="stat-s">Active monitoring</div></div>
+          <div class="stat s-gold"><div class="stat-l">Renewals</div><div class="stat-v" style="color:var(--gold2)" id="stat-renewals">0</div><div class="stat-s">Upcoming</div></div>
+          <div class="stat s-green"><div class="stat-l">Documents</div><div class="stat-v" style="color:var(--teal)" id="stat-docs">0</div><div class="stat-s">Stored</div></div>
           <div class="stat"><div class="stat-l">Plan</div><div class="stat-v" style="font-size:1rem" id="dash-plan">Free</div><div class="stat-s" style="cursor:pointer;color:var(--blue3)" onclick="oM('m-upgrade')">Upgrade →</div></div>
         </div>
 
@@ -781,7 +782,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
         </div>
 
         <!-- PRO TOOLS SECTION -->
-        <div style="margin-bottom:1rem">
+        <div id="dash-pro-tools" style="margin-bottom:1rem;display:none">
           <div style="font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:var(--gold2);margin-bottom:0.625rem;display:flex;align-items:center;gap:6px"><span style="background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);padding:2px 8px;border-radius:5px">⭐ PRO PLAN TOOLS</span></div>
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.6rem">
             <div onclick="goProPg('pg-appts',null)" style="background:#0c1018;border:1px solid rgba(245,158,11,0.2);border-radius:10px;padding:0.875rem;cursor:pointer;position:relative" onmouseover="this.style.borderColor='rgba(245,158,11,0.5)'" onmouseout="this.style.borderColor='rgba(245,158,11,0.2)'">
@@ -818,7 +819,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
         </div>
 
         <!-- FAMILY TOOLS SECTION -->
-        <div style="margin-bottom:1.25rem">
+        <div id="dash-fam-tools" style="margin-bottom:1.25rem;display:none">
           <div style="font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#60a5fa;margin-bottom:0.625rem;display:flex;align-items:center;gap:6px"><span style="background:rgba(29,106,229,0.15);border:1px solid rgba(29,106,229,0.3);padding:2px 8px;border-radius:5px">👨‍👩‍👧 FAMILY PLAN TOOLS</span></div>
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.6rem">
             <div onclick="goFamPg('pg-insurance',null)" style="background:#0c1018;border:1px solid rgba(29,106,229,0.2);border-radius:10px;padding:0.875rem;cursor:pointer;position:relative" onmouseover="this.style.borderColor='rgba(29,106,229,0.5)'" onmouseout="this.style.borderColor='rgba(29,106,229,0.2)'">
@@ -844,7 +845,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
           <div class="card">
             <div class="card-t">Quick Actions</div>
             <div style="display:flex;flex-direction:column;gap:0.5rem">
-              <button class="btn bp" style="justify-content:flex-start" onclick="goProPg('pg-appts',null)">🗓 Set Appointment Alert</button>
+              <button class="btn bp" id="qa-appt-btn" style="justify-content:flex-start;display:none" onclick="goProPg('pg-appts',null)">🗓 Set Appointment Alert</button>
               <button class="btn" style="background:rgba(245,158,11,0.15);color:var(--gold2);border:1px solid rgba(245,158,11,0.3);justify-content:flex-start" onclick="showPg('pg-renewals',document.querySelector('[onclick*=pg-renewals]'))">⏰ Add Renewal Reminder</button>
               <button class="btn bgh" style="justify-content:flex-start" onclick="goProPg('pg-vault',null)">📂 Upload Document</button>
               <button class="btn bgh" style="justify-content:flex-start" onclick="showPg('pg-ai',null)">🤖 Ask AI Assistant</button>
@@ -895,7 +896,29 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 
       <!-- VAULT -->
       <div class="pg" id="pg-vault">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.75rem"><div><div style="font-size:0.65rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px">🔐 AES-256 Encrypted</div><div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em">Document Vault</div></div><button class="btn bp bsm" onclick="toast('Upload opens in live version','i')">+ Upload</button></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.75rem">
+          <div>
+            <div style="font-size:0.65rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px">🔐 AES-256 Encrypted</div>
+            <div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em">Document Vault</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.5rem">
+            <span style="font-size:0.72rem;color:var(--text3)" id="vault-size-label">0 / 50 MB used</span>
+            <label style="cursor:pointer">
+              <input type="file" id="vault-file-input" style="display:none" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" onchange="if(this.files[0])uploadDocument(this.files[0])"/>
+              <span id="vault-upload-btn" class="btn bp bsm" style="pointer-events:none">+ Upload</span>
+            </label>
+          </div>
+        </div>
+        <div style="background:var(--card2);border-radius:8px;height:6px;margin-bottom:1.25rem;overflow:hidden">
+          <div id="vault-bar" style="height:100%;background:linear-gradient(90deg,var(--blue2),var(--blue3));border-radius:8px;width:0%;transition:width 0.4s"></div>
+        </div>
+        <div id="vault-docs-list">
+          <div style="text-align:center;padding:2rem;color:var(--text3);font-size:0.84rem">Loading documents...</div>
+        </div>
+        <div style="margin-top:1rem;padding:0.75rem;background:rgba(37,99,235,0.05);border:1px solid rgba(37,99,235,0.12);border-radius:8px;font-size:0.76rem;color:var(--text3)">
+          🔐 All documents are AES-256 encrypted. Only you can access them. Max 10MB per file.
+        </div>
+      </div>
         <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem"><div style="flex:1;height:4px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden"><div style="width:18%;height:100%;background:linear-gradient(90deg,var(--blue2),var(--blue3));border-radius:2px"></div></div><span style="font-size:0.72rem;color:var(--text3)">0.9 GB / 5 GB</span></div>
         <div class="dgrid">
           <div class="dcard"><div class="dstatus"><span class="ibadge ib-r">EXPIRES SOON</span></div><div class="dic">🪪</div><div class="dname">Driver License</div><div class="dinfo">PDF · 245 KB · Mar 1, 2026</div><div class="dexp" style="color:#f87171">⚠ Apr 11, 2026</div><div class="dacts"><button class="btn bgh bsm" onclick="toast('Downloading...','i')">⬇</button><button class="btn bgh bsm" onclick="toast('Link copied!','s')">🔗</button><button class="btn bt bsm" onclick="toast('Preview opened','i')">👁</button></div></div>
@@ -964,7 +987,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
         <div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:1rem">Billing & Plan</div>
         <div class="card" style="border-color:rgba(245,158,11,0.28);background:rgba(245,158,11,0.02);margin-bottom:1rem">
           <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.875rem">
-            <div><div style="font-size:0.62rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:3px">Current Plan</div><div style="font-size:1.25rem;font-weight:900;letter-spacing:-0.03em" id="bill-plan">Free</div><div style="font-size:0.75rem;color:var(--text3);margin-top:3px" id="bill-desc">2 alerts · 2 reminders</div></div>
+            <div><div style="font-size:0.62rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:3px">Current Plan</div><div style="font-size:1.25rem;font-weight:900;letter-spacing:-0.03em" id="bill-plan">Free</div><div style="font-size:0.75rem;color:var(--text3);margin-top:3px" id="bill-desc">5 renewal reminders · Free DMV tools</div></div>
             <div id="bill-act"><button class="btn bg bsm" onclick="oM('m-upgrade')">Upgrade ↗</button></div>
           </div>
         </div>
@@ -1226,10 +1249,40 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 </div>
 </div>
 
+<!-- VET50 MODAL -->
+<div class="mov" id="m-vet50">
+<div class="modal" style="max-width:420px">
+  <div class="mhead"><h3>🎖 Veteran Discount — 50% Off</h3><span class="mx" onclick="cM('m-vet50')">✕</span></div>
+  <div style="text-align:center;padding:0.5rem 0 1rem">
+    <div style="font-size:0.85rem;color:var(--text2);margin-bottom:1.25rem;line-height:1.65">
+      Thank you for your service! Use this code at checkout to get<br/>
+      <strong style="color:var(--gold2)">50% off Pro Plan — forever.</strong>
+    </div>
+    <div style="background:var(--bg3);border:2px dashed rgba(245,158,11,0.5);border-radius:12px;padding:1.25rem;margin-bottom:1.25rem">
+      <div style="font-size:0.65rem;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:6px">Your Discount Code</div>
+      <div style="font-size:2rem;font-weight:900;letter-spacing:0.15em;color:var(--gold2);font-family:monospace">VET50</div>
+      <button onclick="copyVetCode()" id="copy-vet-btn" style="margin-top:0.75rem;padding:0.4rem 1.1rem;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.35);border-radius:7px;color:var(--gold2);font-size:0.8rem;font-weight:700;cursor:pointer;font-family:inherit">📋 Copy Code</button>
+    </div>
+    <div style="font-size:0.78rem;color:var(--text3);margin-bottom:1.25rem">Apply this code at checkout on the Lemon Squeezy payment page.</div>
+    <button onclick="cM('m-vet50');doUpgrade('pro')" class="btn bp" style="width:100%;padding:0.65rem;font-size:0.88rem">
+      🎖 Get Pro — 50% Off ($6/mo) →
+    </button>
+    <div style="font-size:0.72rem;color:var(--text3);margin-top:0.75rem">Available to US Veterans & Active Duty Military only.</div>
+  </div>
+</div>
+</div>
+
+
+
 
 
 
 <script>
+
+
+
+
+
 const STATES=['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
 const OFFICES={'California':['Los Angeles — Culver City','Los Angeles — Van Nuys','Los Angeles — Santa Monica','San Francisco — Fell St','San Diego — Normal St','Sacramento — Broadway'],'Texas':['Houston — N Shepherd Dr','Dallas — Mockingbird Ln','Austin — E Rundberg Ln','San Antonio — Fredericksburg Rd'],'Florida':['Miami — NW 119th St','Orlando — E Colonial Dr','Tampa — Adamo Dr','Jacksonville — Blanding Blvd'],'New York':['NYC — Jamaica Ave','Brooklyn — Linden Blvd','Manhattan — 34th St','Buffalo — Dingens St'],'default':['Main Office — Downtown','North Branch Office','South Branch Office','East District Office']};
 const FAQS=[{q:'Is DMV Assistant free?',a:'Yes! Free plan is completely free forever — no credit card needed. Includes 2 appointment alerts and 2 renewal reminders. Pro plan is $12/mo for unlimited everything.'},{q:'How does appointment monitoring work?',a:'We check DMV slot availability every 30 minutes for your selected state and office. The moment a slot opens, you receive instant email and SMS — so you book before anyone else.'},{q:'All 50 states supported?',a:'Yes — all 50 US states are fully supported. Every state has major DMV offices covered. Select your state when setting up an alert.'},{q:'Are my documents secure?',a:'AES-256 military-grade encryption — same as major banks. Fully GDPR and CCPA compliant. Documents never shared with third parties.'},{q:'What is the veteran discount?',a:'US Veterans and Active Duty Military receive 50% off Pro Plan permanently. Use code VET50 at checkout.'},{q:'Can I manage my whole family?',a:'Yes! Family Plan ($40/mo) supports up to 5 family members each with their own login, alerts, and documents under one subscription.'},{q:'Is DMV Assistant government affiliated?',a:'No. We are an independent third-party service. Not affiliated with any government DMV agency. Always verify with your state\'s official DMV website for official transactions.'}];
@@ -1284,6 +1337,7 @@ function showPg(id,nav){
   if(id==='pg-appts') loadAlerts();
   else if(id==='pg-renewals') loadRenewals();
   else if(id==='pg-family') loadFamilyMembers();
+  else if(id==='pg-vault') loadDocuments();
   if(nav){
     document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
     nav.classList.add('active');
@@ -1520,16 +1574,28 @@ async function verifyOTP() {
 }
 
 async function resendOTP() {
-  const em = document.getElementById('verify-email').textContent;
+  const em = document.getElementById('verify-email').value;
+  if(!em){ toast('Email not found — go back and try again','e'); return; }
+  const btn = document.getElementById('resend-btn');
+  if(btn){ btn.textContent = 'Sending...'; btn.disabled = true; }
   try {
-    await fetch(API + '/api/auth/resend-code', {
+    const res = await fetch(API + '/api/auth/resend-code', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: em })
     });
-    toast('New code sent to ' + em, 's');
+    const data = await res.json();
+    if(res.ok || data.success){
+      toast('New code sent! Check your email.', 's');
+      if(btn){ btn.textContent = 'Sent! (wait 60s)'; btn.disabled = true; }
+      setTimeout(function(){ if(btn){ btn.textContent = 'Resend Code'; btn.disabled = false; } }, 60000);
+    } else {
+      toast(data.error || 'Could not resend','e');
+      if(btn){ btn.textContent = 'Resend Code'; btn.disabled = false; }
+    }
   } catch(e) {
-    toast('Could not resend — try again', 'e');
+    toast('Connection error','e');
+    if(btn){ btn.textContent = 'Resend Code'; btn.disabled = false; }
   }
 }
 
@@ -1611,6 +1677,7 @@ function loginOk(){
     loadAlerts();
     loadRenewals();
     if(APP.plan==='family') loadFamilyMembers();
+    loadDocuments();
   }, 300);
 }
 
@@ -1655,22 +1722,6 @@ function logout(){
 }
 
 // Restore session on page load
-window.addEventListener('DOMContentLoaded', function(){
-  init();
-  const saved = localStorage.getItem('dmv_user');
-  const token = localStorage.getItem('dmv_token');
-  if (saved && token) {
-    try {
-      APP.user = JSON.parse(saved);
-      APP.plan = APP.user.plan || 'free';
-      loginOk();
-    } catch(e) {
-      localStorage.removeItem('dmv_user');
-      localStorage.removeItem('dmv_token');
-    }
-  }
-});
-
 function chkFam(){if(APP.plan==='family')oM('m-member');else oM('m-upgrade');}
 async function addMember(){
   const n = document.getElementById('mn') ? document.getElementById('mn').value.trim() : '';
@@ -1789,9 +1840,9 @@ async function addRenewal(){
       const chk = await fetch(API+'/api/renewals',{headers:{'Authorization':'Bearer '+token}});
       const chkData = await chk.json();
       const existing = chkData.reminders || chkData || [];
-      if(existing.length >= 2){
+      if(existing.length >= 5){
         cM('m-renewal');
-        toast('Free plan: max 2 reminders. Upgrade for unlimited!','w');
+        toast('Free plan: max 5 reminders. Upgrade for unlimited!','w');
         setTimeout(()=>oM('m-upgrade'), 800);
         return;
       }
@@ -2009,9 +2060,6 @@ document.querySelectorAll('.mov').forEach(m => m.addEventListener('click', funct
   if (e.target === this) this.classList.remove('open');
 }));
 
-init();
-
-
 // ===== TOGGLE PASSWORD VISIBILITY =====
 function togglePw(inputId, eyeId) {
   const inp = document.getElementById(inputId);
@@ -2039,9 +2087,14 @@ async function doForgotPassword() {
       body: JSON.stringify({ email: em })
     });
     const data = await res.json();
-    document.getElementById('fp-reset-form').style.display = 'none';
-    document.getElementById('fp-reset-success').style.display = 'block';
-    toast('Reset link sent! Check your email', 's');
+    if(res.ok || data.success) {
+      document.getElementById('fp-reset-form').style.display = 'none';
+      document.getElementById('fp-reset-success').style.display = 'block';
+      toast('✅ Reset link sent! Check your email + spam.', 's');
+    } else {
+      toast(data.error || 'Could not send — try again','e');
+      btn.textContent = 'Send Reset Link →'; btn.disabled = false;
+    }
   } catch(e) {
     toast('Connection error — try again', 'e');
     btn.textContent = 'Send Reset Link →'; btn.disabled = false;
@@ -2134,9 +2187,10 @@ async function loadAlerts(){
     const res = await fetch(API+'/api/alerts',{headers:{'Authorization':'Bearer '+token}});
     const data = await res.json();
     const alerts = data.alerts || data || [];
-    const container = document.getElementById('alerts-list');
+    // Update dashboard stat
     const statEl = document.getElementById('stat-alerts');
     if(statEl) statEl.textContent = alerts.length;
+    const container = document.getElementById('alerts-list');
     if(container){
       if(alerts.length===0){
         container.innerHTML='<div style="padding:1rem;text-align:center;color:var(--text3);font-size:0.84rem">No active alerts yet. Click "+ New Alert" to add one.</div>';
@@ -2172,9 +2226,10 @@ async function loadRenewals(){
     const res = await fetch(API+'/api/renewals',{headers:{'Authorization':'Bearer '+token}});
     const data = await res.json();
     const renewals = data.reminders || data || [];
-    const container = document.getElementById('renewals-list');
+    // Update dashboard stat
     const statEl = document.getElementById('stat-renewals');
     if(statEl) statEl.textContent = renewals.length;
+    const container = document.getElementById('renewals-list');
     if(container){
       if(renewals.length===0){
         container.innerHTML='<div style="padding:1rem;text-align:center;color:var(--text3);font-size:0.84rem">No reminders yet. Click "+ Add Reminder" to add one.</div>';
@@ -2252,6 +2307,25 @@ async function deleteMember(id){
 
 function applyPlanUI(){
   const plan = APP.plan || 'free';
+  const isPro = plan === 'pro' || plan === 'family';
+  const isFam = plan === 'family';
+
+  // FREE: hide all appt-related elements
+  const apptCard = document.getElementById('stat-appt-card');
+  if(apptCard) apptCard.style.display = isPro ? '' : 'none';
+
+  // Hide appointment button in quick actions
+  const qaAppt = document.getElementById('qa-appt-btn');
+  if(qaAppt) qaAppt.style.display = isPro ? '' : 'none';
+
+  // Show/hide sidebar Appointments nav
+  const navAppts = document.getElementById('nav-appts');
+  if(navAppts) navAppts.style.display = isPro ? '' : 'none';
+
+  // Hide pro tools section in dashboard for free users
+  const proSection = document.getElementById('dash-pro-tools');
+  if(proSection) proSection.style.display = isPro ? '' : 'none';
+
   // Update all plan displays
   const planEls = document.querySelectorAll('#dash-plan,#acc-plan,#bill-plan,#sb-plan');
   planEls.forEach(el=>{
@@ -2319,11 +2393,148 @@ async function doResetPassword(){
   if(btn){btn.textContent='Reset Password';btn.disabled=false;}
 }
 
-</script>
+// Start app
+document.addEventListener("DOMContentLoaded", function(){ init(); });
 
-<!-- FORGOT PASSWORD PAGE -->
-<div class="fp" id="fp-forgot">
-<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem;background:var(--bg)">
+function showVetDiscount() {
+  oM('m-vet50');
+}
+
+function copyVetCode() {
+  const btn = document.getElementById('copy-vet-btn');
+  navigator.clipboard.writeText('VET50').then(function() {
+    if(btn) { btn.textContent = '✅ Copied!'; btn.style.color = 'var(--green2)'; }
+    setTimeout(function() {
+      if(btn) { btn.textContent = '📋 Copy Code'; btn.style.color = 'var(--gold2)'; }
+    }, 2000);
+  }).catch(function() {
+    // Fallback for older browsers
+    const el = document.createElement('textarea');
+    el.value = 'VET50';
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    if(btn) { btn.textContent = '✅ Copied!'; }
+    setTimeout(function() { if(btn) btn.textContent = '📋 Copy Code'; }, 2000);
+  });
+}
+
+async function uploadDocument(file) {
+  const token = localStorage.getItem('dmv_token');
+  if(!token){ toast('Please login first','e'); return; }
+  if(!file){ toast('No file selected','e'); return; }
+  
+  // File size check (max 10MB)
+  if(file.size > 10 * 1024 * 1024){ 
+    toast('File too large — max 10MB','e'); 
+    return; 
+  }
+  
+  const btn = document.getElementById('vault-upload-btn');
+  if(btn){ btn.textContent = 'Uploading...'; btn.disabled = true; }
+  
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('name', file.name);
+    formData.append('size', file.size);
+    formData.append('type', file.type);
+    
+    const res = await fetch(API + '/api/documents/upload', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + token },
+      body: formData
+    });
+    const data = await res.json();
+    
+    if(res.ok || data.id) {
+      toast('✅ Document uploaded successfully!', 's');
+      loadDocuments();
+    } else {
+      toast(data.error || 'Upload failed — try again', 'e');
+    }
+  } catch(e) {
+    toast('Upload error — check connection', 'e');
+    console.error('Upload error:', e);
+  }
+  if(btn){ btn.textContent = '+ Upload'; btn.disabled = false; }
+}
+
+async function loadDocuments() {
+  const token = localStorage.getItem('dmv_token');
+  if(!token) return;
+  try {
+    const res = await fetch(API + '/api/documents', {headers:{'Authorization':'Bearer '+token}});
+    const data = await res.json();
+    const docs = data.documents || data || [];
+    const statDocs = document.getElementById('stat-docs');
+    if(statDocs) statDocs.textContent = docs.length;
+    const vaultList = document.getElementById('vault-docs-list');
+    if(!vaultList) return;
+    if(docs.length === 0) {
+      vaultList.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--text3);font-size:0.84rem">No documents yet. Click Upload to add your first document.</div>';
+    } else {
+      const icons = {'application/pdf':'📄','image/jpeg':'🖼','image/png':'🖼'};
+      let html = '';
+      docs.forEach(function(d) {
+        const icon = icons[d.mime_type] || '📎';
+        const kb = d.size ? Math.round(d.size/1024) + ' KB' : '';
+        const date = new Date(d.created_at).toLocaleDateString();
+        const name = (d.name || d.file_name || 'Document').replace(/"/g,'');
+        const id = d.id;
+        html += '<div style="display:flex;align-items:center;gap:12px;padding:0.875rem;background:var(--card2);border-radius:var(--r);border:1px solid var(--border);margin-bottom:0.5rem">'
+          + '<div style="font-size:1.5rem">'+icon+'</div>'
+          + '<div style="flex:1;min-width:0">'
+          + '<div style="font-size:0.84rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+name+'</div>'
+          + '<div style="font-size:0.7rem;color:var(--text3)">'+kb+' · '+date+'</div></div>'
+          + '<div style="display:flex;gap:6px">'
+          + '<button onclick="downloadDoc(this.dataset.id)" data-id="'+id+'" style="padding:4px 10px;background:rgba(37,99,235,0.1);border:1px solid rgba(37,99,235,0.25);border-radius:5px;font-size:0.72rem;color:var(--blue3);cursor:pointer;font-family:inherit">⬇</button>'
+          + '<button onclick="deleteDoc(this.dataset.id)" data-id="'+id+'" style="padding:4px 10px;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.2);border-radius:5px;font-size:0.72rem;color:#f87171;cursor:pointer;font-family:inherit">🗑</button>'
+          + '</div></div>';
+      });
+      vaultList.innerHTML = html;
+    }
+  } catch(e) { console.error('Load docs error:', e); }
+}
+
+async function downloadDoc(id) {
+  const token = localStorage.getItem('dmv_token');
+  if(!token||!id) return;
+  try {
+    const res = await fetch(API + '/api/documents/' + id + '/download', {
+      headers: { 'Authorization': 'Bearer ' + token }
+    });
+    const data = await res.json();
+    if(data.url) {
+      window.open(data.url, '_blank');
+    } else {
+      toast('Could not get download link','e');
+    }
+  } catch(e) { toast('Download error','e'); }
+}
+
+async function deleteDoc(id) {
+  const token = localStorage.getItem('dmv_token');
+  if(!token||!id) return;
+  if(!confirm('Delete this document? This cannot be undone.')) return;
+  try {
+    await fetch(API + '/api/documents/' + id, {
+      method: 'DELETE',
+      headers: { 'Authorization': 'Bearer ' + token }
+    });
+    toast('Document deleted','i');
+    loadDocuments();
+  } catch(e) { toast('Could not delete','e'); }
+}
+
+
+
+
+
+
+
+</script>)">
   <div style="background:var(--card);border:1px solid var(--border2);border-radius:var(--rxl);padding:2rem;width:100%;max-width:390px;text-align:center">
     <div style="width:56px;height:56px;border-radius:50%;background:rgba(29,106,229,0.12);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 1rem">🔑</div>
     <div style="font-size:1.2rem;font-weight:900;margin-bottom:0.25rem">Reset Password</div>
@@ -2507,23 +2718,6 @@ async function doResetPassword(){
 </div>
 </div>
 
-<!-- REFUND POLICY PAGE -->
-<div class="fp" id="fp-refund"><div class="fp-inner">
-  <div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div>
-  <div class="sec-ey" style="margin-bottom:0.75rem">Legal</div>
-  <h1>Refund Policy</h1>
-  <p class="lead">Last updated: March 2026. DMV Assistant is committed to fair and transparent refund practices.</p>
-  <h2>7-Day Money-Back Guarantee</h2>
-  <p>If you are not satisfied with DMV Assistant Pro or Family plan, request a full refund within <strong>7 days</strong> of your initial purchase. No questions asked.</p>
-  <h2>How to Request a Refund</h2>
-  <ul><li>Email <strong>alerts@dmvassistants.com</strong> within 7 days of purchase</li><li>Include your order number from your Lemon Squeezy receipt</li><li>Refunds processed within 5-10 business days</li></ul>
-  <h2>Subscription Cancellation</h2>
-  <ul><li>Cancel anytime — your plan stays active until end of billing period</li><li>You will NOT be charged for the next cycle</li><li>To cancel: Login → Billing → Manage Subscription → Cancel</li></ul>
-  <div class="info-box"><h4>💡 Powered by Lemon Squeezy</h4><p>All payments processed securely. Manage subscriptions directly at the Lemon Squeezy customer portal.</p></div>
-  <button class="btn bp" onclick="window.open('https://app.lemonsqueezy.com/my-orders','_blank')">Open Billing Portal →</button>
-</div></div>
-
-<!-- RESET PASSWORD PAGE -->
 <div class="fp" id="fp-reset-pw">
 <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem;background:var(--bg)">
   <div style="background:var(--card);border:1px solid var(--border2);border-radius:var(--rxl);padding:2rem;width:100%;max-width:390px;text-align:center">
@@ -2550,6 +2744,38 @@ async function doResetPassword(){
   </div>
 </div>
 </div>
+
+
+<!-- FORGOT PASSWORD PAGE -->
+<div class="fp" id="fp-forgot">
+<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem;background:var(--bg)">
+  <div style="background:var(--card);border:1px solid var(--border2);border-radius:var(--rxl);padding:2rem;width:100%;max-width:390px;text-align:center">
+    <div style="width:56px;height:56px;border-radius:50%;background:rgba(29,106,229,0.12);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 1rem">🔑</div>
+    <div style="font-size:1.2rem;font-weight:900;margin-bottom:0.25rem">Reset Password</div>
+    <div style="font-size:0.78rem;color:var(--text3);margin-bottom:1.5rem">Enter your email — we'll send a reset link</div>
+    <div id="fp-reset-form">
+      <div class="fg" style="text-align:left">
+        <label class="fl">Email Address</label>
+        <input class="fi" id="fp-reset-email" type="email" placeholder="you@email.com" onkeydown="if(event.key==='Enter')doForgotPassword()"/>
+      </div>
+      <button id="fp-reset-btn" class="btn bp" style="width:100%;padding:0.62rem;font-size:0.88rem;margin-bottom:0.875rem" onclick="doForgotPassword()">Send Reset Link →</button>
+    </div>
+    <div id="fp-reset-success" style="display:none;padding:1rem 0">
+      <div style="font-size:2rem;margin-bottom:0.75rem">📧</div>
+      <div style="font-size:0.9rem;font-weight:800;color:var(--green2);margin-bottom:0.5rem">Reset link sent!</div>
+      <div style="font-size:0.82rem;color:var(--text2);line-height:1.65;margin-bottom:0.875rem">Check your inbox and spam folder. The link expires in 30 minutes.</div>
+      <div style="margin-bottom:0.875rem;padding:0.75rem;background:rgba(37,99,235,0.07);border:1px solid rgba(37,99,235,0.15);border-radius:8px">
+        <div style="font-size:0.76rem;color:var(--text3);margin-bottom:0.4rem">Didn't receive it?</div>
+        <button onclick="document.getElementById('fp-reset-success').style.display='none';document.getElementById('fp-reset-form').style.display='block';document.getElementById('fp-reset-btn').textContent='Send Reset Link →';document.getElementById('fp-reset-btn').disabled=false;" style="background:transparent;border:1px solid rgba(37,99,235,0.4);border-radius:6px;padding:0.35rem 0.875rem;font-size:0.78rem;font-weight:700;color:var(--blue3);cursor:pointer;font-family:inherit;width:100%">🔄 Resend Reset Email</button>
+      </div>
+    </div>
+    <a style="font-size:0.76rem;color:var(--blue3);cursor:pointer;font-weight:700" onclick="showFP('fp-login')">← Back to Sign In</a>
+  </div>
+</div>
+</div>
+
+
+
 
 </body>
 </html>
