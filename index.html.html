@@ -67,7 +67,7 @@ body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--text);min
 
 /* PAGES */
 .pg{display:none;min-height:60vh;background:var(--bg)}.pg.active{display:block}
-.fp{display:none;position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;overflow:hidden;background:var(--bg)}.fp.active{display:block}
+.fp{display:none;position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;overflow-y:auto;background:var(--bg)}.fp.active{display:block}
 
 /* CARDS */
 .card{background:var(--card);border:1px solid var(--border);border-radius:var(--rl);padding:1.2rem}
@@ -293,7 +293,7 @@ body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--text);min
 .tloc{font-size:0.66rem;color:var(--text3)}
 
 /* FOOTER PAGES */
-.fp-inner{overflow-y:auto;height:100%;max-width:860px;margin:0 auto;padding:2rem 1.5rem;min-height:100vh;background:var(--bg)}
+.fp-inner{max-width:860px;margin:0 auto;padding:2rem 1.5rem;min-height:100vh;background:var(--bg)}
 .fp-inner h1{font-size:2rem;font-weight:900;letter-spacing:-0.04em;margin-bottom:0.5rem}
 .fp-inner .lead{font-size:1rem;color:var(--text2);line-height:1.75;margin-bottom:2rem}
 .fp-inner h2{font-size:1.1rem;font-weight:800;letter-spacing:-0.02em;margin:1.5rem 0 0.625rem}
@@ -320,52 +320,6 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 .ft-links{display:flex;gap:1rem}
 .ft-links a{font-size:0.7rem;color:var(--text3);cursor:pointer;transition:color 0.18s}
 .ft-links a:hover{color:var(--text2)}
-
-/* ═══════════════════════════════════
-   MOBILE RESPONSIVE
-═══════════════════════════════════ */
-@media(max-width:768px){
-  /* Hide sidebar, show hamburger */
-  .sidebar{transform:translateX(-100%);z-index:200}
-  .sidebar.mob-open{transform:translateX(0)}
-  .main{margin-left:0!important}
-  .topbar{padding:0.75rem 1rem}
-  .content{padding:1rem}
-  
-  /* Mobile hamburger button */
-  .mob-menu-btn{display:flex!important}
-  
-  /* Stats grid */
-  .stats{grid-template-columns:1fr 1fr!important}
-  
-  /* Cards grid */
-  [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important}
-  [style*="grid-template-columns:repeat(3"]{grid-template-columns:1fr 1fr!important}
-  [style*="grid-template-columns:1fr 1fr 1fr"]{grid-template-columns:1fr!important}
-  
-  /* Modals */
-  .modal{margin:1rem;width:calc(100% - 2rem)!important;max-width:none!important}
-  
-  /* Topbar */
-  #tb-s{display:none}
-  .tb-right .btn{display:none}
-  
-  /* Overlay when sidebar open */
-  .mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:199}
-  .mob-overlay.show{display:block}
-  
-  /* Full width inputs */
-  .fr{flex-direction:column!important}
-  
-  /* Vault grid */
-  [style*="minmax(150px"]{grid-template-columns:repeat(2,1fr)!important}
-  [style*="minmax(155px"]{grid-template-columns:repeat(2,1fr)!important}
-}
-@media(max-width:480px){
-  [style*="grid-template-columns:repeat(3"]{grid-template-columns:1fr!important}
-  [style*="minmax(150px"]{grid-template-columns:repeat(2,1fr)!important}
-  .stats{grid-template-columns:1fr 1fr!important}
-}
 </style>
 </head>
 <body>
@@ -453,7 +407,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 
 <!-- LANDING -->
 <div class="fp active" id="fp-land">
-<div class="land" style="overflow-y:auto;height:100%">
+<div class="land">
   <nav class="lnav">
     <div class="brand" style="cursor:pointer" onclick="showFP('fp-land')">
       <div class="brand-ico">🏛</div>
@@ -649,7 +603,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 
 <!-- LOGIN -->
 <div class="fp" id="fp-login">
-<div style="display:flex;overflow-y:auto;height:100%;;align-items:center;justify-content:center;min-height:100vh;padding:2rem;background:var(--bg)">
+<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem;background:var(--bg)">
   <div style="background:var(--card);border:1px solid var(--border2);border-radius:var(--rxl);padding:2rem;width:100%;max-width:390px">
     <div style="text-align:center;margin-bottom:1.5rem"><div class="brand" style="justify-content:center;cursor:pointer" onclick="showFP('fp-land')"><div class="brand-ico" style="width:40px;height:40px;font-size:1.1rem">🏛</div><div><div class="brand-name" style="font-size:1rem">DMV Assistant</div></div></div></div>
     <div style="font-size:1.2rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:0.25rem">Welcome back</div>
@@ -674,7 +628,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 
 <!-- SIGNUP -->
 <div class="fp" id="fp-signup">
-<div style="display:flex;overflow-y:auto;height:100%;;align-items:center;justify-content:center;min-height:100vh;padding:2rem;background:var(--bg)">
+<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem;background:var(--bg)">
   <div style="background:var(--card);border:1px solid var(--border2);border-radius:var(--rxl);padding:2rem;width:100%;max-width:400px">
     <div style="text-align:center;margin-bottom:1.4rem"><div class="brand" style="justify-content:center;cursor:pointer" onclick="showFP('fp-land')"><div class="brand-ico" style="width:38px;height:38px;font-size:1rem">🏛</div><div><div class="brand-name">DMV Assistant</div></div></div></div>
     <div style="font-size:1.2rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:0.2rem">Create your account</div>
@@ -721,7 +675,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 
 <!-- VERIFY EMAIL -->
 <div class="fp" id="fp-verify">
-<div style="display:flex;overflow-y:auto;height:100%;;align-items:center;justify-content:center;min-height:100vh;padding:2rem;background:var(--bg)">
+<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem;background:var(--bg)">
   <div style="background:var(--card);border:1px solid var(--border2);border-radius:var(--rxl);padding:2rem;width:100%;max-width:390px;text-align:center">
     <div style="width:64px;height:64px;border-radius:50%;background:rgba(29,106,229,0.12);border:1px solid rgba(29,106,229,0.25);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 1.25rem">📧</div>
     <div style="font-size:1.2rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:0.35rem">Check your email</div>
@@ -779,10 +733,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
     <div class="ni" onclick="logout()"><span class="ni-ic">🚪</span>Sign Out</div>
     <div class="sb-foot"><div class="urow"><div class="uava" id="sb-ava">JD</div><div><div class="uname" id="sb-name">John Doe</div><div class="uplan" id="sb-plan">Free Plan</div></div></div></div>
   </aside>
-  <div class="mob-overlay" id="mob-overlay" onclick="toggleMobMenu()"></div>
   <main class="main">
     <div class="topbar">
-      <button class="mob-menu-btn" id="mob-menu-btn" onclick="toggleMobMenu()" style="display:none;background:none;border:none;color:var(--text);font-size:1.3rem;cursor:pointer;padding:4px 8px;margin-right:8px">☰</button>
       <div class="tb-left"><h2 id="tb-t">Dashboard</h2><p id="tb-s">Loading...</p></div>
       <div class="tb-right">
         <span class="tbadge bfree" id="tb-badge">Free</span>
@@ -1050,8 +1002,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
       </div>
 
 <!-- VIN DECODER PAGE -->
-      <div class="pg" id="pg-vin">
-        
+      <div class="pg" id="pg-vin" style="padding:0">
+        <div style="padding:1.4rem 1.5rem">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.75rem">
             <div>
               <div style="font-size:0.62rem;color:#475569;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;margin-bottom:3px">PRO FEATURE</div>
@@ -1077,12 +1029,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
             <div style="font-size:0.84rem;font-weight:800;color:#f1f5f9;margin-bottom:0.5rem">💡 Where to Find Your VIN?</div>
             <p style="font-size:0.8rem;color:#94a3b8;line-height:1.65">Driver's side dashboard (visible through windshield), driver's door frame sticker, or your vehicle title and registration document. Always exactly 17 characters.</p>
           </div>
-        
+        </div>
       </div>
 
       <!-- DMV WAIT TIMES PAGE -->
-      <div class="pg" id="pg-waittimes">
-        
+      <div class="pg" id="pg-waittimes" style="padding:0">
+        <div style="padding:1.4rem 1.5rem">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.75rem">
             <div>
               <div style="font-size:0.62rem;color:#475569;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;margin-bottom:3px">PRO FEATURE</div>
@@ -1119,12 +1071,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
             <p style="font-size:0.8rem;color:#94a3b8;line-height:1.65;margin-bottom:0.75rem">Use appointment alerts — we monitor your nearest DMV office every 30 minutes and notify you the moment a slot opens.</p>
             <button onclick="showPg('pg-appts',null)" style="padding:0.4rem 0.9rem;background:rgba(37,99,235,0.15);border:1px solid rgba(37,99,235,0.3);border-radius:7px;color:#60a5fa;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:inherit">Set Appointment Alert →</button>
           </div>
-        
+        </div>
       </div>
 
       <!-- SMOG CHECK PAGE -->
-      <div class="pg" id="pg-smog">
-        
+      <div class="pg" id="pg-smog" style="padding:0">
+        <div style="padding:1.4rem 1.5rem">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.75rem">
             <div>
               <div style="font-size:0.62rem;color:#475569;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;margin-bottom:3px">PRO FEATURE</div>
@@ -1164,12 +1116,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
             </div>
             <p style="font-size:0.75rem;color:#64748b">Must complete smog BEFORE registration renewal. Cost: $30–$90 at certified stations.</p>
           </div>
-        
+        </div>
       </div>
 
       <!-- INSURANCE MONITOR PAGE -->
-      <div class="pg" id="pg-insurance">
-        
+      <div class="pg" id="pg-insurance" style="padding:0">
+        <div style="padding:1.4rem 1.5rem">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.75rem">
             <div>
               <div style="font-size:0.62rem;color:#475569;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;margin-bottom:3px">FAMILY FEATURE</div>
@@ -1211,12 +1163,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
               <div style="font-size:0.82rem;color:#94a3b8;line-height:1.55;display:flex;gap:8px"><span style="color:#22c55e;flex-shrink:0">✓</span><strong style="color:#22c55e">Automatic reminders at 60, 30 & 7 days before expiry</strong></div>
             </div>
           </div>
-        
+        </div>
       </div>
 
       <!-- MULTI-STATE PAGE -->
-      <div class="pg" id="pg-multistate">
-        
+      <div class="pg" id="pg-multistate" style="padding:0">
+        <div style="padding:1.4rem 1.5rem">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.75rem">
             <div>
               <div style="font-size:0.62rem;color:#475569;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;margin-bottom:3px">FAMILY FEATURE</div>
@@ -1250,12 +1202,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
               <div style="font-size:0.82rem;color:#94a3b8;display:flex;gap:8px">🏢 Business owners with vehicles in multiple states</div>
             </div>
           </div>
-        
+        </div>
       </div>
 
       <!-- DMV NEWS PAGE -->
-      <div class="pg" id="pg-news">
-        
+      <div class="pg" id="pg-news" style="padding:0">
+        <div style="padding:1.4rem 1.5rem">
           <div style="font-size:1.25rem;font-weight:900;color:#f1f5f9;letter-spacing:-0.03em;margin-bottom:1.25rem">📰 DMV News & Law Updates</div>
           <div style="display:flex;flex-direction:column;gap:0.75rem">
             <div onclick="toast('Full article — blog feature coming soon','i')" style="background:#0c1018;border:1px solid #1e293b;border-left:3px solid #60a5fa;border-radius:14px;padding:1.25rem;cursor:pointer">
@@ -1279,9 +1231,38 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
             <div onclick="toast('Full article coming soon','i')" style="background:#0c1018;border:1px solid #1e293b;border-left:3px solid #f59e0b;border-radius:14px;padding:1.25rem;cursor:pointer">
               <div style="font-size:0.9rem;font-weight:800;color:#f1f5f9;margin-bottom:0.5rem">🎖 Veteran DMV Benefits — 2026 Complete Guide by State</div>
               <div style="font-size:0.8rem;color:#94a3b8;line-height:1.65;margin-bottom:0.5rem">Free licenses, reduced fees, veteran plates and priority service — full breakdown for US veterans and active duty military across all 50 states.</div>
-              <div style="font-size:0.7rem;color:#475569">February 20, 2026 · 5 
+              <div style="font-size:0.7rem;color:#475569">February 20, 2026 · 5 min read · All States · Veterans</div>
+            </div>
+          </div>
+        </div>
+      </div>
 
+  </main>
+</div>
+</div>
 
+<!-- VET50 MODAL -->
+<div class="mov" id="m-vet50">
+<div class="modal" style="max-width:420px">
+  <div class="mhead"><h3>🎖 Veteran Discount — 50% Off</h3><span class="mx" onclick="cM('m-vet50')">✕</span></div>
+  <div style="text-align:center;padding:0.5rem 0 1rem">
+    <div style="font-size:0.85rem;color:var(--text2);margin-bottom:1.25rem;line-height:1.65">
+      Thank you for your service! Use this code at checkout to get<br/>
+      <strong style="color:var(--gold2)">50% off Pro Plan — forever.</strong>
+    </div>
+    <div style="background:var(--bg3);border:2px dashed rgba(245,158,11,0.5);border-radius:12px;padding:1.25rem;margin-bottom:1.25rem">
+      <div style="font-size:0.65rem;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:6px">Your Discount Code</div>
+      <div style="font-size:2rem;font-weight:900;letter-spacing:0.15em;color:var(--gold2);font-family:monospace">VET50</div>
+      <button onclick="copyVetCode()" id="copy-vet-btn" style="margin-top:0.75rem;padding:0.4rem 1.1rem;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.35);border-radius:7px;color:var(--gold2);font-size:0.8rem;font-weight:700;cursor:pointer;font-family:inherit">📋 Copy Code</button>
+    </div>
+    <div style="font-size:0.78rem;color:var(--text3);margin-bottom:1.25rem">Apply this code at checkout on the Lemon Squeezy payment page.</div>
+    <button onclick="cM('m-vet50');doUpgrade('pro')" class="btn bp" style="width:100%;padding:0.65rem;font-size:0.88rem">
+      🎖 Get Pro — 50% Off ($6/mo) →
+    </button>
+    <div style="font-size:0.72rem;color:var(--text3);margin-top:0.75rem">Available to US Veterans & Active Duty Military only.</div>
+  </div>
+</div>
+</div>
 
 
 
@@ -1289,6 +1270,10 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 
 
 <script>
+
+
+
+
 
 const STATES=['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
 const OFFICES={'California':['Los Angeles — Culver City','Los Angeles — Van Nuys','Los Angeles — Santa Monica','San Francisco — Fell St','San Diego — Normal St','Sacramento — Broadway'],'Texas':['Houston — N Shepherd Dr','Dallas — Mockingbird Ln','Austin — E Rundberg Ln','San Antonio — Fredericksburg Rd'],'Florida':['Miami — NW 119th St','Orlando — E Colonial Dr','Tampa — Adamo Dr','Jacksonville — Blanding Blvd'],'New York':['NYC — Jamaica Ave','Brooklyn — Linden Blvd','Manhattan — 34th St','Buffalo — Dingens St'],'default':['Main Office — Downtown','North Branch Office','South Branch Office','East District Office']};
@@ -1339,10 +1324,7 @@ function showFooterPage(id){showFP(id);}
 function showPg(id,nav){
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
   const el=document.getElementById(id);
-  if(el) el.classList.add('active');
-  // Scroll to top
-  const fpApp = document.getElementById('fp-app');
-  if(fpApp) fpApp.scrollTop = 0;
+  if(el)el.classList.add('active');
   // Refresh data on page switch
   if(id==='pg-appts') loadAlerts();
   else if(id==='pg-renewals') loadRenewals();
@@ -1363,12 +1345,7 @@ function showPg(id,nav){
   const tbt=document.getElementById('tb-t');
   if(tbt)tbt.textContent=t[id]||'Dashboard';
 }
-function oM(id){
-  var el=document.getElementById(id);
-  if(!el) return;
-  if(el.parentElement!==document.body) document.body.appendChild(el);
-  el.classList.add('open');
-}
+function oM(id){document.getElementById(id).classList.add('open');}
 function cM(id){document.getElementById(id).classList.remove('open');}
 function scrollSec(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'});}
 
@@ -1755,7 +1732,7 @@ async function addMember(){
       body:JSON.stringify({name:n, email:eml||null, relationship:rel, state:state||null})
     });
     const data = await res.json();
-    if(res.ok && (data.id || data.member || data.success || (data && !data.error))){
+    if(data.id || data.member || (data && !data.error)){
       cM('m-member');
       toast('✅ Family member added!','s');
       loadFamilyMembers();
@@ -2090,101 +2067,11 @@ function togglePw(inputId, eyeId) {
 }
 
 // ===== FORGOT PASSWORD =====
-async function doForgotPassword(){
-  var em=document.getElementById('fp-reset-email').value.trim();
-  if(!em||!em.includes('@')){toast('Valid email required','e');return;}
-  var btn=document.getElementById('fp-reset-btn');
-  if(btn){btn.textContent='Sending...';btn.disabled=true;}
-  try{
-    var res=await fetch(API+'/api/auth/forgot-password',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({email:em})
-    });
-    var data=await res.json();
-    if(res.ok||data.success){
-      document.getElementById('fp-reset-form').style.display='none';
-      document.getElementById('fp-reset-success').style.display='block';
-      toast('✅ Reset link sent! Check inbox + spam.','s');
-      startResendTimer(em);
-    } else {
-      toast(data.error||'Could not send — try again','e');
-      if(btn){btn.textContent='Send Reset Link →';btn.disabled=false;}
-    }
-  }catch(e){
-    toast('Connection error — try again','e');
-    if(btn){btn.textContent='Send Reset Link →';btn.disabled=false;}
-  }
-}
-
-function startResendTimer(email){
-  var btn=document.getElementById('resend-reset-btn');
-  var timer=document.getElementById('resend-timer');
-  if(!btn) return;
-  btn.disabled=true; btn.style.opacity='0.5';
-  var secs=300;
-  var iv=setInterval(function(){
-    secs--;
-    var m=Math.floor(secs/60), s=secs%60;
-    if(timer) timer.textContent='Resend in '+m+':'+(s<10?'0':'')+s;
-    if(secs<=0){
-      clearInterval(iv);
-      btn.disabled=false; btn.style.opacity='1';
-      if(timer) timer.textContent='';
-      btn.onclick=function(){resendResetEmail(email);};
-    }
-  },1000);
-}
-
-async function resendResetEmail(email){
-  var btn=document.getElementById('resend-reset-btn');
-  if(btn){btn.textContent='Sending...';btn.disabled=true;}
-  try{
-    var res=await fetch(API+'/api/auth/forgot-password',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({email:email})
-    });
-    var data=await res.json();
-    if(res.ok||data.success){
-      toast('✅ Reset link resent!','s');
-      startResendTimer(email);
-    } else {
-      toast(data.error||'Could not resend','e');
-      if(btn){btn.textContent='🔄 Resend Reset Email';btn.disabled=false;btn.style.opacity='1';}
-    }
-  }catch(e){
-    toast('Connection error','e');
-    if(btn){btn.textContent='🔄 Resend Reset Email';btn.disabled=false;btn.style.opacity='1';}
-  }
-}
-
-function startResendTimer() {
-  var resendBtn = document.getElementById('resend-reset-btn');
-  var resendTimer = document.getElementById('resend-timer');
-  if(!resendBtn || !resendTimer) return;
-  var secs = 300; // 5 minutes
-  resendBtn.disabled = true;
-  resendBtn.style.opacity = '0.5';
-  var interval = setInterval(function() {
-    secs--;
-    var m = Math.floor(secs/60);
-    var s = secs%60;
-    resendTimer.textContent = 'Resend in ' + m + ':' + (s<10?'0':'') + s;
-    if(secs <= 0) {
-      clearInterval(interval);
-      resendBtn.disabled = false;
-      resendBtn.style.opacity = '1';
-      resendTimer.textContent = '';
-    }
-  }, 1000);
-}
-
-async function resendResetEmail() {
+async function doForgotPassword() {
   const em = document.getElementById('fp-reset-email').value.trim();
-  if(!em) { toast('Email missing — go back and enter email', 'e'); return; }
-  const btn = document.getElementById('resend-reset-btn');
-  if(btn){ btn.textContent = 'Sending...'; btn.disabled = true; }
+  if (!em || !em.includes('@')) { toast('Valid email enter karo', 'e'); return; }
+  const btn = document.getElementById('fp-reset-btn');
+  btn.textContent = 'Sending...'; btn.disabled = true;
   try {
     const res = await fetch(API + '/api/auth/forgot-password', {
       method: 'POST',
@@ -2193,15 +2080,16 @@ async function resendResetEmail() {
     });
     const data = await res.json();
     if(res.ok || data.success) {
-      toast('✅ Reset link resent! Check your inbox + spam.', 's');
-      startResendTimer();
+      document.getElementById('fp-reset-form').style.display = 'none';
+      document.getElementById('fp-reset-success').style.display = 'block';
+      toast('✅ Reset link sent! Check your email + spam.', 's');
     } else {
-      toast(data.error || 'Could not resend', 'e');
-      if(btn){ btn.textContent = '🔄 Resend Reset Email'; btn.disabled = false; }
+      toast(data.error || 'Could not send — try again','e');
+      btn.textContent = 'Send Reset Link →'; btn.disabled = false;
     }
   } catch(e) {
-    toast('Connection error', 'e');
-    if(btn){ btn.textContent = '🔄 Resend Reset Email'; btn.disabled = false; }
+    toast('Connection error — try again', 'e');
+    btn.textContent = 'Send Reset Link →'; btn.disabled = false;
   }
 }
 
@@ -2569,79 +2457,65 @@ async function uploadDocument(file) {
   if(btn){ btn.textContent = '+ Upload'; btn.disabled = false; }
 }
 
-async function loadDocuments(){
-  var token=localStorage.getItem('dmv_token');
+async function loadDocuments() {
+  const token = localStorage.getItem('dmv_token');
   if(!token) return;
-  var list=document.getElementById('vault-docs-list');
-  if(list) list.innerHTML='<div style="text-align:center;padding:2rem;color:var(--text3)">Loading...</div>';
-  try{
-    var res=await fetch(API+'/api/documents',{headers:{'Authorization':'Bearer '+token}});
-    var data=await res.json();
-    var docs=data.documents||data||[];
-    var statDocs=document.getElementById('stat-docs');
-    if(statDocs) statDocs.textContent=docs.length;
+  const list = document.getElementById('vault-docs-list');
+  if(list) list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--text3);font-size:0.84rem">Loading...</div>';
+  try {
+    const res = await fetch(API + '/api/documents', {
+      headers: {'Authorization': 'Bearer ' + token}
+    });
+    const data = await res.json();
+    const docs = data.documents || data || [];
+    console.log('Documents loaded:', docs.length, docs);
+
+    // Update stat counter
+    const statDocs = document.getElementById('stat-docs');
+    if(statDocs) statDocs.textContent = docs.length;
+
+    // Update vault list
     if(!list) return;
-    if(docs.length===0){
-      list.innerHTML='<div style="text-align:center;padding:3rem 1rem"><div style="font-size:2.5rem;margin-bottom:0.75rem">📂</div><div style="font-size:0.9rem;font-weight:700;margin-bottom:0.4rem">No documents yet</div><div style="font-size:0.8rem;color:var(--text3)">Click Upload to add your first document.</div></div>';
+    if(docs.length === 0) {
+      list.innerHTML = '<div style="text-align:center;padding:2rem 1rem">'
+        + '<div style="font-size:2rem;margin-bottom:0.75rem">📂</div>'
+        + '<div style="font-size:0.9rem;font-weight:700;color:var(--text);margin-bottom:0.4rem">No documents yet</div>'
+        + '<div style="font-size:0.8rem;color:var(--text3)">Click "+ Upload" to add your first document.</div></div>';
       return;
     }
-    var FOLDERS=[
-      {name:'Driver License & ID',icon:'🪪',color:'#3b82f6',keys:['license','dl ','driver','real id','passport','id card']},
-      {name:'Vehicle Title',icon:'📋',color:'#f59e0b',keys:['title','ownership','car title']},
-      {name:'Registration',icon:'🚗',color:'#22c55e',keys:['registration','reg ','plate','renewal']},
-      {name:'Insurance',icon:'🛡',color:'#a78bfa',keys:['insurance','policy','coverage']},
-      {name:'Other Documents',icon:'📎',color:'#64748b',keys:[]}
-    ];
-    var grouped={};
-    FOLDERS.forEach(function(f){grouped[f.name]=[];});
-    docs.forEach(function(doc){
-      var n=(doc.name||'').toLowerCase();
-      var matched=false;
-      for(var fi=0;fi<FOLDERS.length-1;fi++){
-        for(var ki=0;ki<FOLDERS[fi].keys.length;ki++){
-          if(n.indexOf(FOLDERS[fi].keys[ki])>=0){grouped[FOLDERS[fi].name].push(doc);matched=true;break;}
-        }
-        if(matched) break;
-      }
-      if(!matched) grouped['Other Documents'].push(doc);
+
+    let html = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:0.75rem">';
+    docs.forEach(function(d) {
+      const ext = (d.name||'').split('.').pop().toUpperCase();
+      const icon = {'PDF':'📄','JPG':'🖼','JPEG':'🖼','PNG':'🖼','DOC':'📝','DOCX':'📝'}[ext] || '📎';
+      const kb = d.size ? (d.size > 1048576 ? (d.size/1048576).toFixed(1)+' MB' : Math.round(d.size/1024)+' KB') : '';
+      const date = d.created_at ? new Date(d.created_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '';
+      const name = (d.name || 'Document').substring(0, 30);
+      const id = d.id;
+      html += '<div style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:1rem;position:relative">'
+        + '<div style="font-size:2rem;margin-bottom:0.5rem">'+icon+'</div>'
+        + '<div style="font-size:0.84rem;font-weight:700;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+name+'</div>'
+        + '<div style="font-size:0.7rem;color:var(--text3);margin-bottom:0.75rem">'+kb+(kb&&date?' · ':'')+date+'</div>'
+        + '<div style="display:flex;gap:6px">'
+        + '<button data-id="'+id+'" onclick="downloadDoc(this.dataset.id)" style="flex:1;padding:5px;background:rgba(37,99,235,0.1);border:1px solid rgba(37,99,235,0.25);border-radius:6px;font-size:0.72rem;color:var(--blue3);cursor:pointer;font-family:inherit">⬇ Download</button>'
+        + '<button data-id="'+id+'" onclick="deleteDoc(this.dataset.id)" style="padding:5px 8px;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.2);border-radius:6px;font-size:0.72rem;color:#f87171;cursor:pointer;font-family:inherit">🗑</button>'
+        + '</div></div>';
     });
-    var html='';
-    FOLDERS.forEach(function(folder){
-      var fdocs=grouped[folder.name];
-      if(!fdocs.length) return;
-      html+='<div style="margin-bottom:1.5rem">';
-      html+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:0.75rem">';
-      html+='<span>'+folder.icon+'</span>';
-      html+='<span style="font-size:0.7rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3)">'+folder.name+'</span>';
-      html+='<span style="font-size:0.65rem;color:var(--text3);background:rgba(255,255,255,0.06);border-radius:20px;padding:1px 7px">'+fdocs.length+'</span>';
-      html+='</div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:0.625rem">';
-      fdocs.forEach(function(d){
-        var ext=(d.name||'').split('.').pop().toUpperCase();
-        var ficon={'PDF':'📄','JPG':'🖼','JPEG':'🖼','PNG':'🖼','DOC':'📝','DOCX':'📝'}[ext]||'📎';
-        var kb=d.size?(d.size>1048576?(d.size/1048576).toFixed(1)+' MB':Math.round(d.size/1024)+' KB'):'';
-        var dt=d.created_at?new Date(d.created_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'2-digit'}):'';
-        var nm=(d.name||'Document').substring(0,20);
-        html+='<div style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:0.875rem;position:relative">';
-        html+='<div style="position:absolute;top:0;left:0;right:0;height:3px;background:'+folder.color+';border-radius:12px 12px 0 0"></div>';
-        html+='<div style="font-size:1.75rem;margin:4px 0 6px">'+ficon+'</div>';
-        html+='<div style="font-size:0.78rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:2px">'+nm+'</div>';
-        html+='<div style="font-size:0.63rem;color:var(--text3);margin-bottom:0.625rem">'+kb+(kb&&dt?' · ':'')+dt+'</div>';
-        html+='<div style="display:flex;gap:4px">';
-        html+='<button data-id="'+d.id+'" onclick="downloadDoc(this.dataset.id)" style="flex:1;padding:4px;background:rgba(37,99,235,0.1);border:1px solid rgba(37,99,235,0.2);border-radius:5px;font-size:0.65rem;color:var(--blue3);cursor:pointer;font-family:inherit">⬇ Get</button>';
-        html+='<button data-id="'+d.id+'" onclick="deleteDoc(this.dataset.id)" style="padding:4px 7px;background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.2);border-radius:5px;font-size:0.65rem;color:#f87171;cursor:pointer;font-family:inherit">🗑</button>';
-        html+='</div></div>';
-      });
-      html+='</div></div>';
-    });
-    html+='<label style="cursor:pointer"><input type="file" style="display:none" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" onchange="if(this.files[0])uploadDocument(this.files[0])"/><div style="border:2px dashed var(--border);border-radius:12px;padding:1.5rem;text-align:center;color:var(--text3);font-size:0.8rem"><div style="font-size:1.5rem;margin-bottom:0.3rem">+</div>Upload Document</div></label>';
-    list.innerHTML=html;
-    var tb=docs.reduce(function(s,d){return s+(d.size||0);},0);
-    var bar=document.getElementById('vault-bar'),lbl=document.getElementById('vault-size-label');
-    if(bar) bar.style.width=Math.min(100,(tb/(50*1048576))*100)+'%';
-    if(lbl) lbl.textContent=(tb/1048576).toFixed(1)+' / 50 MB used';
-  }catch(e){
-    console.error('Load docs error:',e);
-    if(list) list.innerHTML='<div style="text-align:center;padding:1.5rem;color:var(--text3)">Could not load — <a style="color:var(--blue3);cursor:pointer" onclick="loadDocuments()">retry</a></div>';
+    html += '</div>';
+    list.innerHTML = html;
+
+    // Update storage bar
+    const totalBytes = docs.reduce(function(sum,d){ return sum+(d.size||0); }, 0);
+    const totalMB = (totalBytes/1048576).toFixed(1);
+    const pct = Math.min(100, (totalBytes/(50*1048576))*100);
+    const bar = document.getElementById('vault-bar');
+    const label = document.getElementById('vault-size-label');
+    if(bar) bar.style.width = pct + '%';
+    if(label) label.textContent = totalMB + ' / 50 MB used';
+
+  } catch(e) {
+    console.error('Load docs error:', e);
+    if(list) list.innerHTML = '<div style="text-align:center;padding:1.5rem;color:var(--text3);font-size:0.84rem">Could not load documents — <a style="color:var(--blue3);cursor:pointer" onclick="loadDocuments()">try again</a></div>';
   }
 }
 
@@ -2675,60 +2549,6 @@ async function deleteDoc(id) {
   } catch(e) { toast('Could not delete','e'); }
 }
 
-// Mobile menu
-function toggleMobMenu() {
-  const sb = document.querySelector('.sidebar');
-  const overlay = document.getElementById('mob-overlay');
-  if(sb) sb.classList.toggle('mob-open');
-  if(overlay) overlay.classList.toggle('show');
-}
-// Close sidebar on nav item click (mobile)
-document.addEventListener('DOMContentLoaded', function() {
-  if(window.innerWidth <= 768) {
-    document.getElementById('mob-menu-btn').style.display = 'flex';
-    document.querySelectorAll('.ni').forEach(function(ni) {
-      ni.addEventListener('click', function() {
-        if(window.innerWidth <= 768) {
-          const sb = document.querySelector('.sidebar');
-          const ov = document.getElementById('mob-overlay');
-          if(sb) sb.classList.remove('mob-open');
-          if(ov) ov.classList.remove('show');
-        }
-      });
-    });
-  }
-});
-
-
-async function downloadDoc(id) {
-  const token = localStorage.getItem('dmv_token');
-  if(!token||!id) return;
-  try {
-    const res = await fetch(API + '/api/documents/' + id + '/download', {
-      headers: { 'Authorization': 'Bearer ' + token }
-    });
-    const data = await res.json();
-    if(data.url) {
-      window.open(data.url, '_blank');
-    } else {
-      toast('Could not get download link','e');
-    }
-  } catch(e) { toast('Download error','e'); }
-}
-
-async function deleteDoc(id) {
-  const token = localStorage.getItem('dmv_token');
-  if(!token||!id) return;
-  if(!confirm('Delete this document? This cannot be undone.')) return;
-  try {
-    await fetch(API + '/api/documents/' + id, {
-      method: 'DELETE',
-      headers: { 'Authorization': 'Bearer ' + token }
-    });
-    toast('Document deleted','i');
-    loadDocuments();
-  } catch(e) { toast('Could not delete','e'); }
-}
 
 
 
@@ -2738,14 +2558,27 @@ async function deleteDoc(id) {
 
 
 
+</script>)">
+  <div style="background:var(--card);border:1px solid var(--border2);border-radius:var(--rxl);padding:2rem;width:100%;max-width:390px;text-align:center">
+    <div style="width:56px;height:56px;border-radius:50%;background:rgba(29,106,229,0.12);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 1rem">🔑</div>
+    <div style="font-size:1.2rem;font-weight:900;margin-bottom:0.25rem">Reset Password</div>
+    <div style="font-size:0.78rem;color:var(--text3);margin-bottom:1.5rem">Enter your email — we'll send a reset link</div>
+    <div id="fp-reset-form">
+      <div class="fg" style="text-align:left"><label class="fl">Email Address</label><input class="fi" id="fp-reset-email" type="email" placeholder="you@email.com" onkeydown="if(event.key==='Enter')doForgotPassword()"/></div>
+      <button id="fp-reset-btn" class="btn bp" style="width:100%;padding:0.62rem;font-size:0.88rem" onclick="doForgotPassword()">Send Reset Link →</button>
+    </div>
+    <div id="fp-reset-success" style="display:none;padding:1rem 0">
+      <div style="font-size:2rem;margin-bottom:0.75rem">📧</div>
+      <div style="font-size:0.9rem;font-weight:800;color:var(--green2);margin-bottom:0.5rem">Reset link sent!</div>
+      <div style="font-size:0.8rem;color:var(--text2);line-height:1.65">Check your inbox and spam folder. The link expires in 30 minutes.</div>
+    </div>
+    <div style="text-align:center;font-size:0.76rem;color:var(--text3);margin-top:1rem">
+      <a style="color:var(--blue3);cursor:pointer;font-weight:700" onclick="showFP('fp-login')">← Back to Sign In</a>
+    </div>
+  </div>
+</div>
+</div>
 
-
-
-
-
-
-
-</script>
 <!-- DMV FEE CALCULATOR PAGE -->
 <!-- DMV FEE CALCULATOR PAGE -->
 <div class="fp" id="fp-fee">
@@ -2910,7 +2743,7 @@ async function deleteDoc(id) {
 </div>
 
 <div class="fp" id="fp-reset-pw">
-<div style="display:flex;overflow-y:auto;height:100%;;align-items:center;justify-content:center;min-height:100vh;padding:2rem;background:var(--bg)">
+<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem;background:var(--bg)">
   <div style="background:var(--card);border:1px solid var(--border2);border-radius:var(--rxl);padding:2rem;width:100%;max-width:390px;text-align:center">
     <div style="width:56px;height:56px;border-radius:50%;background:rgba(22,163,74,0.12);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 1rem">🔐</div>
     <div style="font-size:1.2rem;font-weight:900;margin-bottom:0.25rem">Create New Password</div>
@@ -2939,7 +2772,7 @@ async function deleteDoc(id) {
 
 <!-- FORGOT PASSWORD PAGE -->
 <div class="fp" id="fp-forgot">
-<div style="display:flex;overflow-y:auto;height:100%;;align-items:center;justify-content:center;min-height:100vh;padding:2rem;background:var(--bg)">
+<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem;background:var(--bg)">
   <div style="background:var(--card);border:1px solid var(--border2);border-radius:var(--rxl);padding:2rem;width:100%;max-width:390px;text-align:center">
     <div style="width:56px;height:56px;border-radius:50%;background:rgba(29,106,229,0.12);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 1rem">🔑</div>
     <div style="font-size:1.2rem;font-weight:900;margin-bottom:0.25rem">Reset Password</div>
@@ -2954,11 +2787,10 @@ async function deleteDoc(id) {
     <div id="fp-reset-success" style="display:none;padding:1rem 0">
       <div style="font-size:2rem;margin-bottom:0.75rem">📧</div>
       <div style="font-size:0.9rem;font-weight:800;color:var(--green2);margin-bottom:0.5rem">Reset link sent!</div>
-      <div style="font-size:0.82rem;color:var(--text2);line-height:1.65;margin-bottom:1rem">Check your inbox and spam folder. Link expires in 30 minutes.</div>
-      <div style="padding:0.875rem;background:rgba(37,99,235,0.07);border:1px solid rgba(37,99,235,0.15);border-radius:10px;margin-bottom:0.875rem">
-        <div style="font-size:0.76rem;color:var(--text3);margin-bottom:0.5rem">Didn't receive it?</div>
-        <button id="resend-reset-btn" onclick="resendResetEmail()" style="width:100%;background:transparent;border:1px solid rgba(37,99,235,0.4);border-radius:6px;padding:0.4rem 0.875rem;font-size:0.8rem;font-weight:700;color:var(--blue3);cursor:pointer;font-family:inherit;margin-bottom:0.4rem">🔄 Resend Reset Email</button>
-        <div id="resend-timer" style="font-size:0.72rem;color:var(--text3)"></div>
+      <div style="font-size:0.82rem;color:var(--text2);line-height:1.65;margin-bottom:0.875rem">Check your inbox and spam folder. The link expires in 30 minutes.</div>
+      <div style="margin-bottom:0.875rem;padding:0.75rem;background:rgba(37,99,235,0.07);border:1px solid rgba(37,99,235,0.15);border-radius:8px">
+        <div style="font-size:0.76rem;color:var(--text3);margin-bottom:0.4rem">Didn't receive it?</div>
+        <button onclick="document.getElementById('fp-reset-success').style.display='none';document.getElementById('fp-reset-form').style.display='block';document.getElementById('fp-reset-btn').textContent='Send Reset Link →';document.getElementById('fp-reset-btn').disabled=false;" style="background:transparent;border:1px solid rgba(37,99,235,0.4);border-radius:6px;padding:0.35rem 0.875rem;font-size:0.78rem;font-weight:700;color:var(--blue3);cursor:pointer;font-family:inherit;width:100%">🔄 Resend Reset Email</button>
       </div>
     </div>
     <a style="font-size:0.76rem;color:var(--blue3);cursor:pointer;font-weight:700" onclick="showFP('fp-login')">← Back to Sign In</a>
@@ -2969,28 +2801,5 @@ async function deleteDoc(id) {
 
 
 
-
-<!-- VET50 DISCOUNT MODAL -->
-<div class="mov" id="m-vet50">
-<div class="modal" style="max-width:400px">
-  <div class="mhead"><h3>🎖 Veteran Discount — 50% Off</h3><span class="mx" onclick="cM('m-vet50')">✕</span></div>
-  <div style="text-align:center;padding:0.5rem 0 0.75rem">
-    <div style="font-size:0.84rem;color:var(--text2);margin-bottom:1.25rem;line-height:1.65">
-      Thank you for your service! Use this code at checkout to get<br/>
-      <strong style="color:var(--gold2)">50% off Pro Plan — forever.</strong>
-    </div>
-    <div style="background:var(--bg3);border:2px dashed rgba(245,158,11,0.5);border-radius:12px;padding:1.25rem;margin-bottom:1.25rem">
-      <div style="font-size:0.62rem;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px">Your Discount Code</div>
-      <div style="font-size:2.2rem;font-weight:900;letter-spacing:0.15em;color:var(--gold2);font-family:monospace;margin-bottom:0.75rem">VET50</div>
-      <button onclick="copyVetCode()" id="copy-vet-btn" style="padding:0.4rem 1.25rem;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.35);border-radius:7px;color:var(--gold2);font-size:0.8rem;font-weight:700;cursor:pointer;font-family:inherit">📋 Copy Code</button>
-    </div>
-    <div style="font-size:0.76rem;color:var(--text3);margin-bottom:1rem">Apply at checkout on the Lemon Squeezy payment page.</div>
-    <button onclick="cM('m-vet50');doUpgrade('pro')" class="btn bp" style="width:100%;padding:0.65rem;font-size:0.88rem;margin-bottom:0.5rem">
-      🎖 Get Pro — 50% Off ($6/mo) →
-    </button>
-    <div style="font-size:0.7rem;color:var(--text3)">Available to US Veterans &amp; Active Duty Military only.</div>
-  </div>
-</div>
-</div>
 </body>
 </html>
