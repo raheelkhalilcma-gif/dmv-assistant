@@ -320,6 +320,32 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 .ft-links{display:flex;gap:1rem}
 .ft-links a{font-size:0.7rem;color:var(--text3);cursor:pointer;transition:color 0.18s}
 .ft-links a:hover{color:var(--text2)}
+
+/* ══ MOBILE RESPONSIVE ══════════════════ */
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%);z-index:1000;width:260px!important;}
+  .sidebar.mob-open{transform:translateX(0)}
+  .main{margin-left:0!important;width:100%!important;}
+  .content{padding:0.875rem!important;box-sizing:border-box}
+  .topbar{padding:0.7rem 1rem!important}
+  #tb-s{display:none}
+  .mob-btn{display:flex!important}
+  .stats{grid-template-columns:1fr 1fr!important}
+  .mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:999}
+  .mob-overlay.show{display:block}
+  .fr{flex-direction:column!important}
+  .modal{width:calc(100vw - 1.5rem)!important;max-width:none!important;}
+  #fp-app{overflow-y:auto!important}
+  [style*="grid-template-columns:1fr 1fr 1fr"]{grid-template-columns:1fr 1fr!important}
+  [style*="grid-template-columns:repeat(3,1fr)"]{grid-template-columns:1fr 1fr!important}
+  [style*="grid-template-columns:repeat(auto-fill,minmax(155px"]{grid-template-columns:repeat(2,1fr)!important}
+  [style*="grid-template-columns:repeat(auto-fill,minmax(180px"]{grid-template-columns:repeat(2,1fr)!important}
+}
+@media(max-width:480px){
+  [style*="grid-template-columns:1fr 1fr 1fr"]{grid-template-columns:1fr!important}
+  [style*="grid-template-columns:repeat(3"]{grid-template-columns:1fr!important}
+  .modal{width:calc(100vw - 1rem)!important}
+}
 </style>
 </head>
 <body>
@@ -733,8 +759,10 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
     <div class="ni" onclick="logout()"><span class="ni-ic">🚪</span>Sign Out</div>
     <div class="sb-foot"><div class="urow"><div class="uava" id="sb-ava">JD</div><div><div class="uname" id="sb-name">John Doe</div><div class="uplan" id="sb-plan">Free Plan</div></div></div></div>
   </aside>
+  <div class="mob-overlay" id="mob-overlay" onclick="toggleMobMenu()"></div>
   <main class="main">
     <div class="topbar">
+      <button class="mob-btn" onclick="toggleMobMenu()" style="display:none;background:none;border:none;color:var(--text);font-size:1.4rem;cursor:pointer;padding:2px 8px;margin-right:4px">☰</button>
       <div class="tb-left"><h2 id="tb-t">Dashboard</h2><p id="tb-s">Loading...</p></div>
       <div class="tb-right">
         <span class="tbadge bfree" id="tb-badge">Free</span>
@@ -1002,8 +1030,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
       </div>
 
 <!-- VIN DECODER PAGE -->
-      <div class="pg" id="pg-vin" style="padding:0">
-        <div style="padding:1.4rem 1.5rem">
+      <div class="pg" id="pg-vin">
+        
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.75rem">
             <div>
               <div style="font-size:0.62rem;color:#475569;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;margin-bottom:3px">PRO FEATURE</div>
@@ -1029,12 +1057,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
             <div style="font-size:0.84rem;font-weight:800;color:#f1f5f9;margin-bottom:0.5rem">💡 Where to Find Your VIN?</div>
             <p style="font-size:0.8rem;color:#94a3b8;line-height:1.65">Driver's side dashboard (visible through windshield), driver's door frame sticker, or your vehicle title and registration document. Always exactly 17 characters.</p>
           </div>
-        </div>
+        
       </div>
 
       <!-- DMV WAIT TIMES PAGE -->
-      <div class="pg" id="pg-waittimes" style="padding:0">
-        <div style="padding:1.4rem 1.5rem">
+      <div class="pg" id="pg-waittimes">
+        
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.75rem">
             <div>
               <div style="font-size:0.62rem;color:#475569;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;margin-bottom:3px">PRO FEATURE</div>
@@ -1071,12 +1099,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
             <p style="font-size:0.8rem;color:#94a3b8;line-height:1.65;margin-bottom:0.75rem">Use appointment alerts — we monitor your nearest DMV office every 30 minutes and notify you the moment a slot opens.</p>
             <button onclick="showPg('pg-appts',null)" style="padding:0.4rem 0.9rem;background:rgba(37,99,235,0.15);border:1px solid rgba(37,99,235,0.3);border-radius:7px;color:#60a5fa;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:inherit">Set Appointment Alert →</button>
           </div>
-        </div>
+        
       </div>
 
       <!-- SMOG CHECK PAGE -->
-      <div class="pg" id="pg-smog" style="padding:0">
-        <div style="padding:1.4rem 1.5rem">
+      <div class="pg" id="pg-smog">
+        
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.75rem">
             <div>
               <div style="font-size:0.62rem;color:#475569;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;margin-bottom:3px">PRO FEATURE</div>
@@ -1116,12 +1144,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
             </div>
             <p style="font-size:0.75rem;color:#64748b">Must complete smog BEFORE registration renewal. Cost: $30–$90 at certified stations.</p>
           </div>
-        </div>
+        
       </div>
 
       <!-- INSURANCE MONITOR PAGE -->
-      <div class="pg" id="pg-insurance" style="padding:0">
-        <div style="padding:1.4rem 1.5rem">
+      <div class="pg" id="pg-insurance">
+        
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.75rem">
             <div>
               <div style="font-size:0.62rem;color:#475569;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;margin-bottom:3px">FAMILY FEATURE</div>
@@ -1163,12 +1191,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
               <div style="font-size:0.82rem;color:#94a3b8;line-height:1.55;display:flex;gap:8px"><span style="color:#22c55e;flex-shrink:0">✓</span><strong style="color:#22c55e">Automatic reminders at 60, 30 & 7 days before expiry</strong></div>
             </div>
           </div>
-        </div>
+        
       </div>
 
       <!-- MULTI-STATE PAGE -->
-      <div class="pg" id="pg-multistate" style="padding:0">
-        <div style="padding:1.4rem 1.5rem">
+      <div class="pg" id="pg-multistate">
+        
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.75rem">
             <div>
               <div style="font-size:0.62rem;color:#475569;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;margin-bottom:3px">FAMILY FEATURE</div>
@@ -1202,12 +1230,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
               <div style="font-size:0.82rem;color:#94a3b8;display:flex;gap:8px">🏢 Business owners with vehicles in multiple states</div>
             </div>
           </div>
-        </div>
+        
       </div>
 
       <!-- DMV NEWS PAGE -->
-      <div class="pg" id="pg-news" style="padding:0">
-        <div style="padding:1.4rem 1.5rem">
+      <div class="pg" id="pg-news">
+        
           <div style="font-size:1.25rem;font-weight:900;color:#f1f5f9;letter-spacing:-0.03em;margin-bottom:1.25rem">📰 DMV News & Law Updates</div>
           <div style="display:flex;flex-direction:column;gap:0.75rem">
             <div onclick="toast('Full article — blog feature coming soon','i')" style="background:#0c1018;border:1px solid #1e293b;border-left:3px solid #60a5fa;border-radius:14px;padding:1.25rem;cursor:pointer">
@@ -1234,7 +1262,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
               <div style="font-size:0.7rem;color:#475569">February 20, 2026 · 5 min read · All States · Veterans</div>
             </div>
           </div>
-        </div>
+        
       </div>
 
   </main>
@@ -1319,13 +1347,14 @@ function tfaq(i){
   if(!op){a.classList.add('open');a.style.display='block';t.classList.add('open');t.textContent='−';}
 }
 function updOff(){const s=document.getElementById('appt-st').value,o=OFFICES[s]||OFFICES['default'],sel=document.getElementById('off-sel');sel.innerHTML=o.map(x=>`<option>${x}</option>`).join('');}
-function showFP(id){document.querySelectorAll('.fp').forEach(p=>p.classList.remove('active'));const el=document.getElementById(id);if(el){el.classList.add('active');window.scrollTo(0,0);}}
+function showFP(id){document.querySelectorAll('.fp').forEach(function(p){p.classList.remove('active');});var el=document.getElementById(id);if(el){el.classList.add('active');el.scrollTop=0;window.scrollTo(0,0);}}
 function showFooterPage(id){showFP(id);}
 function showPg(id,nav){
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
   const el=document.getElementById(id);
   if(el)el.classList.add('active');
   // Refresh data on page switch
+  var fa=document.getElementById('fp-app');if(fa)fa.scrollTop=0;
   if(id==='pg-appts') loadAlerts();
   else if(id==='pg-renewals') loadRenewals();
   else if(id==='pg-family') loadFamilyMembers();
@@ -1345,7 +1374,7 @@ function showPg(id,nav){
   const tbt=document.getElementById('tb-t');
   if(tbt)tbt.textContent=t[id]||'Dashboard';
 }
-function oM(id){document.getElementById(id).classList.add('open');}
+function oM(id){var el=document.getElementById(id);if(!el)return;if(el.parentElement!==document.body)document.body.appendChild(el);el.classList.add('open');}
 function cM(id){document.getElementById(id).classList.remove('open');}
 function scrollSec(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'});}
 
@@ -2068,28 +2097,28 @@ function togglePw(inputId, eyeId) {
 
 // ===== FORGOT PASSWORD =====
 async function doForgotPassword() {
-  const em = document.getElementById('fp-reset-email').value.trim();
-  if (!em || !em.includes('@')) { toast('Valid email enter karo', 'e'); return; }
-  const btn = document.getElementById('fp-reset-btn');
-  btn.textContent = 'Sending...'; btn.disabled = true;
+  var em = document.getElementById('fp-reset-email').value.trim();
+  if (!em || !em.includes('@')) { toast('Valid email required', 'e'); return; }
+  var btn = document.getElementById('fp-reset-btn');
+  if(btn){ btn.textContent = 'Sending...'; btn.disabled = true; }
   try {
-    const res = await fetch(API + '/api/auth/forgot-password', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    var res = await fetch(API + '/api/auth/forgot-password', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: em })
     });
-    const data = await res.json();
+    var data = await res.json();
     if(res.ok || data.success) {
       document.getElementById('fp-reset-form').style.display = 'none';
       document.getElementById('fp-reset-success').style.display = 'block';
-      toast('✅ Reset link sent! Check your email + spam.', 's');
+      toast('Reset link sent! Check inbox + spam.', 's');
+      startResendTimer();
     } else {
-      toast(data.error || 'Could not send — try again','e');
-      btn.textContent = 'Send Reset Link →'; btn.disabled = false;
+      toast(data.error || 'Could not send', 'e');
+      if(btn){ btn.textContent = 'Send Reset Link →'; btn.disabled = false; }
     }
   } catch(e) {
-    toast('Connection error — try again', 'e');
-    btn.textContent = 'Send Reset Link →'; btn.disabled = false;
+    toast('Connection error', 'e');
+    if(btn){ btn.textContent = 'Send Reset Link →'; btn.disabled = false; }
   }
 }
 
@@ -2549,14 +2578,72 @@ async function deleteDoc(id) {
   } catch(e) { toast('Could not delete','e'); }
 }
 
+function startResendTimer() {
+  var btn = document.getElementById('resend-reset-btn');
+  var lbl = document.getElementById('resend-timer');
+  if(!btn) return;
+  btn.disabled = true; btn.style.opacity = '0.4';
+  var s = 300;
+  var iv = setInterval(function(){
+    s--;
+    var m=Math.floor(s/60), sec=s%60;
+    if(lbl) lbl.textContent = 'Resend in '+m+':'+(sec<10?'0':'')+sec;
+    if(s<=0){ clearInterval(iv); btn.disabled=false; btn.style.opacity='1'; if(lbl)lbl.textContent=''; }
+  },1000);
+}
 
+async function resendResetEmail() {
+  var em = document.getElementById('fp-reset-email').value.trim();
+  if(!em){ toast('Go back and enter your email', 'e'); return; }
+  var btn = document.getElementById('resend-reset-btn');
+  if(btn){ btn.textContent='Sending...'; btn.disabled=true; }
+  try {
+    var res = await fetch(API+'/api/auth/forgot-password',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:em})});
+    var data = await res.json();
+    if(res.ok||data.success){ toast('Reset link resent!','s'); startResendTimer(); }
+    else { toast(data.error||'Could not resend','e'); if(btn){btn.disabled=false;btn.style.opacity='1';} }
+  } catch(e){ toast('Connection error','e'); if(btn){btn.disabled=false;btn.style.opacity='1';} }
+}
 
+function showVetDiscount(){
+  var el=document.getElementById('m-vet50');
+  if(el&&el.parentElement!==document.body)document.body.appendChild(el);
+  oM('m-vet50');
+}
 
+function copyVetCode(){
+  var btn=document.getElementById('copy-vet-btn');
+  navigator.clipboard.writeText('VET50').then(function(){
+    if(btn){btn.textContent='Copied!';btn.style.color='var(--green2)';}
+    setTimeout(function(){if(btn){btn.textContent='Copy Code';btn.style.color='var(--gold2)';}},2000);
+  }).catch(function(){
+    var t=document.createElement('textarea');t.value='VET50';
+    document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);
+    if(btn)btn.textContent='Copied!';
+    setTimeout(function(){if(btn)btn.textContent='Copy Code';},2000);
+  });
+}
 
-
-
-
-
+function toggleMobMenu(){
+  var sb=document.querySelector('.sidebar');
+  var ov=document.getElementById('mob-overlay');
+  var btn=document.querySelector('.mob-btn');
+  if(!sb)return;
+  var open=sb.classList.toggle('mob-open');
+  if(ov)ov.classList.toggle('show',open);
+  if(btn)btn.textContent=open?'✕':'☰';
+}
+document.addEventListener('click',function(e){
+  if(window.innerWidth>768)return;
+  if(e.target.closest&&e.target.closest('.ni')){
+    var sb=document.querySelector('.sidebar');
+    var ov=document.getElementById('mob-overlay');
+    var btn=document.querySelector('.mob-btn');
+    if(sb)sb.classList.remove('mob-open');
+    if(ov)ov.classList.remove('show');
+    if(btn)btn.textContent='☰';
+  }
+});
 
 </script>)">
   <div style="background:var(--card);border:1px solid var(--border2);border-radius:var(--rxl);padding:2rem;width:100%;max-width:390px;text-align:center">
@@ -2567,10 +2654,15 @@ async function deleteDoc(id) {
       <div class="fg" style="text-align:left"><label class="fl">Email Address</label><input class="fi" id="fp-reset-email" type="email" placeholder="you@email.com" onkeydown="if(event.key==='Enter')doForgotPassword()"/></div>
       <button id="fp-reset-btn" class="btn bp" style="width:100%;padding:0.62rem;font-size:0.88rem" onclick="doForgotPassword()">Send Reset Link →</button>
     </div>
-    <div id="fp-reset-success" style="display:none;padding:1rem 0">
-      <div style="font-size:2rem;margin-bottom:0.75rem">📧</div>
-      <div style="font-size:0.9rem;font-weight:800;color:var(--green2);margin-bottom:0.5rem">Reset link sent!</div>
-      <div style="font-size:0.8rem;color:var(--text2);line-height:1.65">Check your inbox and spam folder. The link expires in 30 minutes.</div>
+    <div id="fp-reset-success" style="display:none;padding:0.5rem 0">
+      <div style="font-size:2rem;margin-bottom:0.5rem">📧</div>
+      <div style="font-size:0.9rem;font-weight:800;color:var(--green2);margin-bottom:0.4rem">Reset link sent!</div>
+      <div style="font-size:0.8rem;color:var(--text2);line-height:1.6;margin-bottom:1rem">Check inbox and spam. Link expires in 30 minutes.</div>
+      <div style="background:rgba(37,99,235,0.07);border:1px solid rgba(37,99,235,0.2);border-radius:10px;padding:0.875rem">
+        <div style="font-size:0.75rem;color:var(--text3);margin-bottom:0.5rem">Didn't receive it?</div>
+        <button id="resend-reset-btn" onclick="resendResetEmail()" style="width:100%;background:transparent;border:1px solid rgba(37,99,235,0.35);border-radius:7px;padding:0.45rem;font-size:0.8rem;font-weight:700;color:var(--blue3);cursor:pointer;font-family:inherit">🔄 Resend Reset Email</button>
+        <div id="resend-timer" style="font-size:0.72rem;color:var(--text3);margin-top:0.4rem;min-height:1rem"></div>
+      </div>
     </div>
     <div style="text-align:center;font-size:0.76rem;color:var(--text3);margin-top:1rem">
       <a style="color:var(--blue3);cursor:pointer;font-weight:700" onclick="showFP('fp-login')">← Back to Sign In</a>
