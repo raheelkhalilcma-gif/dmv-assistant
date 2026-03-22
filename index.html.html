@@ -422,12 +422,43 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 </div>
 
 <div class="mov" id="m-member">
-<div class="modal">
+<div class="modal" style="max-width:460px">
   <div class="mhead"><h3>👤 Add Family Member</h3><span class="mx" onclick="cM('m-member')">✕</span></div>
-  <div class="fr"><div class="fg"><label class="fl">Full Name</label><input class="fi" id="mn" placeholder="Jane Doe"/></div><div class="fg"><label class="fl">Relationship</label><select class="fs" id="mem-rel"><option>Spouse/Partner</option><option>Child</option><option>Parent</option><option>Sibling</option><option>Other</option></select></div></div>
-  <div class="fg"><label class="fl">Email Address</label><input class="fi" id="me" type="email" placeholder="jane@email.com"/></div>
-  <div class="fg"><label class="fl">Their State</label><select class="fs" id="ms"></select></div>
-  <div class="mbtns"><button class="btn bo" onclick="cM('m-member')">Cancel</button><button class="btn bp" onclick="addMember()">Send Invite ✉</button></div>
+  
+  <!-- Tab switcher -->
+  <div style="display:flex;gap:0;margin-bottom:1.25rem;background:var(--bg3);border-radius:8px;padding:3px">
+    <button id="tab-add" onclick="switchMemberTab('add')" style="flex:1;padding:0.45rem;border:none;border-radius:6px;font-size:0.8rem;font-weight:700;cursor:pointer;font-family:inherit;background:var(--blue2);color:#fff;transition:all 0.2s">➕ Add Member</button>
+    <button id="tab-invite" onclick="switchMemberTab('invite')" style="flex:1;padding:0.45rem;border:none;border-radius:6px;font-size:0.8rem;font-weight:700;cursor:pointer;font-family:inherit;background:transparent;color:var(--text3);transition:all 0.2s">📧 Invite by Email</button>
+  </div>
+
+  <!-- Tab: Add directly -->
+  <div id="member-tab-add">
+    <div class="fr">
+      <div class="fg"><label class="fl">Full Name *</label><input class="fi" id="mn" placeholder="Jane Doe"/></div>
+      <div class="fg"><label class="fl">Relationship</label><select class="fs" id="mem-rel"><option>Spouse/Partner</option><option>Child</option><option>Parent</option><option>Sibling</option><option>Other</option></select></div>
+    </div>
+    <div class="fg"><label class="fl">Email (optional)</label><input class="fi" id="me" type="email" placeholder="jane@email.com"/></div>
+    <div class="fg"><label class="fl">Their State</label><select class="fs" id="ms"></select></div>
+    <div class="mbtns">
+      <button class="btn bo" onclick="cM('m-member')">Cancel</button>
+      <button class="btn bp" onclick="addMember()">Add Member</button>
+    </div>
+  </div>
+
+  <!-- Tab: Invite by email -->
+  <div id="member-tab-invite" style="display:none">
+    <div style="background:rgba(29,106,229,0.07);border:1px solid rgba(29,106,229,0.2);border-radius:10px;padding:0.875rem;margin-bottom:1rem;font-size:0.8rem;color:var(--text2);line-height:1.6">
+      📧 Send an invite link to your family member. They'll create their own account and be linked to your family plan.
+    </div>
+    <div class="fg"><label class="fl">Their Email *</label><input class="fi" id="invite-email" type="email" placeholder="jane@email.com"/></div>
+    <div class="fg"><label class="fl">Their Name</label><input class="fi" id="invite-name" placeholder="Jane Doe"/></div>
+    <div class="fg"><label class="fl">Relationship</label><select class="fs" id="invite-rel"><option>Spouse/Partner</option><option>Child</option><option>Parent</option><option>Sibling</option><option>Other</option></select></div>
+    <div id="invite-status" style="display:none;padding:0.75rem;border-radius:8px;font-size:0.8rem;margin-bottom:0.75rem"></div>
+    <div class="mbtns">
+      <button class="btn bo" onclick="cM('m-member')">Cancel</button>
+      <button class="btn bp" id="invite-btn" onclick="sendMemberInvite()">Send Invite ✉</button>
+    </div>
+  </div>
 </div>
 </div>
 
@@ -1284,41 +1315,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
             </div>
             <div onclick="toast('Full article coming soon','i')" style="background:#0c1018;border:1px solid #1e293b;border-left:3px solid #f59e0b;border-radius:14px;padding:1.25rem;cursor:pointer">
               <div style="font-size:0.9rem;font-weight:800;color:#f1f5f9;margin-bottom:0.5rem">🎖 Veteran DMV Benefits — 2026 Complete Guide by State</div>
-              <div style="font-size:0.8rem;color:#94a3b8;line-height:1.65;margin-bottom:0.5rem">Free licenses, reduced fees, veteran plates and priority service — full breakdown for US veterans and active duty military across all 50 states.</div>
-              <div style="font-size:0.7rem;color:#475569">February 20, 2026 · 5 min read · All States · Veterans</div>
-            </div>
-          </div>
-        
-      </div>
-
-  </main>
-</div>
-</div>
-
-<!-- VET50 MODAL -->
-<div class="mov" id="m-vet50">
-<div class="modal" style="max-width:420px">
-  <div class="mhead"><h3>🎖 Veteran Discount — 50% Off</h3><span class="mx" onclick="cM('m-vet50')">✕</span></div>
-  <div style="text-align:center;padding:0.5rem 0 1rem">
-    <div style="font-size:0.85rem;color:var(--text2);margin-bottom:1.25rem;line-height:1.65">
-      Thank you for your service! Use this code at checkout to get<br/>
-      <strong style="color:var(--gold2)">50% off Pro Plan — forever.</strong>
-    </div>
-    <div style="background:var(--bg3);border:2px dashed rgba(245,158,11,0.5);border-radius:12px;padding:1.25rem;margin-bottom:1.25rem">
-      <div style="font-size:0.65rem;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:6px">Your Discount Code</div>
-      <div style="font-size:2rem;font-weight:900;letter-spacing:0.15em;color:var(--gold2);font-family:monospace">VET50</div>
-      <button onclick="copyVetCode()" id="copy-vet-btn" style="margin-top:0.75rem;padding:0.4rem 1.1rem;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.35);border-radius:7px;color:var(--gold2);font-size:0.8rem;font-weight:700;cursor:pointer;font-family:inherit">📋 Copy Code</button>
-    </div>
-    <div style="font-size:0.78rem;color:var(--text3);margin-bottom:1.25rem">Apply this code at checkout on the Lemon Squeezy payment page.</div>
-    <button onclick="cM('m-vet50');doUpgrade('pro')" class="btn bp" style="width:100%;padding:0.65rem;font-size:0.88rem">
-      🎖 Get Pro — 50% Off ($6/mo) →
-    </button>
-    <div style="font-size:0.7rem;color:var(--text3);margin-top:0.75rem">US Veterans &amp; Active Duty Military only.</div>
-  </div>
-</div>
-</div>
-
-
+              <div style="font-size:0.8rem;color:#94a3b8;line-height:1.65;margin-bottom:0.5rem">Free l
 <script>
 const STATES=['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
 const OFFICES={'California':['Los Angeles — Culver City','Los Angeles — Van Nuys','Los Angeles — Santa Monica','San Francisco — Fell St','San Diego — Normal St','Sacramento — Broadway'],'Texas':['Houston — N Shepherd Dr','Dallas — Mockingbird Ln','Austin — E Rundberg Ln','San Antonio — Fredericksburg Rd'],'Florida':['Miami — NW 119th St','Orlando — E Colonial Dr','Tampa — Adamo Dr','Jacksonville — Blanding Blvd'],'New York':['NYC — Jamaica Ave','Brooklyn — Linden Blvd','Manhattan — 34th St','Buffalo — Dingens St'],'default':['Main Office — Downtown','North Branch Office','South Branch Office','East District Office']};
@@ -1327,12 +1324,25 @@ const AI_ANS={'real id':'For <strong>REAL ID</strong> you need: US passport or b
 const APP={user:null,plan:'free'};
 
 function init(){
-  // Handle password reset from email link
+  // Handle URL tokens
   const urlParams = new URLSearchParams(window.location.search);
   const resetToken = urlParams.get('reset');
   const resetEmail = urlParams.get('email');
+  const inviteToken = urlParams.get('invite');
+
+  // Handle invite link
+  if(inviteToken && resetEmail) {
+    document.getElementById('invite-accept-email').value = resetEmail;
+    document.getElementById('invite-accept-name').value = '';
+    // Store invite token
+    window._inviteToken = inviteToken;
+    window._inviteEmail = resetEmail;
+    showFP('fp-invite');
+    return;
+  }
+
+  // Handle password reset
   if(resetToken && resetEmail){
-    // Show reset password page
     document.getElementById('reset-email-hidden').value = resetEmail;
     document.getElementById('reset-token-hidden').value = resetToken;
     showFP('fp-reset-pw');
@@ -2698,69 +2708,103 @@ document.addEventListener('click',function(e){
 
 function openMemberTracking(memberId, memberName) {
   document.getElementById('md-title').textContent = '👤 ' + memberName;
-  const body = document.getElementById('md-body');
-  body.innerHTML = '<div style="display:flex;flex-direction:column;gap:0.75rem">'
+  var body = document.getElementById('md-body');
 
-    // Vehicle & Registration
+  // Load existing member data from localStorage
+  var key = 'member_data_' + memberId;
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(key) || '{}'); } catch(e) {}
+
+  body.innerHTML = '<div style="display:flex;flex-direction:column;gap:0.875rem">'
+
+    // ── Vehicle & Registration ──
     + '<div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:1rem">'
-    + '<div style="font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.07em;color:var(--gold2);margin-bottom:0.75rem">🚗 Vehicle & Registration</div>'
-    + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:0.5rem">'
-    + '<div><label style="font-size:0.68rem;color:var(--text3);display:block;margin-bottom:3px">Vehicle Name</label><input class="fi" id="mt-vehicle" placeholder="e.g. Toyota Camry 2022" style="font-size:0.8rem;padding:0.4rem 0.6rem"/></div>'
-    + '<div><label style="font-size:0.68rem;color:var(--text3);display:block;margin-bottom:3px">License Plate</label><input class="fi" id="mt-plate" placeholder="e.g. ABC-1234" style="font-size:0.8rem;padding:0.4rem 0.6rem"/></div>'
-    + '</div>'
-    + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem">'
-    + '<div><label style="font-size:0.68rem;color:var(--text3);display:block;margin-bottom:3px">Registration Expiry</label><input class="fi" id="mt-reg-exp" type="date" style="font-size:0.8rem;padding:0.4rem 0.6rem"/></div>'
-    + '<div><label style="font-size:0.68rem;color:var(--text3);display:block;margin-bottom:3px">State</label><select class="fs" id="mt-state" style="font-size:0.8rem;padding:0.4rem 0.6rem"><option value="">Select State...</option></select></div>'
-    + '</div>'
-    + '</div>'
+    + '<div style="font-size:0.7rem;font-weight:800;text-transform:uppercase;letter-spacing:0.07em;color:var(--gold2);margin-bottom:0.75rem">🚗 Vehicle & Registration</div>'
+    + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.625rem">'
+    + '<div><label style="font-size:0.65rem;color:var(--text3);font-weight:700;display:block;margin-bottom:3px">Vehicle</label>'
+    + '<input class="fi" id="mt-vehicle" placeholder="e.g. Toyota Camry 2022" value="'+(saved.vehicle||'')+'" style="font-size:0.8rem;padding:0.45rem"/></div>'
+    + '<div><label style="font-size:0.65rem;color:var(--text3);font-weight:700;display:block;margin-bottom:3px">Plate Number</label>'
+    + '<input class="fi" id="mt-plate" placeholder="e.g. ABC-1234" value="'+(saved.plate||'')+'" style="font-size:0.8rem;padding:0.45rem"/></div>'
+    + '<div><label style="font-size:0.65rem;color:var(--text3);font-weight:700;display:block;margin-bottom:3px">Registration Expires</label>'
+    + '<input class="fi" id="mt-reg-exp" type="date" value="'+(saved.regExp||'')+'" style="font-size:0.8rem;padding:0.45rem"/></div>'
+    + '<div><label style="font-size:0.65rem;color:var(--text3);font-weight:700;display:block;margin-bottom:3px">State</label>'
+    + '<input class="fi" id="mt-state" placeholder="e.g. California" value="'+(saved.state||'')+'" style="font-size:0.8rem;padding:0.45rem"/></div>'
+    + '</div></div>'
 
-    // Insurance
+    // ── Driver License ──
     + '<div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:1rem">'
-    + '<div style="font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.07em;color:#a78bfa;margin-bottom:0.75rem">🛡 Insurance</div>'
-    + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem">'
-    + '<div><label style="font-size:0.68rem;color:var(--text3);display:block;margin-bottom:3px">Insurance Provider</label><input class="fi" id="mt-insurer" placeholder="e.g. State Farm" style="font-size:0.8rem;padding:0.4rem 0.6rem"/></div>'
-    + '<div><label style="font-size:0.68rem;color:var(--text3);display:block;margin-bottom:3px">Policy Expiry</label><input class="fi" id="mt-ins-exp" type="date" style="font-size:0.8rem;padding:0.4rem 0.6rem"/></div>'
-    + '</div>'
-    + '</div>'
+    + '<div style="font-size:0.7rem;font-weight:800;text-transform:uppercase;letter-spacing:0.07em;color:var(--blue3);margin-bottom:0.75rem">🪪 Driver License</div>'
+    + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.625rem">'
+    + '<div><label style="font-size:0.65rem;color:var(--text3);font-weight:700;display:block;margin-bottom:3px">License Expires</label>'
+    + '<input class="fi" id="mt-dl-exp" type="date" value="'+(saved.dlExp||'')+'" style="font-size:0.8rem;padding:0.45rem"/></div>'
+    + '<div><label style="font-size:0.65rem;color:var(--text3);font-weight:700;display:block;margin-bottom:3px">License Number</label>'
+    + '<input class="fi" id="mt-dl-num" placeholder="DL Number" value="'+(saved.dlNum||'')+'" style="font-size:0.8rem;padding:0.45rem"/></div>'
+    + '</div></div>'
 
-    // Documents
+    // ── Insurance ──
     + '<div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:1rem">'
-    + '<div style="font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.07em;color:var(--green2);margin-bottom:0.75rem">📄 Notes & Documents</div>'
-    + '<textarea class="fi" id="mt-notes" placeholder="Add notes, license expiry, etc..." style="font-size:0.8rem;padding:0.5rem 0.75rem;min-height:70px;resize:vertical"></textarea>'
-    + '</div>'
+    + '<div style="font-size:0.7rem;font-weight:800;text-transform:uppercase;letter-spacing:0.07em;color:#a78bfa;margin-bottom:0.75rem">🛡 Insurance</div>'
+    + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.625rem">'
+    + '<div><label style="font-size:0.65rem;color:var(--text3);font-weight:700;display:block;margin-bottom:3px">Insurance Provider</label>'
+    + '<input class="fi" id="mt-ins-name" placeholder="e.g. State Farm" value="'+(saved.insName||'')+'" style="font-size:0.8rem;padding:0.45rem"/></div>'
+    + '<div><label style="font-size:0.65rem;color:var(--text3);font-weight:700;display:block;margin-bottom:3px">Policy Expires</label>'
+    + '<input class="fi" id="mt-ins-exp" type="date" value="'+(saved.insExp||'')+'" style="font-size:0.8rem;padding:0.45rem"/></div>'
+    + '</div></div>'
 
-    + '<button id="save-tracking-btn" class="btn bp" style="width:100%;padding:0.65rem;font-size:0.88rem">💾 Save Tracking Info</button>'
-    + '<button id="set-renewal-btn" class="btn" style="width:100%;padding:0.6rem;font-size:0.84rem;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);color:var(--gold2)">⏰ Set Renewal Reminder</button>'
+    // ── Expiry Status ──
+    + '<div id="mt-status-cards" style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem"></div>'
+
+    // ── Save button ──
+    + '<button onclick="saveMemberTracking(this.dataset.id)" data-id="'+memberId+'" class="btn bp" style="width:100%;padding:0.65rem;font-size:0.88rem">💾 Save Member Info</button>'
     + '</div>';
 
-  // Wire up buttons with closures
-  const saveBtn = document.getElementById('save-tracking-btn');
-  const renBtn = document.getElementById('set-renewal-btn');
-  if(saveBtn) saveBtn.onclick = function(){ saveMemberTracking(memberId, memberName); };
-  if(renBtn) renBtn.onclick = function(){ setMemberRenewal(memberId, memberName); };
-
-  // Populate state dropdown
-  const stateEl = document.getElementById('mt-state');
-  if(stateEl && STATES) {
-    STATES.forEach(function(s){ stateEl.innerHTML += '<option>'+s+'</option>'; });
-  }
-
-  // Load saved data from localStorage
-  const saved = localStorage.getItem('member_tracking_'+memberId);
-  if(saved) {
-    try {
-      const d = JSON.parse(saved);
-      if(d.vehicle) document.getElementById('mt-vehicle').value = d.vehicle;
-      if(d.plate) document.getElementById('mt-plate').value = d.plate;
-      if(d.regExp) document.getElementById('mt-reg-exp').value = d.regExp;
-      if(d.state) document.getElementById('mt-state').value = d.state;
-      if(d.insurer) document.getElementById('mt-insurer').value = d.insurer;
-      if(d.insExp) document.getElementById('mt-ins-exp').value = d.insExp;
-      if(d.notes) document.getElementById('mt-notes').value = d.notes;
-    } catch(e) {}
-  }
-
   oM('m-member-detail');
+
+  // Show status cards after rendering
+  setTimeout(function() { updateMemberStatusCards(saved); }, 50);
+}
+
+function updateMemberStatusCards(saved) {
+  var container = document.getElementById('mt-status-cards');
+  if(!container) return;
+  var now = new Date();
+  var cards = [];
+
+  function daysLeft(dateStr) {
+    if(!dateStr) return null;
+    var d = new Date(dateStr);
+    return Math.ceil((d - now) / (1000*60*60*24));
+  }
+
+  function statusCard(label, days) {
+    var color = days === null ? '#64748b' : days < 0 ? '#ef4444' : days <= 30 ? '#f59e0b' : '#22c55e';
+    var text = days === null ? 'Not set' : days < 0 ? 'Expired!' : days + ' days left';
+    return '<div style="background:var(--bg3);border:1px solid '+color+'40;border-radius:8px;padding:0.75rem;text-align:center">'
+      + '<div style="font-size:0.65rem;color:var(--text3);font-weight:700;margin-bottom:4px">'+label+'</div>'
+      + '<div style="font-size:0.88rem;font-weight:900;color:'+color+'">'+text+'</div>'
+      + '</div>';
+  }
+
+  container.innerHTML = statusCard('Registration', daysLeft(saved.regExp))
+    + statusCard('Driver License', daysLeft(saved.dlExp))
+    + statusCard('Insurance', daysLeft(saved.insExp));
+}
+
+function saveMemberTracking(memberId) {
+  var data = {
+    vehicle: (document.getElementById('mt-vehicle')||{}).value || '',
+    plate:   (document.getElementById('mt-plate')||{}).value || '',
+    regExp:  (document.getElementById('mt-reg-exp')||{}).value || '',
+    state:   (document.getElementById('mt-state')||{}).value || '',
+    dlExp:   (document.getElementById('mt-dl-exp')||{}).value || '',
+    dlNum:   (document.getElementById('mt-dl-num')||{}).value || '',
+    insName: (document.getElementById('mt-ins-name')||{}).value || '',
+    insExp:  (document.getElementById('mt-ins-exp')||{}).value || '',
+    savedAt: new Date().toISOString()
+  };
+  localStorage.setItem('member_data_' + memberId, JSON.stringify(data));
+  updateMemberStatusCards(data);
+  toast('✅ Member info saved!', 's');
 }
 
 function saveMemberTracking(memberId, memberName) {
@@ -2812,10 +2856,174 @@ function setMemberRenewal(memberId, memberName) {
     toast('Opening renewals...', 'i');
   }, 300);
 }
+function switchMemberTab(tab) {
+  var addTab = document.getElementById('member-tab-add');
+  var inviteTab = document.getElementById('member-tab-invite');
+  var btnAdd = document.getElementById('tab-add');
+  var btnInvite = document.getElementById('tab-invite');
+  if(tab === 'add') {
+    addTab.style.display = '';
+    inviteTab.style.display = 'none';
+    btnAdd.style.background = 'var(--blue2)'; btnAdd.style.color = '#fff';
+    btnInvite.style.background = 'transparent'; btnInvite.style.color = 'var(--text3)';
+  } else {
+    addTab.style.display = 'none';
+    inviteTab.style.display = '';
+    btnInvite.style.background = 'var(--blue2)'; btnInvite.style.color = '#fff';
+    btnAdd.style.background = 'transparent'; btnAdd.style.color = 'var(--text3)';
+  }
+}
+
+async function sendMemberInvite() {
+  var email = document.getElementById('invite-email').value.trim();
+  var name = document.getElementById('invite-name').value.trim();
+  var rel = document.getElementById('invite-rel').value;
+  if(!email || !email.includes('@')) { toast('Valid email required', 'e'); return; }
+  
+  var token = localStorage.getItem('dmv_token');
+  if(!token) return;
+  
+  var btn = document.getElementById('invite-btn');
+  var status = document.getElementById('invite-status');
+  if(btn) { btn.textContent = 'Sending...'; btn.disabled = true; }
+  
+  try {
+    var res = await fetch(API + '/api/family/invite', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({ email: email, name: name, relationship: rel })
+    });
+    var data = await res.json();
+    
+    if(res.ok || data.success) {
+      if(status) {
+        status.style.display = 'block';
+        status.style.background = 'rgba(22,163,74,0.1)';
+        status.style.border = '1px solid rgba(22,163,74,0.3)';
+        status.style.color = 'var(--green2)';
+        status.textContent = '✅ Invite sent to ' + email + '! They will receive an email to join your family plan.';
+      }
+      toast('✅ Invite sent to ' + email, 's');
+      // Also add as pending member
+      loadFamilyMembers();
+      if(btn) { btn.textContent = 'Send Another'; btn.disabled = false; }
+      // Clear fields
+      document.getElementById('invite-email').value = '';
+      document.getElementById('invite-name').value = '';
+    } else {
+      toast(data.error || 'Could not send invite', 'e');
+      if(btn) { btn.textContent = 'Send Invite ✉'; btn.disabled = false; }
+    }
+  } catch(e) {
+    toast('Connection error', 'e');
+    if(btn) { btn.textContent = 'Send Invite ✉'; btn.disabled = false; }
+  }
+}
 
 
+</script>calStorage.setItem('member_data_' + memberId, JSON.stringify(data));
+  updateMemberStatusCards(data);
+  toast('✅ Member info saved!', 's');
+}
 
+function saveMemberTracking(memberId, memberName) {
+  const data = {
+    vehicle: document.getElementById('mt-vehicle').value,
+    plate: document.getElementById('mt-plate').value,
+    regExp: document.getElementById('mt-reg-exp').value,
+    state: document.getElementById('mt-state').value,
+    insurer: document.getElementById('mt-insurer').value,
+    insExp: document.getElementById('mt-ins-exp').value,
+    notes: document.getElementById('mt-notes').value,
+    savedAt: new Date().toISOString()
+  };
+  localStorage.setItem('member_tracking_'+memberId, JSON.stringify(data));
+  toast('Saved!', 's');
+  cM('m-member-detail');
 
+  // Auto-set reminders if dates filled
+  if(data.regExp) setMemberRenewalAuto(memberId, memberName, data.vehicle||data.plate||memberName+' Vehicle', data.regExp, 'Registration');
+  if(data.insExp) setMemberRenewalAuto(memberId, memberName, memberName+' Insurance', data.insExp, 'Insurance');
+}
+
+async function setMemberRenewalAuto(memberId, memberName, item, expDate, type) {
+  const token = localStorage.getItem('dmv_token');
+  if(!token || !expDate) return;
+  try {
+    await fetch(API+'/api/renewals', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json','Authorization':'Bearer '+token},
+      body: JSON.stringify({
+        type: type + ' — ' + memberName + ' (' + item + ')',
+        expiration_date: expDate,
+        vehicle_name: item,
+        notify_via: 'Email + SMS'
+      })
+    });
+  } catch(e) {}
+}
+
+function setMemberRenewal(memberId, memberName) {
+  cM('m-member-detail');
+  // Open renewal modal pre-filled for this member
+  setTimeout(function(){
+    const typeEl = document.getElementById('ren-type');
+    if(typeEl) typeEl.value = 'Vehicle Registration';
+    const noteEl = document.getElementById('ren-note');
+    if(noteEl) noteEl.value = 'For ' + memberName;
+    showPg('pg-renewals', null);
+    toast('Opening renewals...', 'i');
+  }, 300);
+}
+async function acceptInvite() {
+  var name = document.getElementById('invite-accept-name').value.trim();
+  var email = document.getElementById('invite-accept-email').value.trim();
+  var pw = document.getElementById('invite-accept-pw').value;
+  
+  if(!name) { toast('Name required', 'e'); return; }
+  if(!pw || pw.length < 8) { toast('Password min 8 characters', 'e'); return; }
+  
+  var token = window._inviteToken;
+  if(!token) { toast('Invalid invite link', 'e'); return; }
+  
+  var btn = document.querySelector('#fp-invite .btn.bp');
+  if(btn) { btn.textContent = 'Creating account...'; btn.disabled = true; }
+  
+  try {
+    var res = await fetch(API + '/api/family/accept-invite', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: token, email: email, password: pw, name: name })
+    });
+    var data = await res.json();
+    
+    if(res.ok && data.success) {
+      // Log them in
+      localStorage.setItem('dmv_token', data.token);
+      localStorage.setItem('dmv_user', JSON.stringify(data.user));
+      APP.user = data.user;
+      APP.plan = data.user.plan || 'family';
+      
+      document.getElementById('invite-form').style.display = 'none';
+      document.getElementById('invite-success').style.display = 'block';
+      
+      // Clean URL
+      window.history.replaceState({}, '', window.location.pathname);
+      toast('🎉 Welcome! Account created successfully!', 's');
+      
+      setTimeout(function() {
+        loginOk();
+        showFP('fp-app');
+      }, 1500);
+    } else {
+      toast(data.error || 'Could not create account', 'e');
+      if(btn) { btn.textContent = 'Accept & Create Account →'; btn.disabled = false; }
+    }
+  } catch(e) {
+    toast('Connection error', 'e');
+    if(btn) { btn.textContent = 'Accept & Create Account →'; btn.disabled = false; }
+  }
+}
 
 
 </script>>
@@ -3041,6 +3249,50 @@ function setMemberRenewal(memberId, memberName) {
 
 
 
+
+
+<!-- INVITE ACCEPT PAGE -->
+<div class="fp" id="fp-invite">
+<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem;background:var(--bg)">
+  <div style="background:var(--card);border:1px solid var(--border2);border-radius:var(--rxl);padding:2rem;width:100%;max-width:420px;text-align:center">
+    <div style="width:64px;height:64px;border-radius:50%;background:rgba(29,106,229,0.12);border:1px solid rgba(29,106,229,0.25);display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 1.25rem">🎉</div>
+    <div style="font-size:1.2rem;font-weight:900;margin-bottom:0.25rem">You're Invited!</div>
+    <div id="invite-owner-msg" style="font-size:0.82rem;color:var(--text3);margin-bottom:1.5rem">Join the DMV Assistant Family Plan</div>
+    
+    <div style="background:rgba(29,106,229,0.07);border:1px solid rgba(29,106,229,0.15);border-radius:10px;padding:0.875rem;margin-bottom:1.25rem;text-align:left">
+      <div style="font-size:0.72rem;color:var(--text3);margin-bottom:0.4rem">You'll get access to:</div>
+      <div style="font-size:0.8rem;color:var(--text2);line-height:1.9">✅ Appointment slot alerts<br/>✅ Renewal reminders<br/>✅ VIN Decoder & AI Assistant<br/>✅ Document Vault</div>
+    </div>
+
+    <div id="invite-form">
+      <div class="fg" style="text-align:left;margin-bottom:0.75rem">
+        <label class="fl">Your Name</label>
+        <input class="fi" id="invite-accept-name" placeholder="Jane Doe"/>
+      </div>
+      <div class="fg" style="text-align:left;margin-bottom:0.75rem">
+        <label class="fl">Email</label>
+        <input class="fi" id="invite-accept-email" type="email" readonly style="opacity:0.7"/>
+      </div>
+      <div class="fg" style="text-align:left;margin-bottom:1rem">
+        <label class="fl">Create Password</label>
+        <input class="fi" id="invite-accept-pw" type="password" placeholder="Min 8 characters"/>
+      </div>
+      <button onclick="acceptInvite()" class="btn bp" style="width:100%;padding:0.65rem;font-size:0.9rem">
+        Accept & Create Account →
+      </button>
+    </div>
+
+    <div id="invite-success" style="display:none;padding:1rem 0">
+      <div style="font-size:2rem;margin-bottom:0.75rem">🎊</div>
+      <div style="font-size:0.9rem;font-weight:800;color:var(--green2)">Welcome to the family!</div>
+      <div style="font-size:0.82rem;color:var(--text2);margin-top:0.5rem;margin-bottom:1rem">Your account is ready.</div>
+      <button onclick="showFP('fp-app')" class="btn bp" style="width:100%">Go to Dashboard →</button>
+    </div>
+    
+    <a style="display:block;margin-top:1rem;font-size:0.76rem;color:var(--text3);cursor:pointer" onclick="showFP('fp-land')">← Back to Home</a>
+  </div>
+</div>
+</div>
 
 </body>
 </html>
