@@ -930,7 +930,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
             <div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em">Document Vault</div>
           </div>
           <div style="display:flex;align-items:center;gap:0.5rem">
-            <span style="font-size:0.72rem;color:var(--text3)" id="vault-size-label">0 / 50 MB used</span>
+            <span style="font-size:0.72rem;color:var(--text3)" id="vault-size-label">0 / 5 GB used</span>
             <label style="cursor:pointer">
               <input type="file" id="vault-file-input" style="display:none" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" onchange="if(this.files[0])uploadDocument(this.files[0])"/>
               <span id="vault-upload-btn" class="btn bp bsm" style="pointer-events:none">+ Upload</span>
@@ -1761,7 +1761,10 @@ async function addMember(){
       body:JSON.stringify({name:n, email:eml||null, relationship:rel, state:state||null})
     });
     const data = await res.json();
-    if(data.id || data.member || (data && !data.error)){
+    if(res.ok && (data.id || data.member || data.success || (data && !data.error))){
+      // Clear form
+      var fields = ['mn','me'];
+      fields.forEach(function(id){ var el=document.getElementById(id); if(el)el.value=''; });
       cM('m-member');
       toast('✅ Family member added!','s');
       loadFamilyMembers();
@@ -2536,11 +2539,14 @@ async function loadDocuments() {
     // Update storage bar
     const totalBytes = docs.reduce(function(sum,d){ return sum+(d.size||0); }, 0);
     const totalMB = (totalBytes/1048576).toFixed(1);
-    const pct = Math.min(100, (totalBytes/(50*1048576))*100);
+    var plan = APP.plan || 'free';
+    var maxBytes = plan==='family' ? 15*1024*1024*1024 : plan==='pro' ? 5*1024*1024*1024 : 50*1024*1024;
+    var displayMax = plan==='family' ? '15 GB' : plan==='pro' ? '5 GB' : '50 MB';
+    const pct = Math.min(100, (totalBytes/maxBytes)*100);
     const bar = document.getElementById('vault-bar');
     const label = document.getElementById('vault-size-label');
     if(bar) bar.style.width = pct + '%';
-    if(label) label.textContent = totalMB + ' / 50 MB used';
+    if(label) label.textContent = totalMB + ' MB / ' + displayMax + ' used';
 
   } catch(e) {
     console.error('Load docs error:', e);
@@ -2644,6 +2650,8 @@ document.addEventListener('click',function(e){
     if(btn)btn.textContent='☰';
   }
 });
+
+
 
 </script>
 <div class="fp" id="fp-fee">
