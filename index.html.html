@@ -992,19 +992,43 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 
       <!-- FAMILY -->
       <div class="pg" id="pg-family">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.75rem">
-          <div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em">Family Members</div>
+        <!-- Header -->
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem;flex-wrap:wrap;gap:0.75rem">
+          <div>
+            <div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em">👨‍👩‍👧 Family Members</div>
+            <div style="font-size:0.75rem;color:var(--text3);margin-top:2px">Track vehicles, renewals & documents for each member</div>
+          </div>
           <button class="btn bp bsm" onclick="chkFam()">+ Add Member</button>
         </div>
-        <div id="family-list"><div style="padding:1rem;text-align:center;color:var(--text3);font-size:0.84rem">Family plan required to add members.</div></div>
-        <div class="banner bw" id="fam-banner"><div class="banner-ic">⭐</div><div class="banner-body"><div class="banner-t">Family Plan required to add members</div><div class="banner-s">Manage up to 5 family members, their vehicles & documents — $40/month total.</div><div class="banner-acts"><button class="btn bg bsm" onclick="doUpgrade('family')">Upgrade to Family → $40/mo</button></div></div></div>
-        <div id="mem-list">
-          <div class="memcard"><div class="memava" style="background:linear-gradient(135deg,#1d6ae5,#60a5fa);color:#fff">JD</div><div style="flex:1"><div style="font-size:0.84rem;font-weight:700">John Doe <span class="ibadge ib-b">OWNER</span></div><div style="font-size:0.68rem;color:var(--text3);margin-top:1px"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="107a7f787e50757d71797c3e737f7d">[email&#160;protected]</a> · California</div></div><button class="btn bgh bsm" onclick="toast('Profile settings','i')">Edit</button></div>
+
+        <!-- Upgrade banner for non-family -->
+        <div class="banner bw" id="fam-banner">
+          <div class="banner-ic">⭐</div>
+          <div class="banner-body">
+            <div class="banner-t">Family Plan required</div>
+            <div class="banner-s">Manage up to 5 family members — $40/month total.</div>
+            <div class="banner-acts"><button class="btn bg bsm" onclick="doUpgrade('family')">Upgrade → $40/mo</button></div>
+          </div>
         </div>
-        <div id="fam-locked" style="text-align:center;padding:2.5rem;color:var(--text3)"><div style="font-size:2.25rem;margin-bottom:0.625rem;opacity:0.25">👨‍👩‍👧</div><div style="font-size:0.875rem;font-weight:700;color:var(--text2);margin-bottom:0.3rem">Add up to 4 more family members</div><div style="font-size:0.78rem">Upgrade to Family Plan to unlock</div></div>
+
+        <!-- Members list with expand/collapse tracking -->
+        <div id="family-list"></div>
+
       </div>
 
-      <!-- BILLING -->
+      <!-- MEMBER DETAIL MODAL -->
+      <div class="mov" id="m-member-detail">
+      <div class="modal" style="max-width:540px;max-height:85vh;overflow-y:auto">
+        <div class="mhead">
+          <h3 id="md-title">👤 Member Details</h3>
+          <span class="mx" onclick="cM('m-member-detail')">✕</span>
+        </div>
+        <div id="md-body" style="padding:0.5rem 0">
+          Loading...
+        </div>
+      </div>
+      </div>
+
       <div class="pg" id="pg-billing">
         <div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:1rem">Billing & Plan</div>
         <div class="card" style="border-color:rgba(245,158,11,0.28);background:rgba(245,158,11,0.02);margin-bottom:1rem">
@@ -2291,24 +2315,49 @@ async function loadFamilyMembers(){
     const data=await res.json();
     const members=data.members||data||[];
     const container=document.getElementById('family-list');
-    if(container){
-      if(members.length===0){
-        container.innerHTML='<div style="padding:1rem;text-align:center;color:var(--text3);font-size:0.84rem">No family members yet. Add up to 5 members.</div>';
-      } else {
-        container.innerHTML=members.map(m=>`
-          <div class="memcard" style="display:flex;align-items:center;gap:12px;padding:0.75rem;background:var(--card2);border-radius:var(--r);border:1px solid var(--border);margin-bottom:0.5rem">
-            <div class="memava" style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--blue2),var(--blue3));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.85rem;color:#fff;flex-shrink:0">
-              ${m.name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2)}
-            </div>
-            <div style="flex:1">
-              <div style="font-size:0.84rem;font-weight:700">${m.name}</div>
-              <div style="font-size:0.72rem;color:var(--text3)">${m.relationship||''} ${m.email?'· '+m.email:''}</div>
-            </div>
-            <button onclick="deleteMember('${m.id}')" style="padding:2px 8px;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.2);border-radius:5px;font-size:0.7rem;color:#f87171;cursor:pointer;font-family:inherit">Remove</button>
-          </div>`).join('');
-      }
+    if(!container) return;
+
+    if(members.length===0){
+      container.innerHTML='<div style="text-align:center;padding:3rem 1rem">'
+        +'<div style="font-size:2.5rem;margin-bottom:0.75rem">👨‍👩‍👧</div>'
+        +'<div style="font-size:0.9rem;font-weight:700;margin-bottom:0.4rem">No family members yet</div>'
+        +'<div style="font-size:0.8rem;color:var(--text3)">Add up to 5 members to track their vehicles & documents.</div>'
+        +'</div>';
+      return;
     }
-  }catch(e){console.log('Load family error:',e);}
+
+    // Owner card first
+    const user = APP.user || {};
+    let html = '<div style="margin-bottom:0.75rem">';
+    html += '<div style="display:flex;align-items:center;gap:10px;padding:0.875rem;background:rgba(29,106,229,0.08);border:1px solid rgba(29,106,229,0.2);border-radius:12px;margin-bottom:0.5rem">';
+    html += '<div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#1d6ae5,#60a5fa);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.85rem;color:#fff;flex-shrink:0">';
+    html += (user.name||'Me').split(' ').map(function(w){return w[0];}).join('').toUpperCase().slice(0,2);
+    html += '</div><div style="flex:1"><div style="font-size:0.84rem;font-weight:700">'+(user.name||'You')+' <span style="background:rgba(29,106,229,0.15);color:#60a5fa;font-size:0.6rem;font-weight:800;padding:1px 7px;border-radius:20px;border:1px solid rgba(29,106,229,0.3)">OWNER</span></div>';
+    html += '<div style="font-size:0.7rem;color:var(--text3)">'+(user.email||'')+(user.state?' · '+user.state:'')+'</div></div></div>';
+    html += '</div>';
+
+    // Member cards
+    html += '<div style="font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:0.625rem">Family Members</div>';
+
+    members.forEach(function(m){
+      const initials = (m.name||'M').split(' ').map(function(w){return w[0];}).join('').toUpperCase().slice(0,2);
+      const colors = ['linear-gradient(135deg,#7c3aed,#a78bfa)','linear-gradient(135deg,#059669,#34d399)','linear-gradient(135deg,#dc2626,#f87171)','linear-gradient(135deg,#d97706,#fbbf24)','linear-gradient(135deg,#0891b2,#67e8f9)'];
+      const colorIdx = m.name ? m.name.charCodeAt(0) % colors.length : 0;
+
+      html += '<div style="background:var(--card2);border:1px solid var(--border);border-radius:12px;margin-bottom:0.625rem;overflow:hidden">';
+      // Member header row
+      html += '<div style="display:flex;align-items:center;gap:10px;padding:0.875rem">';
+      html += '<div style="width:38px;height:38px;border-radius:50%;background:'+colors[colorIdx]+';display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.85rem;color:#fff;flex-shrink:0">'+initials+'</div>';
+      html += '<div style="flex:1"><div style="font-size:0.84rem;font-weight:700">'+m.name+'</div>';
+      html += '<div style="font-size:0.7rem;color:var(--text3)">'+(m.relationship||'Member')+(m.email?' · '+m.email:'')+'</div></div>';
+      html += '<button data-id="'+m.id+'" data-name="'+m.name.replace(/"/g,'')+'" onclick="openMemberTracking(this.dataset.id,this.dataset.name)" style="padding:5px 12px;background:rgba(29,106,229,0.1);border:1px solid rgba(29,106,229,0.25);border-radius:7px;font-size:0.75rem;font-weight:700;color:var(--blue3);cursor:pointer;font-family:inherit">Track →</button>';
+      html += '<button data-id="'+m.id+'" onclick="deleteMember(this.dataset.id)" style="padding:5px 8px;background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.15);border-radius:7px;font-size:0.72rem;color:#f87171;cursor:pointer;font-family:inherit;margin-left:4px">🗑</button>';
+      html += '</div>';
+      html += '</div>';
+    });
+
+    container.innerHTML = html;
+  }catch(e){console.error('Load family error:',e);}
 }
 
 async function deleteMember(id){
@@ -2647,19 +2696,129 @@ document.addEventListener('click',function(e){
   }
 });
 
+function openMemberTracking(memberId, memberName) {
+  document.getElementById('md-title').textContent = '👤 ' + memberName;
+  const body = document.getElementById('md-body');
+  body.innerHTML = '<div style="display:flex;flex-direction:column;gap:0.75rem">'
+
+    // Vehicle & Registration
+    + '<div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:1rem">'
+    + '<div style="font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.07em;color:var(--gold2);margin-bottom:0.75rem">🚗 Vehicle & Registration</div>'
+    + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:0.5rem">'
+    + '<div><label style="font-size:0.68rem;color:var(--text3);display:block;margin-bottom:3px">Vehicle Name</label><input class="fi" id="mt-vehicle" placeholder="e.g. Toyota Camry 2022" style="font-size:0.8rem;padding:0.4rem 0.6rem"/></div>'
+    + '<div><label style="font-size:0.68rem;color:var(--text3);display:block;margin-bottom:3px">License Plate</label><input class="fi" id="mt-plate" placeholder="e.g. ABC-1234" style="font-size:0.8rem;padding:0.4rem 0.6rem"/></div>'
+    + '</div>'
+    + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem">'
+    + '<div><label style="font-size:0.68rem;color:var(--text3);display:block;margin-bottom:3px">Registration Expiry</label><input class="fi" id="mt-reg-exp" type="date" style="font-size:0.8rem;padding:0.4rem 0.6rem"/></div>'
+    + '<div><label style="font-size:0.68rem;color:var(--text3);display:block;margin-bottom:3px">State</label><select class="fs" id="mt-state" style="font-size:0.8rem;padding:0.4rem 0.6rem"><option value="">Select State...</option></select></div>'
+    + '</div>'
+    + '</div>'
+
+    // Insurance
+    + '<div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:1rem">'
+    + '<div style="font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.07em;color:#a78bfa;margin-bottom:0.75rem">🛡 Insurance</div>'
+    + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem">'
+    + '<div><label style="font-size:0.68rem;color:var(--text3);display:block;margin-bottom:3px">Insurance Provider</label><input class="fi" id="mt-insurer" placeholder="e.g. State Farm" style="font-size:0.8rem;padding:0.4rem 0.6rem"/></div>'
+    + '<div><label style="font-size:0.68rem;color:var(--text3);display:block;margin-bottom:3px">Policy Expiry</label><input class="fi" id="mt-ins-exp" type="date" style="font-size:0.8rem;padding:0.4rem 0.6rem"/></div>'
+    + '</div>'
+    + '</div>'
+
+    // Documents
+    + '<div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:1rem">'
+    + '<div style="font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.07em;color:var(--green2);margin-bottom:0.75rem">📄 Notes & Documents</div>'
+    + '<textarea class="fi" id="mt-notes" placeholder="Add notes, license expiry, etc..." style="font-size:0.8rem;padding:0.5rem 0.75rem;min-height:70px;resize:vertical"></textarea>'
+    + '</div>'
+
+    + '<button id="save-tracking-btn" class="btn bp" style="width:100%;padding:0.65rem;font-size:0.88rem">💾 Save Tracking Info</button>'
+    + '<button id="set-renewal-btn" class="btn" style="width:100%;padding:0.6rem;font-size:0.84rem;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);color:var(--gold2)">⏰ Set Renewal Reminder</button>'
+    + '</div>';
+
+  // Wire up buttons with closures
+  const saveBtn = document.getElementById('save-tracking-btn');
+  const renBtn = document.getElementById('set-renewal-btn');
+  if(saveBtn) saveBtn.onclick = function(){ saveMemberTracking(memberId, memberName); };
+  if(renBtn) renBtn.onclick = function(){ setMemberRenewal(memberId, memberName); };
+
+  // Populate state dropdown
+  const stateEl = document.getElementById('mt-state');
+  if(stateEl && STATES) {
+    STATES.forEach(function(s){ stateEl.innerHTML += '<option>'+s+'</option>'; });
+  }
+
+  // Load saved data from localStorage
+  const saved = localStorage.getItem('member_tracking_'+memberId);
+  if(saved) {
+    try {
+      const d = JSON.parse(saved);
+      if(d.vehicle) document.getElementById('mt-vehicle').value = d.vehicle;
+      if(d.plate) document.getElementById('mt-plate').value = d.plate;
+      if(d.regExp) document.getElementById('mt-reg-exp').value = d.regExp;
+      if(d.state) document.getElementById('mt-state').value = d.state;
+      if(d.insurer) document.getElementById('mt-insurer').value = d.insurer;
+      if(d.insExp) document.getElementById('mt-ins-exp').value = d.insExp;
+      if(d.notes) document.getElementById('mt-notes').value = d.notes;
+    } catch(e) {}
+  }
+
+  oM('m-member-detail');
+}
+
+function saveMemberTracking(memberId, memberName) {
+  const data = {
+    vehicle: document.getElementById('mt-vehicle').value,
+    plate: document.getElementById('mt-plate').value,
+    regExp: document.getElementById('mt-reg-exp').value,
+    state: document.getElementById('mt-state').value,
+    insurer: document.getElementById('mt-insurer').value,
+    insExp: document.getElementById('mt-ins-exp').value,
+    notes: document.getElementById('mt-notes').value,
+    savedAt: new Date().toISOString()
+  };
+  localStorage.setItem('member_tracking_'+memberId, JSON.stringify(data));
+  toast('Saved!', 's');
+  cM('m-member-detail');
+
+  // Auto-set reminders if dates filled
+  if(data.regExp) setMemberRenewalAuto(memberId, memberName, data.vehicle||data.plate||memberName+' Vehicle', data.regExp, 'Registration');
+  if(data.insExp) setMemberRenewalAuto(memberId, memberName, memberName+' Insurance', data.insExp, 'Insurance');
+}
+
+async function setMemberRenewalAuto(memberId, memberName, item, expDate, type) {
+  const token = localStorage.getItem('dmv_token');
+  if(!token || !expDate) return;
+  try {
+    await fetch(API+'/api/renewals', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json','Authorization':'Bearer '+token},
+      body: JSON.stringify({
+        type: type + ' — ' + memberName + ' (' + item + ')',
+        expiration_date: expDate,
+        vehicle_name: item,
+        notify_via: 'Email + SMS'
+      })
+    });
+  } catch(e) {}
+}
+
+function setMemberRenewal(memberId, memberName) {
+  cM('m-member-detail');
+  // Open renewal modal pre-filled for this member
+  setTimeout(function(){
+    const typeEl = document.getElementById('ren-type');
+    if(typeEl) typeEl.value = 'Vehicle Registration';
+    const noteEl = document.getElementById('ren-note');
+    if(noteEl) noteEl.value = 'For ' + memberName;
+    showPg('pg-renewals', null);
+    toast('Opening renewals...', 'i');
+  }, 300);
+}
 
 
 
 
 
 
-
-
-</script>
-<div class="fp" id="fp-fee">
-<div style="max-width:760px;margin:0 auto;padding:2rem 1.5rem;min-height:100vh;background:var(--bg)">
-  <div style="margin-bottom:1.5rem;display:flex;gap:1rem;align-items:center">
-    <span onclick="showFP('fp-land')" style="font-size:0.84rem;color:var(--text3);font-weight:700;cursor:pointer">← Home</span>
+</script>>
     <span style="color:var(--text3)">·</span>
     <span onclick="showFP('fp-app');setTimeout(()=>{const d=document.querySelector('[onclick*=pg-dash]');if(d)showPg('pg-dash',d);},100)" style="font-size:0.84rem;color:var(--blue3);font-weight:700;cursor:pointer">🏠 Dashboard</span>
   </div>
