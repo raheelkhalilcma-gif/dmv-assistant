@@ -434,7 +434,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 
 <div class="mov" id="m-member">
 <div class="modal" style="max-width:460px">
-  <div class="mhead"><h3>Add Family Member</h3><span class="mx" onclick="cM('m-member')">✕</span></div>
+  <div class="mhead"><h3>Add Family Member</h3><span class="mx" onclick="cM('m-member')">X</span></div>
   <div style="display:flex;gap:0;margin-bottom:1.25rem;background:var(--bg3);border-radius:8px;padding:3px">
     <button id="tab-add" onclick="switchMemberTab('add')" style="flex:1;padding:0.45rem;border:none;border-radius:6px;font-size:0.8rem;font-weight:700;cursor:pointer;font-family:inherit;background:var(--blue2);color:#fff">Add Member</button>
     <button id="tab-invite" onclick="switchMemberTab('invite')" style="flex:1;padding:0.45rem;border:none;border-radius:6px;font-size:0.8rem;font-weight:700;cursor:pointer;font-family:inherit;background:transparent;color:var(--text3)">Invite by Email</button>
@@ -446,7 +446,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
     <div class="mbtns"><button class="btn bo" onclick="cM('m-member')">Cancel</button><button class="btn bp" onclick="addMember()">Add Member</button></div>
   </div>
   <div id="member-tab-invite" style="display:none">
-    <div style="background:rgba(29,106,229,0.07);border:1px solid rgba(29,106,229,0.2);border-radius:10px;padding:0.875rem;margin-bottom:1rem;font-size:0.8rem;color:var(--text2);line-height:1.6">Member receives email invite and creates their own account linked to your family plan.</div>
+    <div style="background:rgba(29,106,229,0.07);border:1px solid rgba(29,106,229,0.2);border-radius:10px;padding:0.875rem;margin-bottom:1rem;font-size:0.8rem;color:var(--text2);line-height:1.6">Member receives an email invite and creates their own account linked to your family plan.</div>
     <div class="fg"><label class="fl">Their Email *</label><input class="fi" id="invite-email" type="email" placeholder="jane@email.com"/></div>
     <div class="fg"><label class="fl">Their Name</label><input class="fi" id="invite-name" placeholder="Jane Doe"/></div>
     <div class="fg"><label class="fl">Relationship</label><select class="fs" id="invite-rel"><option>Spouse/Partner</option><option>Child</option><option>Parent</option><option>Sibling</option><option>Other</option></select></div>
@@ -1006,8 +1006,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
       <!-- ALERTS -->
       <div class="pg" id="pg-alerts">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.75rem"><div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em">Alert History</div><div style="display:flex;gap:0.4rem"><button class="btn bo bsm" onclick="toast('Exporting PDF...','i')">⬇ PDF</button><button class="btn bo bsm" onclick="toast('Exporting CSV...','i')">⬇ CSV</button></div></div>
-        <div class="tabs"><div class="tab active" onclick="filterAlertHistory('All',this)">All</div><div class="tab" onclick="filterAlertHistory('appointment',this)">Appointments</div><div class="tab" onclick="filterAlertHistory('renewal',this)">Renewals</div><div class="tab" onclick="filterAlertHistory('document',this)">Documents</div></div>
-<div id="alert-history-list" style="margin-top:0.75rem"></div>
+        <div class="tabs"><div class="tab active" onclick="stab(this)">All</div><div class="tab" onclick="stab(this)">Appointments</div><div class="tab" onclick="stab(this)">Renewals</div><div class="tab" onclick="stab(this)">Documents</div></div>
         <div class="ahrow"><div class="ahic" style="background:rgba(29,106,229,0.15)">📧</div><div class="ahbody"><div class="ahtit">Slot Found — REAL ID, Culver City DMV, CA</div><div class="ahtime">Today 9:42 AM · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="43292c2b2d03262e222a2f6d202c2e">[email&#160;protected]</a></div></div><span class="ahtag">Email</span></div>
         <div class="ahrow"><div class="ahic" style="background:rgba(245,158,11,0.12)">💬</div><div class="ahbody"><div class="ahtit">Reminder: Driver License expires in 30 days</div><div class="ahtime">Mar 12 · +1 (310) 555-0198</div></div><span class="ahtag">SMS</span></div>
         <div class="ahrow"><div class="ahic" style="background:rgba(29,106,229,0.15)">📧</div><div class="ahbody"><div class="ahtit">Reminder: Vehicle Registration expires in 60 days</div><div class="ahtime">Mar 1 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0d676265634d68606c6461236e6260">[email&#160;protected]</a></div></div><span class="ahtag">Email</span></div>
@@ -1052,12 +1051,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
         <div style="display:flex;flex-direction:column;gap:0.875rem">
           <div class="card"><div class="card-t" style="margin-bottom:0.75rem">Profile</div><div class="fr"><div class="fg"><label class="fl">First Name</label><input class="fi" id="s-fn" placeholder="First Name"/></div><div class="fg"><label class="fl">Last Name</label><input class="fi" id="s-ln" placeholder="Last Name"/></div></div><div class="fg"><label class="fl">Email</label><input class="fi" id="s-em" type="email" placeholder="your@email.com" readonly style="opacity:0.6;cursor:not-allowed"/></div><div class="fg"><label class="fl">Phone (SMS alerts)</label><input class="fi" id="s-ph" placeholder="+1 (555) 000-0000" type="tel"/></div><div class="fg"><label class="fl">Home State</label><select class="fs" id="s-st"></select></div><div style="display:flex;align-items:center;gap:7px;margin-bottom:0.75rem"><input type="checkbox" id="s-vet" style="accent-color:var(--gold2);width:auto"/><label for="s-vet" style="font-size:0.8rem;color:var(--text2);font-weight:600">🎖 US Veteran / Active Duty</label></div><button class="btn bp bsm" onclick="saveSettings()">Save Changes</button></div>
           <div class="card"><div class="card-t" style="margin-bottom:0.75rem">Notifications</div><div style="display:flex;flex-direction:column;gap:0.55rem"><div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem">Email notifications<input type="checkbox" checked style="accent-color:var(--blue2);width:auto"/></div><div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem">SMS alerts (Pro)<input type="checkbox" style="accent-color:var(--blue2);width:auto"/></div><div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem">60-day reminders<input type="checkbox" checked style="accent-color:var(--blue2);width:auto"/></div><div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem">30-day reminders<input type="checkbox" checked style="accent-color:var(--blue2);width:auto"/></div><div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem">7-day reminders<input type="checkbox" checked style="accent-color:var(--blue2);width:auto"/></div></div><button class="btn bp bsm" style="margin-top:0.75rem" onclick="toast('Preferences saved!','s')">Save Preferences</button></div>
-          <div class="card">
-  <div class="card-t" style="margin-bottom:0.75rem">Change Password</div>
-  <div class="fg"><label class="fl">Current Password</label><input class="fi" id="s-cur-pw" type="password" placeholder="Current password"/></div>
-  <div class="fr"><div class="fg" style="flex:1"><label class="fl">New Password</label><input class="fi" id="s-new-pw" type="password" placeholder="Min 8 characters"/></div><div class="fg" style="flex:1"><label class="fl">Confirm Password</label><input class="fi" id="s-con-pw" type="password" placeholder="Repeat password"/></div></div>
-  <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.5rem"><button id="change-pw-btn" class="btn bp bsm" onclick="changePassword()">Change Password</button><button class="btn bd bsm" onclick="logout()">Sign Out</button></div>
-</div>
+          <div class="card"><div class="card-t" style="margin-bottom:0.5rem">Security</div><div style="display:flex;gap:0.5rem;flex-wrap:wrap"><button class="btn bgh bsm" onclick="toast('Password reset email sent','s')">Change Password</button><button class="btn bd bsm" onclick="logout()">Sign Out</button></div></div>
         </div>
       </div>
 
@@ -1192,7 +1186,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
           <div style="background:#0c1018;border:1px solid #1e293b;border-radius:14px;padding:1.25rem;margin-bottom:1rem">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
               <div style="font-size:0.62rem;color:#475569;text-transform:uppercase;font-weight:700">Insurance Policies</div>
-              <button onclick="toast('Add policy form — connect backend to activate','i')" style="padding:0.3rem 0.75rem;background:#2563eb;color:#fff;border:none;border-radius:7px;font-size:0.74rem;font-weight:700;cursor:pointer;font-family:inherit" onclick="oM('m-add-policy')">+ Add Policy</button>
+              <button onclick="toast('Add policy form — connect backend to activate','i')" style="padding:0.3rem 0.75rem;background:#2563eb;color:#fff;border:none;border-radius:7px;font-size:0.74rem;font-weight:700;cursor:pointer;font-family:inherit">+ Add Policy</button>
             </div>
             <div style="display:flex;align-items:center;justify-content:space-between;padding:0.8rem 1rem;background:#111827;border-radius:10px;border:1px solid rgba(22,163,74,0.2);margin-bottom:0.5rem">
               <div>
@@ -1251,7 +1245,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
                 <div style="font-size:0.7rem;color:#475569;margin-top:0.4rem">Vacation / other state</div>
               </div>
             </div>
-            <button onclick="activateMultiState()" style="padding:0.45rem 1rem;background:#2563eb;color:#fff;border:none;border-radius:7px;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:inherit">Activate Multi-State Tracking →</button>
+            <button onclick="toast('Multi-state tracking activated!','s')" style="padding:0.45rem 1rem;background:#2563eb;color:#fff;border:none;border-radius:7px;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:inherit">Activate Multi-State Tracking →</button>
           </div>
           <div style="background:#0c1018;border:1px solid #1e293b;border-radius:14px;padding:1.25rem">
             <div style="font-size:0.62rem;color:#475569;text-transform:uppercase;font-weight:700;margin-bottom:0.75rem">Who Uses This?</div>
@@ -1503,9 +1497,9 @@ let PENDING_TOKEN = null;
 async function doLogin() {
   const em = document.getElementById('li-em').value.trim();
   const pw = document.getElementById('li-pw').value;
-  if (!em || !pw) { toast('Email and password required', 'e'); return; }
+  if (!em || !pw) { toast('Email aur password enter karo', 'e'); return; }
   const btn = document.querySelector('#fp-login .btn.bp');
-  if(btn){ btn.textContent = 'Signing in...'; btn.disabled = true; }
+  btn.textContent = 'Signing in...'; btn.disabled = true;
   try {
     const res = await fetch(API + '/api/auth/login', {
       method: 'POST',
@@ -1513,26 +1507,19 @@ async function doLogin() {
       body: JSON.stringify({ email: em, password: pw })
     });
     const data = await res.json();
-    if (res.ok && data.token) {
+    if (data.token) {
       localStorage.setItem('dmv_token', data.token);
       localStorage.setItem('dmv_user', JSON.stringify(data.user));
       APP.user = data.user;
       APP.plan = data.user.plan || 'free';
       loginOk();
     } else {
-      // Clear error messages
-      if(data.error && data.error.toLowerCase().includes('password')) {
-        toast('Incorrect password — try again or reset it', 'e');
-      } else if(data.error && data.error.toLowerCase().includes('user')) {
-        toast('No account found with this email', 'e');
-      } else {
-        toast(data.error || 'Invalid email or password', 'e');
-      }
+      toast(data.error || 'Email ya password galat hai', 'e');
     }
   } catch (e) {
     toast('Connection error — try again', 'e');
   }
-  if(btn){ btn.textContent = 'Sign In →'; btn.disabled = false; }
+  btn.textContent = 'Sign In →'; btn.disabled = false;
 }
 
 async function doSignup() {
@@ -1554,7 +1541,7 @@ async function doSignup() {
       body: JSON.stringify({ firstName: fn, lastName: ln, email: em, password: pw, state: st, isVeteran: vet })
     });
     const data = await res.json();
-    if (res.ok && data.token) {
+    if (data.token) {
       PENDING_USER = data.user;
       PENDING_TOKEN = data.token;
       document.getElementById('verify-email').textContent = em;
@@ -1564,11 +1551,7 @@ async function doSignup() {
       setTimeout(() => { const o=document.getElementById('otp0'); if(o)o.focus(); }, 400);
       toast('Verification code sent to ' + em + ' — check spam too!', 'i');
     } else {
-      if(data.error && (data.error.toLowerCase().includes('exist') || data.error.toLowerCase().includes('duplicate') || data.error.toLowerCase().includes('already'))) {
-        toast('An account with this email already exists. Please sign in.', 'e');
-      } else {
-        toast(data.error || 'Signup failed — try again', 'e');
-      }
+      toast(data.error || 'Signup failed — try again', 'e');
     }
   } catch (e) {
     toast('Connection error — check Railway backend', 'e');
@@ -2175,9 +2158,7 @@ async function doForgotPassword() {
 // ===== ELIGIBILITY =====
 
 
-function openBillingPortal() {
-  window.open('https://app.lemonsqueezy.com/my-orders','_blank');
-}
+function openBillingPortal(){window.open('https://app.lemonsqueezy.com/my-orders','_blank');}
 
 // ===== OFFICIAL DMV LINKS =====
 const DMV_LINKS = {
@@ -2774,181 +2755,6 @@ async function saveMemberData(){
   loadFamilyMembers();
 }
 
-async function changePassword() {
-  var cur = (document.getElementById('s-cur-pw')||{}).value||'';
-  var pw1 = (document.getElementById('s-new-pw')||{}).value||'';
-  var pw2 = (document.getElementById('s-con-pw')||{}).value||'';
-  if(!cur){ toast('Current password required','e'); return; }
-  if(!pw1||pw1.length<8){ toast('New password min 8 characters','e'); return; }
-  if(pw1!==pw2){ toast('Passwords do not match','e'); return; }
-  var token = localStorage.getItem('dmv_token');
-  if(!token){ showFP('fp-login'); return; }
-  var btn = document.getElementById('change-pw-btn');
-  if(btn){ btn.textContent='Saving...'; btn.disabled=true; }
-  try{
-    var res = await fetch(API+'/api/auth/change-password',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
-      body: JSON.stringify({currentPassword:cur, newPassword:pw1})
-    });
-    var data = await res.json();
-    if(res.ok && data.success){
-      toast('✅ Password changed successfully!','s');
-      var fields = ['s-cur-pw','s-new-pw','s-con-pw'];
-      fields.forEach(function(id){ var el=document.getElementById(id); if(el)el.value=''; });
-    } else {
-      toast(data.error||'Could not change password','e');
-    }
-  }catch(e){ toast('Connection error','e'); }
-  if(btn){ btn.textContent='Change Password'; btn.disabled=false; }
-}
-
-async function saveSettings() {
-  var fn = (document.getElementById('s-fn')||{}).value||'';
-  var ln = (document.getElementById('s-ln')||{}).value||'';
-  var ph = (document.getElementById('s-ph')||{}).value||'';
-  var st = (document.getElementById('s-st')||{}).value||'';
-  var vet = (document.getElementById('s-vet')||{}).checked||false;
-  var token = localStorage.getItem('dmv_token');
-  if(!token){ showFP('fp-login'); return; }
-  var btn = document.querySelector('#pg-settings .btn.bp');
-  if(btn){ btn.textContent='Saving...'; btn.disabled=true; }
-  try{
-    var res = await fetch(API+'/api/auth/update-profile',{
-      method:'PUT',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
-      body: JSON.stringify({firstName:fn, lastName:ln, phone:ph, state:st, isVeteran:vet})
-    });
-    var data = await res.json();
-    if(res.ok && (data.success || data.user)){
-      var user = JSON.parse(localStorage.getItem('dmv_user')||'{}');
-      user.first_name=fn; user.last_name=ln; user.phone=ph; user.state=st; user.is_veteran=vet;
-      localStorage.setItem('dmv_user', JSON.stringify(user));
-      APP.user = user;
-      toast('✅ Settings saved!','s');
-    } else {
-      toast(data.error||'Could not save settings','e');
-    }
-  }catch(e){ toast('Connection error','e'); }
-  if(btn){ btn.textContent='Save Changes'; btn.disabled=false; }
-}
-
-var _policies = [];
-
-function addInsurancePolicy() {
-  var provider = (document.getElementById('ins-provider')||{}).value||'';
-  var policy = (document.getElementById('ins-policy-num')||{}).value||'';
-  var expiry = (document.getElementById('ins-expiry')||{}).value||'';
-  var vehicle = (document.getElementById('ins-vehicle')||{}).value||'';
-  if(!provider||!expiry){ toast('Provider and expiry date required','e'); return; }
-  var pol = { id: Date.now(), provider:provider, policy:policy, expiry:expiry, vehicle:vehicle };
-  _policies.push(pol);
-  localStorage.setItem('dmv_policies', JSON.stringify(_policies));
-  renderPolicies();
-  cM('m-add-policy');
-  toast('✅ Policy added!','s');
-}
-
-function loadPolicies() {
-  try{ _policies = JSON.parse(localStorage.getItem('dmv_policies')||'[]'); } catch(e){ _policies=[]; }
-  renderPolicies();
-}
-
-function renderPolicies() {
-  var container = document.getElementById('policies-list');
-  if(!container) return;
-  if(_policies.length===0){
-    container.innerHTML='<div style="text-align:center;padding:2rem;color:var(--text3);font-size:0.85rem">No policies added yet. Click + Add Policy to get started.</div>';
-    return;
-  }
-  var today=new Date();
-  container.innerHTML=_policies.map(function(p){
-    var days=p.expiry?Math.ceil((new Date(p.expiry)-today)/864e5):null;
-    var status=days===null?'':days<0?'<span style="color:#f87171;font-size:0.72rem">Expired</span>':days<=30?'<span style="color:var(--gold2);font-size:0.72rem">Expires in '+days+'d</span>':'<span style="color:var(--green2);font-size:0.72rem">Valid ('+days+'d)</span>';
-    return '<div style="display:flex;align-items:center;gap:12px;padding:0.875rem;background:var(--card2);border:1px solid var(--border);border-radius:12px;margin-bottom:0.5rem">'
-      +'<div style="font-size:1.5rem">🛡</div>'
-      +'<div style="flex:1"><div style="font-size:0.85rem;font-weight:700">'+p.provider+'</div>'
-      +'<div style="font-size:0.72rem;color:var(--text3)">'+(p.vehicle||'')+(p.policy?' · #'+p.policy:'')+'</div>'
-      +'<div style="font-size:0.72rem;margin-top:2px">Expiry: '+p.expiry+' '+status+'</div></div>'
-      +'<button data-pid="'+p.id+'" onclick="deletePolicy(this.dataset.pid)" style="padding:4px 8px;background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.15);border-radius:6px;font-size:0.7rem;color:#f87171;cursor:pointer">Remove</button>'
-      +'</div>';
-  }).join('');
-}
-
-function deletePolicy(id) {
-  _policies = _policies.filter(function(p){ return p.id != id; });
-  localStorage.setItem('dmv_policies', JSON.stringify(_policies));
-  renderPolicies();
-  toast('Policy removed','i');
-}
-
-function activateMultiState() {
-  var primary = (document.getElementById('ms-primary')||{}).value||'';
-  var secondary = (document.getElementById('ms-secondary')||{}).value||'';
-  if(!primary||!secondary){ toast('Select both states','e'); return; }
-  if(primary===secondary){ toast('Select two different states','e'); return; }
-  localStorage.setItem('dmv_ms_primary', primary);
-  localStorage.setItem('dmv_ms_secondary', secondary);
-  toast('✅ Multi-state tracking activated for '+primary+' and '+secondary+'!','s');
-  renderMultiState();
-}
-
-function renderMultiState() {
-  var p = localStorage.getItem('dmv_ms_primary');
-  var s = localStorage.getItem('dmv_ms_secondary');
-  var status = document.getElementById('ms-status');
-  if(status && p && s){
-    status.innerHTML='<div style="background:rgba(22,163,74,0.1);border:1px solid rgba(22,163,74,0.25);border-radius:10px;padding:0.875rem;margin-top:1rem;font-size:0.85rem"><b style="color:var(--green2)">Active:</b> Tracking '+p+' & '+s+'</div>';
-  }
-}
-
-async function loadAlertHistory(filter) {
-  var token = localStorage.getItem('dmv_token');
-  if(!token) return;
-  var container = document.getElementById('alert-history-list');
-  if(!container) return;
-  container.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--text3)">Loading...</div>';
-  try{
-    var res = await fetch(API+'/api/alerts/history',{
-      headers:{'Authorization':'Bearer '+token}
-    });
-    var data = await res.json();
-    var history = data.history || data || [];
-    if(filter && filter !== 'All'){
-      var f = filter.toLowerCase();
-      history = history.filter(function(h){ return (h.type||'').toLowerCase().includes(f); });
-    }
-    if(history.length===0){
-      container.innerHTML='<div style="text-align:center;padding:2rem;color:var(--text3);font-size:0.85rem">No alert history yet. Alerts will appear here when sent.</div>';
-      return;
-    }
-    container.innerHTML = history.map(function(h){
-      var icon = h.sent_via==='SMS'?'💬':'📧';
-      var bg = h.sent_via==='SMS'?'rgba(245,158,11,0.12)':'rgba(29,106,229,0.15)';
-      return '<div class="ahrow"><div class="ahic" style="background:'+bg+'">'+icon+'</div>'
-        +'<div class="ahbody"><div class="ahtit">'+(h.title||h.message||'Alert sent')+'</div>'
-        +'<div class="ahtime">'+(h.created_at?new Date(h.created_at).toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}):'')
-        +' · alerts@dmvassistants.com</div></div>'
-        +'<span class="ahtag">'+(h.sent_via||'Email')+'</span></div>';
-    }).join('');
-  }catch(e){
-    container.innerHTML='<div style="text-align:center;padding:2rem;color:var(--text3)">Could not load history. Check your connection.</div>';
-  }
-}
-
-function filterAlertHistory(tab, btn) {
-  document.querySelectorAll('#pg-alerts .tab').forEach(function(t){ t.classList.remove('active'); });
-  if(btn) btn.classList.add('active');
-  loadAlertHistory(tab);
-}
-
-function openNewsLink(url) {
-  if(url && url.startsWith('http')){
-    window.open(url, '_blank', 'noopener');
-  } else {
-    toast('Link not available','e');
-  }
-}
 
 
 </script>
@@ -3180,22 +2986,10 @@ function openNewsLink(url) {
 
 
 
-<!-- ADD POLICY MODAL -->
-<div class="mov" id="m-add-policy">
-<div class="modal" style="max-width:440px">
-  <div class="mhead"><h3>+ Add Insurance Policy</h3><span class="mx" onclick="cM('m-add-policy')">✕</span></div>
-  <div class="fg"><label class="fl">Insurance Provider *</label><input class="fi" id="ins-provider" placeholder="e.g. State Farm, Geico"/></div>
-  <div class="fg"><label class="fl">Policy Number</label><input class="fi" id="ins-policy-num" placeholder="Optional"/></div>
-  <div class="fg"><label class="fl">Vehicle</label><input class="fi" id="ins-vehicle" placeholder="e.g. 2022 Toyota Camry"/></div>
-  <div class="fg"><label class="fl">Expiry Date *</label><input class="fi" type="date" id="ins-expiry"/></div>
-  <div class="mbtns"><button class="btn bo" onclick="cM('m-add-policy')">Cancel</button><button class="btn bp" onclick="addInsurancePolicy()">Add Policy</button></div>
-</div>
-</div>
-
 <!-- MEMBER TRACKING MODAL -->
 <div class="mov" id="m-member-detail">
 <div class="modal" style="max-width:520px;max-height:85vh;overflow-y:auto">
-  <div class="mhead"><h3 id="md-title">Track Member</h3><span class="mx" onclick="cM('m-member-detail')">✕</span></div>
+  <div class="mhead"><h3 id="md-title">Track Member</h3><span class="mx" onclick="cM('m-member-detail')">X</span></div>
   <div id="md-body" style="padding:0.5rem 0">Loading...</div>
 </div>
 </div>
@@ -3218,6 +3012,7 @@ function openNewsLink(url) {
       <div style="font-size:0.9rem;font-weight:800;color:var(--green2)">Welcome to the family!</div>
       <button onclick="showFP('fp-app')" class="btn bp" style="width:100%;margin-top:1rem">Go to Dashboard</button>
     </div>
+    <a style="display:block;margin-top:1rem;font-size:0.76rem;color:var(--text3);cursor:pointer" onclick="showFP('fp-land')">Back to Home</a>
   </div>
 </div>
 </div>
