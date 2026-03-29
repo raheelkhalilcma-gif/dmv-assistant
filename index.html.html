@@ -1006,7 +1006,13 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
       <!-- ALERTS -->
       <div class="pg" id="pg-alerts">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.75rem"><div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em">Alert History</div><div style="display:flex;gap:0.4rem"><button class="btn bo bsm" onclick="toast('Exporting PDF...','i')">⬇ PDF</button><button class="btn bo bsm" onclick="toast('Exporting CSV...','i')">⬇ CSV</button></div></div>
-        <div class="tabs"><div class="tab active" onclick="stab(this)">All</div><div class="tab" onclick="stab(this)">Appointments</div><div class="tab" onclick="stab(this)">Renewals</div><div class="tab" onclick="stab(this)">Documents</div></div>
+        <div class="tabs">
+  <div class="tab active" onclick="filterAlertHistory('All',this)">All</div>
+  <div class="tab" onclick="filterAlertHistory('appointment',this)">Appointments</div>
+  <div class="tab" onclick="filterAlertHistory('renewal',this)">Renewals</div>
+  <div class="tab" onclick="filterAlertHistory('document',this)">Documents</div>
+</div>
+<div id="alert-history-list" style="margin-top:0.75rem"></div>
         <div class="ahrow"><div class="ahic" style="background:rgba(29,106,229,0.15)">📧</div><div class="ahbody"><div class="ahtit">Slot Found — REAL ID, Culver City DMV, CA</div><div class="ahtime">Today 9:42 AM · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="43292c2b2d03262e222a2f6d202c2e">[email&#160;protected]</a></div></div><span class="ahtag">Email</span></div>
         <div class="ahrow"><div class="ahic" style="background:rgba(245,158,11,0.12)">💬</div><div class="ahbody"><div class="ahtit">Reminder: Driver License expires in 30 days</div><div class="ahtime">Mar 12 · +1 (310) 555-0198</div></div><span class="ahtag">SMS</span></div>
         <div class="ahrow"><div class="ahic" style="background:rgba(29,106,229,0.15)">📧</div><div class="ahbody"><div class="ahtit">Reminder: Vehicle Registration expires in 60 days</div><div class="ahtime">Mar 1 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0d676265634d68606c6461236e6260">[email&#160;protected]</a></div></div><span class="ahtag">Email</span></div>
@@ -1051,7 +1057,18 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
         <div style="display:flex;flex-direction:column;gap:0.875rem">
           <div class="card"><div class="card-t" style="margin-bottom:0.75rem">Profile</div><div class="fr"><div class="fg"><label class="fl">First Name</label><input class="fi" id="s-fn" placeholder="First Name"/></div><div class="fg"><label class="fl">Last Name</label><input class="fi" id="s-ln" placeholder="Last Name"/></div></div><div class="fg"><label class="fl">Email</label><input class="fi" id="s-em" type="email" placeholder="your@email.com" readonly style="opacity:0.6;cursor:not-allowed"/></div><div class="fg"><label class="fl">Phone (SMS alerts)</label><input class="fi" id="s-ph" placeholder="+1 (555) 000-0000" type="tel"/></div><div class="fg"><label class="fl">Home State</label><select class="fs" id="s-st"></select></div><div style="display:flex;align-items:center;gap:7px;margin-bottom:0.75rem"><input type="checkbox" id="s-vet" style="accent-color:var(--gold2);width:auto"/><label for="s-vet" style="font-size:0.8rem;color:var(--text2);font-weight:600">🎖 US Veteran / Active Duty</label></div><button class="btn bp bsm" onclick="saveSettings()">Save Changes</button></div>
           <div class="card"><div class="card-t" style="margin-bottom:0.75rem">Notifications</div><div style="display:flex;flex-direction:column;gap:0.55rem"><div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem">Email notifications<input type="checkbox" checked style="accent-color:var(--blue2);width:auto"/></div><div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem">SMS alerts (Pro)<input type="checkbox" style="accent-color:var(--blue2);width:auto"/></div><div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem">60-day reminders<input type="checkbox" checked style="accent-color:var(--blue2);width:auto"/></div><div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem">30-day reminders<input type="checkbox" checked style="accent-color:var(--blue2);width:auto"/></div><div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem">7-day reminders<input type="checkbox" checked style="accent-color:var(--blue2);width:auto"/></div></div><button class="btn bp bsm" style="margin-top:0.75rem" onclick="toast('Preferences saved!','s')">Save Preferences</button></div>
-          <div class="card"><div class="card-t" style="margin-bottom:0.5rem">Security</div><div style="display:flex;gap:0.5rem;flex-wrap:wrap"><button class="btn bgh bsm" onclick="toast('Password reset email sent','s')">Change Password</button><button class="btn bd bsm" onclick="logout()">Sign Out</button></div></div>
+          <div class="card">
+  <div class="card-t" style="margin-bottom:0.75rem">Change Password</div>
+  <div class="fg"><label class="fl">Current Password</label><input class="fi" id="s-cur-pw" type="password" placeholder="Current password"/></div>
+  <div class="fr">
+    <div class="fg" style="flex:1"><label class="fl">New Password</label><input class="fi" id="s-new-pw" type="password" placeholder="Min 8 characters"/></div>
+    <div class="fg" style="flex:1"><label class="fl">Confirm Password</label><input class="fi" id="s-con-pw" type="password" placeholder="Repeat new password"/></div>
+  </div>
+  <div style="display:flex;gap:0.5rem;margin-top:0.5rem">
+    <button id="change-pw-btn" class="btn bp bsm" onclick="changePassword()">Change Password</button>
+    <button class="btn bd bsm" onclick="logout()">Sign Out</button>
+  </div>
+</div>
         </div>
       </div>
 
@@ -1186,7 +1203,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
           <div style="background:#0c1018;border:1px solid #1e293b;border-radius:14px;padding:1.25rem;margin-bottom:1rem">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
               <div style="font-size:0.62rem;color:#475569;text-transform:uppercase;font-weight:700">Insurance Policies</div>
-              <button onclick="toast('Add policy form — connect backend to activate','i')" style="padding:0.3rem 0.75rem;background:#2563eb;color:#fff;border:none;border-radius:7px;font-size:0.74rem;font-weight:700;cursor:pointer;font-family:inherit">+ Add Policy</button>
+              <button onclick="toast('Add policy form — connect backend to activate','i')" style="padding:0.3rem 0.75rem;background:#2563eb;color:#fff;border:none;border-radius:7px;font-size:0.74rem;font-weight:700;cursor:pointer;font-family:inherit" onclick="oM('m-add-policy')">+ Add Policy</button>
             </div>
             <div style="display:flex;align-items:center;justify-content:space-between;padding:0.8rem 1rem;background:#111827;border-radius:10px;border:1px solid rgba(22,163,74,0.2);margin-bottom:0.5rem">
               <div>
@@ -1245,7 +1262,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
                 <div style="font-size:0.7rem;color:#475569;margin-top:0.4rem">Vacation / other state</div>
               </div>
             </div>
-            <button onclick="toast('Multi-state tracking activated!','s')" style="padding:0.45rem 1rem;background:#2563eb;color:#fff;border:none;border-radius:7px;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:inherit">Activate Multi-State Tracking →</button>
+            <button onclick="activateMultiState()" style="padding:0.45rem 1rem;background:#2563eb;color:#fff;border:none;border-radius:7px;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:inherit">Activate Multi-State Tracking →</button>
           </div>
           <div style="background:#0c1018;border:1px solid #1e293b;border-radius:14px;padding:1.25rem">
             <div style="font-size:0.62rem;color:#475569;text-transform:uppercase;font-weight:700;margin-bottom:0.75rem">Who Uses This?</div>
@@ -1383,6 +1400,9 @@ function showPg(id,nav){
   else if(id==='pg-renewals') loadRenewals();
   else if(id==='pg-family') loadFamilyMembers();
   else if(id==='pg-vault') loadDocuments();
+  else if(id==='pg-alerts') loadAlertHistory('All');
+  else if(id==='pg-insurance') loadPolicies();
+  else if(id==='pg-multistate') { renderMultiState(); populateMsSelects(); }
   if(nav){
     document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
     nav.classList.add('active');
@@ -1497,9 +1517,9 @@ let PENDING_TOKEN = null;
 async function doLogin() {
   const em = document.getElementById('li-em').value.trim();
   const pw = document.getElementById('li-pw').value;
-  if (!em || !pw) { toast('Email aur password enter karo', 'e'); return; }
+  if (!em || !pw) { toast('Email and password required', 'e'); return; }
   const btn = document.querySelector('#fp-login .btn.bp');
-  btn.textContent = 'Signing in...'; btn.disabled = true;
+  if(btn){ btn.textContent = 'Signing in...'; btn.disabled = true; }
   try {
     const res = await fetch(API + '/api/auth/login', {
       method: 'POST',
@@ -1507,19 +1527,30 @@ async function doLogin() {
       body: JSON.stringify({ email: em, password: pw })
     });
     const data = await res.json();
-    if (data.token) {
+    if (res.ok && data.token) {
       localStorage.setItem('dmv_token', data.token);
       localStorage.setItem('dmv_user', JSON.stringify(data.user));
       APP.user = data.user;
       APP.plan = data.user.plan || 'free';
+      // Redirect to app subdomain
+      if(window.location.hostname === 'www.dmvassistants.com' || window.location.hostname === 'dmvassistants.com') {
+        window.location.href = 'https://app.dmvassistants.com';
+        return;
+      }
       loginOk();
     } else {
-      toast(data.error || 'Email ya password galat hai', 'e');
+      if(data.error && data.error.toLowerCase().includes('password')) {
+        toast('Incorrect password — try again or reset it', 'e');
+      } else if(data.error && (data.error.toLowerCase().includes('user') || data.error.toLowerCase().includes('found'))) {
+        toast('No account found with this email — please sign up', 'e');
+      } else {
+        toast(data.error || 'Invalid email or password', 'e');
+      }
     }
   } catch (e) {
-    toast('Connection error — try again', 'e');
+    toast('Connection error — check your internet', 'e');
   }
-  btn.textContent = 'Sign In →'; btn.disabled = false;
+  if(btn){ btn.textContent = 'Sign In →'; btn.disabled = false; }
 }
 
 async function doSignup() {
@@ -1528,12 +1559,12 @@ async function doSignup() {
   const em = document.getElementById('su-em').value.trim();
   const pw = document.getElementById('su-pw').value;
   const st = document.getElementById('su-st').value;
-  const vet = document.getElementById('su-vet').checked;
-  if (!fn || !em || !pw) { toast('Sab fields fill karo', 'e'); return; }
-  if (pw.length < 8) { toast('Password min 8 characters hona chahiye', 'e'); return; }
-  if (!em.includes('@')) { toast('Valid email enter karo', 'e'); return; }
+  const vet = document.getElementById('su-vet') ? document.getElementById('su-vet').checked : false;
+  if (!fn || !em || !pw) { toast('Please fill all required fields', 'e'); return; }
+  if (pw.length < 8) { toast('Password must be at least 8 characters', 'e'); return; }
+  if (!em.includes('@')) { toast('Please enter a valid email address', 'e'); return; }
   const btn = document.querySelector('#fp-signup .btn.bp');
-  btn.textContent = 'Creating account...'; btn.disabled = true;
+  if(btn){ btn.textContent = 'Creating account...'; btn.disabled = true; }
   try {
     const res = await fetch(API + '/api/auth/signup', {
       method: 'POST',
@@ -1541,23 +1572,27 @@ async function doSignup() {
       body: JSON.stringify({ firstName: fn, lastName: ln, email: em, password: pw, state: st, isVeteran: vet })
     });
     const data = await res.json();
-    if (data.token) {
+    if (res.ok && data.token) {
       PENDING_USER = data.user;
       PENDING_TOKEN = data.token;
       document.getElementById('verify-email').textContent = em;
-      [0,1,2,3,4,5].forEach(i => { document.getElementById('otp'+i).value = ''; });
-      document.getElementById('otp-err').style.display = 'none';
+      [0,1,2,3,4,5].forEach(idx => { const o=document.getElementById('otp'+idx); if(o)o.value=''; });
+      const otpErr = document.getElementById('otp-err');
+      if(otpErr) otpErr.style.display = 'none';
       showFP('fp-verify');
       setTimeout(() => { const o=document.getElementById('otp0'); if(o)o.focus(); }, 400);
       toast('Verification code sent to ' + em + ' — check spam too!', 'i');
     } else {
-      toast(data.error || 'Signup failed — try again', 'e');
+      if(data.error && (data.error.toLowerCase().includes('exist') || data.error.toLowerCase().includes('duplicate') || data.error.toLowerCase().includes('already'))) {
+        toast('An account with this email already exists. Please sign in.', 'e');
+      } else {
+        toast(data.error || 'Signup failed — please try again', 'e');
+      }
     }
   } catch (e) {
-    toast('Connection error — check Railway backend', 'e');
-    console.error('Signup error:', e);
+    toast('Connection error — please try again', 'e');
   }
-  btn.textContent = 'Create Free Account →'; btn.disabled = false;
+  if(btn){ btn.textContent = 'Create Free Account →'; btn.disabled = false; }
 }
 
 // OTP box navigation
@@ -1726,35 +1761,36 @@ function loginOk(){
   }, 300);
 }
 
-function saveSettings(){
-  const fn = document.getElementById('s-fn').value.trim();
-  const ln = document.getElementById('s-ln').value.trim();
-  const ph = document.getElementById('s-ph').value.trim();
-  const st = document.getElementById('s-st').value;
-  const vet = document.getElementById('s-vet').checked;
-  if(!fn){toast('Name required','e');return;}
-  const fullName = `${fn} ${ln}`.trim();
-  const initials = fullName.split(' ').filter(Boolean).map(w=>w[0]).join('').toUpperCase().slice(0,2);
-  // Update APP.user
-  if(APP.user){
-    APP.user.first_name = fn;
-    APP.user.last_name = ln;
-    APP.user.name = fullName;
-    APP.user.phone = ph;
-    APP.user.state = st;
-    APP.user.is_veteran = vet;
-    localStorage.setItem('dmv_user', JSON.stringify(APP.user));
-  }
-  // Update sidebar
-  const sbName = document.getElementById('sb-name');
-  if(sbName) sbName.textContent = fullName;
-  const sbAva = document.getElementById('sb-ava');
-  if(sbAva) sbAva.textContent = initials;
-  const dg = document.getElementById('dg');
-  if(dg) dg.textContent = fn + ' 👋';
-  const accState = document.getElementById('acc-state');
-  if(accState) accState.textContent = st || 'Not set';
-  toast('Settings saved!', 's');
+async function saveSettings(){
+  const fn = (document.getElementById('s-fn')||{}).value||'';
+  const ln = (document.getElementById('s-ln')||{}).value||'';
+  const ph = (document.getElementById('s-ph')||{}).value||'';
+  const st = (document.getElementById('s-st')||{}).value||'';
+  const vet = (document.getElementById('s-vet')||{}).checked||false;
+  if(!fn.trim()){toast('First name required','e');return;}
+  const token = localStorage.getItem('dmv_token');
+  if(!token){showFP('fp-login');return;}
+  const btn = document.querySelector('#pg-settings .btn.bp');
+  if(btn){btn.textContent='Saving...';btn.disabled=true;}
+  try{
+    const res = await fetch(API+'/api/auth/update-profile',{
+      method:'PUT',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
+      body:JSON.stringify({firstName:fn.trim(),lastName:ln.trim(),phone:ph.trim(),state:st,isVeteran:vet})
+    });
+    const data = await res.json();
+    if(res.ok && (data.success || data.user)){
+      const user = JSON.parse(localStorage.getItem('dmv_user')||'{}');
+      user.first_name=fn;user.last_name=ln;user.phone=ph;user.state=st;user.is_veteran=vet;
+      user.name=fn+' '+ln;
+      localStorage.setItem('dmv_user',JSON.stringify(user));
+      APP.user=user;
+      toast('✅ Settings saved!','s');
+    } else {
+      toast(data.error||'Could not save — try again','e');
+    }
+  }catch(e){toast('Connection error','e');}
+  if(btn){btn.textContent='Save Changes';btn.disabled=false;}
 }
 
 function logout(){
@@ -2756,6 +2792,145 @@ async function saveMemberData(){
 }
 
 
+// ─── CHANGE PASSWORD ─────────────────────────
+async function changePassword() {
+  const cur = (document.getElementById('s-cur-pw')||{}).value||'';
+  const pw1 = (document.getElementById('s-new-pw')||{}).value||'';
+  const pw2 = (document.getElementById('s-con-pw')||{}).value||'';
+  if(!cur){toast('Current password required','e');return;}
+  if(!pw1||pw1.length<8){toast('New password must be at least 8 characters','e');return;}
+  if(pw1!==pw2){toast('Passwords do not match','e');return;}
+  const token = localStorage.getItem('dmv_token');
+  if(!token){showFP('fp-login');return;}
+  const btn = document.getElementById('change-pw-btn');
+  if(btn){btn.textContent='Saving...';btn.disabled=true;}
+  try{
+    const res = await fetch(API+'/api/auth/change-password',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
+      body:JSON.stringify({currentPassword:cur,newPassword:pw1})
+    });
+    const data = await res.json();
+    if(res.ok&&data.success){
+      toast('✅ Password changed!','s');
+      ['s-cur-pw','s-new-pw','s-con-pw'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+    } else {
+      toast(data.error||'Incorrect current password','e');
+    }
+  }catch(e){toast('Connection error','e');}
+  if(btn){btn.textContent='Change Password';btn.disabled=false;}
+}
+
+// ─── INSURANCE POLICIES ─────────────────────
+var _policies = [];
+function loadPolicies() {
+  try{ _policies = JSON.parse(localStorage.getItem('dmv_policies')||'[]'); } catch(e){ _policies=[]; }
+  renderPolicies();
+}
+function renderPolicies() {
+  const c = document.getElementById('policies-list');
+  if(!c) return;
+  if(!_policies.length){
+    c.innerHTML='<div style="text-align:center;padding:2rem;color:var(--text3);font-size:0.85rem">No policies added yet.</div>';
+    return;
+  }
+  const today = new Date();
+  c.innerHTML = _policies.map(p=>{
+    const days = p.expiry ? Math.ceil((new Date(p.expiry)-today)/86400000) : null;
+    const status = days===null?'': days<0?'<span style="color:#f87171;font-size:0.72rem"> • Expired</span>':days<=30?'<span style="color:var(--gold2);font-size:0.72rem"> • Expires in '+days+'d</span>':'<span style="color:var(--green2);font-size:0.72rem"> • Valid '+days+'d</span>';
+    return `<div style="display:flex;align-items:center;gap:12px;padding:0.875rem;background:var(--card2);border:1px solid var(--border);border-radius:12px;margin-bottom:0.5rem">
+      <div style="font-size:1.5rem">🛡</div>
+      <div style="flex:1">
+        <div style="font-size:0.85rem;font-weight:700;color:var(--text)">${p.provider}${status}</div>
+        <div style="font-size:0.72rem;color:var(--text3)">${p.vehicle||''}${p.policy?' · #'+p.policy:''}</div>
+        <div style="font-size:0.72rem;color:var(--text3)">Expiry: ${p.expiry||'N/A'}</div>
+      </div>
+      <button data-pid="${p.id}" onclick="deletePolicy(this.dataset.pid)" style="padding:4px 10px;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.2);border-radius:6px;font-size:0.72rem;color:#f87171;cursor:pointer">Remove</button>
+    </div>`;
+  }).join('');
+}
+function addInsurancePolicy() {
+  const provider = (document.getElementById('ins-provider')||{}).value||'';
+  const policy = (document.getElementById('ins-policy-num')||{}).value||'';
+  const expiry = (document.getElementById('ins-expiry')||{}).value||'';
+  const vehicle = (document.getElementById('ins-vehicle')||{}).value||'';
+  if(!provider||!expiry){toast('Provider and expiry required','e');return;}
+  _policies.push({id:Date.now(),provider,policy,expiry,vehicle});
+  localStorage.setItem('dmv_policies',JSON.stringify(_policies));
+  renderPolicies();
+  cM('m-add-policy');
+  toast('✅ Policy added!','s');
+}
+function deletePolicy(id) {
+  _policies = _policies.filter(p=>p.id!=id);
+  localStorage.setItem('dmv_policies',JSON.stringify(_policies));
+  renderPolicies();
+  toast('Policy removed','i');
+}
+
+// ─── MULTI-STATE ─────────────────────────────
+function populateMsSelects() {
+  ['ms-primary','ms-secondary'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(!el||el.options.length>1) return;
+    el.innerHTML='<option value="">Select State...</option>'+STATES.map(s=>'<option>'+s+'</option>').join('');
+  });
+}
+function activateMultiState() {
+  const p = (document.getElementById('ms-primary')||{}).value||'';
+  const s = (document.getElementById('ms-secondary')||{}).value||'';
+  if(!p||!s){toast('Please select both states','e');return;}
+  if(p===s){toast('Please select two different states','e');return;}
+  localStorage.setItem('dmv_ms_primary',p);
+  localStorage.setItem('dmv_ms_secondary',s);
+  toast('✅ Multi-state tracking activated for '+p+' and '+s+'!','s');
+  renderMultiState();
+}
+function renderMultiState() {
+  const p = localStorage.getItem('dmv_ms_primary');
+  const s = localStorage.getItem('dmv_ms_secondary');
+  const el = document.getElementById('ms-status');
+  if(el && p && s){
+    el.innerHTML='<div style="background:rgba(22,163,74,0.1);border:1px solid rgba(22,163,74,0.25);border-radius:10px;padding:0.875rem;margin-top:0.75rem;font-size:0.85rem;color:var(--text2)"><b style="color:var(--green2)">Active:</b> Tracking '+p+' & '+s+'</div>';
+  } else if(el){
+    el.innerHTML='';
+  }
+}
+
+// ─── ALERT HISTORY ───────────────────────────
+async function loadAlertHistory(filter) {
+  const token = localStorage.getItem('dmv_token');
+  const c = document.getElementById('alert-history-list');
+  if(!c) return;
+  c.innerHTML='<div style="text-align:center;padding:2rem;color:var(--text3);font-size:0.85rem">Loading...</div>';
+  if(!token){c.innerHTML='<div style="text-align:center;padding:2rem;color:var(--text3)">Please sign in.</div>';return;}
+  try{
+    const res = await fetch(API+'/api/alerts/history',{headers:{'Authorization':'Bearer '+token}});
+    const data = await res.json();
+    let items = data.history||data||[];
+    if(filter&&filter!=='All'){
+      items = items.filter(h=>(h.type||'').toLowerCase().includes(filter.toLowerCase()));
+    }
+    if(!items.length){
+      c.innerHTML='<div style="text-align:center;padding:2rem;color:var(--text3);font-size:0.85rem">No alert history yet. Alerts appear here when sent.</div>';
+      return;
+    }
+    c.innerHTML = items.map(h=>{
+      const icon=h.sent_via==='SMS'?'💬':'📧';
+      const bg=h.sent_via==='SMS'?'rgba(245,158,11,0.12)':'rgba(29,106,229,0.15)';
+      const dt=h.created_at?new Date(h.created_at).toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}):'';
+      return `<div class="ahrow"><div class="ahic" style="background:${bg}">${icon}</div><div class="ahbody"><div class="ahtit">${h.title||h.message||'Alert sent'}</div><div class="ahtime">${dt} · alerts@dmvassistants.com</div></div><span class="ahtag">${h.sent_via||'Email'}</span></div>`;
+    }).join('');
+  }catch(e){
+    c.innerHTML='<div style="text-align:center;padding:2rem;color:var(--text3)">Could not load history.</div>';
+  }
+}
+function filterAlertHistory(tab, btn) {
+  document.querySelectorAll('#pg-alerts .tab').forEach(t=>t.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  loadAlertHistory(tab);
+}
+
 
 </script>
 <div class="fp" id="fp-fee">
@@ -3017,5 +3192,20 @@ async function saveMemberData(){
 </div>
 </div>
 
+
+<!-- ADD POLICY MODAL -->
+<div class="mov" id="m-add-policy">
+<div class="modal" style="max-width:440px">
+  <div class="mhead"><h3>+ Add Insurance Policy</h3><span class="mx" onclick="cM('m-add-policy')">✕</span></div>
+  <div class="fg"><label class="fl">Insurance Provider *</label><input class="fi" id="ins-provider" placeholder="e.g. State Farm, Geico, Progressive"/></div>
+  <div class="fg"><label class="fl">Policy Number</label><input class="fi" id="ins-policy-num" placeholder="Optional"/></div>
+  <div class="fg"><label class="fl">Vehicle</label><input class="fi" id="ins-vehicle" placeholder="e.g. 2022 Toyota Camry"/></div>
+  <div class="fg"><label class="fl">Policy Expiry Date *</label><input class="fi" type="date" id="ins-expiry"/></div>
+  <div class="mbtns">
+    <button class="btn bo" onclick="cM('m-add-policy')">Cancel</button>
+    <button class="btn bp" onclick="addInsurancePolicy()">Add Policy</button>
+  </div>
+</div>
+</div>
 </body>
 </html>
