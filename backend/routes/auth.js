@@ -253,17 +253,49 @@ router.post('/change-password', authMiddleware, async (req, res) => {
     if (newPassword.length < 8)
       return res.status(400).json({ error: 'New password must be at least 8 characters' });
 
-    const { data: user } = await supabase.from('users').select('password,password_hash').eq('id', req.user.userId).single();
-    if (!user) return res.status(404).json({ error: 'User not found' });
+    // Fetch user with both possible column names
+    const { data: user, error: fetchErr } = await supabase
+      .from('users')
+      .select('id, password, password_hash')
+      .eq('id', req.user.userId)
+      .single();
+
+    if (fetchErr || !user) {
+      console.error('Change-pw fetch error:', fetchErr);
+      return res.status(404).json({ error: 'User not found' });
+    }
 
     const storedHash = user.password || user.password_hash;
+    if (!storedHash)
+      return res.status(400).json({ error: 'No password set on account. Use forgot password.' });
+
     const valid = await bcrypt.compare(currentPassword, storedHash);
-    if (!valid) return res.status(401).json({ error: 'Current password is incorrect' });
+    if (!valid)
+      return res.status(401).json({ error: 'Current password is incorrect' });
 
     const newHash = await bcrypt.hash(newPassword, 12);
-    await supabase.from('users').update({ password: newHash, password_hash: newHash }).eq('id', req.user.userId);
-    res.json({ success: true });
-  } catch(err) { res.status(500).json({ error: 'Server error' }); }
+
+    // Update whichever column(s) exist
+    const updateObj = {};
+    if (user.password !== undefined) updateObj.password = newHash;
+    if (user.password_hash !== undefined) updateObj.password_hash = newHash;
+
+    const { error: updateErr } = await supabase
+      .from('users')
+      .update(updateObj)
+      .eq('id', req.user.userId);
+
+    if (updateErr) {
+      console.error('Change-pw update error:', updateErr);
+      return res.status(500).json({ error: 'Could not save new password: ' + updateErr.message });
+    }
+
+    console.log(`Password changed for user ${req.user.userId}`);
+    res.json({ success: true, message: 'Password updated successfully' });
+  } catch(err) {
+    console.error('Change-pw error:', err);
+    res.status(500).json({ error: 'Server error: ' + err.message });
+  }
 });
 
 // ── FORGOT PASSWORD ────────────────────────────────────────
