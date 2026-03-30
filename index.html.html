@@ -1181,18 +1181,18 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
           <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.75rem">
             <div onclick="showFP('fp-fee')" style="background:#141d2b;border:1px solid rgba(37,99,235,0.25);border-radius:12px;padding:1rem;cursor:pointer;transition:all 0.2s" onmouseover="this.style.borderColor='rgba(37,99,235,0.5)'" onmouseout="this.style.borderColor='rgba(37,99,235,0.25)'">
               <div style="font-size:1.4rem;margin-bottom:0.5rem">💰</div>
-              <div style="font-size:0.84rem;font-weight:800;color:#f1f5f9;margin-bottom:3px">Fee Calculator</div>
-              <div style="font-size:0.74rem;color:#64748b;line-height:1.5">Exact DMV fees for any state & service</div>
+              <div style="font-size:0.84rem;font-weight:800;color:#a8c4e8;margin-bottom:3px">Fee Calculator</div>
+              <div style="font-size:0.74rem;color:#7ba7cc;line-height:1.5">Exact DMV fees for any state & service</div>
             </div>
             <div onclick="showFP('fp-checklist')" style="background:#141d2b;border:1px solid rgba(245,158,11,0.25);border-radius:12px;padding:1rem;cursor:pointer;transition:all 0.2s" onmouseover="this.style.borderColor='rgba(245,158,11,0.5)'" onmouseout="this.style.borderColor='rgba(245,158,11,0.25)'">
               <div style="font-size:1.4rem;margin-bottom:0.5rem">📋</div>
-              <div style="font-size:0.84rem;font-weight:800;color:#f1f5f9;margin-bottom:3px">Appt Checklist</div>
-              <div style="font-size:0.74rem;color:#64748b;line-height:1.5">Exact documents for your DMV visit</div>
+              <div style="font-size:0.84rem;font-weight:800;color:#a8c4e8;margin-bottom:3px">Appt Checklist</div>
+              <div style="font-size:0.74rem;color:#7ba7cc;line-height:1.5">Exact documents for your DMV visit</div>
             </div>
             <div onclick="showFP('fp-eligibility')" style="background:#141d2b;border:1px solid rgba(22,163,74,0.25);border-radius:12px;padding:1rem;cursor:pointer;transition:all 0.2s" onmouseover="this.style.borderColor='rgba(22,163,74,0.5)'" onmouseout="this.style.borderColor='rgba(22,163,74,0.25)'">
               <div style="font-size:1.4rem;margin-bottom:0.5rem">✅</div>
-              <div style="font-size:0.84rem;font-weight:800;color:#f1f5f9;margin-bottom:3px">License Eligibility</div>
-              <div style="font-size:0.74rem;color:#64748b;line-height:1.5">Check if you qualify for a license</div>
+              <div style="font-size:0.84rem;font-weight:800;color:#a8c4e8;margin-bottom:3px">License Eligibility</div>
+              <div style="font-size:0.74rem;color:#7ba7cc;line-height:1.5">Check if you qualify for a license</div>
             </div>
           </div>
         </div>
@@ -2009,9 +2009,10 @@ function getLocalDate(){
 }
 function loginOk(){
   const u = APP.user || {};
-  const firstName = u.first_name || (u.name ? u.name.split(' ')[0] : 'User');
-  const lastName = u.last_name || (u.name ? u.name.split(' ').slice(1).join(' ') : '');
-  const fullName = u.name || `${firstName} ${lastName}`.trim() || 'User';
+  const emailPrefix = u.email ? u.email.split('@')[0].replace(/[._\-]/g,' ').replace(/\b\w/g,c=>c.toUpperCase()) : '';
+  const firstName = u.first_name || (u.name ? u.name.split(' ')[0] : (emailPrefix ? emailPrefix.split(' ')[0] : 'User'));
+  const lastName = u.last_name || (u.name ? u.name.split(' ').slice(1).join(' ') : (emailPrefix ? emailPrefix.split(' ').slice(1).join(' ') : ''));
+  const fullName = u.name || `${firstName} ${lastName}`.trim() || emailPrefix || 'User';
   const initials = fullName.split(' ').filter(Boolean).map(w=>w[0]).join('').toUpperCase().slice(0,2) || 'U';
 
   // Sidebar
