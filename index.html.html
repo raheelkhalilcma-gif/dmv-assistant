@@ -76,13 +76,7 @@ body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--text);min
 .uplan{font-size:0.62rem;color:var(--gold2);font-weight:600}
 
 .main{margin-left:228px;flex:1;min-height:100vh;display:flex;flex-direction:column}
-.topbar{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#03071e 0%,#05112b 60%,#0a1f4a 100%);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
-.topbar,.topbar *{color:#f1f5f9 !important}
-.topbar .tbadge{color:inherit !important}
-.topbar .bfree{color:#94a3b8 !important}
-.topbar .bpro{color:#f59e0b !important}
-.topbar .bfam{color:#60a5fa !important}
-.topbar .tb-left p{color:#94a3b8 !important}
+.topbar{padding:0.8rem 1.5rem;background:rgba(7,9,15,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
 .tb-left h2{font-size:1rem;font-weight:800;letter-spacing:-0.02em}
 .tb-left p{font-size:0.7rem;color:var(--text3)}
 .tb-right{display:flex;align-items:center;gap:0.5rem}
@@ -976,7 +970,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
           <div style="font-weight:900;font-size:1rem;color:#fff">DMV<span style="color:#60a5fa">Assistant</span>.com</div>
         </div>
         <p style="font-size:0.82rem;color:#475569;line-height:1.65;max-width:260px;margin-bottom:1rem">The #1 DMV Assistant for US residents and veterans. Never miss a renewal or appointment again.</p>
-        <div style="font-size:0.8rem;color:#475569">📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9afbf6ffe8eee9dafef7ecfbe9e9f3e9eefbf4eee9b4f9f5f7">[email&#160;protected]</a></div>
+        <div style="font-size:0.8rem;color:#475569">📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="82e3eee7f0f6f1c2e6eff4e3f1f1ebf1f6e3ecf6f1ace1edef">[email&#160;protected]</a></div>
       </div>
       <div>
         <div style="font-weight:800;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;color:#475569;margin-bottom:1rem">Product</div>
@@ -1009,7 +1003,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
     </div>
     <div style="border-top:1px solid rgba(255,255,255,0.06);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem">
       <div style="font-size:0.78rem;color:#334155">© 2026 DMVAssistants.com · All rights reserved</div>
-      <div style="font-size:0.78rem;color:#334155">📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2d4c41485f595e6d49405b4c5e5e445e594c43595e034e4240">[email&#160;protected]</a> · All 50 US States</div>
+      <div style="font-size:0.78rem;color:#334155">📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d1b0bdb4a3a5a291b5bca7b0a2a2b8a2a5b0bfa5a2ffb2bebc">[email&#160;protected]</a> · All 50 US States</div>
     </div>
   </div>
 </footer>
@@ -2013,6 +2007,8 @@ function loginOk(){
   const lastName = u.last_name || (u.name ? u.name.split(' ').slice(1).join(' ') : '');
   const fullName = u.name || `${firstName} ${lastName}`.trim() || 'User';
   const initials = fullName.split(' ').filter(Boolean).map(w=>w[0]).join('').toUpperCase().slice(0,2) || 'U';
+  // FIX: Store initials so AI chat shows user initials instead of 'undefined'
+  if(APP.user) APP.user.init = initials;
 
   // Sidebar
   const sbAva = document.getElementById('sb-ava');
@@ -2279,7 +2275,7 @@ function stab(el){document.querySelectorAll('.tab').forEach(t=>t.classList.remov
 // saveSettings is defined above in loginOk section
 
 const AIKEYS=Object.keys(AI_ANS);
-function sendMsg(){const inp=document.getElementById('cin'),msg=inp.value.trim();if(!msg)return;const box=document.getElementById('chatbox');const um=document.createElement('div');um.className='msg user';um.innerHTML=`<div class="mava m-us">${APP.user?APP.user.init:'U'}</div><div class="mbub">${msg}</div>`;box.appendChild(um);inp.value='';box.scrollTop=9999;setTimeout(()=>{let resp='I can help with that! For specific state requirements, select your state above. Ask me about REAL ID, renewals, title transfers, or veteran benefits.';const lc=msg.toLowerCase();for(const k of AIKEYS){if(lc.includes(k)){resp=AI_ANS[k];break;}}const am=document.createElement('div');am.className='msg ai';am.innerHTML=`<div class="mava m-ai">🤖</div><div class="mbub">${resp}</div>`;box.appendChild(am);box.scrollTop=9999;},700);}
+function sendMsg(){const inp=document.getElementById('cin'),msg=inp.value.trim();if(!msg)return;const box=document.getElementById('chatbox');const um=document.createElement('div');um.className='msg user';um.innerHTML=`<div class="mava m-us">${(APP.user&&APP.user.init)?APP.user.init:'U'}</div><div class="mbub">${msg}</div>`;box.appendChild(um);inp.value='';box.scrollTop=9999;setTimeout(()=>{let resp='I can help with that! For specific state requirements, select your state above. Ask me about REAL ID, renewals, title transfers, or veteran benefits.';const lc=msg.toLowerCase();for(const k of AIKEYS){if(lc.includes(k)){resp=AI_ANS[k];break;}}const am=document.createElement('div');am.className='msg ai';am.innerHTML=`<div class="mava m-ai">🤖</div><div class="mbub">${resp}</div>`;box.appendChild(am);box.scrollTop=9999;},700);}
 function qMsg(q){document.getElementById('cin').value=q;sendMsg();showPg('pg-ai',document.querySelectorAll('.ni')[6]);}
 
 
@@ -2723,12 +2719,11 @@ function applyPlanUI(){
 }
 
 async function doResetPassword(){
-  const email = (document.getElementById('reset-email-hidden')||{}).value||'';
-  const token = (document.getElementById('reset-token-hidden')||{}).value||'';
-  const pw = (document.getElementById('reset-new-pw')||{}).value||'';
-  const pw2 = (document.getElementById('reset-confirm-pw')||{}).value||'';
-  if(!email||!token){toast('❌ Invalid reset link — request a new one','e');showFP('fp-forgot');return;}
-  if(!pw || pw.length < 8){toast('Password must be at least 8 characters','e');return;}
+  const email = document.getElementById('reset-email-hidden').value;
+  const token = document.getElementById('reset-token-hidden').value;
+  const pw = document.getElementById('reset-new-pw').value;
+  const pw2 = document.getElementById('reset-confirm-pw').value;
+  if(!pw || pw.length < 8){toast('Password min 8 characters','e');return;}
   if(pw !== pw2){toast('Passwords do not match','e');return;}
   const btn = document.getElementById('reset-pw-btn');
   if(btn){btn.textContent='Resetting...';btn.disabled=true;}
@@ -2740,25 +2735,17 @@ async function doResetPassword(){
     });
     const data = await res.json();
     if((res.ok || data.success) && !data.error){
-      toast('✅ Password reset successfully! Please sign in.','s');
-      // Clear fields
-      var rp=document.getElementById('reset-new-pw'),rc=document.getElementById('reset-confirm-pw');
-      if(rp)rp.value='';if(rc)rc.value='';
+      toast('✅ Password reset! Please sign in.','s');
+      // Clean URL
       window.history.replaceState({},'',window.location.pathname);
-      setTimeout(function(){showFP('fp-login');},1200);
+      showFP('fp-login');
     } else {
-      const em=(data.error||'').toLowerCase();
-      if(em.includes('expired')||em.includes('invalid')||em.includes('token')){
-        toast('❌ Reset link expired or invalid — request a new one','e');
-        setTimeout(function(){showFP('fp-forgot');},2000);
-      } else {
-        toast(data.error||'❌ Reset failed — try requesting a new link','e');
-      }
+      toast(data.error||'Reset failed — try again','e');
     }
   }catch(e){
-    toast('❌ Connection error — check your internet and try again','e');
+    toast('Connection error','e');
   }
-  if(btn){btn.textContent='Reset Password →';btn.disabled=false;}
+  if(btn){btn.textContent='Reset Password';btn.disabled=false;}
 }
 
 // Start app
@@ -3112,8 +3099,17 @@ async function changePassword(){
   try{
     const res=await fetch(API+'/api/auth/change-password',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify({currentPassword:cur,newPassword:pw1})});
     const data=await res.json();
-    if(res.ok&&data.success){toast('✅ Password changed successfully!','s');['s-cur-pw','s-new-pw','s-con-pw'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});}
-    else{const em=(data.error||'').toLowerCase();if(em.includes('incorrect')||em.includes('wrong')||em.includes('invalid')||em.includes('current')){toast('❌ Current password is incorrect — please try again','e');}else{toast(data.error||'❌ Could not change password — check current password','e');}}
+    if(res.ok&&data.success){
+      toast('✅ Password changed! Use your new password next time you sign in.','s');
+      ['s-cur-pw','s-new-pw','s-con-pw'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+    } else {
+      const emsg=(data.error||'').toLowerCase();
+      if(emsg.includes('incorrect')||emsg.includes('wrong')||emsg.includes('invalid')||emsg.includes('current')){
+        toast('❌ Current password is wrong — please try again','e');
+      } else {
+        toast(data.error||'❌ Could not change password','e');
+      }
+    }
   }catch(e){toast('Connection error','e');}
   if(btn){btn.textContent='Change Password';btn.disabled=false;}
 }
@@ -3152,32 +3148,45 @@ function populateMsSelects(){
 function activateMultiState(){
   const p=(document.getElementById('ms-primary')||{}).value||'';
   const s=(document.getElementById('ms-secondary')||{}).value||'';
-  if(!p){toast('Please select Primary State','e');return;}
-  if(!s){toast('Please select Secondary State','e');return;}
-  if(p===s){toast('Please select two different states','e');return;}
-  localStorage.setItem('dmv_ms_primary',p);
-  localStorage.setItem('dmv_ms_secondary',s);
-  toast('✅ Multi-state tracking activated for '+p+' & '+s+'!','s');
-  renderMultiState();
+  if(!p||!s){toast('Select both states','e');return;}
+  if(p===s){toast('Select two different states','e');return;}
+  localStorage.setItem('dmv_ms_primary',p);localStorage.setItem('dmv_ms_secondary',s);
+  toast('✅ Multi-state tracking activated for '+p+' & '+s+'!','s');renderMultiState();
 }
 function renderMultiState(){
   var p=localStorage.getItem('dmv_ms_primary'),s=localStorage.getItem('dmv_ms_secondary');
   var el=document.getElementById('ms-status');
   if(!el)return;
   if(p&&s){
-    el.innerHTML='<div style="background:rgba(22,163,74,0.1);border:1px solid rgba(22,163,74,0.25);border-radius:10px;padding:0.875rem;margin-top:0.75rem">'
-      +'<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem">'
-      +'<div><span style="font-size:0.75rem;font-weight:900;text-transform:uppercase;color:var(--green2)">✅ Active</span>'
-      +'<div style="font-size:0.85rem;font-weight:700;color:var(--text);margin-top:3px">Tracking <strong>'+p+'</strong> &amp; <strong>'+s+'</strong></div></div>'
-      +'<button onclick="deactivateMultiState()" style="padding:4px 12px;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.25);border-radius:7px;font-size:0.74rem;color:#fca5a5;cursor:pointer;font-family:inherit;font-weight:700">Deactivate</button>'
-      +'</div></div>';
+    el.innerHTML='<div style="background:rgba(22,163,74,0.1);border:1px solid rgba(22,163,74,0.25);border-radius:10px;padding:0.875rem;font-size:0.85rem;margin-top:0.75rem"><b style="color:var(--green2)">Active:</b> Tracking '+p+' & '+s+'</div>';
   } else {
     el.innerHTML='';
   }
 }
-function deactivateMultiState(){
-  localStorage.removeItem('dmv_ms_primary');localStorage.removeItem('dmv_ms_secondary');
-  toast('Multi-state tracking deactivated','i');renderMultiState();
+
+async function loadAlertHistory(filter){
+  const token=localStorage.getItem('dmv_token');
+  const c=document.getElementById('alert-history-list');if(!c)return;
+  c.innerHTML='<div style="text-align:center;padding:2rem;color:var(--text3)">Loading...</div>';
+  if(!token){c.innerHTML='<div style="text-align:center;padding:2rem;color:var(--text3)">Please sign in.</div>';return;}
+  try{
+    const res=await fetch(API+'/api/alerts/history',{headers:{'Authorization':'Bearer '+token}});
+    const data=await res.json();
+    let items=data.history||data||[];
+    if(filter&&filter!=='All')items=items.filter(h=>(h.type||'').toLowerCase().includes(filter.toLowerCase()));
+    if(!items.length){c.innerHTML='<div style="text-align:center;padding:2rem;color:var(--text3);font-size:0.85rem">No alert history yet.</div>';return;}
+    c.innerHTML=items.map(h=>{
+      const icon=h.sent_via==='SMS'?'💬':'📧';
+      const bg=h.sent_via==='SMS'?'rgba(245,158,11,0.12)':'rgba(29,106,229,0.15)';
+      const dt=h.created_at?new Date(h.created_at).toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}):'';
+      return '<div class="ahrow"><div class="ahic" style="background:'+bg+'">'+icon+'</div><div class="ahbody"><div class="ahtit">'+(h.title||h.message||'Alert sent')+'</div><div class="ahtime">'+dt+' · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dabbb6bfa8aea99abeb7acbba9a9b3a9aebbb4aea9f4b9b5b7">[email&#160;protected]</a></div></div><span class="ahtag">'+(h.sent_via||'Email')+'</span></div>';
+    }).join('');
+  }catch(e){c.innerHTML='<div style="text-align:center;padding:2rem;color:var(--text3)">Could not load history.</div>';}
+}
+function filterAlertHistory(tab,btn){
+  document.querySelectorAll('#pg-alerts .tab').forEach(t=>t.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  loadAlertHistory(tab);
 }
 
 // tFaq already defined in head
@@ -3192,15 +3201,14 @@ async function loadAlertHistory(filter){
     const data=await res.json();
     let items=data.history||data||[];
     if(filter&&filter!=='All')items=items.filter(h=>(h.type||'').toLowerCase().includes(filter.toLowerCase()));
-    if(!items.length){c.innerHTML='<div style="text-align:center;padding:2rem;color:var(--text3);font-size:0.85rem">No alert history yet. Alerts will appear here once sent.</div>';return;}
+    if(!items.length){c.innerHTML='<div style="text-align:center;padding:2rem;color:var(--text3);font-size:0.85rem">No alert history yet.</div>';return;}
     c.innerHTML=items.map(h=>{
       const icon=h.sent_via==='SMS'?'💬':'📧';
       const bg=h.sent_via==='SMS'?'rgba(245,158,11,0.12)':'rgba(29,106,229,0.15)';
       const dt=h.created_at?new Date(h.created_at).toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}):'';
-      const userEmail=(APP.user&&APP.user.email)?APP.user.email:'';
-      return '<div class="ahrow"><div class="ahic" style="background:'+bg+'">'+icon+'</div><div class="ahbody"><div class="ahtit">'+(h.title||h.message||h.state||'Alert sent')+'</div><div class="ahtime">'+dt+(userEmail?' · '+userEmail:'')+'</div></div><span class="ahtag">'+(h.sent_via||'Email')+'</span></div>';
+      return '<div class="ahrow"><div class="ahic" style="background:'+bg+'">'+icon+'</div><div class="ahbody"><div class="ahtit">'+(h.title||h.message||'Alert sent')+'</div><div class="ahtime">'+dt+' · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0a6b666f787e794a6e677c6b797963797e6b647e7924696567">[email&#160;protected]</a></div></div><span class="ahtag">'+(h.sent_via||'Email')+'</span></div>';
     }).join('');
-  }catch(e){c.innerHTML='<div style="text-align:center;padding:2rem;color:var(--text3)">Could not load history. Please try again.</div>';}
+  }catch(e){c.innerHTML='<div style="text-align:center;padding:2rem;color:var(--text3)">Could not load history.</div>';}
 }
 function filterAlertHistory(tab,btn){
   document.querySelectorAll('#pg-alerts .tab').forEach(t=>t.classList.remove('active'));
@@ -3472,16 +3480,7 @@ function filterAlertHistory(tab,btn){
 
 <div class="mov" id="m-add-policy">
 <div class="modal" style="max-width:440px">
-  <div class="mhead"><h3>+ Add Insurance Policy</h3><span class="mx" onclick="cM('m-add-policy')">✕</span></div>
-  <div class="fg"><label class="fl">Insurance Provider *</label><input class="fi" id="ins-provider" placeholder="e.g. State Farm, Geico, Progressive"/></div>
-  <div class="fr">
-    <div class="fg"><label class="fl">Policy Number</label><input class="fi" id="ins-policy-num" placeholder="Optional"/></div>
-    <div class="fg"><label class="fl">Expiry Date *</label><input class="fi" type="date" id="ins-expiry"/></div>
-  </div>
-  <div class="fg"><label class="fl">Vehicle</label><input class="fi" id="ins-vehicle" placeholder="e.g. Toyota Camry 2022"/></div>
-  <div class="mbtns"><button class="btn bo" onclick="cM('m-add-policy')">Cancel</button><button class="btn bp" onclick="addInsurancePolicy()">Add Policy ✓</button></div>
-</div>
-</div>
+  <div class="mhead"><h3>+ Add Insurance Policy</h3><span class="mx" onclick="cM('m
 <!-- VET50 DISCOUNT MODAL -->
 <div id="m-vet50" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:99999;align-items:center;justify-content:center;padding:1rem">
 <div style="background:#fff;border-radius:20px;padding:0;width:100%;max-width:420px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.2)">
