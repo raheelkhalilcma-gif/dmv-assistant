@@ -99,25 +99,16 @@ router.delete('/:id', authMiddleware, async (req, res) => {
   res.json({ success: true });
 });
 
-// GET /api/alerts/history — Get alert notification history
-router.get('/history', authMiddleware, async (req, res) => {
+module.exports = router;
+router.delete('/:id', async (req, res) => {
   try {
-    const { data, error } = await supabase
-      .from('alert_history')
-      .select('*')
-      .eq('user_id', req.user.userId)
-      .order('created_at', { ascending: false })
-      .limit(50);
-
-    if (error) {
-      console.error('Alert history error:', error.message);
-      return res.json({ history: [] });
-    }
-    res.json({ history: data || [] });
-  } catch(err) {
-    console.error('Alert history err:', err.message);
-    res.json({ history: [] });
+    const token = (req.headers.authorization || '').replace('Bearer ', '');
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    await supabase.from('alerts').delete()
+      .eq('id', req.params.id)
+      .eq('user_id', decoded.userId);
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: 'Could not delete' });
   }
 });
-
-module.exports = router;
