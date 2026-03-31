@@ -1905,11 +1905,11 @@ async function doLogin() {
       APP.user=data.user; APP.plan=data.user.plan||'free';
       loginOk();
     } else {
-      const err = data.error||'';
-      if(err.toLowerCase().includes('password')) toast('Incorrect password — try again or reset it','e');
-      else if(err.toLowerCase().includes('user')||err.toLowerCase().includes('found')) toast('No account found with this email','e');
-      else toast(err||'Invalid email or password','e');
-    }
+      const err = data?.error;
+if (!res.ok) {
+  // direct backend message show karo (best way)
+  toast(err || 'Login failed — try again', 'e');
+     }
   } catch(e){ toast('Connection error — try again','e'); }
   if(btn){ btn.textContent='Sign In →'; btn.disabled=false; }
 }
