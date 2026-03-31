@@ -430,8 +430,19 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 }
 
 </style>
+<link rel="icon" type="image/png" href="favicon.png"/>
 </head>
 <body>
+<script>
+(function(){
+  var t=localStorage.getItem('dmv_token'),u=localStorage.getItem('dmv_user');
+  if(t&&u){
+    var s=document.createElement('style');
+    s.textContent='#fp-land{display:none!important}';
+    document.head.appendChild(s);
+  }
+})();
+</script>
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
@@ -526,12 +537,6 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 </div>
 
 <!-- ==================== ALL FULL PAGES ==================== -->
-<script>
-// Prevent landing page flash if user is already logged in
-if(localStorage.getItem('dmv_token')&&localStorage.getItem('dmv_user')){
-  document.write('<style>#fp-land{display:none!important}</style>');
-}
-</script>
 
 <!-- LANDING -->
 <div class="fp active" id="fp-land">
@@ -540,7 +545,7 @@ if(localStorage.getItem('dmv_token')&&localStorage.getItem('dmv_user')){
 <!-- NAV -->
 <nav style="position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid #e2e8f0;padding:0 5%;height:66px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 3px rgba(0,0,0,0.06)">
   <div style="display:flex;align-items:center;gap:9px;cursor:pointer" onclick="showFP('fp-land')">
-    <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#1a56e8,#0d3fa8);display:flex;align-items:center;justify-content:center;font-size:1rem;box-shadow:0 2px 8px rgba(26,86,232,0.3)">🏛</div>
+    <img src="favicon.png" alt="DMV Assistant" style="width:36px;height:36px;border-radius:8px"/>
     <div>
       <div style="font-weight:900;font-size:1rem;color:#0f172a;letter-spacing:-0.02em">DMV<span style="color:#2563eb">Assistant</span>.com</div>
     </div>
@@ -674,8 +679,8 @@ if(localStorage.getItem('dmv_token')&&localStorage.getItem('dmv_user')){
       <div style="background:#fff;border:2px solid #bbf7d0;border-radius:16px;padding:1.5rem;position:relative;background:linear-gradient(135deg,#f0fdf4,#fff)">
         <div style="position:absolute;top:0.875rem;right:0.875rem;background:#dcfce7;color:#16a34a;border:1px solid #bbf7d0;font-size:0.6rem;font-weight:800;text-transform:uppercase;letter-spacing:0.05em;padding:2px 8px;border-radius:20px">Free</div>
         <div style="font-size:1.5rem;margin-bottom:0.75rem">🔔</div>
-        <div style="font-weight:800;font-size:0.92rem;color:#0f172a;margin-bottom:0.4rem">Renewal Reminders</div>
-        <div style="font-size:0.79rem;color:#64748b;line-height:1.6">Up to 5 reminders for license, registration & insurance. Email alerts at 60, 30, and 7 days before expiry — free forever.</div>
+        <div style="font-weight:800;font-size:0.92rem;color:#0f172a;margin-bottom:0.4rem">Free Tools & Reminders</div>
+        <div style="font-size:0.79rem;color:#64748b;line-height:1.6">5 renewal reminders, DMV Fee Calculator, Appointment Checklist & License Eligibility Check — all free forever.</div>
       </div>
 
       <!-- PRO -->
@@ -798,19 +803,18 @@ if(localStorage.getItem('dmv_token')&&localStorage.getItem('dmv_user')){
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;max-width:920px;margin:0 auto">
 
       <!-- FREE -->
-      <div style="background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:2rem 1.5rem;transition:all 0.25s" onmouseover="this.style.borderColor='#93c5fd'" onmouseout="this.style.borderColor='#e2e8f0'">
+      <div style="background:#fff;border:2px solid #bbf7d0;border-radius:20px;padding:2rem 1.5rem;transition:all 0.25s;background:linear-gradient(135deg,#f0fdf4,#fff)" onmouseover="this.style.borderColor='#86efac'" onmouseout="this.style.borderColor='#bbf7d0'">
         <div style="font-weight:900;font-size:1rem;color:#0f172a">Free</div>
         <div style="font-size:0.78rem;color:#64748b;margin-bottom:0.75rem">For individuals getting started</div>
         <div style="font-size:2.6rem;font-weight:900;color:#0f172a;line-height:1">$0<span style="font-size:1rem;font-weight:600;color:#64748b">/mo</span></div>
         <div style="font-size:0.77rem;color:#94a3b8;margin:4px 0 1.25rem">Forever free · No card required</div>
         <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:1.5rem">
           <div style="display:flex;align-items:center;gap:8px;font-size:0.81rem;color:#0f172a"><span style="color:#16a34a;font-size:0.9rem;font-weight:900">✓</span><strong>5 Renewal Reminders</strong></div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:0.81rem;color:#94a3b8;text-decoration:line-through;opacity:0.6"><span>✕</span>Appointment slot alerts</div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:0.81rem;color:#94a3b8;text-decoration:line-through;opacity:0.6"><span>✕</span>AI Assistant</div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:0.81rem;color:#94a3b8;text-decoration:line-through;opacity:0.6"><span>✕</span>VIN Decoder</div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:0.81rem;color:#94a3b8;text-decoration:line-through;opacity:0.6"><span>✕</span>Document Vault</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:0.81rem;color:#0f172a"><span style="color:#16a34a;font-size:0.9rem;font-weight:900">✓</span><strong>DMV Fee Calculator</strong></div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:0.81rem;color:#0f172a"><span style="color:#16a34a;font-size:0.9rem;font-weight:900">✓</span><strong>Appointment Checklist</strong></div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:0.81rem;color:#0f172a"><span style="color:#16a34a;font-size:0.9rem;font-weight:900">✓</span><strong>License Eligibility Check</strong></div>
         </div>
-        <button onclick="showFP('fp-signup')" style="width:100%;padding:0.75rem;border-radius:10px;font-weight:700;font-size:0.88rem;cursor:pointer;border:1px solid #e2e8f0;background:transparent;color:#475569;font-family:inherit;transition:all 0.2s" onmouseover="this.style.borderColor='#2563eb';this.style.color='#2563eb'" onmouseout="this.style.borderColor='#e2e8f0';this.style.color='#475569'">Get Started Free</button>
+        <button onclick="showFP('fp-signup')" style="width:100%;padding:0.75rem;border-radius:10px;font-weight:700;font-size:0.88rem;cursor:pointer;border:2px solid #bbf7d0;background:#f0fdf4;color:#16a34a;font-family:inherit;transition:all 0.2s" onmouseover="this.style.borderColor='#16a34a';this.style.background='#16a34a';this.style.color='#fff'" onmouseout="this.style.borderColor='#bbf7d0';this.style.background='#f0fdf4';this.style.color='#16a34a'">Get Started Free</button>
       </div>
 
       <!-- PRO -->
@@ -973,19 +977,19 @@ if(localStorage.getItem('dmv_token')&&localStorage.getItem('dmv_user')){
   </div>
 </div>
 
-<footer style="background:#020c1e;padding:3rem 5%;border-top:1px solid rgba(255,255,255,0.06)">
+<footer style="background:#f1f5f9;padding:3rem 5%;border-top:1px solid #e2e8f0">
   <div style="max-width:1100px;margin:0 auto">
     <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem;margin-bottom:2rem">
       <div>
         <div style="display:flex;align-items:center;gap:9px;margin-bottom:1rem">
-          <div style="width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,#1a56e8,#0d3fa8);display:flex;align-items:center;justify-content:center;font-size:1rem">🏛</div>
-          <div style="font-weight:900;font-size:1rem;color:#fff">DMV<span style="color:#60a5fa">Assistant</span>.com</div>
+          <img src="favicon.png" alt="DMV Assistant" style="width:34px;height:34px;border-radius:8px"/>
+          <div style="font-weight:900;font-size:1rem;color:#0f172a">DMV<span style="color:#2563eb">Assistant</span>.com</div>
         </div>
         <p style="font-size:0.82rem;color:#475569;line-height:1.65;max-width:260px;margin-bottom:1rem">The #1 DMV Assistant for US residents and veterans. Never miss a renewal or appointment again.</p>
-        <div style="font-size:0.8rem;color:#475569">📧 <a href="/cdn-cgi/l/email-protection#86e7eae3f4f2f5c6e2ebf0e7f5f5eff5f2e7e8f2f5a8e5e9eb" style="color:#475569;text-decoration:none"><span class="__cf_email__" data-cfemail="0b6a676e797f784b6f667d6a787862787f6a657f7825686466">[email&#160;protected]</span></a></div>
+        <div style="font-size:0.8rem;color:#475569">📧 <a href="mailto:alerts@dmvassistants.com" style="color:#2563eb;text-decoration:none">alerts@dmvassistants.com</a></div>
       </div>
       <div>
-        <div style="font-weight:800;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;color:#475569;margin-bottom:1rem">Product</div>
+        <div style="font-weight:800;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;color:#0f172a;margin-bottom:1rem">Product</div>
         <div style="display:flex;flex-direction:column;gap:0.625rem">
           <span style="font-size:0.82rem;color:#475569;cursor:pointer" onclick="scrollSec('s-features')">Features</span>
           <span style="font-size:0.82rem;color:#475569;cursor:pointer" onclick="scrollSec('s-price')">Pricing</span>
@@ -994,7 +998,7 @@ if(localStorage.getItem('dmv_token')&&localStorage.getItem('dmv_user')){
         </div>
       </div>
       <div>
-        <div style="font-weight:800;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;color:#475569;margin-bottom:1rem">Free Tools</div>
+        <div style="font-weight:800;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;color:#0f172a;margin-bottom:1rem">Free Tools</div>
         <div style="display:flex;flex-direction:column;gap:0.625rem">
           <span style="font-size:0.82rem;color:#475569;cursor:pointer" onclick="showFP('fp-realid')">REAL ID Guide</span>
           <span style="font-size:0.82rem;color:#475569;cursor:pointer" onclick="showFP('fp-renewal')">Renewal Guide</span>
@@ -1004,7 +1008,7 @@ if(localStorage.getItem('dmv_token')&&localStorage.getItem('dmv_user')){
         </div>
       </div>
       <div>
-        <div style="font-weight:800;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;color:#475569;margin-bottom:1rem">Company</div>
+        <div style="font-weight:800;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;color:#0f172a;margin-bottom:1rem">Company</div>
         <div style="display:flex;flex-direction:column;gap:0.625rem">
           <span style="font-size:0.82rem;color:#475569;cursor:pointer" onclick="showFP('fp-about')">About Us</span>
           <span style="font-size:0.82rem;color:#475569;cursor:pointer" onclick="showFP('fp-contact')">Contact</span>
@@ -1013,9 +1017,9 @@ if(localStorage.getItem('dmv_token')&&localStorage.getItem('dmv_user')){
         </div>
       </div>
     </div>
-    <div style="border-top:1px solid rgba(255,255,255,0.06);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem">
-      <div style="font-size:0.78rem;color:#334155">© 2026 DMVAssistants.com · All rights reserved</div>
-      <div style="font-size:0.78rem;color:#334155">📧 <a href="/cdn-cgi/l/email-protection#c5a4a9a0b7b1b685a1a8b3a4b6b6acb6b1a4abb1b6eba6aaa8" style="color:#334155;text-decoration:none"><span class="__cf_email__" data-cfemail="bbdad7dec9cfc8fbdfd6cddac8c8d2c8cfdad5cfc895d8d4d6">[email&#160;protected]</span></a> · All 50 US States</div>
+    <div style="border-top:1px solid #cbd5e1;padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem">
+      <div style="font-size:0.78rem;color:#475569">© 2026 DMVAssistants.com · All rights reserved</div>
+      <div style="font-size:0.78rem;color:#475569">📧 <a href="mailto:alerts@dmvassistants.com" style="color:#2563eb;text-decoration:none">alerts@dmvassistants.com</a> · All 50 US States</div>
     </div>
   </div>
 </footer>
@@ -1046,7 +1050,7 @@ if(localStorage.getItem('dmv_token')&&localStorage.getItem('dmv_user')){
 <div class="fp" id="fp-login">
 <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem;background:var(--bg)">
   <div style="background:var(--card);border:1px solid var(--border2);border-radius:var(--rxl);padding:2rem;width:100%;max-width:390px">
-    <div style="text-align:center;margin-bottom:1.5rem"><div class="brand" style="justify-content:center;cursor:pointer" onclick="showFP('fp-land')"><div class="brand-ico" style="width:40px;height:40px;font-size:1.1rem">🏛</div><div><div class="brand-name" style="font-size:1rem">DMV Assistant</div></div></div></div>
+    <div style="text-align:center;margin-bottom:1.5rem"><div class="brand" style="justify-content:center;cursor:pointer" onclick="showFP('fp-land')"><img src="favicon.png" alt="DMV Assistant" style="width:40px;height:40px;border-radius:9px"/><div><div class="brand-name" style="font-size:1rem">DMV Assistant</div></div></div></div>
     <div style="font-size:1.2rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:0.25rem">Welcome back</div>
     <div style="font-size:0.78rem;color:var(--text3);margin-bottom:1.5rem">Sign in to your account</div>
     <div class="fg"><label class="fl">Email</label><input class="fi" id="li-em" type="email" placeholder="you@email.com"/></div>
@@ -1071,7 +1075,7 @@ if(localStorage.getItem('dmv_token')&&localStorage.getItem('dmv_user')){
 <div class="fp" id="fp-signup">
 <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem;background:var(--bg)">
   <div style="background:var(--card);border:1px solid var(--border2);border-radius:var(--rxl);padding:2rem;width:100%;max-width:400px">
-    <div style="text-align:center;margin-bottom:1.4rem"><div class="brand" style="justify-content:center;cursor:pointer" onclick="showFP('fp-land')"><div class="brand-ico" style="width:38px;height:38px;font-size:1rem">🏛</div><div><div class="brand-name">DMV Assistant</div></div></div></div>
+    <div style="text-align:center;margin-bottom:1.4rem"><div class="brand" style="justify-content:center;cursor:pointer" onclick="showFP('fp-land')"><img src="favicon.png" alt="DMV Assistant" style="width:38px;height:38px;border-radius:9px"/><div><div class="brand-name">DMV Assistant</div></div></div></div>
     <div style="font-size:1.2rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:0.2rem">Create your account</div>
     <div style="font-size:0.78rem;color:var(--text3);margin-bottom:1.4rem">Free forever. Upgrade anytime.</div>
     <div class="fr"><div class="fg"><label class="fl">First Name</label><input class="fi" id="su-fn" placeholder="John"/></div><div class="fg"><label class="fl">Last Name</label><input class="fi" id="su-ln" placeholder="Doe"/></div></div>
@@ -1104,13 +1108,13 @@ if(localStorage.getItem('dmv_token')&&localStorage.getItem('dmv_user')){
 
 <div class="fp" id="fp-veteran"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Veteran Benefits</div><h1>🎖 DMV Benefits for US Veterans</h1><div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.3);border-radius:12px;padding:1rem 1.25rem;margin:1rem 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem"><div><div style="font-size:0.9rem;font-weight:800;color:var(--gold2)">🎖 50% Off Pro Plan — Veterans Only</div><div style="font-size:0.78rem;color:var(--text2);margin-top:2px">Use code <strong style="color:var(--gold2);font-family:monospace;font-size:0.9rem">VET50</strong> at checkout — permanent discount</div></div><button onclick="showVetDiscount()" class="btn" style="background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.4);color:var(--gold2);font-weight:700;padding:0.45rem 1rem;font-size:0.82rem;white-space:nowrap">Claim Discount →</button></div><p class="lead">US veterans and active duty military receive special DMV benefits in most states — including free licenses, free plates, and reduced fees.</p><h2>Free or Discounted Licenses</h2><ul><li>California: Free DL renewal for veterans with honorable discharge</li><li>Florida: Free DL renewal for veterans</li><li>Texas: Free DL for 100% disabled veterans</li><li>New York: Veterans discount available at DMV offices</li><li>Most states: Honor or Veteran designation on license for free</li></ul><h2>Veteran License Plates</h2><p>All 50 states offer special veteran or military license plates. Most are free or low cost. Show your DD-214 or military ID at the DMV. These plates identify you as a veteran and often come with parking benefits.</p><h2>Priority DMV Service</h2><p>Many DMV locations offer priority lanes or appointments for veterans. Ask your local DMV or use our AI Assistant to find veteran-specific benefits in your state.</p><div class="info-box" style="border-color:rgba(245,158,11,0.3);background:rgba(245,158,11,0.04)"><h4>🎖 DMV Assistant Veteran Discount</h4><p>US Veterans and Active Duty receive <strong>50% off the Pro Plan</strong> — permanently. Use code <strong style="color:var(--gold2)">VET50</strong> at checkout. Our way of honoring your service.</p></div><button class="btn bg" onclick="showFP('fp-signup')">Claim Veteran Discount — 50% Off →</button></div></div>
 
-<div class="fp" id="fp-about"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Company</div><h1>About DMV Assistant</h1><p class="lead">DMV Assistant was built because dealing with the DMV shouldn't be stressful. We help Americans never miss a DMV appointment or renewal deadline again.</p><h2>Our Mission</h2><p>Every year, millions of Americans pay unnecessary late fees, miss flights because of no REAL ID, or wait weeks for DMV appointments that could have been caught earlier. DMV Assistant solves this with instant alerts, automated reminders, and AI-powered guidance — covering all 50 US states.</p><h2>Who We Serve</h2><ul><li>Individual US residents in all 50 states</li><li>US Veterans and Active Duty Military (50% discount)</li><li>Families managing multiple vehicles and drivers</li><li>Businesses managing vehicle fleets</li></ul><h2>Security & Privacy</h2><p>All documents are encrypted with AES-256 — the same standard used by major US banks. We are fully GDPR and CCPA compliant. We never sell your data to third parties. Your documents are yours alone.</p><h2>Contact</h2><p>Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bccfc9ccccd3cec8fcd8d1caddcfcfd5cfc8ddd2c8cf92dfd3d1">[email&#160;protected]</a> · Response within 24 hours · Priority support for Pro and Family plan users.</p><div class="info-box"><h4>⚠ Disclaimer</h4><p>DMV Assistant is an independent third-party service. We are NOT affiliated with any government DMV agency. For official transactions, always visit your state's official DMV website.</p></div></div></div>
+<div class="fp" id="fp-about"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Company</div><h1>About DMV Assistant</h1><p class="lead">DMV Assistant was built because dealing with the DMV shouldn't be stressful. We help Americans never miss a DMV appointment or renewal deadline again.</p><h2>Our Mission</h2><p>Every year, millions of Americans pay unnecessary late fees, miss flights because of no REAL ID, or wait weeks for DMV appointments that could have been caught earlier. DMV Assistant solves this with instant alerts, automated reminders, and AI-powered guidance — covering all 50 US states.</p><h2>Who We Serve</h2><ul><li>Individual US residents in all 50 states</li><li>US Veterans and Active Duty Military (50% discount)</li><li>Families managing multiple vehicles and drivers</li><li>Businesses managing vehicle fleets</li></ul><h2>Security & Privacy</h2><p>All documents are encrypted with AES-256 — the same standard used by major US banks. We are fully GDPR and CCPA compliant. We never sell your data to third parties. Your documents are yours alone.</p><h2>Contact</h2><p>Email: alerts@dmvassistants.com · Response within 24 hours · Priority support for Pro and Family plan users.</p><div class="info-box"><h4>⚠ Disclaimer</h4><p>DMV Assistant is an independent third-party service. We are NOT affiliated with any government DMV agency. For official transactions, always visit your state's official DMV website.</p></div></div></div>
 
-<div class="fp" id="fp-privacy"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Legal</div><h1>Privacy Policy</h1><p class="lead">Last updated: March 15, 2026. DMV Assistant is committed to protecting your privacy and personal data.</p><h2>Data We Collect</h2><ul><li>Account information: name, email address, state</li><li>DMV preferences: state, office, service type, alert settings</li><li>Document metadata: file names, expiry dates (encrypted)</li><li>Usage data: features used, alerts sent (anonymized)</li></ul><h2>How We Use Your Data</h2><ul><li>Send DMV appointment alerts and renewal reminders</li><li>Provide AI-powered DMV guidance</li><li>Process subscription payments via Lemon Squeezy</li><li>Improve our services (anonymized analytics only)</li></ul><h2>Data Security</h2><p>All documents and personal data are encrypted with AES-256. We use Supabase for secure database storage with row-level security. Payment processing is handled by Lemon Squeezy — we never store your card details.</p><h2>GDPR & CCPA Compliance</h2><p>You have the right to access, modify, or delete your personal data at any time. Contact <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="275452575748555367434a514654544e5453464953540944484a">[email&#160;protected]</a> for data requests. California residents have additional rights under CCPA.</p><h2>Contact</h2><p>Privacy questions: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="215153485740425861454c57405252485255404f55520f424e4c">[email&#160;protected]</a></p></div></div>
+<div class="fp" id="fp-privacy"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Legal</div><h1>Privacy Policy</h1><p class="lead">Last updated: March 15, 2026. DMV Assistant is committed to protecting your privacy and personal data.</p><h2>Data We Collect</h2><ul><li>Account information: name, email address, state</li><li>DMV preferences: state, office, service type, alert settings</li><li>Document metadata: file names, expiry dates (encrypted)</li><li>Usage data: features used, alerts sent (anonymized)</li></ul><h2>How We Use Your Data</h2><ul><li>Send DMV appointment alerts and renewal reminders</li><li>Provide AI-powered DMV guidance</li><li>Process subscription payments via Lemon Squeezy</li><li>Improve our services (anonymized analytics only)</li></ul><h2>Data Security</h2><p>All documents and personal data are encrypted with AES-256. We use Supabase for secure database storage with row-level security. Payment processing is handled by Lemon Squeezy — we never store your card details.</p><h2>GDPR & CCPA Compliance</h2><p>You have the right to access, modify, or delete your personal data at any time. Contact alerts@dmvassistants.com for data requests. California residents have additional rights under CCPA.</p><h2>Contact</h2><p>Privacy questions: alerts@dmvassistants.com</p></div></div>
 
-<div class="fp" id="fp-terms"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Legal</div><h1>Terms of Service</h1><p class="lead">Last updated: March 15, 2026. By using DMV Assistant, you agree to these terms.</p><h2>Service Description</h2><p>DMV Assistant provides DMV appointment monitoring, renewal reminders, document storage, and AI assistance for US residents. We are not affiliated with any government DMV agency.</p><h2>Subscription Terms</h2><ul><li>Free plan: No charge, limited to 2 alerts and 2 reminders</li><li>Pro plan: $12/month or $108/year, billed via Lemon Squeezy</li><li>Family plan: $40/month or $384/year, up to 5 members</li><li>Cancel anytime — no cancellation fees</li><li>Refunds available within 7 days of purchase</li></ul><h2>Acceptable Use</h2><ul><li>For personal DMV management only</li><li>Do not share account credentials</li><li>Do not use for commercial resale of alerts</li><li>One account per person (Family plan for multiple people)</li></ul><h2>Limitation of Liability</h2><p>DMV Assistant provides alerts and reminders as a convenience service. We do not guarantee appointment availability or DMV system uptime. Always verify with your official state DMV website for official information.</p><h2>Contact</h2><p>Legal questions: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d6bab3b1b7ba96b2bba0b7a5a5bfa5a2b7b8a2a5f8b5b9bb">[email&#160;protected]</a></p></div></div>
+<div class="fp" id="fp-terms"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Legal</div><h1>Terms of Service</h1><p class="lead">Last updated: March 15, 2026. By using DMV Assistant, you agree to these terms.</p><h2>Service Description</h2><p>DMV Assistant provides DMV appointment monitoring, renewal reminders, document storage, and AI assistance for US residents. We are not affiliated with any government DMV agency.</p><h2>Subscription Terms</h2><ul><li>Free plan: No charge, limited to 2 alerts and 2 reminders</li><li>Pro plan: $12/month or $108/year, billed via Lemon Squeezy</li><li>Family plan: $40/month or $384/year, up to 5 members</li><li>Cancel anytime — no cancellation fees</li><li>Refunds available within 7 days of purchase</li></ul><h2>Acceptable Use</h2><ul><li>For personal DMV management only</li><li>Do not share account credentials</li><li>Do not use for commercial resale of alerts</li><li>One account per person (Family plan for multiple people)</li></ul><h2>Limitation of Liability</h2><p>DMV Assistant provides alerts and reminders as a convenience service. We do not guarantee appointment availability or DMV system uptime. Always verify with your official state DMV website for official information.</p><h2>Contact</h2><p>Legal questions: alerts@dmvassistants.com</p></div></div>
 
-<div class="fp" id="fp-contact"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Support</div><h1>Contact Support</h1><p class="lead">We're here to help. Typical response time: under 24 hours. Pro and Family plan users get priority support.</p><div class="info-box"><h4>📧 Email Support</h4><p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9feceaefeff0edebdffbf2e9feececf6ecebfef1ebecb1fcf0f2">[email&#160;protected]</a> · Response within 24 hours (business days)</p></div><div class="info-box"><h4>⭐ Priority Support</h4><p>Pro and Family plan users get responses within 4 business hours. Login to your account and use the in-app support chat.</p></div><div class="info-box"><h4>🎖 Veteran Support</h4><p>Veterans with questions about the VET50 discount or veteran DMV benefits: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="304655445542515e4370545d46514343594344515e44431e535f5d">[email&#160;protected]</a></p></div><h2>Common Issues</h2><ul><li>Not receiving emails — check spam folder, add <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="781617550a1d081401381c150e190b0b110b0c19160c0b561b1715">[email&#160;protected]</a> to contacts</li><li>SMS not arriving — verify phone number in Settings, ensure country code is +1</li><li>Forgot password — use "Forgot Password" on the login page</li><li>Billing questions — login → Billing → Manage via Lemon Squeezy portal</li></ul><button class="btn bp" onclick="toast('Support email copied: alerts@dmvassistants.com','i')">Copy Support Email</button></div></div>
+<div class="fp" id="fp-contact"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Support</div><h1>Contact Support</h1><p class="lead">We're here to help. Typical response time: under 24 hours. Pro and Family plan users get priority support.</p><div class="info-box"><h4>📧 Email Support</h4><p>alerts@dmvassistants.com · Response within 24 hours (business days)</p></div><div class="info-box"><h4>⭐ Priority Support</h4><p>Pro and Family plan users get responses within 4 business hours. Login to your account and use the in-app support chat.</p></div><div class="info-box"><h4>🎖 Veteran Support</h4><p>Veterans with questions about the VET50 discount or veteran DMV benefits: alerts@dmvassistants.com</p></div><h2>Common Issues</h2><ul><li>Not receiving emails — check spam folder, add alerts@dmvassistants.com to contacts</li><li>SMS not arriving — verify phone number in Settings, ensure country code is +1</li><li>Forgot password — use "Forgot Password" on the login page</li><li>Billing questions — login → Billing → Manage via Lemon Squeezy portal</li></ul><button class="btn bp" onclick="toast('Support email copied: alerts@dmvassistants.com','i')">Copy Support Email</button></div></div>
 
 <div class="fp" id="fp-blog"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Blog</div><h1>DMV News & Updates</h1><p class="lead">Latest DMV news, rule changes, and helpful guides for US residents and veterans.</p><div class="info-box"><h4>📰 REAL ID Deadline — What You Need to Know</h4><p>As of May 2025, REAL ID is required for domestic flights. Here's how to get yours quickly in all 50 states using DMV Assistant appointment alerts...</p></div><div class="info-box"><h4>📰 5 States With the Longest DMV Wait Times (2026)</h4><p>California, New York, Texas, Florida, and Illinois consistently have the longest DMV wait times. Here's how to beat the queue with appointment alerts...</p></div><div class="info-box"><h4>📰 Veteran DMV Benefits by State — 2026 Complete Guide</h4><p>Free licenses, veteran plates, reduced fees — a full breakdown of what each state offers to US veterans and active duty military...</p></div><div class="info-box"><h4>📰 Online vs In-Person DMV Renewal — State by State Guide</h4><p>Which states let you renew your license and registration completely online? Complete guide for all 50 states with direct links...</p></div></div></div>
 
@@ -1403,9 +1407,9 @@ if(localStorage.getItem('dmv_token')&&localStorage.getItem('dmv_user')){
   <div class="tab" onclick="filterAlertHistory('document',this)">Documents</div>
 </div>
 <div id="alert-history-list" style="margin-top:0.75rem"></div>
-        <div class="ahrow"><div class="ahic" style="background:rgba(29,106,229,0.15)">📧</div><div class="ahbody"><div class="ahtit">Slot Found — REAL ID, Culver City DMV, CA</div><div class="ahtime">Today 9:42 AM · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="43292c2b2d03262e222a2f6d202c2e">[email&#160;protected]</a></div></div><span class="ahtag">Email</span></div>
+        <div class="ahrow"><div class="ahic" style="background:rgba(29,106,229,0.15)">📧</div><div class="ahbody"><div class="ahtit">Slot Found — REAL ID, Culver City DMV, CA</div><div class="ahtime">Today 9:42 AM · alerts@dmvassistants.com</div></div><span class="ahtag">Email</span></div>
         <div class="ahrow"><div class="ahic" style="background:rgba(245,158,11,0.12)">💬</div><div class="ahbody"><div class="ahtit">Reminder: Driver License expires in 30 days</div><div class="ahtime">Mar 12 · +1 (310) 555-0198</div></div><span class="ahtag">SMS</span></div>
-        <div class="ahrow"><div class="ahic" style="background:rgba(29,106,229,0.15)">📧</div><div class="ahbody"><div class="ahtit">Reminder: Vehicle Registration expires in 60 days</div><div class="ahtime">Mar 1 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0d676265634d68606c6461236e6260">[email&#160;protected]</a></div></div><span class="ahtag">Email</span></div>
+        <div class="ahrow"><div class="ahic" style="background:rgba(29,106,229,0.15)">📧</div><div class="ahbody"><div class="ahtit">Reminder: Vehicle Registration expires in 60 days</div><div class="ahtime">Mar 1 · alerts@dmvassistants.com</div></div><span class="ahtag">Email</span></div>
         <div class="ahrow"><div class="ahic" style="background:rgba(245,158,11,0.12)">💬</div><div class="ahbody"><div class="ahtit">Reminder: Driver License expires in 60 days</div><div class="ahtime">Feb 10 · +1 (310) 555-0198</div></div><span class="ahtag">SMS</span></div>
         <div class="ahrow"><div class="ahic" style="background:rgba(13,148,136,0.15)">🔔</div><div class="ahbody"><div class="ahtit">Monitoring started — Vehicle Registration, Van Nuys DMV</div><div class="ahtime">Feb 3 · Dashboard + Email</div></div><span class="ahtag">Dashboard</span></div>
       </div>
@@ -1419,7 +1423,7 @@ if(localStorage.getItem('dmv_token')&&localStorage.getItem('dmv_user')){
         <div id="family-list"><div style="padding:1rem;text-align:center;color:var(--text3);font-size:0.84rem">Family plan required to add members.</div></div>
         <div class="banner bw" id="fam-banner"><div class="banner-ic">⭐</div><div class="banner-body"><div class="banner-t">Family Plan required to add members</div><div class="banner-s">Manage up to 5 family members, their vehicles & documents — $40/month total.</div><div class="banner-acts"><button class="btn bg bsm" onclick="doUpgrade('family')">Upgrade to Family → $40/mo</button></div></div></div>
         <div id="mem-list">
-          <div class="memcard"><div class="memava" style="background:linear-gradient(135deg,#1d6ae5,#60a5fa);color:#fff">JD</div><div style="flex:1"><div style="font-size:0.84rem;font-weight:700">John Doe <span class="ibadge ib-b">OWNER</span></div><div style="font-size:0.68rem;color:var(--text3);margin-top:1px"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="107a7f787e50757d71797c3e737f7d">[email&#160;protected]</a> · California</div></div><button class="btn bgh bsm" onclick="toast('Profile settings','i')">Edit</button></div>
+          <div class="memcard"><div class="memava" style="background:linear-gradient(135deg,#1d6ae5,#60a5fa);color:#fff">JD</div><div style="flex:1"><div style="font-size:0.84rem;font-weight:700">John Doe <span class="ibadge ib-b">OWNER</span></div><div style="font-size:0.68rem;color:var(--text3);margin-top:1px">alerts@dmvassistants.com · California</div></div><button class="btn bgh bsm" onclick="toast('Profile settings','i')">Edit</button></div>
         </div>
         <div id="fam-locked" style="text-align:center;padding:2.5rem;color:var(--text3)"><div style="font-size:2.25rem;margin-bottom:0.625rem;opacity:0.25">👨‍👩‍👧</div><div style="font-size:0.875rem;font-weight:700;color:var(--text2);margin-bottom:0.3rem">Add up to 4 more family members</div><div style="font-size:0.78rem">Upgrade to Family Plan to unlock</div></div>
       </div>
@@ -1429,16 +1433,16 @@ if(localStorage.getItem('dmv_token')&&localStorage.getItem('dmv_user')){
         <div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:1rem">Billing & Plan</div>
         <div class="card" style="border-color:rgba(245,158,11,0.28);background:rgba(245,158,11,0.02);margin-bottom:1rem">
           <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.875rem">
-            <div><div style="font-size:0.62rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:3px">Current Plan</div><div style="font-size:1.25rem;font-weight:900;letter-spacing:-0.03em" id="bill-plan">Free</div><div style="font-size:0.75rem;color:var(--text3);margin-top:3px" id="bill-desc">5 renewal reminders · Free DMV tools</div></div>
+            <div><div style="font-size:0.62rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:3px">Current Plan</div><div style="font-size:1.25rem;font-weight:900;letter-spacing:-0.03em" id="bill-plan">Free</div><div style="font-size:0.75rem;color:var(--text3);margin-top:3px" id="bill-desc">5 renewal reminders · DMV Calculator · Checklist · Eligibility</div></div>
             <div id="bill-act"><button class="btn bg bsm" onclick="oM('m-upgrade')">Upgrade ↗</button></div>
           </div>
         </div>
         <div class="g3">
-          <div class="card"><div class="card-t" style="margin-bottom:0.5rem">Free</div><div style="font-size:1.5rem;font-weight:900;letter-spacing:-0.04em;margin-bottom:0.5rem">$0<span style="font-size:0.8rem;font-weight:400;color:var(--text3)">/mo</span></div><ul style="list-style:none;display:flex;flex-direction:column;gap:3px;margin-bottom:0.875rem"><li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--green2)">✓</span>2 alerts</li><li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--green2)">✓</span>2 reminders</li><li style="font-size:0.75rem;color:var(--text3);display:flex;gap:5px"><span>–</span>Vault</li><li style="font-size:0.75rem;color:var(--text3);display:flex;gap:5px"><span>–</span>SMS</li></ul><button class="btn bo" style="width:100%;font-size:0.75rem" disabled id="free-btn">Current</button></div>
+          <div class="card"><div class="card-t" style="margin-bottom:0.5rem">Free</div><div style="font-size:1.5rem;font-weight:900;letter-spacing:-0.04em;margin-bottom:0.5rem">$0<span style="font-size:0.8rem;font-weight:400;color:var(--text3)">/mo</span></div><ul style="list-style:none;display:flex;flex-direction:column;gap:3px;margin-bottom:0.875rem"><li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--green2)">✓</span>5 Renewal Reminders</li><li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--green2)">✓</span>DMV Fee Calculator</li><li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--green2)">✓</span>Appointment Checklist</li><li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--green2)">✓</span>License Eligibility</li></ul><button class="btn bo" style="width:100%;font-size:0.75rem" disabled id="free-btn">Current</button></div>
           <div class="card" style="border-color:rgba(245,158,11,0.3);background:rgba(245,158,11,0.02)"><div style="font-size:0.6rem;font-weight:900;text-transform:uppercase;letter-spacing:0.08em;background:linear-gradient(90deg,var(--gold),var(--gold2));color:#000;display:inline-block;padding:1px 8px;border-radius:100px;margin-bottom:0.35rem">Popular</div><div class="card-t" style="margin-bottom:0.35rem">Pro</div><div style="font-size:1.5rem;font-weight:900;letter-spacing:-0.04em;margin-bottom:0.5rem">$12<span style="font-size:0.8rem;font-weight:400;color:var(--text3)">/mo</span></div><ul style="list-style:none;display:flex;flex-direction:column;gap:3px;margin-bottom:0.875rem"><li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--green2)">✓</span>Unlimited</li><li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--green2)">✓</span>5 GB Vault</li><li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--green2)">✓</span>SMS+Email</li><li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--green2)">✓</span>AI Assistant</li></ul><button class="btn bg" style="width:100%;font-size:0.75rem" id="pro-btn" onclick="doUpgrade('pro')">Get Pro</button></div>
           <div class="card" style="border-color:rgba(29,106,229,0.25)"><div class="card-t" style="margin-bottom:0.5rem">Family</div><div style="font-size:1.5rem;font-weight:900;letter-spacing:-0.04em;margin-bottom:0.5rem">$40<span style="font-size:0.8rem;font-weight:400;color:var(--text3)">/mo</span></div><ul style="list-style:none;display:flex;flex-direction:column;gap:3px;margin-bottom:0.875rem"><li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--blue3)">✓</span>5 members</li><li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--blue3)">✓</span>15 GB Vault</li><li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--blue3)">✓</span>Family dash</li><li style="font-size:0.75rem;color:var(--text2);display:flex;gap:5px"><span style="color:var(--blue3)">✓</span>Priority support</li></ul><button class="btn bp" style="width:100%;font-size:0.75rem" id="fam-btn" onclick="doUpgrade('family')">Get Family</button></div>
         </div>
-        <div class="card" style="margin-top:0.875rem"><div class="card-t" style="margin-bottom:0.5rem">Lemon Squeezy — Secure Billing</div><p style="font-size:0.78rem;color:var(--text2);margin-bottom:0.875rem;line-height:1.65">Payments processed securely. Cancel anytime. Card never stored on our servers.</p><div style="display:flex;gap:0.5rem;flex-wrap:wrap"><button class="btn bgh bsm" onclick="toast('Opening billing portal...','i')">Manage Payment →</button><button class="btn bgh bsm" onclick="toast('Loading invoices...','i')">Invoices →</button><button class="btn bd bsm" onclick="toast('Cancellation submitted','w')">Cancel Subscription</button></div></div>
+        <div class="card" style="margin-top:0.875rem"><div class="card-t" style="margin-bottom:0.5rem">Lemon Squeezy — Secure Billing</div><p style="font-size:0.78rem;color:var(--text2);margin-bottom:0.875rem;line-height:1.65">Payments processed securely. Cancel anytime. Card never stored on our servers.</p><div style="display:flex;gap:0.5rem;flex-wrap:wrap"><button class="btn bgh bsm" onclick="openBillingPortal()">Manage Payment →</button><button class="btn bgh bsm" onclick="window.open('https://app.lemonsqueezy.com/my-orders','_blank')">Invoices →</button><button class="btn bd bsm" onclick="if(confirm('Cancel subscription? You\'ll keep free features.')){openBillingPortal();toast('Redirecting to cancellation portal...','i')}">Cancel Subscription</button></div></div>
       </div>
 
       <!-- SETTINGS -->
@@ -1699,7 +1703,7 @@ if(localStorage.getItem('dmv_token')&&localStorage.getItem('dmv_user')){
 
 <!-- VET50 MODAL -->
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 const STATES=['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
 const OFFICES={'California':['Los Angeles — Culver City','Los Angeles — Van Nuys','Los Angeles — Santa Monica','San Francisco — Fell St','San Diego — Normal St','Sacramento — Broadway'],'Texas':['Houston — N Shepherd Dr','Dallas — Mockingbird Ln','Austin — E Rundberg Ln','San Antonio — Fredericksburg Rd'],'Florida':['Miami — NW 119th St','Orlando — E Colonial Dr','Tampa — Adamo Dr','Jacksonville — Blanding Blvd'],'New York':['NYC — Jamaica Ave','Brooklyn — Linden Blvd','Manhattan — 34th St','Buffalo — Dingens St'],'default':['Main Office — Downtown','North Branch Office','South Branch Office','East District Office']};
 const FAQS=[{q:'Is DMV Assistant free?',a:'Yes! Free plan is completely free forever — no credit card needed. Includes 2 appointment alerts and 2 renewal reminders. Pro plan is $12/mo for unlimited everything.'},{q:'How does appointment monitoring work?',a:'We check DMV slot availability every 30 minutes for your selected state and office. The moment a slot opens, you receive instant email and SMS — so you book before anyone else.'},{q:'All 50 states supported?',a:'Yes — all 50 US states are fully supported. Every state has major DMV offices covered. Select your state when setting up an alert.'},{q:'Are my documents secure?',a:'AES-256 military-grade encryption — same as major banks. Fully GDPR and CCPA compliant. Documents never shared with third parties.'},{q:'What is the veteran discount?',a:'US Veterans and Active Duty Military receive 50% off Pro Plan permanently. Use code VET50 at checkout.'},{q:'Can I manage my whole family?',a:'Yes! Family Plan ($40/mo) supports up to 5 family members each with their own login, alerts, and documents under one subscription.'},{q:'Is DMV Assistant government affiliated?',a:'No. We are an independent third-party service. Not affiliated with any government DMV agency. Always verify with your state\'s official DMV website for official transactions.'}];
@@ -1767,14 +1771,13 @@ function tfaq(i){
   if(!op){a.classList.add('open');a.style.display='block';t.classList.add('open');t.textContent='−';}
 }
 function updOff(){const s=document.getElementById('appt-st').value,o=OFFICES[s]||OFFICES['default'],sel=document.getElementById('off-sel');sel.innerHTML=o.map(x=>`<option>${x}</option>`).join('');}
-function showFP(id){document.querySelectorAll('.fp').forEach(function(p){p.classList.remove('active');});var el=document.getElementById(id);if(el){el.classList.add('active');el.scrollTop=0;window.scrollTo(0,0);}}
+function showFP(id){document.querySelectorAll('.fp').forEach(function(p){p.classList.remove('active');});var el=document.getElementById(id);if(el){el.classList.add('active');el.scrollTop=0;window.scrollTo(0,0);}if(id==='fp-app'||id==='fp-fee'||id==='fp-checklist'||id==='fp-eligibility'){localStorage.setItem('dmv_current_fp',id);}else if(id==='fp-land'||id==='fp-login'||id==='fp-signup'){localStorage.removeItem('dmv_current_fp');localStorage.removeItem('dmv_current_pg');}}
 function showFooterPage(id){showFP(id);}
 function showPg(id,nav){
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
   const el=document.getElementById(id);
   if(el)el.classList.add('active');
-  // Save current page for refresh persistence
-  try{localStorage.setItem('dmv_current_page',id);}catch(e){}
+  localStorage.setItem('dmv_current_pg',id);
   // Refresh data on page switch
   var fa=document.getElementById('fp-app');if(fa)fa.scrollTop=0;
   if(id==='pg-appts') loadAlerts();
@@ -2114,14 +2117,18 @@ function loginOk(){
     }
   }
 
-  var _c=document.querySelector('.fp.active');var _fp=['fp-fee','fp-checklist','fp-eligibility','fp-realid','fp-renewal','fp-registration','fp-title','fp-veteran','fp-about','fp-privacy','fp-terms','fp-contact','fp-blog'];if(!_c||_fp.indexOf(_c.id)<0)showFP('fp-app');
+  var _c=document.querySelector('.fp.active');var _fp=['fp-fee','fp-checklist','fp-eligibility','fp-realid','fp-renewal','fp-registration','fp-title','fp-veteran','fp-about','fp-privacy','fp-terms','fp-contact','fp-blog'];
+  var savedFP=localStorage.getItem('dmv_current_fp');
+  var savedPG=localStorage.getItem('dmv_current_pg');
+  if(savedFP){showFP(savedFP);}else if(!_c||_fp.indexOf(_c.id)<0){showFP('fp-app');}
   requestAnimationFrame(function(){
-    var savedPage = null;
-    try{savedPage = localStorage.getItem('dmv_current_page');}catch(e){}
-    var targetPage = savedPage || 'pg-dash';
-    var navBtn = document.querySelector('#fp-app .ni[onclick*="'+targetPage+'"]') || document.querySelector('#fp-app .ni');
-    if(navBtn) showPg(targetPage, navBtn);
-    else showPg(targetPage, null);
+    if(savedPG){
+      var navEl=document.querySelector('[onclick*="'+savedPG+'"]');
+      showPg(savedPG, navEl);
+    } else {
+      const dashBtn = document.querySelector('#fp-app .ni');
+      if(dashBtn) showPg('pg-dash', dashBtn);
+    }
   });
 
   // Load plan-based features
@@ -2167,6 +2174,8 @@ function logout(){
   APP.plan = 'free';
   localStorage.removeItem('dmv_token');
   localStorage.removeItem('dmv_user');
+  localStorage.removeItem('dmv_current_fp');
+  localStorage.removeItem('dmv_current_pg');
   showFP('fp-land');
   toast('Signed out', 'i');
 }
