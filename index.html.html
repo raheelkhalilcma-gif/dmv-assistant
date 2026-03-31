@@ -1890,66 +1890,29 @@ let PENDING_TOKEN = null;
 async function doLogin() {
   const em = document.getElementById('li-em').value.trim();
   const pw = document.getElementById('li-pw').value;
-
+  if (!em || !pw) { toast('Email and password required', 'e'); return; }
   const btn = document.querySelector('#fp-login .btn.bp');
-  if (btn) {
-    btn.textContent = 'Signing in...';
-    btn.disabled = true;
-  }
-
+  if(btn){ btn.textContent='Signing in...'; btn.disabled=true; }
   try {
-    const res = await fetch(API + '/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: em, password: pw })
+    const res = await fetch(API+'/api/auth/login', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email:em, password:pw})
     });
-
-    // ✅ SAFE RESPONSE HANDLING
-    let data;
-    const text = await res.text();
-
-    try {
-      data = JSON.parse(text);
-    } catch (e) {
-      data = { error: text };
-    }
-
-    console.log('API RESPONSE:', data);
-
+    const data = await res.json();
     if (res.ok && data.token) {
       localStorage.setItem('dmv_token', data.token);
-      localStorage.setItem('dmv_user', JSON.stringify(data.user || {}));
-
-      if (window.APP) {
-        APP.user = data.user;
-        APP.plan = data.user?.plan || 'free';
-      }
-
-      if (typeof loginOk === 'function') loginOk();
-
+      localStorage.setItem('dmv_user', JSON.stringify(data.user));
+      APP.user=data.user; APP.plan=data.user.plan||'free';
+      loginOk();
     } else {
-      const err = data?.error || 'Login failed';
-
-      console.log('LOGIN ERROR:', err);
-
-      if (typeof toast === 'function') {
-        toast(err, 'e');   // 👈 NOW GUARANTEED SHOW
-      } else {
-        alert(err);
-      }
+      const err = data.error||'';
+      if(err.toLowerCase().includes('password')) toast('Incorrect password — try again or reset it','e');
+      else if(err.toLowerCase().includes('user')||err.toLowerCase().includes('found')) toast('No account found with this email','e');
+      else toast(err||'Invalid email or password','e');
     }
-
-  } catch (e) {
-    console.log('NETWORK ERROR:', e);
-    if (typeof toast === 'function') toast('Connection error', 'e');
-    else alert('Connection error');
-  }
-
-  if (btn) {
-    btn.textContent = 'Sign In →';
-    btn.disabled = false;
-  }
-     }
+  } catch(e){ toast('Connection error — try again','e'); }
+  if(btn){ btn.textContent='Sign In →'; btn.disabled=false; }
+}
 
 async function doSignup() {
   const fn = document.getElementById('su-fn').value.trim();
