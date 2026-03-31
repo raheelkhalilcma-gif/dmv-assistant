@@ -1905,19 +1905,15 @@ async function doLogin() {
       APP.user=data.user; APP.plan=data.user.plan||'free';
       loginOk();
     } else {
-      const err = (data && data.error) ? String(data.error) : '';
-if (err && err.toLowerCase().includes('password')) {
-  toast('Incorrect password — try again or reset it','e');
-}
-else if (err && (err.toLowerCase().includes('user') || err.toLowerCase().includes('found'))) {
-  toast('No account found with this email','e');
-}
-else {
-  toast(err || 'Invalid email or password','e');
-     }
+      const err = data.error||'';
+      if(err.toLowerCase().includes('password')) toast('Incorrect password — try again or reset it','e');
+      else if(err.toLowerCase().includes('user')||err.toLowerCase().includes('found')) toast('No account found with this email','e');
+      else toast(err||'Invalid email or password','e');
+    }
   } catch(e){ toast('Connection error — try again','e'); }
   if(btn){ btn.textContent='Sign In →'; btn.disabled=false; }
 }
+
 async function doSignup() {
   const fn = document.getElementById('su-fn').value.trim();
   const ln = document.getElementById('su-ln').value.trim();
