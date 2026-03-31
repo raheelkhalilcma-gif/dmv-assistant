@@ -526,6 +526,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 </div>
 
 <!-- ==================== ALL FULL PAGES ==================== -->
+<script>
+// Prevent landing page flash if user is already logged in
+if(localStorage.getItem('dmv_token')&&localStorage.getItem('dmv_user')){
+  document.write('<style>#fp-land{display:none!important}</style>');
+}
+</script>
 
 <!-- LANDING -->
 <div class="fp active" id="fp-land">
@@ -1581,7 +1587,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
           <div style="background:#1e3a5f;border:1px solid #1e293b;border-radius:14px;padding:1.25rem;margin-bottom:1rem">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
               <div style="font-size:0.62rem;color:#475569;text-transform:uppercase;font-weight:700">Insurance Policies</div>
-              <button onclick="toast('Add policy form — connect backend to activate','i')" style="padding:0.3rem 0.75rem;background:#2563eb;color:#fff;border:none;border-radius:7px;font-size:0.74rem;font-weight:700;cursor:pointer;font-family:inherit" onclick="oM('m-add-policy')">+ Add Policy</button>
+              <button onclick="oM('m-add-policy')" style="padding:0.3rem 0.75rem;background:#2563eb;color:#fff;border:none;border-radius:7px;font-size:0.74rem;font-weight:700;cursor:pointer;font-family:inherit">+ Add Policy</button>
             </div>
             <div style="display:flex;align-items:center;justify-content:space-between;padding:0.8rem 1rem;background:#111827;border-radius:10px;border:1px solid rgba(22,163,74,0.2);margin-bottom:0.5rem">
               <div>
@@ -1767,6 +1773,8 @@ function showPg(id,nav){
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
   const el=document.getElementById(id);
   if(el)el.classList.add('active');
+  // Save current page for refresh persistence
+  try{localStorage.setItem('dmv_current_page',id);}catch(e){}
   // Refresh data on page switch
   var fa=document.getElementById('fp-app');if(fa)fa.scrollTop=0;
   if(id==='pg-appts') loadAlerts();
@@ -2108,8 +2116,12 @@ function loginOk(){
 
   var _c=document.querySelector('.fp.active');var _fp=['fp-fee','fp-checklist','fp-eligibility','fp-realid','fp-renewal','fp-registration','fp-title','fp-veteran','fp-about','fp-privacy','fp-terms','fp-contact','fp-blog'];if(!_c||_fp.indexOf(_c.id)<0)showFP('fp-app');
   requestAnimationFrame(function(){
-    const dashBtn = document.querySelector('#fp-app .ni');
-    if(dashBtn) showPg('pg-dash', dashBtn);
+    var savedPage = null;
+    try{savedPage = localStorage.getItem('dmv_current_page');}catch(e){}
+    var targetPage = savedPage || 'pg-dash';
+    var navBtn = document.querySelector('#fp-app .ni[onclick*="'+targetPage+'"]') || document.querySelector('#fp-app .ni');
+    if(navBtn) showPg(targetPage, navBtn);
+    else showPg(targetPage, null);
   });
 
   // Load plan-based features
