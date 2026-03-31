@@ -227,7 +227,7 @@ body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--text);min
 .tab.active{color:var(--blue3);border-bottom-color:var(--blue2)}
 
 /* TOAST */
-.toast{position:fixed;bottom:1.4rem;right:1.4rem;background:var(--bg2);border:1px solid var(--border2);border-radius:8px;padding:0.7rem 1rem;font-size:0.8rem;max-width:290px;transform:translateY(50px);opacity:0;transition:all 0.25s;z-index:999999;font-weight:600;box-shadow:0 12px 36px rgba(0,0,0,0.6)}
+.toast{position:fixed;bottom:1.4rem;right:1.4rem;background:var(--bg2);border:1px solid var(--border2);border-radius:8px;padding:0.7rem 1rem;font-size:0.8rem;max-width:290px;transform:translateY(50px);opacity:0;transition:all 0.25s;z-index:999;font-weight:600;box-shadow:0 12px 36px rgba(0,0,0,0.6)}
 .toast.show{transform:translateY(0);opacity:1}
 .ts{border-color:rgba(22,163,74,0.5);color:var(--green2)}.ti{border-color:rgba(29,106,229,0.5);color:var(--blue3)}.tw{border-color:rgba(245,158,11,0.5);color:var(--gold2)}.te{border-color:rgba(220,38,38,0.5);color:#fca5a5}
 
@@ -525,10 +525,24 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 </div>
 </div>
 
-<!-- ==================== ALL FULL PAGES ==================== -->
+<!-- ADD POLICY MODAL -->
+<div class="mov" id="m-add-policy">
+<div class="modal" style="max-width:440px">
+  <div class="mhead"><h3>🛡 Add Insurance Policy</h3><span class="mx" onclick="cM('m-add-policy')">✕</span></div>
+  <div class="fg"><label class="fl">Insurance Provider *</label><input class="fi" id="ins-provider" placeholder="e.g. State Farm, Geico, Allstate"/></div>
+  <div class="fr">
+    <div class="fg"><label class="fl">Policy Number</label><input class="fi" id="ins-policy-num" placeholder="e.g. SF2847"/></div>
+    <div class="fg"><label class="fl">Expiry Date *</label><input class="fi" type="date" id="ins-expiry"/></div>
+  </div>
+  <div class="fg"><label class="fl">Vehicle / Coverage</label><input class="fi" id="ins-vehicle" placeholder="e.g. Honda Civic 2022 or Home Insurance"/></div>
+  <div class="mbtns"><button class="btn bo" onclick="cM('m-add-policy')">Cancel</button><button class="btn bp" onclick="addInsurancePolicy()">Add Policy ✓</button></div>
+</div>
+</div>
+
+
 
 <!-- LANDING -->
-<div class="fp active" id="fp-land">
+<div class="fp" id="fp-land" style="display:none">
 <div style="background:#f8fafc;min-height:100vh;font-family:'Sora',sans-serif">
 
 <!-- NAV -->
@@ -1581,7 +1595,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
           <div style="background:#1e3a5f;border:1px solid #1e293b;border-radius:14px;padding:1.25rem;margin-bottom:1rem">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
               <div style="font-size:0.62rem;color:#475569;text-transform:uppercase;font-weight:700">Insurance Policies</div>
-              <button onclick="toast('Add policy form — connect backend to activate','i')" style="padding:0.3rem 0.75rem;background:#2563eb;color:#fff;border:none;border-radius:7px;font-size:0.74rem;font-weight:700;cursor:pointer;font-family:inherit" onclick="oM('m-add-policy')">+ Add Policy</button>
+              <button onclick="oM('m-add-policy')" style="padding:0.3rem 0.75rem;background:#2563eb;color:#fff;border:none;border-radius:7px;font-size:0.74rem;font-weight:700;cursor:pointer;font-family:inherit">+ Add Policy</button>
             </div>
             <div style="display:flex;align-items:center;justify-content:space-between;padding:0.8rem 1rem;background:#111827;border-radius:10px;border:1px solid rgba(22,163,74,0.2);margin-bottom:0.5rem">
               <div>
@@ -1591,8 +1605,9 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
               <div style="text-align:right">
                 <div style="font-size:0.78rem;font-weight:800;color:#22c55e">92 days left</div>
                 <div style="font-size:0.68rem;color:#64748b">Jun 14, 2026</div>
-              </div>
             </div>
+            <div id="policies-list" style="margin-top:0.75rem"></div>
+          </div>
             <div style="display:flex;align-items:center;justify-content:space-between;padding:0.8rem 1rem;background:#111827;border-radius:10px;border:1px solid rgba(245,158,11,0.2)">
               <div>
                 <div style="font-size:0.84rem;font-weight:700;color:#f1f5f9">🏠 Home Insurance</div>
@@ -1747,6 +1762,8 @@ function init(){
       localStorage.removeItem('dmv_token');
       localStorage.removeItem('dmv_user');
     }
+  } else {
+    showFP('fp-land');
   }
 
   ['appt-st','su-st','s-st','ai-st','ms','wt-state','smog-state','ms-primary','ms-secondary','fee-state','chk-state','elig-state'].forEach(id=>{const el=document.getElementById(id);if(!el)return;const isAi=id==='ai-st';el.innerHTML=(isAi?'<option value="">All States</option>':'<option value="">Select State...</option>')+STATES.map(s=>`<option>${s}</option>`).join('');});
@@ -3540,4 +3557,12 @@ function filterAlertHistory(tab,btn){
     <div style="background:#fffbeb;border:2px dashed #f59e0b;border-radius:14px;padding:1.25rem;margin-bottom:1.25rem">
       <div style="font-size:0.62rem;color:#92400e;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px">Your Discount Code</div>
       <div style="font-size:2.2rem;font-weight:900;letter-spacing:0.15em;color:#d97706;font-family:monospace;margin-bottom:0.75rem">VET50</div>
-      <button id="copy-vet-btn" onclick="copyVetCode()" style="padding:0.4rem 1.25rem;background:#f
+      <button id="copy-vet-btn" onclick="copyVetCode()" style="padding:0.4rem 1.25rem;background:#f59e0b;color:#fff;border:none;border-radius:8px;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:'Manrope',sans-serif">📋 Copy Code</button>
+    </div>
+    <div style="font-size:0.76rem;color:#64748b;line-height:1.6">Apply this code during checkout on <strong>Lemon Squeezy</strong>. Valid for active & veteran military personnel.</div>
+  </div>
+</div>
+</div>
+
+</body>
+</html>
