@@ -438,7 +438,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
   var t=localStorage.getItem('dmv_token'),u=localStorage.getItem('dmv_user');
   if(t&&u){
     var s=document.createElement('style');
-    s.textContent='#fp-land{display:none!important}';
+    s.textContent='#fp-land{display:none!important}.fp{display:none!important}#fp-app{display:block!important}';
     document.head.appendChild(s);
   }
 })();
@@ -1368,12 +1368,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
          </div>
          <!-- How to use guide -->
          <div style="margin-top:0.75rem;padding:1rem;background:rgba(22,163,74,0.05);border:1px solid rgba(22,163,74,0.15);border-radius:10px">
-           <div style="font-size:0.8rem;font-weight:800;color:var(--green);margin-bottom:0.5rem">📖 Document Vault — How to Use?</div>
+           <div style="font-size:0.8rem;font-weight:800;color:var(--green);margin-bottom:0.5rem">📖 Document Vault — Kaise Use Karein?</div>
            <ol style="font-size:0.75rem;color:var(--text2);line-height:1.8;padding-left:1.2rem;margin:0">
-             <li><strong>Upload:</strong> "+ Upload" Press the button → Select a file → <strong>Enter an encryption password</strong> The file will be encrypted and uploaded.</li>
-             <li><strong>Download:</strong> Click "⬇ Download" on any document → enter the <strong>password</strong> that was used during the upload → the file will be decrypted and downloaded.</li>
-             <li><strong>Delete:</strong> 🗑 You can delete the document using the button.</li>
-             <li>⚠️ <strong>**Remember your password!** If you forget your password, the file cannot be recovered—it can only be decrypted using your password.</li>
+             <li><strong>Upload:</strong> "+ Upload" button dabayein → file select karein → ek <strong>encryption password</strong> daalein → file encrypt ho kar upload ho jayegi.</li>
+             <li><strong>Download:</strong> Kisi bhi document par "⬇ Download" dabayein → wahi <strong>password</strong> daalein jo upload ke waqt use kiya tha → file decrypt ho kar download ho jayegi.</li>
+             <li><strong>Delete:</strong> 🗑 button se document delete kar saktay hain.</li>
+             <li>⚠️ <strong>Password yaad rakhein!</strong> Agar password bhool gaye, toh file recover nahi ho sakti — sirf aap ke password se decrypt hoti hai.</li>
            </ol>
          </div>
        </div>
@@ -1625,25 +1625,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
               <div style="font-size:0.62rem;color:#475569;text-transform:uppercase;font-weight:700">Insurance Policies</div>
               <button onclick="oM('m-add-policy')" style="padding:0.3rem 0.75rem;background:#2563eb;color:#fff;border:none;border-radius:7px;font-size:0.74rem;font-weight:700;cursor:pointer;font-family:inherit">+ Add Policy</button>
             </div>
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:0.8rem 1rem;background:#111827;border-radius:10px;border:1px solid rgba(22,163,74,0.2);margin-bottom:0.5rem">
-              <div>
-                <div style="font-size:0.84rem;font-weight:700;color:#f1f5f9">🛡 Auto Insurance — Honda Civic</div>
-                <div style="font-size:0.72rem;color:#64748b;margin-top:3px">State Farm · Policy #SF2847</div>
-              </div>
-              <div style="text-align:right">
-                <div style="font-size:0.78rem;font-weight:800;color:#22c55e">92 days left</div>
-                <div style="font-size:0.68rem;color:#64748b">Jun 14, 2026</div>
-              </div>
-            </div>
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:0.8rem 1rem;background:#111827;border-radius:10px;border:1px solid rgba(245,158,11,0.2)">
-              <div>
-                <div style="font-size:0.84rem;font-weight:700;color:#f1f5f9">🏠 Home Insurance</div>
-                <div style="font-size:0.72rem;color:#64748b;margin-top:3px">Allstate · Policy #AL9921</div>
-              </div>
-              <div style="text-align:right">
-                <div style="font-size:0.78rem;font-weight:800;color:#f59e0b">45 days left</div>
-                <div style="font-size:0.68rem;color:#64748b">Apr 28, 2026</div>
-              </div>
+            <div id="policies-list">
+              <div style="text-align:center;padding:2rem;color:var(--text3);font-size:0.85rem">No policies added yet. Click + Add Policy.</div>
             </div>
           </div>
           <div style="background:#1e3a5f;border:1px solid #1e293b;border-radius:14px;padding:1.25rem">
@@ -1736,6 +1719,17 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 <!-- VET50 MODAL -->
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ===== AES-256-GCM Encryption — inlined here to guarantee availability =====
+const PBKDF2_ITERATIONS = 600000;
+const SALT_LENGTH = 32;
+const IV_LENGTH = 12;
+function bufferToBase64(buffer){const bytes=new Uint8Array(buffer);let binary='';for(let i=0;i<bytes.byteLength;i++){binary+=String.fromCharCode(bytes[i]);}return btoa(binary);}
+function base64ToBuffer(base64){const binary=atob(base64);const bytes=new Uint8Array(binary.length);for(let i=0;i<binary.length;i++){bytes[i]=binary.charCodeAt(i);}return bytes.buffer;}
+async function deriveKey(password,salt){const encoder=new TextEncoder();const keyMaterial=await crypto.subtle.importKey('raw',encoder.encode(password),'PBKDF2',false,['deriveKey']);return crypto.subtle.deriveKey({name:'PBKDF2',salt:salt,iterations:PBKDF2_ITERATIONS,hash:'SHA-256'},keyMaterial,{name:'AES-GCM',length:256},false,['encrypt','decrypt']);}
+async function encryptFile(file,password){const salt=crypto.getRandomValues(new Uint8Array(SALT_LENGTH));const iv=crypto.getRandomValues(new Uint8Array(IV_LENGTH));const key=await deriveKey(password,salt);const fileData=await file.arrayBuffer();const encryptedData=await crypto.subtle.encrypt({name:'AES-GCM',iv:iv},key,fileData);return{encryptedBlob:new Blob([encryptedData],{type:'application/octet-stream'}),iv:bufferToBase64(iv.buffer),salt:bufferToBase64(salt.buffer)};}
+async function decryptFile(encryptedBlob,password,ivBase64,saltBase64,mimeType){const salt=new Uint8Array(base64ToBuffer(saltBase64));const iv=new Uint8Array(base64ToBuffer(ivBase64));const key=await deriveKey(password,salt);const encryptedData=await encryptedBlob.arrayBuffer();const decryptedData=await crypto.subtle.decrypt({name:'AES-GCM',iv:iv},key,encryptedData);return new Blob([decryptedData],{type:mimeType||'application/octet-stream'});}
+// ===== End Encryption =====
+
 const STATES=['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
 const OFFICES={'California':['Los Angeles — Culver City','Los Angeles — Van Nuys','Los Angeles — Santa Monica','San Francisco — Fell St','San Diego — Normal St','Sacramento — Broadway'],'Texas':['Houston — N Shepherd Dr','Dallas — Mockingbird Ln','Austin — E Rundberg Ln','San Antonio — Fredericksburg Rd'],'Florida':['Miami — NW 119th St','Orlando — E Colonial Dr','Tampa — Adamo Dr','Jacksonville — Blanding Blvd'],'New York':['NYC — Jamaica Ave','Brooklyn — Linden Blvd','Manhattan — 34th St','Buffalo — Dingens St'],'default':['Main Office — Downtown','North Branch Office','South Branch Office','East District Office']};
 const FAQS=[{q:'Is DMV Assistant free?',a:'Yes! Free plan is completely free forever — no credit card needed. Includes 2 appointment alerts and 2 renewal reminders. Pro plan is $12/mo for unlimited everything.'},{q:'How does appointment monitoring work?',a:'We check DMV slot availability every 30 minutes for your selected state and office. The moment a slot opens, you receive instant email and SMS — so you book before anyone else.'},{q:'All 50 states supported?',a:'Yes — all 50 US states are fully supported. Every state has major DMV offices covered. Select your state when setting up an alert.'},{q:'Are my documents secure?',a:'AES-256 military-grade encryption — same as major banks. Fully GDPR and CCPA compliant. Documents never shared with third parties.'},{q:'What is the veteran discount?',a:'US Veterans and Active Duty Military receive 50% off Pro Plan permanently. Use code VET50 at checkout.'},{q:'Can I manage my whole family?',a:'Yes! Family Plan ($40/mo) supports up to 5 family members each with their own login, alerts, and documents under one subscription.'},{q:'Is DMV Assistant government affiliated?',a:'No. We are an independent third-party service. Not affiliated with any government DMV agency. Always verify with your state\'s official DMV website for official transactions.'}];
@@ -3441,126 +3435,8 @@ function filterAlertHistory(tab,btn){
 
 </script>
 
-<!-- AES-256-GCM Client-Side Encryption Module -->
-<script>
-/**
- * =====================================================
- * AES-256-GCM Client-Side Encryption Module
- * =====================================================
- * Vanilla JavaScript — Web Crypto API
- * Copy this file into your project and use the functions.
- * 
- * Usage:
- *   <script src="crypto-utils.js"></script>
- *   
- *   // Encrypt
- *   const { encryptedBlob, iv, salt } = await encryptFile(file, 'mypassword');
- *   
- *   // Decrypt
- *   const decryptedBlob = await decryptFile(encryptedBlob, 'mypassword', iv, salt, 'application/pdf');
- */
-
-const PBKDF2_ITERATIONS = 600000; // OWASP recommended
-const SALT_LENGTH = 32;
-const IV_LENGTH = 12;
-
-// ========== Helper Functions ==========
-
-function bufferToBase64(buffer) {
-  const bytes = new Uint8Array(buffer);
-  let binary = '';
-  for (let i = 0; i < bytes.byteLength; i++) {
-    binary += String.fromCharCode(bytes[i]);
-  }
-  return btoa(binary);
-}
-
-function base64ToBuffer(base64) {
-  const binary = atob(base64);
-  const bytes = new Uint8Array(binary.length);
-  for (let i = 0; i < binary.length; i++) {
-    bytes[i] = binary.charCodeAt(i);
-  }
-  return bytes.buffer;
-}
-
-// ========== Key Derivation ==========
-
-async function deriveKey(password, salt) {
-  const encoder = new TextEncoder();
-  const keyMaterial = await crypto.subtle.importKey(
-    'raw',
-    encoder.encode(password),
-    'PBKDF2',
-    false,
-    ['deriveKey']
-  );
-  return crypto.subtle.deriveKey(
-    {
-      name: 'PBKDF2',
-      salt: salt,
-      iterations: PBKDF2_ITERATIONS,
-      hash: 'SHA-256',
-    },
-    keyMaterial,
-    { name: 'AES-GCM', length: 256 },
-    false,
-    ['encrypt', 'decrypt']
-  );
-}
-
-// ========== ENCRYPT ==========
-
-/**
- * Encrypt a File object with AES-256-GCM
- * @param {File} file - The file to encrypt
- * @param {string} password - User's encryption password
- * @returns {Promise<{encryptedBlob: Blob, iv: string, salt: string}>}
- */
-async function encryptFile(file, password) {
-  const salt = crypto.getRandomValues(new Uint8Array(SALT_LENGTH));
-  const iv = crypto.getRandomValues(new Uint8Array(IV_LENGTH));
-  const key = await deriveKey(password, salt);
-
-  const fileData = await file.arrayBuffer();
-  const encryptedData = await crypto.subtle.encrypt(
-    { name: 'AES-GCM', iv: iv },
-    key,
-    fileData
-  );
-
-  return {
-    encryptedBlob: new Blob([encryptedData], { type: 'application/octet-stream' }),
-    iv: bufferToBase64(iv.buffer),
-    salt: bufferToBase64(salt.buffer),
-  };
-}
-
-// ========== DECRYPT ==========
-
-/**
- * Decrypt encrypted data with AES-256-GCM
- * @param {Blob} encryptedBlob - The encrypted blob
- * @param {string} password - The encryption password
- * @param {string} ivBase64 - IV as base64 string
- * @param {string} saltBase64 - Salt as base64 string
- * @param {string} mimeType - Original file MIME type
- * @returns {Promise<Blob>}
- */
-async function decryptFile(encryptedBlob, password, ivBase64, saltBase64, mimeType) {
-  const salt = new Uint8Array(base64ToBuffer(saltBase64));
-  const iv = new Uint8Array(base64ToBuffer(ivBase64));
-  const key = await deriveKey(password, salt);
-
-  const encryptedData = await encryptedBlob.arrayBuffer();
-  const decryptedData = await crypto.subtle.decrypt(
-    { name: 'AES-GCM', iv: iv },
-    key,
-    encryptedData
-  );
-
-  return new Blob([decryptedData], { type: mimeType || 'application/octet-stream' });
-}
+<!-- AES-256-GCM Client-Side Encryption Module — Supabase helpers only (core crypto already inlined above) -->
+<script data-cfasync="false">
 
 // ========== SUPABASE UPLOAD HELPER ==========
 
