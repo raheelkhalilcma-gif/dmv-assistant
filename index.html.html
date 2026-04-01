@@ -437,9 +437,14 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 (function(){
   var t=localStorage.getItem('dmv_token'),u=localStorage.getItem('dmv_user');
   if(t&&u){
+    var VALID_PAGES=['fp-fee','fp-checklist','fp-eligibility','fp-app','fp-land'];
+    var savedFP=localStorage.getItem('dmv_current_fp');
+    var showId=(savedFP&&VALID_PAGES.indexOf(savedFP)>=0)?savedFP:'fp-app';
+    var css='html[data-loading] #'+showId+'{display:block!important}';
+    if(showId!=='fp-land'){css='html[data-loading] #fp-land{display:none!important}'+css;}
     var s=document.createElement('style');
     s.id='_af';
-    s.textContent='html[data-loading] #fp-land{display:none!important}html[data-loading] #fp-app{display:block!important}';
+    s.textContent=css;
     document.head.appendChild(s);
     document.documentElement.setAttribute('data-loading','1');
   }
@@ -1370,12 +1375,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
          </div>
          <!-- How to use guide -->
          <div style="margin-top:0.75rem;padding:1rem;background:rgba(22,163,74,0.05);border:1px solid rgba(22,163,74,0.15);border-radius:10px">
-           <div style="font-size:0.8rem;font-weight:800;color:var(--green);margin-bottom:0.5rem">📖 Document Vault — How to Use?</div>
+           <div style="font-size:0.8rem;font-weight:800;color:var(--green);margin-bottom:0.5rem">📖 Document Vault — Kaise Use Karein?</div>
            <ol style="font-size:0.75rem;color:var(--text2);line-height:1.8;padding-left:1.2rem;margin:0">
-             <li><strong>Upload:</strong> "+ Upload" Press the button → Select a file → Enter an <strong>encryption password</strong> → The file will be encrypted and uploaded.</li>
-             <li><strong>Download:</strong> Click "⬇ Download" on any document → enter the <strong>password</strong> that was used during the upload → the file will be decrypted and downloaded.</li>
-             <li><strong>Delete:</strong> 🗑 You can delete the document using the button.</li>
-             <li>⚠️ <strong>**Remember your password!** If you forget your password, the file cannot be recovered—it can only be decrypted using your password.</li>
+             <li><strong>Upload:</strong> "+ Upload" button dabayein → file select karein → ek <strong>encryption password</strong> daalein → file encrypt ho kar upload ho jayegi.</li>
+             <li><strong>Download:</strong> Kisi bhi document par "⬇ Download" dabayein → wahi <strong>password</strong> daalein jo upload ke waqt use kiya tha → file decrypt ho kar download ho jayegi.</li>
+             <li><strong>Delete:</strong> 🗑 button se document delete kar saktay hain.</li>
+             <li>⚠️ <strong>Password yaad rakhein!</strong> Agar password bhool gaye, toh file recover nahi ho sakti — sirf aap ke password se decrypt hoti hai.</li>
            </ol>
          </div>
        </div>
@@ -1799,7 +1804,7 @@ function tfaq(i){
   if(!op){a.classList.add('open');a.style.display='block';t.classList.add('open');t.textContent='−';}
 }
 function updOff(){const s=document.getElementById('appt-st').value,o=OFFICES[s]||OFFICES['default'],sel=document.getElementById('off-sel');sel.innerHTML=o.map(x=>`<option>${x}</option>`).join('');}
-function showFP(id){document.documentElement.removeAttribute('data-loading');document.querySelectorAll('.fp').forEach(function(p){p.classList.remove('active');});var el=document.getElementById(id);if(el){el.classList.add('active');el.scrollTop=0;window.scrollTo(0,0);}if(id==='fp-app'||id==='fp-fee'||id==='fp-checklist'||id==='fp-eligibility'){localStorage.setItem('dmv_current_fp',id);}else if(id==='fp-land'||id==='fp-login'||id==='fp-signup'){localStorage.removeItem('dmv_current_fp');localStorage.removeItem('dmv_current_pg');}}
+function showFP(id){document.documentElement.removeAttribute('data-loading');document.querySelectorAll('.fp').forEach(function(p){p.classList.remove('active');});var el=document.getElementById(id);if(el){el.classList.add('active');el.scrollTop=0;window.scrollTo(0,0);}if(id==='fp-app'||id==='fp-fee'||id==='fp-checklist'||id==='fp-eligibility'){localStorage.setItem('dmv_current_fp',id);}else if(id==='fp-land'){if(localStorage.getItem('dmv_token')){localStorage.setItem('dmv_current_fp','fp-land');}else{localStorage.removeItem('dmv_current_fp');}localStorage.removeItem('dmv_current_pg');}else if(id==='fp-login'||id==='fp-signup'){localStorage.removeItem('dmv_current_fp');localStorage.removeItem('dmv_current_pg');}}
 function showFooterPage(id){showFP(id);}
 function showPg(id,nav){
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
