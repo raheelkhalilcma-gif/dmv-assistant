@@ -1138,16 +1138,15 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
       <div>
         <div style="font-weight:800;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;color:#0f172a;margin-bottom:1rem">DMV Guides &amp; Tips</div>
         <div style="display:flex;flex-direction:column;gap:0.625rem">
-          <span style="font-size:0.82rem;color:#475569;cursor:pointer;font-weight:600;color:#2563eb" onclick="showFP('fp-guides')">📚 All Guides Hub</span>
-          <span style="font-size:0.82rem;color:#475569;cursor:pointer" onclick="showFP('fp-realid')">REAL ID Guide</span>
+          <span style="font-size:0.82rem;color:#475569;cursor:pointer" onclick="showFP('fp-blog')">DMV Blogs </span>
+          
           <span style="font-size:0.82rem;color:#475569;cursor:pointer" onclick="showFP('fp-renewal')">License Renewal Guide</span>
           <span style="font-size:0.82rem;color:#475569;cursor:pointer" onclick="showFP('fp-registration')">Registration Guide</span>
           <span style="font-size:0.82rem;color:#475569;cursor:pointer" onclick="showFP('fp-guide-appointment')">DMV Appointment Tips</span>
-          <span style="font-size:0.82rem;color:#475569;cursor:pointer" onclick="showFP('fp-guide-written-test')">Written Test Prep</span>
-          <span style="font-size:0.82rem;color:#475569;cursor:pointer" onclick="showFP('fp-guide-road-test')">Road Test Guide</span>
-          <span style="font-size:0.82rem;color:#475569;cursor:pointer" onclick="showFP('fp-guide-title-transfer')">Title Transfer Guide</span>
+          
+          
           <span style="font-size:0.82rem;color:#475569;cursor:pointer" onclick="showFP('fp-veteran')">Veteran Benefits</span>
-          <span style="font-size:0.82rem;color:#475569;cursor:pointer" onclick="showFP('fp-blog')">DMV News &amp; Articles</span>
+          
         </div>
       </div>
       <div>
@@ -4818,4 +4817,22 @@ async function downloadDecryptedFromSupabase(supabaseClient, metadata, password,
 </div>
 <!-- VET50 DISCOUNT MODAL -->
 <div id="m-vet50" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:99999;align-items:center;justify-content:center;padding:1rem">
-<div style="backgr
+<div style="background:#fff;border-radius:20px;padding:0;width:100%;max-width:420px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.2)">
+  <div style="background:linear-gradient(135deg,#05112b,#0a1f4a);padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between">
+    <h3 style="color:#fff;font-size:1rem;font-weight:800;margin:0">🎖 Veteran Discount — 50% Off</h3>
+    <button onclick="cM('m-vet50')" style="background:rgba(255,255,255,0.15);border:none;color:#fff;width:28px;height:28px;border-radius:50%;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">✕</button>
+  </div>
+  <div style="padding:1.5rem;text-align:center">
+    <div style="font-size:0.88rem;color:#475569;margin-bottom:1.25rem;line-height:1.65">Thank you for your service! Use this code at checkout to get <strong style="color:#d97706">50% off Pro Plan — forever.</strong></div>
+    <div style="background:#fffbeb;border:2px dashed #f59e0b;border-radius:14px;padding:1.25rem;margin-bottom:1.25rem">
+      <div style="font-size:0.62rem;color:#92400e;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px">Your Discount Code</div>
+      <div style="font-size:2.2rem;font-weight:900;letter-spacing:0.15em;color:#d97706;font-family:monospace;margin-bottom:0.75rem">VET50</div>
+      <button id="copy-vet-btn" onclick="copyVetCode()" style="padding:0.4rem 1.25rem;background:#f59e0b;color:#fff;border:none;border-radius:8px;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:'Manrope',sans-serif">📋 Copy Code</button>
+    </div>
+    <div style="font-size:0.76rem;color:#64748b;line-height:1.6">Apply this code during checkout on <strong>Lemon Squeezy</strong>. Valid for active & veteran military personnel.</div>
+  </div>
+</div>
+</div>
+
+</body>
+</html>
