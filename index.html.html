@@ -1342,31 +1342,62 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
         </div>
       </div>
 
-      <!-- VAULT -->
-      <div class="pg" id="pg-vault">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.75rem">
-          <div>
-            <div style="font-size:0.65rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px">🔐 AES-256 Encrypted</div>
-            <div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em">Document Vault</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:0.5rem">
-            <span style="font-size:0.72rem;color:var(--text3)" id="vault-size-label">0 / 5 GB used</span>
-            <label style="cursor:pointer">
-              <input type="file" id="vault-file-input" style="display:none" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" onchange="if(this.files[0])uploadDocument(this.files[0])"/>
-              <span id="vault-upload-btn" class="btn bp bsm" style="pointer-events:none">+ Upload</span>
-            </label>
-          </div>
-        </div>
-        <div style="background:var(--card2);border-radius:8px;height:6px;margin-bottom:1.25rem;overflow:hidden">
-          <div id="vault-bar" style="height:100%;background:linear-gradient(90deg,var(--blue2),var(--blue3));border-radius:8px;width:0%;transition:width 0.4s"></div>
-        </div>
-        <div id="vault-docs-list">
-          <div style="text-align:center;padding:2rem;color:var(--text3);font-size:0.84rem">Loading documents...</div>
-        </div>
-        <div style="margin-top:1rem;padding:0.75rem;background:rgba(37,99,235,0.05);border:1px solid rgba(37,99,235,0.12);border-radius:8px;font-size:0.76rem;color:var(--text3)">
-          🔐 All documents are AES-256 encrypted. Only you can access them. Max 10MB per file.
-        </div>
-      </div>
+       <!-- VAULT -->
+       <div class="pg" id="pg-vault">
+         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.75rem">
+           <div>
+             <div style="font-size:0.65rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px">🔐 AES-256 Encrypted</div>
+             <div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em">Document Vault</div>
+           </div>
+           <div style="display:flex;align-items:center;gap:0.5rem">
+             <span style="font-size:0.72rem;color:var(--text3)" id="vault-size-label">0 / 5 GB used</span>
+             <label style="cursor:pointer">
+               <input type="file" id="vault-file-input" style="display:none" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" onchange="if(this.files[0])vaultAskPassword('upload',this.files[0])"/>
+               <span id="vault-upload-btn" class="btn bp bsm" style="pointer-events:none">+ Upload</span>
+             </label>
+           </div>
+         </div>
+         <div style="background:var(--card2);border-radius:8px;height:6px;margin-bottom:1.25rem;overflow:hidden">
+           <div id="vault-bar" style="height:100%;background:linear-gradient(90deg,var(--blue2),var(--blue3));border-radius:8px;width:0%;transition:width 0.4s"></div>
+         </div>
+         <div id="vault-docs-list">
+           <div style="text-align:center;padding:2rem;color:var(--text3);font-size:0.84rem">Loading documents...</div>
+         </div>
+         <div style="margin-top:1rem;padding:0.75rem;background:rgba(37,99,235,0.05);border:1px solid rgba(37,99,235,0.12);border-radius:8px;font-size:0.76rem;color:var(--text3)">
+           🔐 All documents are AES-256 encrypted client-side before upload. Only you can decrypt them with your password. Max 10MB per file.
+         </div>
+         <!-- How to use guide -->
+         <div style="margin-top:0.75rem;padding:1rem;background:rgba(22,163,74,0.05);border:1px solid rgba(22,163,74,0.15);border-radius:10px">
+           <div style="font-size:0.8rem;font-weight:800;color:var(--green);margin-bottom:0.5rem">📖 Document Vault — Kaise Use Karein?</div>
+           <ol style="font-size:0.75rem;color:var(--text2);line-height:1.8;padding-left:1.2rem;margin:0">
+             <li><strong>Upload:</strong> "+ Upload" button dabayein → file select karein → ek <strong>encryption password</strong> daalein → file encrypt ho kar upload ho jayegi.</li>
+             <li><strong>Download:</strong> Kisi bhi document par "⬇ Download" dabayein → wahi <strong>password</strong> daalein jo upload ke waqt use kiya tha → file decrypt ho kar download ho jayegi.</li>
+             <li><strong>Delete:</strong> 🗑 button se document delete kar saktay hain.</li>
+             <li>⚠️ <strong>Password yaad rakhein!</strong> Agar password bhool gaye, toh file recover nahi ho sakti — sirf aap ke password se decrypt hoti hai.</li>
+           </ol>
+         </div>
+       </div>
+
+       <!-- Vault Password Modal -->
+       <div id="vault-pw-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center">
+         <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;width:90%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,0.3)">
+           <div style="text-align:center;margin-bottom:1rem">
+             <div style="font-size:1.8rem;margin-bottom:0.4rem">🔐</div>
+             <div id="vault-pw-title" style="font-size:1rem;font-weight:900">Enter Encryption Password</div>
+             <div id="vault-pw-subtitle" style="font-size:0.75rem;color:var(--text3);margin-top:4px">Your file will be encrypted with this password</div>
+           </div>
+           <input type="password" id="vault-pw-input" placeholder="Enter password..." style="width:100%;padding:0.6rem 0.8rem;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:0.85rem;margin-bottom:0.5rem;background:var(--card2);color:var(--text);outline:none" />
+           <div id="vault-pw-confirm-wrap" style="margin-bottom:0.75rem">
+             <input type="password" id="vault-pw-confirm" placeholder="Confirm password..." style="width:100%;padding:0.6rem 0.8rem;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:0.85rem;background:var(--card2);color:var(--text);outline:none" />
+           </div>
+           <div id="vault-pw-error" style="font-size:0.73rem;color:var(--red2);margin-bottom:0.5rem;display:none"></div>
+           <div id="vault-pw-status" style="font-size:0.73rem;color:var(--blue3);margin-bottom:0.5rem;display:none"></div>
+           <div style="display:flex;gap:0.5rem">
+             <button class="btn" style="flex:1;background:var(--bg3);color:var(--text)" onclick="closeVaultPwModal()">Cancel</button>
+             <button class="btn bg" style="flex:1" id="vault-pw-submit" onclick="submitVaultPassword()">Encrypt & Upload</button>
+           </div>
+         </div>
+       </div>
         </div>
 
       <!-- AI -->
@@ -2868,145 +2899,239 @@ document.addEventListener("DOMContentLoaded", function(){ init(); });
 
 // showVetDiscount and copyVetCode defined below (single definition)
 
-async function uploadDocument(file) {
-  const token = localStorage.getItem('dmv_token');
-  if(!token){ toast('Please login first','e'); return; }
-  if(!file){ toast('No file selected','e'); return; }
-  
-  // File size check (max 10MB)
-  if(file.size > 10 * 1024 * 1024){ 
-    toast('File too large — max 10MB','e'); 
-    return; 
+// ===== VAULT PASSWORD MODAL LOGIC =====
+var _vaultPendingAction = null;
+
+function vaultAskPassword(actionType, fileOrId) {
+  _vaultPendingAction = { type: actionType, file: null, docId: null };
+  var modal = document.getElementById('vault-pw-modal');
+  var title = document.getElementById('vault-pw-title');
+  var subtitle = document.getElementById('vault-pw-subtitle');
+  var confirmWrap = document.getElementById('vault-pw-confirm-wrap');
+  var submitBtn = document.getElementById('vault-pw-submit');
+  var pwInput = document.getElementById('vault-pw-input');
+  var pwConfirm = document.getElementById('vault-pw-confirm');
+  var errEl = document.getElementById('vault-pw-error');
+  var statusEl = document.getElementById('vault-pw-status');
+  pwInput.value = ''; pwConfirm.value = '';
+  errEl.style.display = 'none'; statusEl.style.display = 'none';
+  if(actionType === 'upload') {
+    _vaultPendingAction.file = fileOrId;
+    title.textContent = '\u{1f512} Encrypt & Upload';
+    subtitle.textContent = 'Enter a password to encrypt "' + fileOrId.name.substring(0,25) + '"';
+    confirmWrap.style.display = 'block';
+    submitBtn.textContent = '\u{1f510} Encrypt & Upload';
+  } else {
+    _vaultPendingAction.docId = fileOrId;
+    title.textContent = '\u{1f513} Decrypt & Download';
+    subtitle.textContent = 'Enter the password you used when uploading this file';
+    confirmWrap.style.display = 'none';
+    submitBtn.textContent = '\u{1f513} Decrypt & Download';
   }
-  
-  const btn = document.getElementById('vault-upload-btn');
-  if(btn){ btn.textContent = 'Uploading...'; btn.disabled = true; }
-  
+  modal.style.display = 'flex';
+  setTimeout(function(){ pwInput.focus(); }, 100);
+}
+
+function closeVaultPwModal() {
+  document.getElementById('vault-pw-modal').style.display = 'none';
+  _vaultPendingAction = null;
+  var fi = document.getElementById('vault-file-input');
+  if(fi) fi.value = '';
+}
+
+async function submitVaultPassword() {
+  var pw = document.getElementById('vault-pw-input').value;
+  var pwc = document.getElementById('vault-pw-confirm').value;
+  var errEl = document.getElementById('vault-pw-error');
+  var statusEl = document.getElementById('vault-pw-status');
+  var submitBtn = document.getElementById('vault-pw-submit');
+  errEl.style.display = 'none'; statusEl.style.display = 'none';
+  if(!pw || pw.length < 4) {
+    errEl.textContent = 'Password must be at least 4 characters'; errEl.style.display = 'block'; return;
+  }
+  if(_vaultPendingAction.type === 'upload') {
+    if(pw !== pwc) { errEl.textContent = 'Passwords do not match'; errEl.style.display = 'block'; return; }
+    submitBtn.disabled = true; submitBtn.textContent = 'Encrypting...';
+    statusEl.textContent = 'Encrypting file...'; statusEl.style.display = 'block';
+    await uploadDocumentEncrypted(_vaultPendingAction.file, pw, function(msg){ statusEl.textContent = msg; });
+  } else {
+    submitBtn.disabled = true; submitBtn.textContent = 'Decrypting...';
+    statusEl.textContent = 'Downloading & decrypting...'; statusEl.style.display = 'block';
+    await downloadDocDecrypted(_vaultPendingAction.docId, pw, function(msg){ statusEl.textContent = msg; });
+  }
+  submitBtn.disabled = false;
+}
+
+async function uploadDocumentEncrypted(file, password, onStatus) {
+  var token = localStorage.getItem('dmv_token');
+  if(!token){ toast('Please login first','e'); closeVaultPwModal(); return; }
+  if(!file){ toast('No file selected','e'); closeVaultPwModal(); return; }
+  if(file.size > 10 * 1024 * 1024){ toast('File too large max 10MB','e'); closeVaultPwModal(); return; }
+  var btn = document.getElementById('vault-upload-btn');
+  if(btn){ btn.textContent = 'Encrypting...'; btn.disabled = true; }
   try {
-    const formData = new FormData();
-    formData.append('file', file);
+    if(onStatus) onStatus('Encrypting file with AES-256-GCM...');
+    var encrypted = await encryptFile(file, password);
+    if(onStatus) onStatus('Uploading encrypted file...');
+    var formData = new FormData();
+    var encFile = new File([encrypted.encryptedBlob], file.name + '.enc', {type:'application/octet-stream'});
+    formData.append('file', encFile);
     formData.append('name', file.name);
     formData.append('size', file.size);
     formData.append('type', file.type || 'application/octet-stream');
     formData.append('mime_type', file.type || 'application/octet-stream');
-    
-    const res = await fetch(API + '/api/documents/upload', {
+    formData.append('encrypted', 'true');
+    formData.append('enc_iv', encrypted.iv);
+    formData.append('enc_salt', encrypted.salt);
+    var res = await fetch(API + '/api/documents/upload', {
       method: 'POST',
       headers: { 'Authorization': 'Bearer ' + token },
       body: formData
     });
-    const data = await res.json();
-    
+    var data = await res.json();
     if(res.ok || data.id) {
-      toast('✅ Document uploaded!', 's');
-      // Reset file input
-      const fi = document.getElementById('vault-file-input');
+      var encMeta = JSON.parse(localStorage.getItem('dmv_enc_meta') || '{}');
+      var docId = data.id || data.document_id || (file.name + '_' + Date.now());
+      encMeta[docId] = { iv: encrypted.iv, salt: encrypted.salt, mime: file.type || 'application/octet-stream', name: file.name };
+      localStorage.setItem('dmv_enc_meta', JSON.stringify(encMeta));
+      if(onStatus) onStatus('Encrypted & uploaded successfully!');
+      toast('Document encrypted & uploaded!', 's');
+      var fi = document.getElementById('vault-file-input');
       if(fi) fi.value = '';
-      loadDocuments();
+      setTimeout(function(){ closeVaultPwModal(); loadDocuments(); }, 800);
     } else {
-      toast(data.error || 'Upload failed — try again', 'e');
+      toast(data.error || 'Upload failed try again', 'e');
+      if(onStatus) onStatus('Upload failed');
     }
   } catch(e) {
-    toast('Upload error — check connection', 'e');
-    console.error('Upload error:', e);
+    toast('Upload error ' + (e.message || 'check connection'), 'e');
+    if(onStatus) onStatus('Error: ' + e.message);
+    console.error('Encrypted upload error:', e);
   }
   if(btn){ btn.textContent = '+ Upload'; btn.disabled = false; }
 }
 
+async function uploadDocument(file) {
+  vaultAskPassword('upload', file);
+}
+
 async function loadDocuments() {
-  const token = localStorage.getItem('dmv_token');
+  var token = localStorage.getItem('dmv_token');
   if(!token) return;
-  const list = document.getElementById('vault-docs-list');
+  var list = document.getElementById('vault-docs-list');
   if(list) list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--text3);font-size:0.84rem">Loading...</div>';
   try {
-    const res = await fetch(API + '/api/documents', {
-      headers: {'Authorization': 'Bearer ' + token}
-    });
-    const data = await res.json();
-    const docs = data.documents || data || [];
+    var res = await fetch(API + '/api/documents', { headers: {'Authorization': 'Bearer ' + token} });
+    var data = await res.json();
+    var docs = data.documents || data || [];
     console.log('Documents loaded:', docs.length, docs);
-
-    // Update stat counter
-    const statDocs = document.getElementById('stat-docs');
+    var statDocs = document.getElementById('stat-docs');
     if(statDocs) statDocs.textContent = docs.length;
-
-    // Update vault list
     if(!list) return;
     if(docs.length === 0) {
-      list.innerHTML = '<div style="text-align:center;padding:2rem 1rem">'
-        + '<div style="font-size:2rem;margin-bottom:0.75rem">📂</div>'
-        + '<div style="font-size:0.9rem;font-weight:700;color:var(--text);margin-bottom:0.4rem">No documents yet</div>'
-        + '<div style="font-size:0.8rem;color:var(--text3)">Click "+ Upload" to add your first document.</div></div>';
+      list.innerHTML = '<div style="text-align:center;padding:2rem 1rem"><div style="font-size:2rem;margin-bottom:0.75rem">\u{1f4c2}</div><div style="font-size:0.9rem;font-weight:700;color:var(--text);margin-bottom:0.4rem">No documents yet</div><div style="font-size:0.8rem;color:var(--text3)">Click "+ Upload" to add your first encrypted document.</div></div>';
       return;
     }
-
-    let html = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:0.75rem">';
+    var encMeta = JSON.parse(localStorage.getItem('dmv_enc_meta') || '{}');
+    var html = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:0.75rem">';
     docs.forEach(function(d) {
-      const ext = (d.name||'').split('.').pop().toUpperCase();
-      const icon = {'PDF':'📄','JPG':'🖼','JPEG':'🖼','PNG':'🖼','DOC':'📝','DOCX':'📝'}[ext] || '📎';
-      const kb = d.size ? (d.size > 1048576 ? (d.size/1048576).toFixed(1)+' MB' : Math.round(d.size/1024)+' KB') : '';
-      const date = d.created_at ? new Date(d.created_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '';
-      const name = (d.name || 'Document').substring(0, 30);
-      const id = d.id;
+      var ext = (d.name||'').replace(/\.enc$/,'').split('.').pop().toUpperCase();
+      var icon = {'PDF':'\u{1f4c4}','JPG':'\u{1f5bc}','JPEG':'\u{1f5bc}','PNG':'\u{1f5bc}','DOC':'\u{1f4dd}','DOCX':'\u{1f4dd}'}[ext] || '\u{1f4ce}';
+      var kb = d.size ? (d.size > 1048576 ? (d.size/1048576).toFixed(1)+' MB' : Math.round(d.size/1024)+' KB') : '';
+      var date = d.created_at ? new Date(d.created_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '';
+      var name = (d.name || 'Document').replace(/\.enc$/,'').substring(0, 30);
+      var id = d.id;
+      var isEncrypted = encMeta[id] || d.encrypted;
       html += '<div style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:1rem;position:relative">'
+        + (isEncrypted ? '<div style="position:absolute;top:8px;right:8px;font-size:0.6rem;background:rgba(37,99,235,0.1);color:var(--blue3);padding:1px 6px;border-radius:4px;font-weight:700">\u{1f510} Encrypted</div>' : '')
         + '<div style="font-size:2rem;margin-bottom:0.5rem">'+icon+'</div>'
-        + '<div style="font-size:0.84rem;font-weight:700;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+name+'</div>'
-        + '<div style="font-size:0.7rem;color:var(--text3);margin-bottom:0.75rem">'+kb+(kb&&date?' · ':'')+date+'</div>'
+        + '<div style="font-size:0.84rem;font-weight:700;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+name+(isEncrypted?' \u{1f512}':'')+'</div>'
+        + '<div style="font-size:0.7rem;color:var(--text3);margin-bottom:0.75rem">'+kb+(kb&&date?' \u00b7 ':'')+date+'</div>'
         + '<div style="display:flex;gap:6px">'
-        + '<button data-id="'+id+'" onclick="downloadDoc(this.dataset.id)" style="flex:1;padding:5px;background:rgba(37,99,235,0.1);border:1px solid rgba(37,99,235,0.25);border-radius:6px;font-size:0.72rem;color:var(--blue3);cursor:pointer;font-family:inherit">⬇ Download</button>'
-        + '<button data-id="'+id+'" onclick="deleteDoc(this.dataset.id)" style="padding:5px 8px;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.2);border-radius:6px;font-size:0.72rem;color:#f87171;cursor:pointer;font-family:inherit">🗑</button>'
+        + '<button data-id="'+id+'" onclick="downloadDoc(this.dataset.id)" style="flex:1;padding:5px;background:rgba(37,99,235,0.1);border:1px solid rgba(37,99,235,0.25);border-radius:6px;font-size:0.72rem;color:var(--blue3);cursor:pointer;font-family:inherit">'+(isEncrypted?'\u{1f513} Decrypt & Download':'\u2b07 Download')+'</button>'
+        + '<button data-id="'+id+'" onclick="deleteDoc(this.dataset.id)" style="padding:5px 8px;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.2);border-radius:6px;font-size:0.72rem;color:#f87171;cursor:pointer;font-family:inherit">\u{1f5d1}</button>'
         + '</div></div>';
     });
     html += '</div>';
     list.innerHTML = html;
-
-    // Update storage bar
-    const totalBytes = docs.reduce(function(sum,d){ return sum+(d.size||0); }, 0);
-    const totalMB = (totalBytes/1048576).toFixed(1);
+    var totalBytes = docs.reduce(function(sum,d){ return sum+(d.size||0); }, 0);
+    var totalMB = (totalBytes/1048576).toFixed(1);
     var plan = APP.plan || 'free';
     var maxBytes = plan==='family' ? 15*1024*1024*1024 : plan==='pro' ? 5*1024*1024*1024 : 50*1024*1024;
     var displayMax = plan==='family' ? '15 GB' : plan==='pro' ? '5 GB' : '50 MB';
-    const pct = Math.min(100, (totalBytes/maxBytes)*100);
-    const bar = document.getElementById('vault-bar');
-    const label = document.getElementById('vault-size-label');
+    var pct = Math.min(100, (totalBytes/maxBytes)*100);
+    var bar = document.getElementById('vault-bar');
+    var label = document.getElementById('vault-size-label');
     if(bar) bar.style.width = pct + '%';
     if(label) label.textContent = totalMB + ' MB / ' + displayMax + ' used';
-
   } catch(e) {
     console.error('Load docs error:', e);
-    if(list) list.innerHTML = '<div style="text-align:center;padding:1.5rem;color:var(--text3);font-size:0.84rem">Could not load documents — <a style="color:var(--blue3);cursor:pointer" onclick="loadDocuments()">try again</a></div>';
+    if(list) list.innerHTML = '<div style="text-align:center;padding:1.5rem;color:var(--text3);font-size:0.84rem">Could not load documents</div>';
   }
 }
 
 async function downloadDoc(id) {
-  const token = localStorage.getItem('dmv_token');
+  var encMeta = JSON.parse(localStorage.getItem('dmv_enc_meta') || '{}');
+  if(encMeta[id]) { vaultAskPassword('download', id); return; }
+  var token = localStorage.getItem('dmv_token');
   if(!token||!id) return;
   try {
-    const res = await fetch(API + '/api/documents/' + id + '/download', {
-      headers: { 'Authorization': 'Bearer ' + token }
-    });
-    const data = await res.json();
-    if(data.url) {
-      window.open(data.url, '_blank');
-    } else {
-      toast('Could not get download link','e');
-    }
+    var res = await fetch(API + '/api/documents/' + id + '/download', { headers: { 'Authorization': 'Bearer ' + token } });
+    var data = await res.json();
+    if(data.url) { window.open(data.url, '_blank'); }
+    else { toast('Could not get download link','e'); }
   } catch(e) { toast('Download error','e'); }
 }
 
+async function downloadDocDecrypted(docId, password, onStatus) {
+  var token = localStorage.getItem('dmv_token');
+  if(!token) { toast('Please login first','e'); closeVaultPwModal(); return; }
+  var encMeta = JSON.parse(localStorage.getItem('dmv_enc_meta') || '{}');
+  var meta = encMeta[docId];
+  if(!meta) { toast('No encryption data found','e'); closeVaultPwModal(); return; }
+  try {
+    if(onStatus) onStatus('Downloading encrypted file...');
+    var res = await fetch(API + '/api/documents/' + docId + '/download', { headers: { 'Authorization': 'Bearer ' + token } });
+    var data = await res.json();
+    if(!data.url) { toast('Could not get download link','e'); return; }
+    var fileRes = await fetch(data.url);
+    var encBlob = await fileRes.blob();
+    if(onStatus) onStatus('Decrypting with your password...');
+    var decryptedBlob = await decryptFile(encBlob, password, meta.iv, meta.salt, meta.mime);
+    var url = URL.createObjectURL(decryptedBlob);
+    var a = document.createElement('a');
+    a.href = url; a.download = meta.name || 'document';
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+    if(onStatus) onStatus('Decrypted & downloaded!');
+    toast('File decrypted & downloaded!', 's');
+    setTimeout(function(){ closeVaultPwModal(); }, 800);
+  } catch(e) {
+    if(e.message && e.message.includes('decrypt')) {
+      toast('Wrong password cannot decrypt','e');
+      if(onStatus) onStatus('Wrong password!');
+    } else {
+      toast('Download error ' + (e.message||'try again'), 'e');
+      if(onStatus) onStatus('Error: ' + e.message);
+    }
+    console.error('Decrypt error:', e);
+  }
+}
+
 async function deleteDoc(id) {
-  const token = localStorage.getItem('dmv_token');
+  var token = localStorage.getItem('dmv_token');
   if(!token||!id) return;
   if(!confirm('Delete this document? This cannot be undone.')) return;
   try {
-    await fetch(API + '/api/documents/' + id, {
-      method: 'DELETE',
-      headers: { 'Authorization': 'Bearer ' + token }
-    });
+    await fetch(API + '/api/documents/' + id, { method: 'DELETE', headers: { 'Authorization': 'Bearer ' + token } });
+    var encMeta = JSON.parse(localStorage.getItem('dmv_enc_meta') || '{}');
+    delete encMeta[id];
+    localStorage.setItem('dmv_enc_meta', JSON.stringify(encMeta));
     toast('Document deleted','i');
     loadDocuments();
   } catch(e) { toast('Could not delete','e'); }
 }
+
 
 function startResendTimer() {
   var btn = document.getElementById('resend-reset-btn');
@@ -3315,6 +3440,217 @@ function filterAlertHistory(tab,btn){
 
 
 </script>
+
+<!-- AES-256-GCM Client-Side Encryption Module -->
+<script>
+/**
+ * =====================================================
+ * AES-256-GCM Client-Side Encryption Module
+ * =====================================================
+ * Vanilla JavaScript — Web Crypto API
+ * Copy this file into your project and use the functions.
+ * 
+ * Usage:
+ *   <script src="crypto-utils.js"></script>
+ *   
+ *   // Encrypt
+ *   const { encryptedBlob, iv, salt } = await encryptFile(file, 'mypassword');
+ *   
+ *   // Decrypt
+ *   const decryptedBlob = await decryptFile(encryptedBlob, 'mypassword', iv, salt, 'application/pdf');
+ */
+
+const PBKDF2_ITERATIONS = 600000; // OWASP recommended
+const SALT_LENGTH = 32;
+const IV_LENGTH = 12;
+
+// ========== Helper Functions ==========
+
+function bufferToBase64(buffer) {
+  const bytes = new Uint8Array(buffer);
+  let binary = '';
+  for (let i = 0; i < bytes.byteLength; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return btoa(binary);
+}
+
+function base64ToBuffer(base64) {
+  const binary = atob(base64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) {
+    bytes[i] = binary.charCodeAt(i);
+  }
+  return bytes.buffer;
+}
+
+// ========== Key Derivation ==========
+
+async function deriveKey(password, salt) {
+  const encoder = new TextEncoder();
+  const keyMaterial = await crypto.subtle.importKey(
+    'raw',
+    encoder.encode(password),
+    'PBKDF2',
+    false,
+    ['deriveKey']
+  );
+  return crypto.subtle.deriveKey(
+    {
+      name: 'PBKDF2',
+      salt: salt,
+      iterations: PBKDF2_ITERATIONS,
+      hash: 'SHA-256',
+    },
+    keyMaterial,
+    { name: 'AES-GCM', length: 256 },
+    false,
+    ['encrypt', 'decrypt']
+  );
+}
+
+// ========== ENCRYPT ==========
+
+/**
+ * Encrypt a File object with AES-256-GCM
+ * @param {File} file - The file to encrypt
+ * @param {string} password - User's encryption password
+ * @returns {Promise<{encryptedBlob: Blob, iv: string, salt: string}>}
+ */
+async function encryptFile(file, password) {
+  const salt = crypto.getRandomValues(new Uint8Array(SALT_LENGTH));
+  const iv = crypto.getRandomValues(new Uint8Array(IV_LENGTH));
+  const key = await deriveKey(password, salt);
+
+  const fileData = await file.arrayBuffer();
+  const encryptedData = await crypto.subtle.encrypt(
+    { name: 'AES-GCM', iv: iv },
+    key,
+    fileData
+  );
+
+  return {
+    encryptedBlob: new Blob([encryptedData], { type: 'application/octet-stream' }),
+    iv: bufferToBase64(iv.buffer),
+    salt: bufferToBase64(salt.buffer),
+  };
+}
+
+// ========== DECRYPT ==========
+
+/**
+ * Decrypt encrypted data with AES-256-GCM
+ * @param {Blob} encryptedBlob - The encrypted blob
+ * @param {string} password - The encryption password
+ * @param {string} ivBase64 - IV as base64 string
+ * @param {string} saltBase64 - Salt as base64 string
+ * @param {string} mimeType - Original file MIME type
+ * @returns {Promise<Blob>}
+ */
+async function decryptFile(encryptedBlob, password, ivBase64, saltBase64, mimeType) {
+  const salt = new Uint8Array(base64ToBuffer(saltBase64));
+  const iv = new Uint8Array(base64ToBuffer(ivBase64));
+  const key = await deriveKey(password, salt);
+
+  const encryptedData = await encryptedBlob.arrayBuffer();
+  const decryptedData = await crypto.subtle.decrypt(
+    { name: 'AES-GCM', iv: iv },
+    key,
+    encryptedData
+  );
+
+  return new Blob([decryptedData], { type: mimeType || 'application/octet-stream' });
+}
+
+// ========== SUPABASE UPLOAD HELPER ==========
+
+/**
+ * Upload encrypted file to Supabase Storage
+ * @param {object} supabaseClient - Your Supabase client
+ * @param {File} file - Original file
+ * @param {string} password - Encryption password
+ * @param {string} userId - Current user ID
+ * @param {function} onStatus - Status callback: (stage, message) => {}
+ */
+async function uploadEncryptedToSupabase(supabaseClient, file, password, userId, onStatus) {
+  // 1. Encrypt
+  if (onStatus) onStatus('encrypting', 'Encrypting file...');
+  const { encryptedBlob, iv, salt } = await encryptFile(file, password);
+
+  // 2. Upload to storage
+  if (onStatus) onStatus('uploading', 'Uploading encrypted file...');
+  const fileName = crypto.randomUUID() + '.enc';
+  const storagePath = userId + '/' + fileName;
+
+  const { error: uploadErr } = await supabaseClient.storage
+    .from('encrypted-files')
+    .upload(storagePath, encryptedBlob, {
+      contentType: 'application/octet-stream',
+      upsert: false,
+    });
+  if (uploadErr) throw new Error('Upload failed: ' + uploadErr.message);
+
+  // 3. Save metadata
+  if (onStatus) onStatus('saving', 'Saving metadata...');
+  const { data, error: metaErr } = await supabaseClient
+    .from('encrypted_file_metadata')
+    .insert({
+      user_id: userId,
+      file_name: fileName,
+      original_name: file.name,
+      original_size: file.size,
+      mime_type: file.type || 'application/octet-stream',
+      storage_path: storagePath,
+      iv: iv,
+      salt: salt,
+    })
+    .select()
+    .single();
+  if (metaErr) throw new Error('Metadata save failed: ' + metaErr.message);
+
+  if (onStatus) onStatus('complete', 'Upload complete!');
+  return data;
+}
+
+/**
+ * Download and decrypt file from Supabase Storage
+ * @param {object} supabaseClient - Your Supabase client
+ * @param {object} metadata - Row from encrypted_file_metadata table
+ * @param {string} password - Encryption password
+ * @param {function} onStatus - Status callback
+ */
+async function downloadDecryptedFromSupabase(supabaseClient, metadata, password, onStatus) {
+  // 1. Download
+  if (onStatus) onStatus('downloading', 'Downloading encrypted file...');
+  const { data, error } = await supabaseClient.storage
+    .from('encrypted-files')
+    .download(metadata.storage_path);
+  if (error || !data) throw new Error('Download failed: ' + (error?.message || 'Unknown'));
+
+  // 2. Decrypt
+  if (onStatus) onStatus('decrypting', 'Decrypting file...');
+  try {
+    const decryptedBlob = await decryptFile(data, password, metadata.iv, metadata.salt, metadata.mime_type);
+    if (onStatus) onStatus('complete', 'Done!');
+
+    // 3. Trigger browser download
+    const url = URL.createObjectURL(decryptedBlob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = metadata.original_name;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+
+    return decryptedBlob;
+  } catch (e) {
+    throw new Error('Decryption failed — wrong password?');
+  }
+}
+
+</script>
+
 <div class="fp" id="fp-fee">
 <div style="max-width:760px;margin:0 auto;padding:2rem 1.5rem;min-height:100vh;background:var(--bg)">
   <div style="margin-bottom:1.5rem;display:flex;gap:1rem;align-items:center">
