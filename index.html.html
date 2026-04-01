@@ -438,8 +438,10 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
   var t=localStorage.getItem('dmv_token'),u=localStorage.getItem('dmv_user');
   if(t&&u){
     var s=document.createElement('style');
-    s.textContent='#fp-land{display:none!important}.fp{display:none!important}#fp-app{display:block!important}';
+    s.id='_af';
+    s.textContent='html[data-loading] #fp-land{display:none!important}html[data-loading] #fp-app{display:block!important}';
     document.head.appendChild(s);
+    document.documentElement.setAttribute('data-loading','1');
   }
 })();
 </script>
@@ -1797,7 +1799,7 @@ function tfaq(i){
   if(!op){a.classList.add('open');a.style.display='block';t.classList.add('open');t.textContent='−';}
 }
 function updOff(){const s=document.getElementById('appt-st').value,o=OFFICES[s]||OFFICES['default'],sel=document.getElementById('off-sel');sel.innerHTML=o.map(x=>`<option>${x}</option>`).join('');}
-function showFP(id){document.querySelectorAll('.fp').forEach(function(p){p.classList.remove('active');});var el=document.getElementById(id);if(el){el.classList.add('active');el.scrollTop=0;window.scrollTo(0,0);}if(id==='fp-app'||id==='fp-fee'||id==='fp-checklist'||id==='fp-eligibility'){localStorage.setItem('dmv_current_fp',id);}else if(id==='fp-land'||id==='fp-login'||id==='fp-signup'){localStorage.removeItem('dmv_current_fp');localStorage.removeItem('dmv_current_pg');}}
+function showFP(id){document.documentElement.removeAttribute('data-loading');document.querySelectorAll('.fp').forEach(function(p){p.classList.remove('active');});var el=document.getElementById(id);if(el){el.classList.add('active');el.scrollTop=0;window.scrollTo(0,0);}if(id==='fp-app'||id==='fp-fee'||id==='fp-checklist'||id==='fp-eligibility'){localStorage.setItem('dmv_current_fp',id);}else if(id==='fp-land'||id==='fp-login'||id==='fp-signup'){localStorage.removeItem('dmv_current_fp');localStorage.removeItem('dmv_current_pg');}}
 function showFooterPage(id){showFP(id);}
 function showPg(id,nav){
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
