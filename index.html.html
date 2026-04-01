@@ -3315,6 +3315,217 @@ function filterAlertHistory(tab,btn){
 
 
 </script>
+
+<!-- AES-256-GCM Client-Side Encryption Module -->
+<script>
+/**
+ * =====================================================
+ * AES-256-GCM Client-Side Encryption Module
+ * =====================================================
+ * Vanilla JavaScript — Web Crypto API
+ * Copy this file into your project and use the functions.
+ * 
+ * Usage:
+ *   <script src="crypto-utils.js"></script>
+ *   
+ *   // Encrypt
+ *   const { encryptedBlob, iv, salt } = await encryptFile(file, 'mypassword');
+ *   
+ *   // Decrypt
+ *   const decryptedBlob = await decryptFile(encryptedBlob, 'mypassword', iv, salt, 'application/pdf');
+ */
+
+const PBKDF2_ITERATIONS = 600000; // OWASP recommended
+const SALT_LENGTH = 32;
+const IV_LENGTH = 12;
+
+// ========== Helper Functions ==========
+
+function bufferToBase64(buffer) {
+  const bytes = new Uint8Array(buffer);
+  let binary = '';
+  for (let i = 0; i < bytes.byteLength; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return btoa(binary);
+}
+
+function base64ToBuffer(base64) {
+  const binary = atob(base64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) {
+    bytes[i] = binary.charCodeAt(i);
+  }
+  return bytes.buffer;
+}
+
+// ========== Key Derivation ==========
+
+async function deriveKey(password, salt) {
+  const encoder = new TextEncoder();
+  const keyMaterial = await crypto.subtle.importKey(
+    'raw',
+    encoder.encode(password),
+    'PBKDF2',
+    false,
+    ['deriveKey']
+  );
+  return crypto.subtle.deriveKey(
+    {
+      name: 'PBKDF2',
+      salt: salt,
+      iterations: PBKDF2_ITERATIONS,
+      hash: 'SHA-256',
+    },
+    keyMaterial,
+    { name: 'AES-GCM', length: 256 },
+    false,
+    ['encrypt', 'decrypt']
+  );
+}
+
+// ========== ENCRYPT ==========
+
+/**
+ * Encrypt a File object with AES-256-GCM
+ * @param {File} file - The file to encrypt
+ * @param {string} password - User's encryption password
+ * @returns {Promise<{encryptedBlob: Blob, iv: string, salt: string}>}
+ */
+async function encryptFile(file, password) {
+  const salt = crypto.getRandomValues(new Uint8Array(SALT_LENGTH));
+  const iv = crypto.getRandomValues(new Uint8Array(IV_LENGTH));
+  const key = await deriveKey(password, salt);
+
+  const fileData = await file.arrayBuffer();
+  const encryptedData = await crypto.subtle.encrypt(
+    { name: 'AES-GCM', iv: iv },
+    key,
+    fileData
+  );
+
+  return {
+    encryptedBlob: new Blob([encryptedData], { type: 'application/octet-stream' }),
+    iv: bufferToBase64(iv.buffer),
+    salt: bufferToBase64(salt.buffer),
+  };
+}
+
+// ========== DECRYPT ==========
+
+/**
+ * Decrypt encrypted data with AES-256-GCM
+ * @param {Blob} encryptedBlob - The encrypted blob
+ * @param {string} password - The encryption password
+ * @param {string} ivBase64 - IV as base64 string
+ * @param {string} saltBase64 - Salt as base64 string
+ * @param {string} mimeType - Original file MIME type
+ * @returns {Promise<Blob>}
+ */
+async function decryptFile(encryptedBlob, password, ivBase64, saltBase64, mimeType) {
+  const salt = new Uint8Array(base64ToBuffer(saltBase64));
+  const iv = new Uint8Array(base64ToBuffer(ivBase64));
+  const key = await deriveKey(password, salt);
+
+  const encryptedData = await encryptedBlob.arrayBuffer();
+  const decryptedData = await crypto.subtle.decrypt(
+    { name: 'AES-GCM', iv: iv },
+    key,
+    encryptedData
+  );
+
+  return new Blob([decryptedData], { type: mimeType || 'application/octet-stream' });
+}
+
+// ========== SUPABASE UPLOAD HELPER ==========
+
+/**
+ * Upload encrypted file to Supabase Storage
+ * @param {object} supabaseClient - Your Supabase client
+ * @param {File} file - Original file
+ * @param {string} password - Encryption password
+ * @param {string} userId - Current user ID
+ * @param {function} onStatus - Status callback: (stage, message) => {}
+ */
+async function uploadEncryptedToSupabase(supabaseClient, file, password, userId, onStatus) {
+  // 1. Encrypt
+  if (onStatus) onStatus('encrypting', 'Encrypting file...');
+  const { encryptedBlob, iv, salt } = await encryptFile(file, password);
+
+  // 2. Upload to storage
+  if (onStatus) onStatus('uploading', 'Uploading encrypted file...');
+  const fileName = crypto.randomUUID() + '.enc';
+  const storagePath = userId + '/' + fileName;
+
+  const { error: uploadErr } = await supabaseClient.storage
+    .from('encrypted-files')
+    .upload(storagePath, encryptedBlob, {
+      contentType: 'application/octet-stream',
+      upsert: false,
+    });
+  if (uploadErr) throw new Error('Upload failed: ' + uploadErr.message);
+
+  // 3. Save metadata
+  if (onStatus) onStatus('saving', 'Saving metadata...');
+  const { data, error: metaErr } = await supabaseClient
+    .from('encrypted_file_metadata')
+    .insert({
+      user_id: userId,
+      file_name: fileName,
+      original_name: file.name,
+      original_size: file.size,
+      mime_type: file.type || 'application/octet-stream',
+      storage_path: storagePath,
+      iv: iv,
+      salt: salt,
+    })
+    .select()
+    .single();
+  if (metaErr) throw new Error('Metadata save failed: ' + metaErr.message);
+
+  if (onStatus) onStatus('complete', 'Upload complete!');
+  return data;
+}
+
+/**
+ * Download and decrypt file from Supabase Storage
+ * @param {object} supabaseClient - Your Supabase client
+ * @param {object} metadata - Row from encrypted_file_metadata table
+ * @param {string} password - Encryption password
+ * @param {function} onStatus - Status callback
+ */
+async function downloadDecryptedFromSupabase(supabaseClient, metadata, password, onStatus) {
+  // 1. Download
+  if (onStatus) onStatus('downloading', 'Downloading encrypted file...');
+  const { data, error } = await supabaseClient.storage
+    .from('encrypted-files')
+    .download(metadata.storage_path);
+  if (error || !data) throw new Error('Download failed: ' + (error?.message || 'Unknown'));
+
+  // 2. Decrypt
+  if (onStatus) onStatus('decrypting', 'Decrypting file...');
+  try {
+    const decryptedBlob = await decryptFile(data, password, metadata.iv, metadata.salt, metadata.mime_type);
+    if (onStatus) onStatus('complete', 'Done!');
+
+    // 3. Trigger browser download
+    const url = URL.createObjectURL(decryptedBlob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = metadata.original_name;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+
+    return decryptedBlob;
+  } catch (e) {
+    throw new Error('Decryption failed — wrong password?');
+  }
+}
+
+</script>
+
 <div class="fp" id="fp-fee">
 <div style="max-width:760px;margin:0 auto;padding:2rem 1.5rem;min-height:100vh;background:var(--bg)">
   <div style="margin-bottom:1.5rem;display:flex;gap:1rem;align-items:center">
