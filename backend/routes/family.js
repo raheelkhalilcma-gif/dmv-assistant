@@ -107,20 +107,7 @@ router.post('/accept-invite', async (req, res) => {
     }
     await supabase.from('family_members').update({ status: 'active', invite_status: 'accepted', member_user_id: newUser.id, invite_token: null }).eq('id', invite.id);
     const jwtToken = jwt.sign({ userId: newUser.id, email: cleanEmail }, process.env.JWT_SECRET, { expiresIn: '30d' });
-    const nameParts = (name||'').trim().split(' ');
-    res.json({ 
-      success: true, 
-      token: jwtToken, 
-      user: { 
-        id: newUser.id, 
-        name: name,
-        first_name: nameParts[0] || name,
-        last_name: nameParts.slice(1).join(' ') || '',
-        email: cleanEmail, 
-        plan: 'family',
-        is_family_member: true
-      } 
-    });
+    res.json({ success: true, token: jwtToken, user: { id: newUser.id, name: name, email: cleanEmail, plan: 'family' } });
   } catch(err) { console.error('Accept invite error:', err); res.status(500).json({ error: 'Server error: ' + err.message }); }
 });
 
