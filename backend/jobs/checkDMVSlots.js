@@ -366,7 +366,12 @@ async function checkStateSlots(state, office) {
 async function sendSlotAlert(user, alert, slotInfo) {
   const userName = user.name ||
     (user.first_name ? `${user.first_name} ${user.last_name || ''}`.trim() : 'there');
-  const datesText = slotInfo.dates.length > 0 ? slotInfo.dates.join(', ') : 'Check now';
+  const datesText = slotInfo.dates.length > 0 ? slotInfo.dates.join(', ') : 'Check DMV website';
+
+  // FIX 1 — safe fallbacks taake email mein undefined na aaye
+  const officeName  = alert.office       || 'DMV Office';
+  const stateName   = alert.state        || 'Your State';
+  const serviceType = alert.service_type || 'DMV Appointment';
 
   const STATE_BOOKING_URLS = {
     'California':     'https://www.dmv.ca.gov/wasapp/foa/searchAppts.do',
@@ -387,13 +392,14 @@ async function sendSlotAlert(user, alert, slotInfo) {
   };
 
   const bookingUrl = STATE_BOOKING_URLS[alert.state] ||
-    `https://www.google.com/search?q=${encodeURIComponent(alert.state + ' DMV appointment')}`;
+    `https://www.google.com/search?q=${encodeURIComponent((alert.state || '') + ' DMV appointment')}`;
 
+  // EMAIL
   if (user.email) {
     try {
       await sendEmail({
         to: user.email,
-        subject: `DMV Slot Available — ${alert.office}, ${alert.state}!`,
+        subject: `DMV Slot Available — ${officeName}, ${stateName}!`,
         html: `
           <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px">
             <div style="background:#1d6ae5;padding:20px;border-radius:8px 8px 0 0;text-align:center">
@@ -401,12 +407,13 @@ async function sendSlotAlert(user, alert, slotInfo) {
             </div>
             <div style="background:#f8fafc;padding:24px;border:1px solid #e2e8f0;border-radius:0 0 8px 8px">
               <p>Hi ${userName},</p>
-              <p>A <strong>${alert.service_type || 'DMV'}</strong> appointment slot is now
+              <p>A <strong>${serviceType}</strong> appointment slot is now
                 <strong style="color:#16a34a">AVAILABLE</strong> at:</p>
               <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:16px;margin:16px 0">
-                <strong>Office:</strong> ${alert.office}<br/>
-                <strong>State:</strong> ${alert.state}<br/>
-                <strong>Available Dates:</strong> ${datesText}
+                <strong>Service:</strong> ${serviceType}<br/>
+                <strong>Office:</strong> ${officeName}<br/>
+                <strong>State:</strong> ${stateName}<br/>
+                <strong>Available Date:</strong> <span style="color:#16a34a">${datesText}</span>
               </div>
               <div style="text-align:center;margin:20px 0">
                 <a href="${bookingUrl}"
@@ -429,26 +436,35 @@ async function sendSlotAlert(user, alert, slotInfo) {
     }
   }
 
+  // FIX 2 — SMS body pehle banao, validate karo phir bhejo
   if (user.phone && ['pro', 'family'].includes(user.plan)) {
-    try {
-      await sendSMS({
-        to: user.phone,
-        body: `DMV Assistant: Slot AVAILABLE at ${alert.office}, ${alert.state}! Dates: ${datesText}. Book: ${bookingUrl}`,
-      });
-      console.log(`SMS sent to ${user.phone}`);
-    } catch (e) {
-      console.log('SMS error:', e.message);
+    const smsBody = `DMV Assistant: Slot AVAILABLE! Service: ${serviceType} | Office: ${officeName}, ${stateName} | Dates: ${datesText} | Book: ${bookingUrl}`;
+
+    if (!smsBody || smsBody.trim().length === 0) {
+      console.log('SMS skipped — body empty');
+    } else {
+      try {
+        await sendSMS({
+          to: user.phone,
+          body: smsBody,
+        });
+        console.log(`SMS sent to ${user.phone}`);
+      } catch (e) {
+        console.log('SMS error:', e.message);
+      }
     }
   }
 
+  // Alert history log
   await supabase.from('alert_history').insert({
     user_id: user.id,
     alert_id: alert.id,
     type: 'slot_found',
-    message: `Slot found at ${alert.office}, ${alert.state}. Dates: ${datesText}`,
+    message: `Slot found at ${officeName}, ${stateName}. Dates: ${datesText}`,
     sent_at: new Date().toISOString(),
   });
 
+  // Alert status update
   await supabase.from('alerts').update({
     last_alerted: new Date().toISOString(),
     last_slot_found: datesText,
@@ -464,9 +480,10 @@ async function checkDMVSlots() {
   try {
     console.log('=== DMV Slot Check:', new Date().toLocaleTimeString(), '===');
 
+    // FIX 1 — sab columns explicitly select karo
     const { data: alerts, error } = await supabase
       .from('alerts')
-      .select('*, users(id, email, phone, plan, first_name, last_name, name)')
+      .select('id, state, office, service_type, status, last_alerted, last_slot_found, notify_via, users(id, email, phone, plan, first_name, last_name, name)')
       .eq('status', 'active');
 
     if (error) { console.log('DB error:', error.message); return; }
@@ -491,7 +508,7 @@ async function checkDMVSlots() {
       const slotInfo = await checkStateSlots(alert.state, alert.office);
 
       if (slotInfo.available) {
-        console.log(`SLOT FOUND at ${alert.office}, ${alert.state}!`);
+        console.log(`SLOT FOUND at ${alert.office || alert.state}!`);
         await sendSlotAlert(user, alert, slotInfo);
       } else {
         console.log(`No slots at ${alert.office || alert.state}`);
