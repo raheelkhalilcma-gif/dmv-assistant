@@ -466,7 +466,7 @@ async function checkDMVSlots() {
 
     const { data: alerts, error } = await supabase
       .from('alerts')
-      .select('*, users(id, email, phone, plan, first_name, last_name, name)')
+      .select('id, state, office, service_type, status, last_alerted, last_slot_found, notify_via, users(id, email, phone, plan, first_name, last_name, name)')
       .eq('status', 'active');
 
     if (error) { console.log('DB error:', error.message); return; }
