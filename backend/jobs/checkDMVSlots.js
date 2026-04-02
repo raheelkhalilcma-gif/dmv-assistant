@@ -481,23 +481,10 @@ async function checkDMVSlots() {
     console.log('=== DMV Slot Check:', new Date().toLocaleTimeString(), '===');
 
     // FIX 1 — sab columns explicitly select karo
-   const { data: alerts, error } = await supabase
-  .from('alerts')
-  .select('id, user_id, state, office, service_type, status, last_alerted, last_slot_found, notify_via')
-  .eq('status', 'active');
-
-if (error) { console.log('DB error:', error.message); return; }
-if (!alerts || alerts.length === 0) { console.log('No active alerts'); return; }
-
-// Fetch all unique users separately
-const userIds = [...new Set(alerts.map(a => a.user_id).filter(Boolean))];
-const { data: usersData } = await supabase
-  .from('users')
-  .select('id, email, phone, plan, first_name, last_name, name')
-  .in('id', userIds);
-
-const usersMap = {};
-(usersData || []).forEach(u => { usersMap[u.id] = u; });
+    const { data: alerts, error } = await supabase
+      .from('alerts')
+      .select('id, state, office, service_type, status, last_alerted, last_slot_found, notify_via, users(id, email, phone, plan, first_name, last_name, name)')
+      .eq('status', 'active');
 
     if (error) { console.log('DB error:', error.message); return; }
     if (!alerts || alerts.length === 0) { console.log('No active alerts'); return; }
@@ -505,7 +492,7 @@ const usersMap = {};
     console.log(`Found ${alerts.length} active alerts`);
 
     for (const alert of alerts) {
-      const user = usersMap[alert.user_id];
+      const user = alert.users;
       if (!user) continue;
 
       if (alert.last_alerted) {
