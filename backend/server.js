@@ -19,6 +19,8 @@ try {
   app.use('/api/alerts', require('./routes/alerts'));
   app.use('/api/renewals', require('./routes/renewals'));
   app.use('/api/billing', require('./routes/billing'));
+  app.use('/api/family', require('./routes/family'));
+  app.use('/api/documents', require('./routes/documents'));
   console.log('All routes loaded');
 } catch(e) {
   console.log('Routes error:', e.message);
@@ -30,13 +32,8 @@ if (process.env.SUPABASE_URL) {
     const checkDMVSlots = require('./jobs/checkDMVSlots');
     const checkRenewals = require('./jobs/checkRenewals');
     
-    cron.schedule('*/30 * * * *', () => {
-      checkDMVSlots();
-    });
-    
-    cron.schedule('0 9 * * *', () => {
-      checkRenewals();
-    });
+    cron.schedule('*/30 * * * *', () => { checkDMVSlots(); });
+    cron.schedule('0 9 * * *', () => { checkRenewals(); });
     
     console.log('Cron jobs started!');
   } catch(e) {
@@ -48,22 +45,3 @@ const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`DMV Assistant API running on port ${PORT}`);
 });
-const familyRoutes = require('./routes/family');
-app.use('/api/family', familyRoutes);
-
-// Also add DELETE routes for alerts and renewals in their files:
-// backend/routes/alerts.js mein:
-// router.delete('/:id', auth, async (req,res)=>{
-//   await supabase.from('alerts').delete().eq('id',req.params.id).eq('user_id',req.user.userId);
-//   res.json({success:true});
-// });
-
-// backend/routes/renewals.js mein:
-// router.delete('/:id', auth, async (req,res)=>{
-//   await supabase.from('reminders').delete().eq('id',req.params.id).eq('user_id',req.user.userId);
-//   res.json({success:true});
-// });
-// const familyRoutes = require('./routes/family');
-// app.use('/api/family', familyRoutes);
-const documentsRoutes = require('./routes/documents');
-app.use('/api/documents', documentsRoutes);
