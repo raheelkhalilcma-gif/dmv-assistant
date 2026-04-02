@@ -538,12 +538,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
   <div class="fg"><label class="fl">DMV Office</label><select class="fs" id="off-sel"><option>Select state first...</option></select></div>
   <div class="fr">
     <div class="fg"><label class="fl">Preferred Date From</label><input class="fi" type="date" id="appt-date"/></div>
-    <div class="fg"><label class="fl">Notify Via</label><select class="fs" id="appt-notify" onchange="toggleApptPhone(this.value)"><option>Email + SMS</option><option>Email only</option><option>SMS only</option></select></div>
-  </div>
-  <div class="fg" id="appt-phone-wrap">
-    <label class="fl">📱 Mobile Number (for SMS alerts)</label>
-    <input class="fi" id="appt-phone" type="tel" placeholder="+1 (555) 000-0000"/>
-    <div style="font-size:0.68rem;color:var(--text3);margin-top:3px">Required for SMS alerts. Format: +1XXXXXXXXXX</div>
+    <div class="fg"><label class="fl">Notify Via</label><select class="fs" id="appt-notify"><option>Email + SMS</option><option>Email only</option><option>SMS only</option></select></div>
   </div>
   <div class="mbtns"><button class="btn bo" onclick="cM('m-appt')">Cancel</button><button class="btn bp" onclick="addAppt()">Start Monitoring 🔔</button></div>
 </div>
@@ -559,12 +554,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
   </div>
   <div class="fr">
     <div class="fg"><label class="fl">Vehicle / Name</label><input class="fi" id="ren-name" placeholder="e.g. Honda Civic 2021"/></div>
-    <div class="fg"><label class="fl">Notify Via</label><select class="fs" id="ren-notify" onchange="toggleRenPhone(this.value)"><option>Email + SMS</option><option>Email only</option><option>SMS only</option></select></div>
-  </div>
-  <div class="fg" id="ren-phone-wrap">
-    <label class="fl">📱 Mobile Number (for SMS reminders)</label>
-    <input class="fi" id="ren-phone" type="tel" placeholder="+1 (555) 000-0000"/>
-    <div style="font-size:0.68rem;color:var(--text3);margin-top:3px">Required for SMS. Will also save to your profile.</div>
+    <div class="fg"><label class="fl">Notify Via</label><select class="fs" id="ren-notify"><option>Email + SMS</option><option>Email only</option><option>SMS only</option></select></div>
   </div>
   <div class="mbtns"><button class="btn bo" onclick="cM('m-renewal')">Cancel</button><button class="btn bg" onclick="addRenewal()">Add Reminder ✓</button></div>
 </div>
@@ -1134,7 +1124,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
           <div style="font-weight:900;font-size:1rem;color:#0f172a">DMV<span style="color:#2563eb">Assistants</span>.com</div>
         </div>
         <p style="font-size:0.82rem;color:#475569;line-height:1.65;max-width:260px;margin-bottom:1rem">The #1 DMV Assistant for US residents and veterans. Never miss a renewal or appointment again.</p>
-        <div style="font-size:0.8rem;color:#475569">📧 <a href="mailto:alerts@dmvassistants.com" style="color:#60a5fa;text-decoration:none;font-weight:600">alerts@dmvassistants.com</a></div>
+        <div style="font-size:0.8rem;color:#475569">📧 <a href="/cdn-cgi/l/email-protection#02636e6770767142666f746371716b7176636c76712c616d6f" style="color:#60a5fa;text-decoration:none;font-weight:600"><span class="__cf_email__" data-cfemail="e5848980979196a58188938496968c9691848b9196cb868a88">[email&#160;protected]</span></a></div>
       </div>
       <div>
         <div style="font-weight:800;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;color:#0f172a;margin-bottom:1rem">Product</div>
@@ -1171,7 +1161,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
     </div>
     <div style="border-top:1px solid #cbd5e1;padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem">
       <div style="font-size:0.78rem;color:#475569">© 2026 DMVAssistants.com · All rights reserved</div>
-      <div style="font-size:0.78rem;color:#475569">📧 <a href="mailto:alerts@dmvassistants.com" style="color:#60a5fa;text-decoration:none;font-weight:600">alerts@dmvassistants.com</a> · All 50 US States</div>
+      <div style="font-size:0.78rem;color:#475569">📧 <a href="/cdn-cgi/l/email-protection#6809040d1a1c1b280c051e091b1b011b1c09061c1b460b0705" style="color:#60a5fa;text-decoration:none;font-weight:600"><span class="__cf_email__" data-cfemail="d6b7bab3a4a2a596b2bba0b7a5a5bfa5a2b7b8a2a5f8b5b9bb">[email&#160;protected]</span></a> · All 50 US States</div>
     </div>
   </div>
 </footer>
@@ -1681,13 +1671,13 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 
 <div class="fp" id="fp-veteran"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Veteran Benefits</div><h1>🎖 DMV Benefits for US Veterans</h1><div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.3);border-radius:12px;padding:1rem 1.25rem;margin:1rem 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem"><div><div style="font-size:0.9rem;font-weight:800;color:var(--gold2)">🎖 50% Off Pro Plan — Veterans Only</div><div style="font-size:0.78rem;color:var(--text2);margin-top:2px">Use code <strong style="color:var(--gold2);font-family:monospace;font-size:0.9rem">VET50</strong> at checkout — permanent discount</div></div><button onclick="showVetDiscount()" class="btn" style="background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.4);color:var(--gold2);font-weight:700;padding:0.45rem 1rem;font-size:0.82rem;white-space:nowrap">Claim Discount →</button></div><p class="lead">US veterans and active duty military receive special DMV benefits in most states — including free licenses, free plates, and reduced fees.</p><h2>Free or Discounted Licenses</h2><ul><li>California: Free DL renewal for veterans with honorable discharge</li><li>Florida: Free DL renewal for veterans</li><li>Texas: Free DL for 100% disabled veterans</li><li>New York: Veterans discount available at DMV offices</li><li>Most states: Honor or Veteran designation on license for free</li></ul><h2>Veteran License Plates</h2><p>All 50 states offer special veteran or military license plates. Most are free or low cost. Show your DD-214 or military ID at the DMV. These plates identify you as a veteran and often come with parking benefits.</p><h2>Priority DMV Service</h2><p>Many DMV locations offer priority lanes or appointments for veterans. Ask your local DMV or use our AI Assistant to find veteran-specific benefits in your state.</p><div class="info-box" style="border-color:rgba(245,158,11,0.3);background:rgba(245,158,11,0.04)"><h4>🎖 DMV Assistant Veteran Discount</h4><p>US Veterans and Active Duty receive <strong>50% off the Pro Plan</strong> — permanently. Use code <strong style="color:var(--gold2)">VET50</strong> at checkout. Our way of honoring your service.</p></div><button class="btn bg" onclick="showFP('fp-signup')">Claim Veteran Discount — 50% Off →</button></div></div>
 
-<div class="fp" id="fp-about"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Company</div><h1>About DMV Assistant</h1><p class="lead">DMV Assistant was built because dealing with the DMV shouldn't be stressful. We help Americans never miss a DMV appointment or renewal deadline again.</p><h2>Our Mission</h2><p>Every year, millions of Americans pay unnecessary late fees, miss flights because of no REAL ID, or wait weeks for DMV appointments that could have been caught earlier. DMV Assistant solves this with instant alerts, automated reminders, and AI-powered guidance — covering all 50 US states.</p><h2>Who We Serve</h2><ul><li>Individual US residents in all 50 states</li><li>US Veterans and Active Duty Military (50% discount)</li><li>Families managing multiple vehicles and drivers</li><li>Businesses managing vehicle fleets</li></ul><h2>Security & Privacy</h2><p>All documents are encrypted with AES-256 — the same standard used by major US banks. We are fully GDPR and CCPA compliant. We never sell your data to third parties. Your documents are yours alone.</p><h2>Contact</h2><p>Email: <a href="mailto:alerts@dmvassistants.com" style="color:#60a5fa;text-decoration:none">alerts@dmvassistants.com</a> · Response within 24 hours · Priority support for Pro and Family plan users.</p><div class="info-box"><h4>⚠ Disclaimer</h4><p>DMV Assistant is an independent third-party service. We are NOT affiliated with any government DMV agency. For official transactions, always visit your state's official DMV website.</p></div></div></div>
+<div class="fp" id="fp-about"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Company</div><h1>About DMV Assistant</h1><p class="lead">DMV Assistant was built because dealing with the DMV shouldn't be stressful. We help Americans never miss a DMV appointment or renewal deadline again.</p><h2>Our Mission</h2><p>Every year, millions of Americans pay unnecessary late fees, miss flights because of no REAL ID, or wait weeks for DMV appointments that could have been caught earlier. DMV Assistant solves this with instant alerts, automated reminders, and AI-powered guidance — covering all 50 US states.</p><h2>Who We Serve</h2><ul><li>Individual US residents in all 50 states</li><li>US Veterans and Active Duty Military (50% discount)</li><li>Families managing multiple vehicles and drivers</li><li>Businesses managing vehicle fleets</li></ul><h2>Security & Privacy</h2><p>All documents are encrypted with AES-256 — the same standard used by major US banks. We are fully GDPR and CCPA compliant. We never sell your data to third parties. Your documents are yours alone.</p><h2>Contact</h2><p>Email: <a href="/cdn-cgi/l/email-protection#bddcd1d8cfc9cefdd9d0cbdcceced4cec9dcd3c9ce93ded2d0" style="color:#60a5fa;text-decoration:none"><span class="__cf_email__" data-cfemail="abcac7ced9dfd8ebcfc6ddcad8d8c2d8dfcac5dfd885c8c4c6">[email&#160;protected]</span></a> · Response within 24 hours · Priority support for Pro and Family plan users.</p><div class="info-box"><h4>⚠ Disclaimer</h4><p>DMV Assistant is an independent third-party service. We are NOT affiliated with any government DMV agency. For official transactions, always visit your state's official DMV website.</p></div></div></div>
 
-<div class="fp" id="fp-privacy"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Legal</div><h1>Privacy Policy</h1><p class="lead">Last updated: March 15, 2026. DMV Assistant is committed to protecting your privacy and personal data.</p><h2>Data We Collect</h2><ul><li>Account information: name, email address, state</li><li>DMV preferences: state, office, service type, alert settings</li><li>Document metadata: file names, expiry dates (encrypted)</li><li>Usage data: features used, alerts sent (anonymized)</li></ul><h2>How We Use Your Data</h2><ul><li>Send DMV appointment alerts and renewal reminders</li><li>Provide AI-powered DMV guidance</li><li>Process subscription payments via Lemon Squeezy</li><li>Improve our services (anonymized analytics only)</li></ul><h2>Data Security</h2><p>All documents and personal data are encrypted with AES-256. We use Supabase for secure database storage with row-level security. Payment processing is handled by Lemon Squeezy — we never store your card details.</p><h2>GDPR & CCPA Compliance</h2><p>You have the right to access, modify, or delete your personal data at any time. Contact <a href="mailto:alerts@dmvassistants.com" style="color:#60a5fa;text-decoration:none">alerts@dmvassistants.com</a> for data requests. California residents have additional rights under CCPA.</p><h2>Contact</h2><p>Privacy questions: <a href="mailto:alerts@dmvassistants.com" style="color:#60a5fa;text-decoration:none">alerts@dmvassistants.com</a></p></div></div>
+<div class="fp" id="fp-privacy"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Legal</div><h1>Privacy Policy</h1><p class="lead">Last updated: March 15, 2026. DMV Assistant is committed to protecting your privacy and personal data.</p><h2>Data We Collect</h2><ul><li>Account information: name, email address, state</li><li>DMV preferences: state, office, service type, alert settings</li><li>Document metadata: file names, expiry dates (encrypted)</li><li>Usage data: features used, alerts sent (anonymized)</li></ul><h2>How We Use Your Data</h2><ul><li>Send DMV appointment alerts and renewal reminders</li><li>Provide AI-powered DMV guidance</li><li>Process subscription payments via Lemon Squeezy</li><li>Improve our services (anonymized analytics only)</li></ul><h2>Data Security</h2><p>All documents and personal data are encrypted with AES-256. We use Supabase for secure database storage with row-level security. Payment processing is handled by Lemon Squeezy — we never store your card details.</p><h2>GDPR & CCPA Compliance</h2><p>You have the right to access, modify, or delete your personal data at any time. Contact <a href="/cdn-cgi/l/email-protection#dbbab7bea9afa89bbfb6adbaa8a8b2a8afbab5afa8f5b8b4b6" style="color:#60a5fa;text-decoration:none"><span class="__cf_email__" data-cfemail="15747970676166557178637466667c6661747b61663b767a78">[email&#160;protected]</span></a> for data requests. California residents have additional rights under CCPA.</p><h2>Contact</h2><p>Privacy questions: <a href="/cdn-cgi/l/email-protection#87e6ebe2f5f3f4c7e3eaf1e6f4f4eef4f3e6e9f3f4a9e4e8ea" style="color:#60a5fa;text-decoration:none"><span class="__cf_email__" data-cfemail="5e3f323b2c2a2d1e3a33283f2d2d372d2a3f302a2d703d3133">[email&#160;protected]</span></a></p></div></div>
 
-<div class="fp" id="fp-terms"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Legal</div><h1>Terms of Service</h1><p class="lead">Last updated: March 15, 2026. By using DMV Assistant, you agree to these terms.</p><h2>Service Description</h2><p>DMV Assistant provides DMV appointment monitoring, renewal reminders, document storage, and AI assistance for US residents. We are not affiliated with any government DMV agency.</p><h2>Subscription Terms</h2><ul><li>Free plan: No charge, limited to 2 alerts and 2 reminders</li><li>Pro plan: $12/month or $108/year, billed via Lemon Squeezy</li><li>Family plan: $40/month or $384/year, up to 5 members</li><li>Cancel anytime — no cancellation fees</li><li>Refunds available within 7 days of purchase</li></ul><h2>Acceptable Use</h2><ul><li>For personal DMV management only</li><li>Do not share account credentials</li><li>Do not use for commercial resale of alerts</li><li>One account per person (Family plan for multiple people)</li></ul><h2>Limitation of Liability</h2><p>DMV Assistant provides alerts and reminders as a convenience service. We do not guarantee appointment availability or DMV system uptime. Always verify with your official state DMV website for official information.</p><h2>Contact</h2><p>Legal questions: <a href="mailto:alerts@dmvassistants.com" style="color:#60a5fa;text-decoration:none">alerts@dmvassistants.com</a></p></div></div>
+<div class="fp" id="fp-terms"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Legal</div><h1>Terms of Service</h1><p class="lead">Last updated: March 15, 2026. By using DMV Assistant, you agree to these terms.</p><h2>Service Description</h2><p>DMV Assistant provides DMV appointment monitoring, renewal reminders, document storage, and AI assistance for US residents. We are not affiliated with any government DMV agency.</p><h2>Subscription Terms</h2><ul><li>Free plan: No charge, limited to 2 alerts and 2 reminders</li><li>Pro plan: $12/month or $108/year, billed via Lemon Squeezy</li><li>Family plan: $40/month or $384/year, up to 5 members</li><li>Cancel anytime — no cancellation fees</li><li>Refunds available within 7 days of purchase</li></ul><h2>Acceptable Use</h2><ul><li>For personal DMV management only</li><li>Do not share account credentials</li><li>Do not use for commercial resale of alerts</li><li>One account per person (Family plan for multiple people)</li></ul><h2>Limitation of Liability</h2><p>DMV Assistant provides alerts and reminders as a convenience service. We do not guarantee appointment availability or DMV system uptime. Always verify with your official state DMV website for official information.</p><h2>Contact</h2><p>Legal questions: <a href="/cdn-cgi/l/email-protection#44252821363037042029322537372d3730252a30376a272b29" style="color:#60a5fa;text-decoration:none"><span class="__cf_email__" data-cfemail="96f7faf3e4e2e5d6f2fbe0f7e5e5ffe5e2f7f8e2e5b8f5f9fb">[email&#160;protected]</span></a></p></div></div>
 
-<div class="fp" id="fp-contact"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Support</div><h1>Contact Support</h1><p class="lead">We're here to help. Typical response time: under 24 hours. Pro and Family plan users get priority support.</p><div class="info-box"><h4>📧 Email Support</h4><p><a href="mailto:alerts@dmvassistants.com" style="color:#60a5fa;text-decoration:none">alerts@dmvassistants.com</a> · Response within 24 hours (business days)</p></div><div class="info-box"><h4>⭐ Priority Support</h4><p>Pro and Family plan users get responses within 4 business hours. Login to your account and use the in-app support chat.</p></div><div class="info-box"><h4>🎖 Veteran Support</h4><p>Veterans with questions about the VET50 discount or veteran DMV benefits: <a href="mailto:alerts@dmvassistants.com" style="color:#60a5fa;text-decoration:none">alerts@dmvassistants.com</a></p></div><h2>Common Issues</h2><ul><li>Not receiving emails — check spam folder, add <a href="mailto:alerts@dmvassistants.com" style="color:#60a5fa;text-decoration:none">alerts@dmvassistants.com</a> to contacts</li><li>SMS not arriving — verify phone number in Settings, ensure country code is +1</li><li>Forgot password — use "Forgot Password" on the login page</li><li>Billing questions — login → Billing → Manage via Lemon Squeezy portal</li></ul><button class="btn bp" onclick="toast('Support email copied: alerts@dmvassistants.com','i')">Copy Support Email</button></div></div>
+<div class="fp" id="fp-contact"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Support</div><h1>Contact Support</h1><p class="lead">We're here to help. Typical response time: under 24 hours. Pro and Family plan users get priority support.</p><div class="info-box"><h4>📧 Email Support</h4><p><a href="/cdn-cgi/l/email-protection#3859545d4a4c4b785c554e594b4b514b4c59564c4b165b5755" style="color:#60a5fa;text-decoration:none"><span class="__cf_email__" data-cfemail="2849444d5a5c5b684c455e495b5b415b5c49465c5b064b4745">[email&#160;protected]</span></a> · Response within 24 hours (business days)</p></div><div class="info-box"><h4>⭐ Priority Support</h4><p>Pro and Family plan users get responses within 4 business hours. Login to your account and use the in-app support chat.</p></div><div class="info-box"><h4>🎖 Veteran Support</h4><p>Veterans with questions about the VET50 discount or veteran DMV benefits: <a href="/cdn-cgi/l/email-protection#d5b4b9b0a7a1a695b1b8a3b4a6a6bca6a1b4bba1a6fbb6bab8" style="color:#60a5fa;text-decoration:none"><span class="__cf_email__" data-cfemail="8eefe2ebfcfafdceeae3f8effdfde7fdfaefe0fafda0ede1e3">[email&#160;protected]</span></a></p></div><h2>Common Issues</h2><ul><li>Not receiving emails — check spam folder, add <a href="/cdn-cgi/l/email-protection#95f4f9f0e7e1e6d5f1f8e3f4e6e6fce6e1f4fbe1e6bbf6faf8" style="color:#60a5fa;text-decoration:none"><span class="__cf_email__" data-cfemail="10717c7562646350747d66716363796364717e64633e737f7d">[email&#160;protected]</span></a> to contacts</li><li>SMS not arriving — verify phone number in Settings, ensure country code is +1</li><li>Forgot password — use "Forgot Password" on the login page</li><li>Billing questions — login → Billing → Manage via Lemon Squeezy portal</li></ul><button class="btn bp" onclick="toast('Support email copied: alerts@dmvassistants.com','i')">Copy Support Email</button></div></div>
 
 <div class="fp" id="fp-blog">
 <div class="fp-inner" style="max-width:1000px">
@@ -1897,7 +1887,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
             <div class="card-t">Quick Actions</div>
             <div style="display:flex;flex-direction:column;gap:0.5rem">
               <button class="btn bp" id="qa-appt-btn" style="justify-content:flex-start;display:none" onclick="goProPg('pg-appts',null)">🗓 Set Appointment Alert</button>
-              <button class="btn" style="background:rgba(245,158,11,0.15);color:var(--gold2);border:1px solid rgba(245,158,11,0.3);justify-content:flex-start" onclick="openRenModal()">⏰ Add Renewal Reminder</button>
+              <button class="btn" style="background:rgba(245,158,11,0.15);color:var(--gold2);border:1px solid rgba(245,158,11,0.3);justify-content:flex-start" onclick="showPg('pg-renewals',document.querySelector('[onclick*=pg-renewals]'))">⏰ Add Renewal Reminder</button>
               <button class="btn bgh" style="justify-content:flex-start" onclick="goProPg('pg-vault',null)">📂 Upload Document</button>
               <button class="btn bgh" style="justify-content:flex-start" onclick="showPg('pg-ai',null)">🤖 Ask AI Assistant</button>
             </div>
@@ -1917,7 +1907,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
       <div class="pg" id="pg-appts">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem;flex-wrap:wrap;gap:0.75rem">
           <div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em">DMV Appointment Alerts</div>
-          <button class="btn bp bsm" onclick="openApptModal()">+ New Alert</button>
+          <button class="btn bp bsm" onclick="oM('m-appt')">+ New Alert</button>
         </div>
         <div id="alerts-list"><div style="padding:1rem;text-align:center;color:var(--text3);font-size:0.84rem">Loading alerts...</div></div>
         <div class="banner bb"><div class="banner-ic">🎯</div><div class="banner-body"><div class="banner-t">Slot Available — REAL ID, Culver City DMV, CA</div><div class="banner-s">March 22, 2026 @ 10:30 AM · Alert sent via Email + SMS</div><div class="banner-acts"><button class="btn bp bsm" onclick="openDMV('California')">Book Now →</button><button class="btn bgh bsm" onclick="toast('Dismissed','i')">Dismiss</button></div></div></div>
@@ -1933,7 +1923,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
       <div class="pg" id="pg-renewals">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.75rem">
           <div style="font-size:1.1rem;font-weight:900;letter-spacing:-0.03em">Renewal Reminders</div>
-          <button class="btn bg bsm" onclick="openRenModal()">+ Add Reminder</button>
+          <button class="btn bg bsm" onclick="oM('m-renewal')">+ Add Reminder</button>
         </div>
         <div id="renewals-list"><div style="padding:1rem;text-align:center;color:var(--text3);font-size:0.84rem">Loading reminders...</div></div>
         <div class="banner br" style="margin-bottom:1rem"><div class="banner-ic">⚠️</div><div class="banner-body"><div class="banner-t">Driver License expires in 28 days</div><div class="banner-s">CA DL #D2847391 · Fee ~$35 · dmv.ca.gov</div><div class="banner-acts"><button class="btn bd bsm" onclick="openDMV('California')">Renew Online →</button></div></div></div>
@@ -2042,9 +2032,9 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
   <div class="tab" onclick="filterAlertHistory('document',this)">Documents</div>
 </div>
 <div id="alert-history-list" style="margin-top:0.75rem"></div>
-        <div class="ahrow"><div class="ahic" style="background:rgba(29,106,229,0.15)">📧</div><div class="ahbody"><div class="ahtit">Slot Found — REAL ID, Culver City DMV, CA</div><div class="ahtime">Today 9:42 AM · <a href="mailto:alerts@dmvassistants.com" style="color:#60a5fa;text-decoration:none">alerts@dmvassistants.com</a></div></div><span class="ahtag">Email</span></div>
+        <div class="ahrow"><div class="ahic" style="background:rgba(29,106,229,0.15)">📧</div><div class="ahbody"><div class="ahtit">Slot Found — REAL ID, Culver City DMV, CA</div><div class="ahtime">Today 9:42 AM · <a href="/cdn-cgi/l/email-protection#11707d7463656251757c67706262786265707f65623f727e7c" style="color:#60a5fa;text-decoration:none"><span class="__cf_email__" data-cfemail="fe9f929b8c8a8dbe9a93889f8d8d978d8a9f908a8dd09d9193">[email&#160;protected]</span></a></div></div><span class="ahtag">Email</span></div>
         <div class="ahrow"><div class="ahic" style="background:rgba(245,158,11,0.12)">💬</div><div class="ahbody"><div class="ahtit">Reminder: Driver License expires in 30 days</div><div class="ahtime">Mar 12 · +1 (310) 555-0198</div></div><span class="ahtag">SMS</span></div>
-        <div class="ahrow"><div class="ahic" style="background:rgba(29,106,229,0.15)">📧</div><div class="ahbody"><div class="ahtit">Reminder: Vehicle Registration expires in 60 days</div><div class="ahtime">Mar 1 · <a href="mailto:alerts@dmvassistants.com" style="color:#60a5fa;text-decoration:none">alerts@dmvassistants.com</a></div></div><span class="ahtag">Email</span></div>
+        <div class="ahrow"><div class="ahic" style="background:rgba(29,106,229,0.15)">📧</div><div class="ahbody"><div class="ahtit">Reminder: Vehicle Registration expires in 60 days</div><div class="ahtime">Mar 1 · <a href="/cdn-cgi/l/email-protection#22434e4750565162464f544351514b5156434c56510c414d4f" style="color:#60a5fa;text-decoration:none"><span class="__cf_email__" data-cfemail="81e0ede4f3f5f2c1e5ecf7e0f2f2e8f2f5e0eff5f2afe2eeec">[email&#160;protected]</span></a></div></div><span class="ahtag">Email</span></div>
         <div class="ahrow"><div class="ahic" style="background:rgba(245,158,11,0.12)">💬</div><div class="ahbody"><div class="ahtit">Reminder: Driver License expires in 60 days</div><div class="ahtime">Feb 10 · +1 (310) 555-0198</div></div><span class="ahtag">SMS</span></div>
         <div class="ahrow"><div class="ahic" style="background:rgba(13,148,136,0.15)">🔔</div><div class="ahbody"><div class="ahtit">Monitoring started — Vehicle Registration, Van Nuys DMV</div><div class="ahtime">Feb 3 · Dashboard + Email</div></div><span class="ahtag">Dashboard</span></div>
       </div>
@@ -2058,7 +2048,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
         <div id="family-list"><div style="padding:1rem;text-align:center;color:var(--text3);font-size:0.84rem">Family plan required to add members.</div></div>
         <div class="banner bw" id="fam-banner"><div class="banner-ic">⭐</div><div class="banner-body"><div class="banner-t">Family Plan required to add members</div><div class="banner-s">Manage up to 5 family members, their vehicles & documents — $40/month total.</div><div class="banner-acts"><button class="btn bg bsm" onclick="doUpgrade('family')">Upgrade to Family → $40/mo</button></div></div></div>
         <div id="mem-list">
-          <div class="memcard"><div class="memava" style="background:linear-gradient(135deg,#1d6ae5,#60a5fa);color:#fff">JD</div><div style="flex:1"><div style="font-size:0.84rem;font-weight:700">John Doe <span class="ibadge ib-b">OWNER</span></div><div style="font-size:0.68rem;color:var(--text3);margin-top:1px"><a href="mailto:alerts@dmvassistants.com" style="color:#60a5fa;text-decoration:none">alerts@dmvassistants.com</a> · California</div></div><button class="btn bgh bsm" onclick="toast('Profile settings','i')">Edit</button></div>
+          <div class="memcard"><div class="memava" style="background:linear-gradient(135deg,#1d6ae5,#60a5fa);color:#fff">JD</div><div style="flex:1"><div style="font-size:0.84rem;font-weight:700">John Doe <span class="ibadge ib-b">OWNER</span></div><div style="font-size:0.68rem;color:var(--text3);margin-top:1px"><a href="/cdn-cgi/l/email-protection#84e5e8e1f6f0f7c4e0e9f2e5f7f7edf7f0e5eaf0f7aae7ebe9" style="color:#60a5fa;text-decoration:none"><span class="__cf_email__" data-cfemail="caaba6afb8beb98aaea7bcabb9b9a3b9beaba4beb9e4a9a5a7">[email&#160;protected]</span></a> · California</div></div><button class="btn bgh bsm" onclick="toast('Profile settings','i')">Edit</button></div>
         </div>
         <div id="fam-locked" style="text-align:center;padding:2.5rem;color:var(--text3)"><div style="font-size:2.25rem;margin-bottom:0.625rem;opacity:0.25">👨‍👩‍👧</div><div style="font-size:0.875rem;font-weight:700;color:var(--text2);margin-bottom:0.3rem">Add up to 4 more family members</div><div style="font-size:0.78rem">Upgrade to Family Plan to unlock</div></div>
       </div>
@@ -2358,10 +2348,9 @@ function init(){
     showFP('fp-reset-pw');
     return;
   }
-  // Check if already logged in — uses sessionStorage so closing tab = logout
-  const token = sessionStorage.getItem('dmv_token') || localStorage.getItem('dmv_token_perm');
-  const user = sessionStorage.getItem('dmv_user') || sessionStorage.getItem('dmv_user');
-  // Note: token only valid within same browser session
+  // Check if already logged in
+  const token = localStorage.getItem('dmv_token');
+  const user = localStorage.getItem('dmv_user');
   if(token && user){
     try{
       APP.user = JSON.parse(user);
@@ -2373,7 +2362,7 @@ function init(){
         .then(function(d){
           if(d&&d.user){
             APP.user=d.user; APP.plan=d.user.plan||'free';
-            sessionStorage.setItem('dmv_user',JSON.stringify(d.user));
+            localStorage.setItem('dmv_user',JSON.stringify(d.user));
             // Update phone field with latest
             var phEl=document.getElementById('s-ph');
             if(phEl)phEl.value=d.user.phone||'';
@@ -2401,16 +2390,13 @@ function tfaq(i){
   if(!op){a.classList.add('open');a.style.display='block';t.classList.add('open');t.textContent='−';}
 }
 function updOff(){const s=document.getElementById('appt-st').value,o=OFFICES[s]||OFFICES['default'],sel=document.getElementById('off-sel');sel.innerHTML=o.map(x=>`<option>${x}</option>`).join('');}
-function showFP(id){document.documentElement.removeAttribute('data-loading');document.querySelectorAll('.fp').forEach(function(p){p.classList.remove('active');});var el=document.getElementById(id);if(el){el.classList.add('active');el.scrollTop=0;window.scrollTo(0,0);}if(id==='fp-app'||id==='fp-fee'||id==='fp-checklist'||id==='fp-eligibility'||id==='fp-guides'||id==='fp-article'){sessionStorage.setItem('dmv_current_fp',id);}else if(id==='fp-land'||id==='fp-login'||id==='fp-signup'){sessionStorage.removeItem('dmv_current_fp');sessionStorage.removeItem('dmv_current_pg');}
-// Hide landing when going to app
-if(id==='fp-app'){var landEl=document.getElementById('fp-land');if(landEl)landEl.style.display='none';}
-}
+function showFP(id){document.documentElement.removeAttribute('data-loading');document.querySelectorAll('.fp').forEach(function(p){p.classList.remove('active');});var el=document.getElementById(id);if(el){el.classList.add('active');el.scrollTop=0;window.scrollTo(0,0);}if(id==='fp-app'||id==='fp-fee'||id==='fp-checklist'||id==='fp-eligibility'){localStorage.setItem('dmv_current_fp',id);}else if(id==='fp-land'||id==='fp-login'||id==='fp-signup'){localStorage.removeItem('dmv_current_fp');localStorage.removeItem('dmv_current_pg');}}
 function showFooterPage(id){showFP(id);}
 function showPg(id,nav){
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
   const el=document.getElementById(id);
   if(el)el.classList.add('active');
-  sessionStorage.setItem('dmv_current_pg',id);
+  localStorage.setItem('dmv_current_pg',id);
   // Refresh data on page switch
   var fa=document.getElementById('fp-app');if(fa)fa.scrollTop=0;
   if(id==='pg-appts') loadAlerts();
@@ -2544,12 +2530,8 @@ async function doLogin() {
     });
     const data = await res.json();
     if (res.ok && data.token) {
-      // Save to sessionStorage — clears when tab is closed
-      sessionStorage.setItem('dmv_token', data.token);
-      sessionStorage.setItem('dmv_user', JSON.stringify(data.user));
-      // Remove any old localStorage tokens
-      localStorage.removeItem('dmv_token');
-      localStorage.removeItem('dmv_user');
+      localStorage.setItem('dmv_token', data.token);
+      localStorage.setItem('dmv_user', JSON.stringify(data.user));
       APP.user=data.user; APP.plan=data.user.plan||'free';
       loginOk();
     } else {
@@ -2631,10 +2613,8 @@ async function verifyOTP() {
     if (data.success || data.token) {
       const token = data.token || PENDING_TOKEN;
       const user = data.user || PENDING_USER;
-      sessionStorage.setItem('dmv_token', token);
-      sessionStorage.setItem('dmv_user', JSON.stringify(user));
-      localStorage.removeItem('dmv_token');
-      localStorage.removeItem('dmv_user');
+      localStorage.setItem('dmv_token', token);
+      localStorage.setItem('dmv_user', JSON.stringify(user));
       APP.user = user;
       APP.plan = 'free';
       PENDING_USER = null; PENDING_TOKEN = null;
@@ -2648,8 +2628,8 @@ async function verifyOTP() {
   } catch (e) {
     // If backend verify not ready, allow login directly (fallback)
     if (PENDING_TOKEN && PENDING_USER) {
-      sessionStorage.setItem('dmv_token', PENDING_TOKEN);
-      sessionStorage.setItem('dmv_user', JSON.stringify(PENDING_USER));
+      localStorage.setItem('dmv_token', PENDING_TOKEN);
+      localStorage.setItem('dmv_user', JSON.stringify(PENDING_USER));
       APP.user = PENDING_USER;
       APP.plan = 'free';
       PENDING_USER = null; PENDING_TOKEN = null;
@@ -2757,9 +2737,8 @@ function loginOk(){
   }
 
   var _c=document.querySelector('.fp.active');var _fp=['fp-fee','fp-checklist','fp-eligibility','fp-realid','fp-renewal','fp-registration','fp-title','fp-veteran','fp-about','fp-privacy','fp-terms','fp-contact','fp-blog'];
-  // Use sessionStorage (clears on tab close - user must re-login)
-  var savedFP=sessionStorage.getItem('dmv_current_fp');
-  var savedPG=sessionStorage.getItem('dmv_current_pg');
+  var savedFP=localStorage.getItem('dmv_current_fp');
+  var savedPG=localStorage.getItem('dmv_current_pg');
   if(savedFP){showFP(savedFP);}else if(!_c||_fp.indexOf(_c.id)<0){showFP('fp-app');}
   requestAnimationFrame(function(){
     if(savedPG){
@@ -2780,8 +2759,6 @@ function loginOk(){
     if(APP.plan==='family') loadFamilyMembers();
     loadDocuments();
   }, 300);
-  // Start auto-logout (5 min inactivity)
-  startAutoLogout();
 }
 
 async function saveSettings(){
@@ -2791,7 +2768,7 @@ async function saveSettings(){
   const st=(document.getElementById('s-st')||{}).value||'';
   const vet=(document.getElementById('s-vet')||{}).checked||false;
   if(!fn.trim()){toast('Name required','e');return;}
-  const token=sessionStorage.getItem('dmv_token');
+  const token=localStorage.getItem('dmv_token');
   if(!token){showFP('fp-login');return;}
   const btn=document.querySelector('#pg-settings .btn.bp');
   if(btn){btn.textContent='Saving...';btn.disabled=true;}
@@ -2799,9 +2776,9 @@ async function saveSettings(){
     const res=await fetch(API+'/api/auth/update-profile',{method:'PUT',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify({firstName:fn,lastName:ln,phone:ph,state:st,isVeteran:vet})});
     const data=await res.json();
     if(res.ok&&(data.success||data.user)){
-      const u=JSON.parse(sessionStorage.getItem('dmv_user')||sessionStorage.getItem('dmv_user')||'{}');
+      const u=JSON.parse(localStorage.getItem('dmv_user')||'{}');
       Object.assign(u,{first_name:fn,last_name:ln,phone:ph,state:st,is_veteran:vet,name:fn+' '+ln});
-      sessionStorage.setItem('dmv_user',JSON.stringify(u)); APP.user=u;
+      localStorage.setItem('dmv_user',JSON.stringify(u)); APP.user=u;
       toast('✅ Settings saved!','s');
       // Re-populate phone in settings immediately
       const phEl = document.getElementById('s-ph');
@@ -2814,19 +2791,11 @@ async function saveSettings(){
 function logout(){
   APP.user = null;
   APP.plan = 'free';
-  // Clear all session data
-  sessionStorage.removeItem('dmv_token');
-  sessionStorage.removeItem('dmv_user');
-  sessionStorage.removeItem('dmv_current_fp');
-  sessionStorage.removeItem('dmv_current_pg');
   localStorage.removeItem('dmv_token');
   localStorage.removeItem('dmv_user');
   localStorage.removeItem('dmv_current_fp');
   localStorage.removeItem('dmv_current_pg');
-  // Show login page - NOT landing
-  var landEl = document.getElementById('fp-land');
-  if(landEl) landEl.style.display = '';
-  showFP('fp-login');
+  showFP('fp-land');
   toast('Signed out', 'i');
 }
 
@@ -2838,7 +2807,7 @@ async function addMember(){
   const rel = document.getElementById('mem-rel') ? document.getElementById('mem-rel').value : '';
   const state = document.getElementById('ms') ? document.getElementById('ms').value : '';
   if(!n){toast('Name required','e');return;}
-  const token = sessionStorage.getItem('dmv_token');
+  const token = localStorage.getItem('dmv_token');
   if(!token){showFP('fp-login');return;}
   const btn = document.querySelector('#m-member .btn.bp');
   if(btn){btn.textContent='Adding...';btn.disabled=true;}
@@ -2877,7 +2846,7 @@ async function addAppt(){
   const service = svcEl ? (svcEl.value || 'Driver License (New)') : 'Driver License (New)';
   const prefDate = dateEl ? dateEl.value : null;
   const notify = notifyEl ? notifyEl.value : 'Email + SMS';
-  const token = sessionStorage.getItem('dmv_token');
+  const token = localStorage.getItem('dmv_token');
 
   if(!state){ toast('Please select a state','e'); return; }
   if(!token){ showFP('fp-login'); return; }
@@ -2898,23 +2867,12 @@ async function addAppt(){
     }catch(e){}
   }
 
-  // Get phone from field or user profile
-  var apptPhoneEl = document.getElementById('appt-phone');
-  var phone = (apptPhoneEl && apptPhoneEl.value.trim()) || (APP.user && APP.user.phone) || '';
-  // Save phone to profile if provided
-  if(phone && APP.user && !APP.user.phone) {
-    APP.user.phone = phone;
-    var u2 = JSON.parse(sessionStorage.getItem('dmv_user') || '{}');
-    u2.phone = phone;
-    sessionStorage.setItem('dmv_user', JSON.stringify(u2));
-  }
   const payload = {
     state: state,
     office: office,
     service_type: service,
     preferred_date: prefDate || null,
     notify_via: notify,
-    phone: phone || null,
     status: 'active'
   };
 
@@ -2951,7 +2909,7 @@ async function addRenewal(){
   const plate = plateEl ? plateEl.value : '';
   const name = nameEl ? nameEl.value : '';
   const notify = notifyEl ? notifyEl.value : 'Email + SMS';
-  const token = sessionStorage.getItem('dmv_token');
+  const token = localStorage.getItem('dmv_token');
 
   if(!expDate){ toast('Please enter expiration date','e'); return; }
   if(!token){ showFP('fp-login'); return; }
@@ -2972,23 +2930,12 @@ async function addRenewal(){
     }catch(e){}
   }
 
-  // Get phone from field or user profile
-  var renPhoneEl = document.getElementById('ren-phone');
-  var phone = (renPhoneEl && renPhoneEl.value.trim()) || (APP.user && APP.user.phone) || '';
-  // Save phone to profile if provided
-  if(phone && APP.user && !APP.user.phone) {
-    APP.user.phone = phone;
-    var u3 = JSON.parse(sessionStorage.getItem('dmv_user') || '{}');
-    u3.phone = phone;
-    sessionStorage.setItem('dmv_user', JSON.stringify(u3));
-  }
   const payload = {
     type: type,
     expiry_date: expDate,
     plate_number: plate || null,
     vehicle_name: name || null,
     notify_via: notify,
-    phone: phone || null,
     status: 'active'
   };
 
@@ -3315,7 +3262,7 @@ function goToRenewal() {
 }
 
 async function loadAlerts(){
-  const token = sessionStorage.getItem('dmv_token');
+  const token = localStorage.getItem('dmv_token');
   if(!token) return;
   try{
     const res = await fetch(API+'/api/alerts',{headers:{'Authorization':'Bearer '+token}});
@@ -3344,7 +3291,7 @@ async function loadAlerts(){
 }
 
 async function deleteAlert(id){
-  const token = sessionStorage.getItem('dmv_token');
+  const token = localStorage.getItem('dmv_token');
   if(!token||!id) return;
   try{
     await fetch(API+'/api/alerts/'+id,{method:'DELETE',headers:{'Authorization':'Bearer '+token}});
@@ -3354,7 +3301,7 @@ async function deleteAlert(id){
 }
 
 async function loadRenewals(){
-  const token = sessionStorage.getItem('dmv_token');
+  const token = localStorage.getItem('dmv_token');
   if(!token) return;
   try{
     const res = await fetch(API+'/api/renewals',{headers:{'Authorization':'Bearer '+token}});
@@ -3391,7 +3338,7 @@ async function loadRenewals(){
 }
 
 async function deleteRenewal(id){
-  const token = sessionStorage.getItem('dmv_token');
+  const token = localStorage.getItem('dmv_token');
   if(!id||!token) return;
   try{
     await fetch(API+'/api/renewals/'+id,{method:'DELETE',headers:{'Authorization':'Bearer '+token}});
@@ -3401,7 +3348,7 @@ async function deleteRenewal(id){
 }
 
 async function loadFamilyMembers(){
-  const token=sessionStorage.getItem('dmv_token');
+  const token=localStorage.getItem('dmv_token');
   if(!token) return;
   try{
     const res=await fetch(API+'/api/family/members',{headers:{'Authorization':'Bearer '+token}});
@@ -3429,7 +3376,7 @@ async function loadFamilyMembers(){
 }
 
 async function deleteMember(id){
-  const token=sessionStorage.getItem('dmv_token');
+  const token=localStorage.getItem('dmv_token');
   if(!id||!token) return;
   try{
     await fetch(API+'/api/family/members/'+id,{method:'DELETE',headers:{'Authorization':'Bearer '+token}});
@@ -3603,7 +3550,7 @@ async function submitVaultPassword() {
 }
 
 async function uploadDocumentEncrypted(file, password, onStatus) {
-  var token = sessionStorage.getItem('dmv_token');
+  var token = localStorage.getItem('dmv_token');
   if(!token){ toast('Please login first','e'); closeVaultPwModal(); return; }
   if(!file){ toast('No file selected','e'); closeVaultPwModal(); return; }
   if(file.size > 10 * 1024 * 1024){ toast('File too large max 10MB','e'); closeVaultPwModal(); return; }
@@ -3656,7 +3603,7 @@ async function uploadDocument(file) {
 }
 
 async function loadDocuments() {
-  var token = sessionStorage.getItem('dmv_token');
+  var token = localStorage.getItem('dmv_token');
   if(!token) return;
   var list = document.getElementById('vault-docs-list');
   if(list) list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--text3);font-size:0.84rem">Loading...</div>';
@@ -3713,7 +3660,7 @@ async function loadDocuments() {
 async function downloadDoc(id) {
   var encMeta = JSON.parse(localStorage.getItem('dmv_enc_meta') || '{}');
   if(encMeta[id]) { vaultAskPassword('download', id); return; }
-  var token = sessionStorage.getItem('dmv_token');
+  var token = localStorage.getItem('dmv_token');
   if(!token||!id) return;
   try {
     var res = await fetch(API + '/api/documents/' + id + '/download', { headers: { 'Authorization': 'Bearer ' + token } });
@@ -3724,7 +3671,7 @@ async function downloadDoc(id) {
 }
 
 async function downloadDocDecrypted(docId, password, onStatus) {
-  var token = sessionStorage.getItem('dmv_token');
+  var token = localStorage.getItem('dmv_token');
   if(!token) { toast('Please login first','e'); closeVaultPwModal(); return; }
   var encMeta = JSON.parse(localStorage.getItem('dmv_enc_meta') || '{}');
   var meta = encMeta[docId];
@@ -3759,7 +3706,7 @@ async function downloadDocDecrypted(docId, password, onStatus) {
 }
 
 async function deleteDoc(id) {
-  var token = sessionStorage.getItem('dmv_token');
+  var token = localStorage.getItem('dmv_token');
   if(!token||!id) return;
   if(!confirm('Delete this document? This cannot be undone.')) return;
   try {
@@ -3869,7 +3816,7 @@ async function sendMemberInvite(){
   var name=((document.getElementById('invite-name')||{}).value||'').trim();
   var rel=((document.getElementById('invite-rel')||{}).value)||'Family Member';
   if(!email||!email.includes('@')){toast('Valid email required','e');return;}
-  var token=sessionStorage.getItem('dmv_token');if(!token)return;
+  var token=localStorage.getItem('dmv_token');if(!token)return;
   var btn=document.getElementById('invite-btn');
   if(btn){btn.textContent='Sending...';btn.disabled=true;}
   try{
@@ -3900,10 +3847,8 @@ async function acceptInvite(){
     var res=await fetch(API+'/api/family/accept-invite',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:invToken,email:email,password:pw,name:name})});
     var data=await res.json();
     if(res.ok&&data.success){
-      sessionStorage.setItem('dmv_token',data.token);
-      sessionStorage.setItem('dmv_user',JSON.stringify(data.user));
-      localStorage.removeItem('dmv_token');
-      localStorage.removeItem('dmv_user');
+      localStorage.setItem('dmv_token',data.token);
+      localStorage.setItem('dmv_user',JSON.stringify(data.user));
       APP.user=data.user;APP.plan=data.user.plan||'family';
       var iF=document.getElementById('invite-form'),iS=document.getElementById('invite-success');
       if(iF)iF.style.display='none';if(iS)iS.style.display='block';
@@ -3957,7 +3902,7 @@ async function saveMemberData(){
   var g=function(i){return(document.getElementById(i)||{}).value||'';};
   var data={vehicle:g('mt-v'),plate:g('mt-pl'),regExp:g('mt-re'),dlNum:g('mt-dl'),dlState:g('mt-ds'),dlExp:g('mt-de'),insProv:g('mt-ip'),insPol:g('mt-in'),insExp:g('mt-ie'),notes:g('mt-no'),savedAt:new Date().toISOString()};
   localStorage.setItem('member_data_'+id,JSON.stringify(data));
-  var token=sessionStorage.getItem('dmv_token');
+  var token=localStorage.getItem('dmv_token');
   if(token&&id!=='owner'){
     try{await fetch(API+'/api/family/members/'+id+'/tracking',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify(data)});}
     catch(e){console.log('Local save only');}
@@ -3975,7 +3920,7 @@ async function changePassword(){
   if(!cur){toast('Current password required','e');return;}
   if(!pw1||pw1.length<8){toast('New password min 8 characters','e');return;}
   if(pw1!==pw2){toast('Passwords do not match','e');return;}
-  const token=sessionStorage.getItem('dmv_token');if(!token){showFP('fp-login');return;}
+  const token=localStorage.getItem('dmv_token');if(!token){showFP('fp-login');return;}
   const btn=document.getElementById('change-pw-btn');
   if(btn){btn.textContent='Saving...';btn.disabled=true;}
   try{
@@ -4052,7 +3997,7 @@ function deactivateMultiState(){
 // tFaq already defined in head
 
 async function loadAlertHistory(filter){
-  const token=sessionStorage.getItem('dmv_token');
+  const token=localStorage.getItem('dmv_token');
   const c=document.getElementById('alert-history-list');if(!c)return;
   c.innerHTML='<div style="text-align:center;padding:2rem;color:var(--text3)">Loading...</div>';
   if(!token){c.innerHTML='<div style="text-align:center;padding:2rem;color:var(--text3)">Please sign in.</div>';return;}
@@ -4504,98 +4449,6 @@ showFP = function(id) {
     }, 50);
   }
 };
-
-// ═══ AUTO-LOGOUT: 5 min inactivity + tab close ═══════
-var _autoLogoutTimer = null;
-var AUTO_LOGOUT_MS = 5 * 60 * 1000; // 5 minutes
-
-function resetAutoLogout() {
-  if(!APP.user) return; // only if logged in
-  clearTimeout(_autoLogoutTimer);
-  _autoLogoutTimer = setTimeout(function() {
-    if(APP.user) {
-      toast('⏱ Session expired — please sign in again', 'w');
-      setTimeout(function(){
-        logout();
-      }, 2000);
-    }
-  }, AUTO_LOGOUT_MS);
-}
-
-function startAutoLogout() {
-  resetAutoLogout();
-  // Reset timer on any user activity
-  ['mousemove','keydown','click','touchstart','scroll'].forEach(function(ev) {
-    document.addEventListener(ev, resetAutoLogout, {passive: true});
-  });
-}
-
-function stopAutoLogout() {
-  clearTimeout(_autoLogoutTimer);
-  ['mousemove','keydown','click','touchstart','scroll'].forEach(function(ev) {
-    document.removeEventListener(ev, resetAutoLogout);
-  });
-}
-
-// Tab close / navigation = logout
-window.addEventListener('beforeunload', function() {
-  sessionStorage.removeItem('dmv_token');
-  sessionStorage.removeItem('dmv_user');
-  sessionStorage.removeItem('dmv_current_fp');
-  sessionStorage.removeItem('dmv_current_pg');
-});
-
-// Page visibility - when tab comes back after being hidden
-document.addEventListener('visibilitychange', function() {
-  if(document.hidden) {
-    // Tab hidden - clear session token so returning means re-login
-    sessionStorage.removeItem('dmv_token');
-    sessionStorage.removeItem('dmv_user');
-    sessionStorage.removeItem('dmv_current_fp');
-    sessionStorage.removeItem('dmv_current_pg');
-  }
-});
-// ═══ END AUTO-LOGOUT ═════════════════════════════════
-
-// ═══ PHONE FIELD MANAGEMENT ═══════════════════════════
-function toggleApptPhone(val) {
-  var wrap = document.getElementById('appt-phone-wrap');
-  if(wrap) wrap.style.display = (val === 'Email only') ? 'none' : '';
-  // Auto-fill from profile if available
-  if(val !== 'Email only') {
-    var ph = document.getElementById('appt-phone');
-    if(ph && !ph.value && APP.user && APP.user.phone) ph.value = APP.user.phone;
-  }
-}
-
-function toggleRenPhone(val) {
-  var wrap = document.getElementById('ren-phone-wrap');
-  if(wrap) wrap.style.display = (val === 'Email only') ? 'none' : '';
-  if(val !== 'Email only') {
-    var ph = document.getElementById('ren-phone');
-    if(ph && !ph.value && APP.user && APP.user.phone) ph.value = APP.user.phone;
-  }
-}
-
-// Auto-populate phone when modals open
-function openApptModal() {
-  oM('m-appt');
-  setTimeout(function() {
-    var ph = document.getElementById('appt-phone');
-    if(ph && APP.user && APP.user.phone) ph.value = APP.user.phone;
-    toggleApptPhone('Email + SMS'); // default show
-  }, 100);
-}
-
-function openRenModal() {
-  oM('m-renewal');
-  setTimeout(function() {
-    var ph = document.getElementById('ren-phone');
-    if(ph && APP.user && APP.user.phone) ph.value = APP.user.phone;
-    toggleRenPhone('Email + SMS'); // default show
-  }, 100);
-}
-// ═══ END PHONE ════════════════════════════════════════
 
 </script>
 
