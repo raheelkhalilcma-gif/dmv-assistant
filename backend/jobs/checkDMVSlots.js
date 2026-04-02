@@ -430,18 +430,10 @@ async function sendSlotAlert(user, alert, slotInfo) {
   }
 
   if (user.phone && ['pro', 'family'].includes(user.plan)) {
-    const smsBody = [
-      'DMV Assistant: Slot AVAILABLE!',
-      `Office: ${alert.office || 'DMV Office'}`,
-      `State: ${alert.state || ''}`,
-      `Dates: ${datesText}`,
-      `Book: dmvassistants.com`
-    ].filter(Boolean).join(' | ');
-    
     try {
       await sendSMS({
         to: user.phone,
-        body: smsBody,
+        body: `DMV Assistant: Slot AVAILABLE at ${alert.office}, ${alert.state}! Dates: ${datesText}. Book: ${bookingUrl}`,
       });
       console.log(`SMS sent to ${user.phone}`);
     } catch (e) {
