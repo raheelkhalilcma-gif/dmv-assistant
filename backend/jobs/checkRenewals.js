@@ -12,7 +12,7 @@ async function checkRenewals() {
     console.log('Checking renewals at', new Date().toDateString());
 
     const { data: renewals, error } = await supabase
-      .from('renewals')
+      .from('reminders') 
       .select(`
         *,
         users (
