@@ -391,7 +391,7 @@ async function sendSlotAlert(user, alert, slotInfo) {
   const bookingUrl = STATE_BOOKING_URLS[alert.state] ||
     `https://www.google.com/search?q=${encodeURIComponent((alert.state || '') + ' DMV appointment')}`;
 
-  // EMAIL — sendEmail.js ka sahi format
+  // EMAIL — sendEmail.js ka exact format use kar rahe hain
   if (user.email) {
     try {
       await sendEmail({
@@ -411,13 +411,13 @@ async function sendSlotAlert(user, alert, slotInfo) {
     }
   }
 
-  // SMS — sendSMS.js ka sahi format (body → message)
+  // SMS — sendSMS.js ka exact format (message field, body nahi)
   if (user.phone && ['pro', 'family'].includes(user.plan)) {
     const smsMessage = `DMV Assistant: Slot AVAILABLE! ${serviceType} at ${officeName}, ${stateName}. Dates: ${datesText}. Book: ${bookingUrl}`;
     try {
       await sendSMS({
         to:      user.phone,
-        message: smsMessage,   // body nahi — message
+        message: smsMessage,
       });
       console.log(`SMS sent to ${user.phone}`);
     } catch (e) {
@@ -450,7 +450,6 @@ async function checkDMVSlots() {
   try {
     console.log('=== DMV Slot Check:', new Date().toLocaleTimeString(), '===');
 
-    // FIX 1 — sab columns explicitly select karo
     const { data: alerts, error } = await supabase
       .from('alerts')
       .select('id, state, office, service_type, status, last_alerted, last_slot_found, notify_via, users(id, email, phone, plan, first_name, last_name, name)')
@@ -474,7 +473,6 @@ async function checkDMVSlots() {
       }
 
       console.log(`Checking ${alert.state} - ${alert.office || 'Main Office'}...`);
-
       const slotInfo = await checkStateSlots(alert.state, alert.office);
 
       if (slotInfo.available) {
