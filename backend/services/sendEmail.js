@@ -63,7 +63,7 @@ async function sendEmail(options) {
       </div>
       
       <!-- CTA Button -->
-      <a href="https://dmvassistants.com/dashboard" style="display:block;background:#1d6ae5;color:white;text-align:center;padding:14px 24px;border-radius:8px;text-decoration:none;font-size:15px;font-weight:700;margin-bottom:16px;">
+      <a href="https://dmvassistants.com/" style="display:block;background:#1d6ae5;color:white;text-align:center;padding:14px 24px;border-radius:8px;text-decoration:none;font-size:15px;font-weight:700;margin-bottom:16px;">
         View Dashboard & Renew →
       </a>
       
@@ -133,7 +133,7 @@ async function sendEmail(options) {
       <a href="${bookingUrl}" style="display:block;background:#16a34a;color:white;text-align:center;padding:16px 24px;border-radius:8px;text-decoration:none;font-size:16px;font-weight:800;margin-bottom:12px;">
         🗓 Book This Appointment Now →
       </a>
-      <a href="https://dmvassistants.com/dashboard" style="display:block;background:#f8fafc;color:#475569;text-align:center;padding:12px 24px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600;border:1px solid #e2e8f0;margin-bottom:20px;">
+      <a href="https://dmvassistants.com/" style="display:block;background:#f8fafc;color:#475569;text-align:center;padding:12px 24px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600;border:1px solid #e2e8f0;margin-bottom:20px;">
         View Your Dashboard
       </a>
       
