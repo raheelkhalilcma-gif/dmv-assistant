@@ -472,6 +472,59 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 #blog-article-content th{background:var(--card2);color:var(--text);font-weight:700;padding:0.5rem 0.75rem;text-align:left;border:1px solid var(--border)}
 #blog-article-content td{padding:0.5rem 0.75rem;border:1px solid var(--border);color:var(--text2)}
 
+
+/* ═══════════════════════════════════════
+   MOBILE OPTIMIZATION — Enhanced
+═══════════════════════════════════════ */
+
+/* Footer mobile */
+@media(max-width:768px){
+  footer{padding:2rem 5%!important}
+  footer [style*="grid-template-columns:2fr 1fr 1fr 1fr"]{grid-template-columns:1fr 1fr!important;gap:1.5rem!important}
+  footer [style*="grid-template-columns"]{grid-template-columns:1fr 1fr!important;gap:1.5rem!important}
+}
+@media(max-width:480px){
+  footer [style*="grid-template-columns"]{grid-template-columns:1fr!important}
+  footer a{font-size:0.88rem!important;padding:0.2rem 0;display:block}
+}
+
+/* Landing hero buttons */
+@media(max-width:600px){
+  .hero-btn-row{gap:0.625rem!important}
+  .hero-btn-row button{width:100%!important;justify-content:center!important}
+  [style*="grid-template-columns:repeat(3,1fr);"]{grid-template-columns:1fr!important}
+  [style*="grid-template-columns:repeat(auto-fill,minmax(260px"]{grid-template-columns:1fr!important}
+  [style*="grid-template-columns:repeat(auto-fill,minmax(300px"]{grid-template-columns:1fr!important}
+  [style*="grid-template-columns:repeat(auto-fill,minmax(280px"]{grid-template-columns:1fr!important}
+}
+
+/* Pricing cards mobile */
+@media(max-width:860px){
+  [style*="grid-template-columns:repeat(3,1fr)"]{grid-template-columns:1fr!important;max-width:420px;margin:0 auto}
+}
+
+/* Better tap targets */
+@media(max-width:768px){
+  button,a,.btn{min-height:40px}
+  .ni{padding:0.7rem 1rem!important;font-size:0.9rem!important}
+  .stat-v{font-size:1.4rem!important}
+}
+
+/* Guide cards mobile */
+@media(max-width:600px){
+  .dcard{padding:0.75rem!important}
+}
+
+/* Sidebar mobile — already handled, just ensure overlap */
+@media(max-width:768px){
+  .shell{overflow:hidden}
+}
+
+/* Blog grid mobile */
+@media(max-width:600px){
+  #blog-grid{grid-template-columns:1fr!important}
+}
+
 </style>
 <link rel="icon" type="image/png" href="favicon.png"/>
 </head>
@@ -637,7 +690,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
     <a style="font-size:0.85rem;color:#475569;cursor:pointer;font-weight:500;text-decoration:none" onclick="scrollSec('s-features')">Product Features</a>
     <a style="font-size:0.85rem;color:#475569;cursor:pointer;font-weight:500;text-decoration:none" onclick="scrollSec('s-price')">Pricing</a>
     <a style="font-size:0.85rem;color:#475569;cursor:pointer;font-weight:500;text-decoration:none" onclick="scrollSec('s-why')">Why Subscribe</a>
-    <a href="/blog/" style="font-size:0.85rem;color:#2563eb;cursor:pointer;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:5px;background:rgba(37,99,235,0.07);border:1px solid rgba(37,99,235,0.2);padding:5px 12px;border-radius:20px">📚 DMV Blog</a>
+    <a style="font-size:0.85rem;color:#2563eb;cursor:pointer;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:5px;background:rgba(37,99,235,0.07);border:1px solid rgba(37,99,235,0.2);padding:5px 12px;border-radius:20px" onclick="showFP('fp-guides')">📚 DMV Guides &amp; Tips</a>
   </div>
   <div style="display:flex;align-items:center;gap:0.625rem">
     <button style="background:#2563eb;color:#fff;border:none;padding:0.5rem 1.375rem;border-radius:8px;font-weight:700;font-size:0.875rem;cursor:pointer;font-family:inherit" onclick="showFP('fp-login')">Sign In</button>
@@ -650,7 +703,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
   <a style="font-size:0.9rem;color:#475569;cursor:pointer;font-weight:600;padding:0.5rem 0;border-bottom:1px solid #f1f5f9" onclick="scrollSec('s-features');closeMobNav()">🚀 Product Features</a>
   <a style="font-size:0.9rem;color:#475569;cursor:pointer;font-weight:600;padding:0.5rem 0;border-bottom:1px solid #f1f5f9" onclick="scrollSec('s-price');closeMobNav()">💰 Pricing</a>
   <a style="font-size:0.9rem;color:#475569;cursor:pointer;font-weight:600;padding:0.5rem 0;border-bottom:1px solid #f1f5f9" onclick="scrollSec('s-why');closeMobNav()">⭐ Why Subscribe</a>
-  <a href="/blog/" style="font-size:0.9rem;color:#2563eb;cursor:pointer;font-weight:700;padding:0.5rem 0;border-bottom:1px solid #f1f5f9">📚 DMV Blog</a>
+  <a style="font-size:0.9rem;color:#2563eb;cursor:pointer;font-weight:700;padding:0.5rem 0;border-bottom:1px solid #f1f5f9" onclick="showFP('fp-guides');closeMobNav()">📚 DMV Guides &amp; Tips</a>
   <button style="background:#2563eb;color:#fff;border:none;padding:0.65rem;border-radius:8px;font-weight:700;font-size:0.9rem;cursor:pointer;font-family:inherit;width:100%;margin-top:0.25rem" onclick="showFP('fp-login');closeMobNav()">Sign In →</button>
 </div>
 
@@ -1140,28 +1193,24 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
       <div>
         <div style="font-weight:800;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;color:#0f172a;margin-bottom:1rem">DMV Guides &amp; Tips</div>
         <div style="display:flex;flex-direction:column;gap:0.625rem">
-          <span style="font-size:0.82rem;color:#475569;cursor:pointer" onclick="showFP('fp-blog')">DMV Blogs </span>
-          
-          <span style="font-size:0.82rem;color:#475569;cursor:pointer" onclick="showFP('fp-renewal')">License Renewal Guide</span>
-          <span style="font-size:0.82rem;color:#475569;cursor:pointer" onclick="showFP('fp-registration')">Registration Guide</span>
-          <span style="font-size:0.82rem;color:#475569;cursor:pointer" onclick="showFP('fp-guide-appointment')">DMV Appointment Tips</span>
-          
-          
-          <span style="font-size:0.82rem;color:#475569;cursor:pointer" onclick="showFP('fp-veteran')">Veteran Benefits</span>
-          
+          <a href="/dmv-blog" onclick="event.preventDefault();showFP('fp-blog')" style="font-size:0.82rem;color:#475569;text-decoration:none">DMV Blog</a>
+          <a href="/license-renewal-guide" onclick="event.preventDefault();showFP('fp-renewal')" style="font-size:0.82rem;color:#475569;text-decoration:none">License Renewal Guide</a>
+          <a href="/vehicle-registration-guide" onclick="event.preventDefault();showFP('fp-registration')" style="font-size:0.82rem;color:#475569;text-decoration:none">Registration Guide</a>
+          <a href="/how-to-get-dmv-appointment-fast" onclick="event.preventDefault();showFP('fp-guide-appointment')" style="font-size:0.82rem;color:#475569;text-decoration:none">DMV Appointment Tips</a>
+          <a href="/veteran-dmv-benefits" onclick="event.preventDefault();showFP('fp-veteran')" style="font-size:0.82rem;color:#475569;text-decoration:none">Veteran Benefits</a>
         </div>
       </div>
       <div>
         <div style="font-weight:800;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;color:#0f172a;margin-bottom:1rem">Company</div>
         <div style="display:flex;flex-direction:column;gap:0.625rem">
-          <span style="font-size:0.82rem;color:#475569;cursor:pointer" onclick="showFP('fp-about')">About Us</span>
-          <span style="font-size:0.82rem;color:#475569;cursor:pointer" onclick="showFP('fp-contact')">Contact</span>
-          <span style="font-size:0.82rem;color:#475569;cursor:pointer" onclick="showFP('fp-privacy')">Privacy Policy</span>
-          <span style="font-size:0.82rem;color:#475569;cursor:pointer" onclick="showFP('fp-terms')">Terms of Service</span>
+          <a href="/about" onclick="event.preventDefault();showFP('fp-about')" style="font-size:0.82rem;color:#475569;text-decoration:none">About Us</a>
+          <a href="/contact" onclick="event.preventDefault();showFP('fp-contact')" style="font-size:0.82rem;color:#475569;text-decoration:none">Contact</a>
+          <a href="/privacy-policy" onclick="event.preventDefault();showFP('fp-privacy')" style="font-size:0.82rem;color:#475569;text-decoration:none">Privacy Policy</a>
+          <a href="/terms-of-service" onclick="event.preventDefault();showFP('fp-terms')" style="font-size:0.82rem;color:#475569;text-decoration:none">Terms of Service</a>
         </div>
       </div>
     </div>
-    <div style="border-top:1px solid #cbd5e1;padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem">
+    <div style="border-top:1px solid #cbd5e1;padding-top:1.5rem;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0.5rem;text-align:center;flex-direction:column">
       <div style="font-size:0.78rem;color:#475569">© 2026 DMVAssistants.com · All rights reserved</div>
       <div style="font-size:0.78rem;color:#475569">📧 <a href="mailto:alerts@dmvassistants.com" style="color:#60a5fa;text-decoration:none;font-weight:600">alerts@dmvassistants.com</a> · All 50 US States</div>
     </div>
@@ -2392,8 +2441,148 @@ function tfaq(i){
   if(!op){a.classList.add('open');a.style.display='block';t.classList.add('open');t.textContent='−';}
 }
 function updOff(){const s=document.getElementById('appt-st').value,o=OFFICES[s]||OFFICES['default'],sel=document.getElementById('off-sel');sel.innerHTML=o.map(x=>`<option>${x}</option>`).join('');}
-function showFP(id){document.documentElement.removeAttribute('data-loading');document.querySelectorAll('.fp').forEach(function(p){p.classList.remove('active');});var el=document.getElementById(id);if(el){el.classList.add('active');el.scrollTop=0;window.scrollTo(0,0);}if(id==='fp-app'||id==='fp-fee'||id==='fp-checklist'||id==='fp-eligibility'){sessionStorage.setItem('dmv_current_fp',id);}else if(id==='fp-land'||id==='fp-login'||id==='fp-signup'){sessionStorage.removeItem('dmv_current_fp');sessionStorage.removeItem('dmv_current_pg');}}
+// URL slug => fp-id map (for SEO-friendly URLs)
+var FP_URL_MAP = {
+  'about': 'fp-about',
+  'contact': 'fp-contact',
+  'privacy-policy': 'fp-privacy',
+  'terms-of-service': 'fp-terms',
+  'dmv-blog': 'fp-blog',
+  'license-renewal-guide': 'fp-renewal',
+  'vehicle-registration-guide': 'fp-registration',
+  'how-to-get-dmv-appointment-fast': 'fp-guide-appointment',
+  'veteran-dmv-benefits': 'fp-veteran',
+  'dmv-guides': 'fp-guides',
+  'real-id-guide': 'fp-realid',
+  'vehicle-title-transfer': 'fp-title',
+  'dmv-written-test-guide': 'fp-guide-written-test',
+  'dmv-road-test-guide': 'fp-guide-road-test',
+  'car-title-transfer-guide': 'fp-guide-title-transfer',
+  'avoid-dmv-wait-times': 'fp-guide-wait-times',
+  'out-of-state-license-transfer': 'fp-guide-out-of-state',
+  'suspended-license-reinstatement': 'fp-guide-suspended',
+  'smog-check-emissions-guide': 'fp-guide-smog',
+  'dmv-fee-calculator': 'fp-fee',
+  'dmv-appointment-checklist': 'fp-checklist',
+  'license-eligibility-check': 'fp-eligibility'
+};
+var FP_SLUG_MAP = {};
+Object.keys(FP_URL_MAP).forEach(function(slug){FP_SLUG_MAP[FP_URL_MAP[slug]]=slug;});
+
+var BLOG_URL_MAP = {
+  'real-id-complete-guide': 'real-id-guide',
+  'dmv-written-test-prep': 'dmv-test-prep',
+  'driver-license-renewal-tips': 'license-renewal',
+  'veteran-dmv-benefits-guide': 'veteran-dmv-benefits',
+  'avoid-dmv-wait-times-tips': 'dmv-wait-times',
+  'car-registration-renewal-guide': 'car-registration-renewal',
+  'defensive-driving-tips': 'defensive-driving',
+  'dmv-documents-checklist': 'dmv-documents-checklist',
+  'new-resident-dmv-guide': 'new-resident-guide',
+  'first-time-drivers-license': 'first-time-license',
+  'insurance-after-accident-guide': 'insurance-after-accident'
+};
+var BLOG_SLUG_REVERSE = {};
+Object.keys(BLOG_URL_MAP).forEach(function(slug){BLOG_SLUG_REVERSE[BLOG_URL_MAP[slug]]=slug;});
+
+var PAGE_TITLES = {
+  'fp-about':'About Us | DMV Assistant',
+  'fp-contact':'Contact Support | DMV Assistant',
+  'fp-privacy':'Privacy Policy | DMV Assistant',
+  'fp-terms':'Terms of Service | DMV Assistant',
+  'fp-blog':'DMV Blog — Guides & Tips | DMV Assistant',
+  'fp-renewal':'Driver License Renewal Guide | DMV Assistant',
+  'fp-registration':'Vehicle Registration Renewal Guide | DMV Assistant',
+  'fp-guide-appointment':'How to Get a DMV Appointment Fast | DMV Assistant',
+  'fp-veteran':'Veteran DMV Benefits | DMV Assistant',
+  'fp-guides':'Free DMV Guides & Tips | DMV Assistant',
+  'fp-realid':'REAL ID Complete Guide | DMV Assistant',
+  'fp-title':'Vehicle Title Transfer Guide | DMV Assistant',
+  'fp-guide-written-test':'DMV Written Test Prep | DMV Assistant',
+  'fp-guide-road-test':'DMV Road Test Guide | DMV Assistant',
+  'fp-guide-title-transfer':'How to Transfer a Car Title | DMV Assistant',
+  'fp-guide-wait-times':'Avoid Long DMV Wait Times | DMV Assistant',
+  'fp-guide-out-of-state':'Out-of-State License Transfer | DMV Assistant',
+  'fp-guide-suspended':'Suspended License Reinstatement | DMV Assistant',
+  'fp-guide-smog':'Smog Check & Emissions Guide | DMV Assistant',
+  'fp-fee':'DMV Fee Calculator | DMV Assistant',
+  'fp-checklist':'DMV Appointment Checklist | DMV Assistant',
+  'fp-eligibility':'License Eligibility Check | DMV Assistant'
+};
+
+function _doShowFP(id){
+  document.documentElement.removeAttribute('data-loading');
+  document.querySelectorAll('.fp').forEach(function(p){p.classList.remove('active');});
+  var el=document.getElementById(id);
+  if(el){el.classList.add('active');el.scrollTop=0;window.scrollTo(0,0);}
+  if(id==='fp-app'||id==='fp-fee'||id==='fp-checklist'||id==='fp-eligibility'){sessionStorage.setItem('dmv_current_fp',id);}
+  else if(id==='fp-land'||id==='fp-login'||id==='fp-signup'){sessionStorage.removeItem('dmv_current_fp');sessionStorage.removeItem('dmv_current_pg');}
+  // Auto-render blog grid when showing fp-blog
+  if(id==='fp-blog'){
+    setTimeout(function(){
+      var grid=document.getElementById('blog-grid');
+      var view=document.getElementById('blog-article-view');
+      if(grid&&!grid.innerHTML.trim()){if(typeof renderBlogGrid==='function') renderBlogGrid('all');}
+      if(view) view.style.display='none';
+    }, 50);
+  }
+}
+function showFP(id,pushState){
+  _doShowFP(id);
+  if(pushState===false) return;
+  var slug=FP_SLUG_MAP[id];
+  if(slug){
+    var nu='/'+slug;
+    if(window.location.pathname!==nu){
+      history.pushState({fp:id},'',nu);
+      var canon=document.querySelector('link[rel="canonical"]');
+      if(canon) canon.href='https://dmvassistants.com'+nu;
+      if(PAGE_TITLES[id]) document.title=PAGE_TITLES[id];
+    }
+  } else if(id==='fp-land'){
+    if(window.location.pathname!=='/'){
+      history.pushState({fp:'fp-land'},'','/');
+      document.title='DMV Assistant — #1 DMV Appointment Alert & Renewal Reminder App | All 50 States';
+      var canon2=document.querySelector('link[rel="canonical"]');
+      if(canon2) canon2.href='https://dmvassistants.com/';
+    }
+  }
+}
 function showFooterPage(id){showFP(id);}
+window.addEventListener('popstate',function(e){
+  if(e.state&&e.state.blog){
+    _doShowFP('fp-blog');
+    setTimeout(function(){openBlogArticle(e.state.blog,false);},60);
+  } else if(e.state&&e.state.fp){
+    _doShowFP(e.state.fp);
+  } else {
+    _doShowFP('fp-land');
+  }
+});
+(function(){
+  var path=window.location.pathname.replace(/^\/+/,'').replace(/\/+$/,'');
+  var blogMatch=path.match(/^dmv-blog\/(.+)$/);
+  if(blogMatch){
+    var artId=BLOG_URL_MAP[blogMatch[1]];
+    if(artId){
+      document.addEventListener('DOMContentLoaded',function(){
+        _doShowFP('fp-blog');
+        setTimeout(function(){openBlogArticle(artId,false);},120);
+      });
+      return;
+    }
+  }
+  var fpId=path?FP_URL_MAP[path]:null;
+  if(fpId){
+    document.addEventListener('DOMContentLoaded',function(){
+      _doShowFP(fpId);
+      history.replaceState({fp:fpId},'','/'+path);
+      var canon=document.querySelector('link[rel="canonical"]');
+      if(canon) canon.href='https://dmvassistants.com/'+path;
+      if(PAGE_TITLES[fpId]) document.title=PAGE_TITLES[fpId];
+    });
+  }
+})();
 function showPg(id,nav){
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
   const el=document.getElementById(id);
@@ -4431,13 +4620,15 @@ function renderBlogGrid(cat) {
   var filtered = cat && cat !== 'all' ? ARTICLES.filter(function(a){return a.cat===cat;}) : ARTICLES;
   if(!filtered.length){grid.innerHTML='<p style="color:var(--text3);font-size:0.85rem">No articles in this category yet.</p>';return;}
   grid.innerHTML = filtered.map(function(a){
-    return '<div class="blog-card" data-aid="'+a.id+'" onclick="openBlogArticle(this.dataset.aid)">'
+    var slug = BLOG_SLUG_REVERSE[a.id] || a.id;
+    var url = '/dmv-blog/' + slug;
+    return '<a class="blog-card" href="'+url+'" onclick="event.preventDefault();openBlogArticle(\''+a.id+'\')" style="text-decoration:none;color:inherit;display:block">';
       +'<div class="blog-card-body">'
       +'<span class="blog-card-tag" style="background:'+a.tagColor+';color:'+a.tagText+'">'+a.tag+'</span>'
       +'<div class="blog-card-title">'+a.title+'</div>'
       +'<div class="blog-card-desc">'+a.desc+'</div>'
       +'<div class="blog-card-meta">'+a.date+' &nbsp;·&nbsp; '+a.readTime+'</div>'
-      +'</div></div>';
+      +'</div></a>';
   }).join('');
 }
 
@@ -4452,7 +4643,7 @@ function filterBlogCat(cat, btn) {
   renderBlogGrid(cat);
 }
 
-function openBlogArticle(id) {
+function openBlogArticle(id, pushState) {
   var article = ARTICLES.find(function(a){return a.id===id;});
   if(!article) return;
   var grid = document.getElementById('blog-grid');
@@ -4463,8 +4654,18 @@ function openBlogArticle(id) {
   if(catBtns) catBtns.style.display='none';
   if(view) view.style.display='block';
   if(content) content.innerHTML = article.content;
-  var fi=document.getElementById('fp-blog');if(fi)fi.scrollTop=0;
   var fpBlog=document.getElementById('fp-blog');if(fpBlog)fpBlog.scrollTop=0;
+  // Update URL for SEO
+  if(pushState !== false){
+    var slug = BLOG_SLUG_REVERSE[id] || id;
+    var newUrl = '/dmv-blog/' + slug;
+    if(window.location.pathname !== newUrl){
+      history.pushState({blog: id}, '', newUrl);
+      document.title = article.title + ' | DMV Blog | DMV Assistant';
+      var canon=document.querySelector('link[rel="canonical"]');
+      if(canon) canon.href='https://dmvassistants.com' + newUrl;
+    }
+  }
 }
 
 function closeBlogArticle() {
@@ -4474,21 +4675,14 @@ function closeBlogArticle() {
   if(grid){grid.style.display='grid'; renderBlogGrid(_currentBlogCat);}
   if(catBtns) catBtns.style.display='flex';
   if(view) view.style.display='none';
-}
-
-// Auto-render blog when fp-blog is shown
-var _origShowFP = showFP;
-showFP = function(id) {
-  _origShowFP(id);
-  if(id==='fp-blog') {
-    setTimeout(function(){
-      var grid=document.getElementById('blog-grid');
-      var view=document.getElementById('blog-article-view');
-      if(grid&&!grid.innerHTML.trim()){renderBlogGrid('all');}
-      if(view) view.style.display='none';
-    }, 50);
+  // Update URL back to /dmv-blog
+  if(window.location.pathname.startsWith('/dmv-blog/')){
+    history.pushState({fp:'fp-blog'},'','/dmv-blog');
+    document.title='DMV Blog — Guides & Tips | DMV Assistant';
+    var canon=document.querySelector('link[rel="canonical"]');
+    if(canon) canon.href='https://dmvassistants.com/dmv-blog';
   }
-};
+}
 
 </script>
 
