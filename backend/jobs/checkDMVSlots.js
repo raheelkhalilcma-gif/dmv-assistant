@@ -364,11 +364,8 @@ async function checkStateSlots(state, office) {
 // ─────────────────────────────────────────────
 
 async function sendSlotAlert(user, alert, slotInfo) {
-  const userName = user.name ||
-    (user.first_name ? `${user.first_name} ${user.last_name || ''}`.trim() : 'there');
-  const datesText = slotInfo.dates.length > 0 ? slotInfo.dates.join(', ') : 'Check DMV website';
-
-  // FIX 1 — safe fallbacks taake email mein undefined na aaye
+  const userName    = user.name || (user.first_name ? `${user.first_name} ${user.last_name || ''}`.trim() : 'there');
+  const datesText   = slotInfo.dates.length > 0 ? slotInfo.dates.join(', ') : 'Check DMV website';
   const officeName  = alert.office       || 'DMV Office';
   const stateName   = alert.state        || 'Your State';
   const serviceType = alert.service_type || 'DMV Appointment';
@@ -394,41 +391,19 @@ async function sendSlotAlert(user, alert, slotInfo) {
   const bookingUrl = STATE_BOOKING_URLS[alert.state] ||
     `https://www.google.com/search?q=${encodeURIComponent((alert.state || '') + ' DMV appointment')}`;
 
-  // EMAIL
+  // EMAIL — sendEmail.js ka sahi format
   if (user.email) {
     try {
       await sendEmail({
-        to: user.email,
-        subject: `DMV Slot Available — ${officeName}, ${stateName}!`,
-        html: `
-          <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px">
-            <div style="background:#1d6ae5;padding:20px;border-radius:8px 8px 0 0;text-align:center">
-              <h1 style="color:#fff;margin:0">DMV Slot Found!</h1>
-            </div>
-            <div style="background:#f8fafc;padding:24px;border:1px solid #e2e8f0;border-radius:0 0 8px 8px">
-              <p>Hi ${userName},</p>
-              <p>A <strong>${serviceType}</strong> appointment slot is now
-                <strong style="color:#16a34a">AVAILABLE</strong> at:</p>
-              <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:16px;margin:16px 0">
-                <strong>Service:</strong> ${serviceType}<br/>
-                <strong>Office:</strong> ${officeName}<br/>
-                <strong>State:</strong> ${stateName}<br/>
-                <strong>Available Date:</strong> <span style="color:#16a34a">${datesText}</span>
-              </div>
-              <div style="text-align:center;margin:20px 0">
-                <a href="${bookingUrl}"
-                   style="background:#1d6ae5;color:#fff;padding:12px 28px;border-radius:8px;
-                          text-decoration:none;font-weight:bold">
-                  Book Now
-                </a>
-              </div>
-              <p style="font-size:13px;color:#64748b;text-align:center">
-                Act fast — slots fill quickly!<br/>
-                DMV Assistant · dmvassistants.com
-              </p>
-            </div>
-          </div>
-        `,
+        type:       'slot',
+        to:         user.email,
+        subject:    `DMV Slot Available — ${officeName}, ${stateName}!`,
+        name:       userName,
+        service:    serviceType,
+        office:     officeName,
+        state:      stateName,
+        slotDate:   datesText,
+        bookingUrl: bookingUrl,
       });
       console.log(`Email sent to ${user.email}`);
     } catch (e) {
@@ -436,39 +411,34 @@ async function sendSlotAlert(user, alert, slotInfo) {
     }
   }
 
-  // FIX 2 — SMS body pehle banao, validate karo phir bhejo
+  // SMS — sendSMS.js ka sahi format (body → message)
   if (user.phone && ['pro', 'family'].includes(user.plan)) {
-    const smsBody = `DMV Assistant: Slot AVAILABLE! Service: ${serviceType} | Office: ${officeName}, ${stateName} | Dates: ${datesText} | Book: ${bookingUrl}`;
-
-    if (!smsBody || smsBody.trim().length === 0) {
-      console.log('SMS skipped — body empty');
-    } else {
-      try {
-        await sendSMS({
-          to: user.phone,
-          body: smsBody,
-        });
-        console.log(`SMS sent to ${user.phone}`);
-      } catch (e) {
-        console.log('SMS error:', e.message);
-      }
+    const smsMessage = `DMV Assistant: Slot AVAILABLE! ${serviceType} at ${officeName}, ${stateName}. Dates: ${datesText}. Book: ${bookingUrl}`;
+    try {
+      await sendSMS({
+        to:      user.phone,
+        message: smsMessage,   // body nahi — message
+      });
+      console.log(`SMS sent to ${user.phone}`);
+    } catch (e) {
+      console.log('SMS error:', e.message);
     }
   }
 
-  // Alert history log
+  // Alert history
   await supabase.from('alert_history').insert({
-    user_id: user.id,
+    user_id:  user.id,
     alert_id: alert.id,
-    type: 'slot_found',
-    message: `Slot found at ${officeName}, ${stateName}. Dates: ${datesText}`,
-    sent_at: new Date().toISOString(),
+    type:     'slot_found',
+    message:  `Slot found at ${officeName}, ${stateName}. Dates: ${datesText}`,
+    sent_at:  new Date().toISOString(),
   });
 
-  // Alert status update
+  // Alert update
   await supabase.from('alerts').update({
-    last_alerted: new Date().toISOString(),
+    last_alerted:    new Date().toISOString(),
     last_slot_found: datesText,
-    status: 'slot_found',
+    status:          'slot_found',
   }).eq('id', alert.id);
 }
 
