@@ -129,33 +129,24 @@ function toggleMobNav(){
 </script>
 </head>
 <body>
-<nav class="nav">
-<div class="nav-inner">
-  <a href="https://dmvassistants.com" class="nav-logo">
-    <img src="/favicon.png" alt="DMV Assistant"/>
+<nav style="position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid #e2e8f0;padding:0 5%;height:66px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 3px rgba(0,0,0,0.06)">
+  <a href="/" style="display:flex;align-items:center;gap:9px;text-decoration:none">
+    <img src="/favicon.png" alt="DMV Assistant" style="width:36px;height:36px;border-radius:8px"/>
     <div>
-      <div class="nav-logo-text">DMV<span>Assistants</span><span style="color:#94a3b8;font-weight:500;font-size:0.75rem">.com</span></div>
-      <div class="nav-logo-sub">Smart DMV Tools</div>
+      <div style="font-weight:900;font-size:1.05rem;color:#0f172a;letter-spacing:-0.03em;line-height:1.2">DMV<span style="color:#2563eb">Assistants</span><span style="color:#94a3b8;font-weight:500;font-size:0.75rem">.com</span></div>
+      <div style="font-size:0.6rem;color:#64748b;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;margin-top:-1px">Smart DMV Tools</div>
     </div>
   </a>
-  <div class="nav-links">
+  <div style="display:flex;align-items:center;gap:2rem" id="ln-links">
     <a href="/#s-features" style="font-size:0.85rem;color:#475569;font-weight:500;text-decoration:none">Features</a>
     <a href="/#s-price" style="font-size:0.85rem;color:#475569;font-weight:500;text-decoration:none">Pricing</a>
-    <a href="/blog" style="font-size:0.85rem;color:#2563eb;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:5px;background:rgba(37,99,235,0.07);border:1px solid rgba(37,99,235,0.2);padding:5px 12px;border-radius:20px">📚 DMV Blog</a
-   <a href="/guides" style="font-size:0.85rem;color:#2563eb;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:5px;background:rgba(37,99,235,0.07);border:1px solid rgba(37,99,235,0.2);padding:5px 12px;border-radius:20px">📚 DMV Guides</a
-</div>
-  <div style="display:flex;align-items:center;gap:0.625rem">
-    <a href="https://dmvassistants.com" class="nav-cta-btn">Sign In</a>
-    <button class="mob-nav-btn" onclick="toggleMobNav()">☰</button>
+    <a href="/blog" style="font-size:0.85rem;color:#2563eb;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:5px;background:rgba(37,99,235,0.07);border:1px solid rgba(37,99,235,0.2);padding:5px 12px;border-radius:20px">📚 DMV Blog</a>
+    <a href="/guides" style="font-size:0.85rem;color:#2563eb;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:5px;background:rgba(37,99,235,0.07);border:1px solid rgba(37,99,235,0.2);padding:5px 12px;border-radius:20px">📚 DMV Guides</a>
   </div>
-</div>
+  <div style="display:flex;align-items:center;gap:0.625rem">
+    <a href="/" style="background:#2563eb;color:#fff;border:none;padding:0.5rem 1.375rem;border-radius:8px;font-weight:700;font-size:0.875rem;text-decoration:none;font-family:inherit">Sign In</a>
+  </div>
 </nav>
-<div class="mob-nav-drawer" id="mob-nav-drawer">
-  <a href="https://dmvassistants.com">🏠 Home</a>
-  <a href="/blog/">📚 DMV Blog</a>
-<a href="/guides/">📚 DMV Guides</a>
-  <a href="https://dmvassistants.com" class="mob-signin">Sign In →</a>
-</div>
 
 <main style="max-width:1100px;margin:0 auto;padding:40px 5%">
   <div class="blog-header">
