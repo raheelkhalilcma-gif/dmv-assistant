@@ -225,7 +225,7 @@ body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--text);min
 .mov.open{display:flex}
 .modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--rxl);padding:1.6rem;max-width:470px;width:100%;max-height:88vh;overflow-y:auto}
 .mhead{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.1rem}
-.mhead h3{font-size:1.05rem;font-weight:800;letter-spacing:-0.02em}
+.mhead span{font-size:1.05rem;font-weight:800;letter-spacing:-0.02em}
 .mx{cursor:pointer;color:var(--text3);font-size:1.05rem;padding:0 2px;margin-top:1px}
 .mbtns{display:flex;gap:0.55rem;justify-content:flex-end;margin-top:1.1rem;flex-wrap:wrap}
 
@@ -530,7 +530,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 <!-- MODALS -->
 <div class="mov" id="m-appt">
 <div class="modal">
-  <div class="mhead"><h3>🗓 Set Appointment Alert</h3><span class="mx" onclick="cM('m-appt')">✕</span></div>
+  <div class="mhead"><span>🗓 Set Appointment Alert</span><span class="mx" onclick="cM('m-appt')">✕</span></div>
   <div class="fr">
     <div class="fg"><label class="fl">State</label><select class="fs" id="appt-st" onchange="updOff()"><option value="">Select State...</option></select></div>
     <div class="fg"><label class="fl">Service Type</label><select class="fs" id="appt-svc"><option>Driver License (New)</option><option>Driver License Renewal</option><option>REAL ID</option><option>Vehicle Registration</option><option>Title Transfer</option><option>Knowledge Test</option><option>Road Test</option><option>ID Card</option><option>CDL</option></select></div>
@@ -547,7 +547,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 
 <div class="mov" id="m-renewal">
 <div class="modal">
-  <div class="mhead"><h3>⏰ Add Renewal Reminder</h3><span class="mx" onclick="cM('m-renewal')">✕</span></div>
+  <div class="mhead"><span>⏰ Add Renewal Reminder</span><span class="mx" onclick="cM('m-renewal')">✕</span></div>
   <div class="fg"><label class="fl">Type</label><select class="fs" id="ren-type"><option>Driver License</option><option>Vehicle Registration</option><option>Auto Insurance</option><option>Vehicle Inspection</option><option>Passport</option><option>State ID</option><option>CDL</option></select></div>
   <div class="fr">
     <div class="fg"><label class="fl">Expiration Date</label><input class="fi" type="date" id="ren-date"/></div>
@@ -564,7 +564,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 
 <div class="mov" id="m-upgrade">
 <div class="modal">
-  <div class="mhead"><h3>⭐ Upgrade Your Plan</h3><span class="mx" onclick="cM('m-upgrade')">✕</span></div>
+  <div class="mhead"><span>⭐ Upgrade Your Plan</span><span class="mx" onclick="cM('m-upgrade')">✕</span></div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:1rem">
     <div style="background:var(--bg3);border:1px solid rgba(245,158,11,0.28);border-radius:var(--r);padding:1rem">
       <div style="font-size:0.62rem;font-weight:900;color:var(--gold2);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.4rem">Pro Plan</div>
@@ -597,7 +597,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 
 <div class="mov" id="m-member">
 <div class="modal" style="max-width:460px">
-  <div class="mhead"><h3>Add Family Member</h3><span class="mx" onclick="cM('m-member')">X</span></div>
+  <div class="mhead"><span>Add Family Member</span><span class="mx" onclick="cM('m-member')">X</span></div>
   <div style="display:flex;gap:0;margin-bottom:1.25rem;background:var(--bg3);border-radius:8px;padding:3px">
     <button id="tab-add" onclick="switchMemberTab('add')" style="flex:1;padding:0.45rem;border:none;border-radius:6px;font-size:0.8rem;font-weight:700;cursor:pointer;font-family:inherit;background:var(--blue2);color:#fff">Add Member</button>
     <button id="tab-invite" onclick="switchMemberTab('invite')" style="flex:1;padding:0.45rem;border:none;border-radius:6px;font-size:0.8rem;font-weight:700;cursor:pointer;font-family:inherit;background:transparent;color:var(--text3)">Invite by Email</button>
@@ -1199,7 +1199,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
           <div style="font-weight:900;font-size:1rem;color:#0f172a">DMV<span style="color:#2563eb">Assistants</span>.com</div>
         </div>
         <p style="font-size:0.82rem;color:#475569;line-height:1.65;max-width:260px;margin-bottom:1rem">The #1 DMV Assistant for US residents and veterans. Never miss a renewal or appointment again.</p>
-        <div style="font-size:0.8rem;color:#475569">📧 <a href="mailto:alerts@dmvassistants.com" style="color:#60a5fa;text-decoration:none;font-weight:600">alerts@dmvassistants.com</a></div>
+        <div style="font-size:0.8rem;color:#475569">📧 <a href="/cdn-cgi/l/email-protection#07666b6275737447636a716674746e7473666973742964686a" style="color:#60a5fa;text-decoration:none;font-weight:600"><span class="__cf_email__" data-cfemail="3958555c4b4d4a795d544f584a4a504a4d58574d4a175a5654">[email&#160;protected]</span></a></div>
       </div>
       <div>
         <div style="font-weight:800;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;color:#0f172a;margin-bottom:1rem">Product</div>
@@ -1269,7 +1269,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
     </div>
     <div style="border-top:1px solid #cbd5e1;padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem">
       <div style="font-size:0.78rem;color:#475569">© 2026 DMVAssistants.com · All rights reserved</div>
-      <div style="font-size:0.78rem;color:#475569">📧 <a href="mailto:alerts@dmvassistants.com" style="color:#60a5fa;text-decoration:none;font-weight:600">alerts@dmvassistants.com</a> · All 50 US States</div>
+      <div style="font-size:0.78rem;color:#475569">📧 <a href="/cdn-cgi/l/email-protection#4928252c3b3d3a092d243f283a3a203a3d28273d3a672a2624" style="color:#60a5fa;text-decoration:none;font-weight:600"><span class="__cf_email__" data-cfemail="47262b2235333407232a312634342e3433262933346924282a">[email&#160;protected]</span></a> · All 50 US States</div>
     </div>
   </div>
 </footer>
@@ -1367,7 +1367,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
     <!-- Hero -->
     <div style="text-align:center;margin-bottom:3rem">
       <div style="display:inline-block;background:rgba(37,99,235,0.08);border:1px solid rgba(37,99,235,0.2);border-radius:100px;padding:4px 14px;font-size:0.65rem;font-weight:800;color:#2563eb;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1rem">Free DMV Resources</div>
-      <h1 style="font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;color:#0f172a;letter-spacing:-0.03em;margin-bottom:0.75rem">DMV Guides &amp; Tips</h1>
+      <h2 style="font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;color:#0f172a;letter-spacing:-0.03em;margin-bottom:0.75rem">DMV Guides &amp; Tips</h2>
       <p style="font-size:0.95rem;color:#64748b;max-width:560px;margin:0 auto;line-height:1.7">Expert guides on everything DMV — written for all 50 states. From REAL ID and license renewal to road tests and title transfers.</p>
     </div>
     <!-- Guides Grid -->
@@ -1377,7 +1377,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
       <div onclick="showFP('fp-realid')" style="background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:1.5rem;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden" onmouseover="this.style.borderColor='#93c5fd';this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.transform='none';this.style.boxShadow='none'">
         <div style="font-size:2rem;margin-bottom:0.75rem">🪪</div>
         <div style="display:inline-block;background:rgba(37,99,235,0.08);color:#2563eb;font-size:0.62rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;padding:2px 8px;border-radius:20px;margin-bottom:0.5rem">IDs &amp; Licenses</div>
-        <h2 style="font-size:1rem;font-weight:800;color:#0f172a;margin-bottom:0.4rem;line-height:1.3">REAL ID Complete Guide</h2>
+        <h3 style="font-size:1rem;font-weight:800;color:#0f172a;margin-bottom:0.4rem;line-height:1.3">REAL ID Complete Guide</h3>
         <p style="font-size:0.82rem;color:#64748b;line-height:1.6;margin-bottom:0.75rem">Documents required, fees, and what to expect at the DMV for your REAL ID appointment.</p>
         <span style="font-size:0.78rem;color:#2563eb;font-weight:700">Read Guide →</span>
       </div>
@@ -1386,7 +1386,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
       <div onclick="showFP('fp-renewal')" style="background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:1.5rem;cursor:pointer;transition:all 0.2s" onmouseover="this.style.borderColor='#93c5fd';this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.transform='none';this.style.boxShadow='none'">
         <div style="font-size:2rem;margin-bottom:0.75rem">🔄</div>
         <div style="display:inline-block;background:rgba(22,163,74,0.08);color:#16a34a;font-size:0.62rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;padding:2px 8px;border-radius:20px;margin-bottom:0.5rem">Renewal</div>
-        <h2 style="font-size:1rem;font-weight:800;color:#0f172a;margin-bottom:0.4rem;line-height:1.3">Driver License Renewal Guide</h2>
+        <h3 style="font-size:1rem;font-weight:800;color:#0f172a;margin-bottom:0.4rem;line-height:1.3">Driver License Renewal Guide</h3>
         <p style="font-size:0.82rem;color:#64748b;line-height:1.6;margin-bottom:0.75rem">Fees, deadlines, online renewal options, and what happens if your license expires.</p>
         <span style="font-size:0.78rem;color:#2563eb;font-weight:700">Read Guide →</span>
       </div>
@@ -1395,7 +1395,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
       <div onclick="showFP('fp-registration')" style="background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:1.5rem;cursor:pointer;transition:all 0.2s" onmouseover="this.style.borderColor='#93c5fd';this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.transform='none';this.style.boxShadow='none'">
         <div style="font-size:2rem;margin-bottom:0.75rem">🚗</div>
         <div style="display:inline-block;background:rgba(217,119,6,0.08);color:#d97706;font-size:0.62rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;padding:2px 8px;border-radius:20px;margin-bottom:0.5rem">Vehicle</div>
-        <h2 style="font-size:1rem;font-weight:800;color:#0f172a;margin-bottom:0.4rem;line-height:1.3">Vehicle Registration Renewal</h2>
+        <h3 style="font-size:1rem;font-weight:800;color:#0f172a;margin-bottom:0.4rem;line-height:1.3">Vehicle Registration Renewal</h3>
         <p style="font-size:0.82rem;color:#64748b;line-height:1.6;margin-bottom:0.75rem">Online renewal, smog checks, late fees, and state-by-state registration deadlines.</p>
         <span style="font-size:0.78rem;color:#2563eb;font-weight:700">Read Guide →</span>
       </div>
@@ -1404,7 +1404,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
       <div onclick="showFP('fp-title')" style="background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:1.5rem;cursor:pointer;transition:all 0.2s" onmouseover="this.style.borderColor='#93c5fd';this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.transform='none';this.style.boxShadow='none'">
         <div style="font-size:2rem;margin-bottom:0.75rem">📄</div>
         <div style="display:inline-block;background:rgba(124,58,237,0.08);color:#7c3aed;font-size:0.62rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;padding:2px 8px;border-radius:20px;margin-bottom:0.5rem">Vehicle</div>
-        <h2 style="font-size:1rem;font-weight:800;color:#0f172a;margin-bottom:0.4rem;line-height:1.3">Vehicle Title Transfer Guide</h2>
+        <h3 style="font-size:1rem;font-weight:800;color:#0f172a;margin-bottom:0.4rem;line-height:1.3">Vehicle Title Transfer Guide</h3>
         <p style="font-size:0.82rem;color:#64748b;line-height:1.6;margin-bottom:0.75rem">Step-by-step title transfer for buying, selling, gifting, or inheriting a vehicle.</p>
         <span style="font-size:0.78rem;color:#2563eb;font-weight:700">Read Guide →</span>
       </div>
@@ -1413,7 +1413,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
       <div onclick="showFP('fp-guide-appointment')" style="background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:1.5rem;cursor:pointer;transition:all 0.2s" onmouseover="this.style.borderColor='#93c5fd';this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.transform='none';this.style.boxShadow='none'">
         <div style="font-size:2rem;margin-bottom:0.75rem">📅</div>
         <div style="display:inline-block;background:rgba(6,182,212,0.08);color:#0891b2;font-size:0.62rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;padding:2px 8px;border-radius:20px;margin-bottom:0.5rem">Appointments</div>
-        <h2 style="font-size:1rem;font-weight:800;color:#0f172a;margin-bottom:0.4rem;line-height:1.3">How to Get a DMV Appointment Fast</h2>
+        <h3 style="font-size:1rem;font-weight:800;color:#0f172a;margin-bottom:0.4rem;line-height:1.3">How to Get a DMV Appointment Fast</h3>
         <p style="font-size:0.82rem;color:#64748b;line-height:1.6;margin-bottom:0.75rem">Proven tricks to book a DMV appointment quickly — even in busy states like California and New York.</p>
         <span style="font-size:0.78rem;color:#2563eb;font-weight:700">Read Guide →</span>
       </div>
@@ -1422,7 +1422,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
       <div onclick="showFP('fp-guide-written-test')" style="background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:1.5rem;cursor:pointer;transition:all 0.2s" onmouseover="this.style.borderColor='#93c5fd';this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.transform='none';this.style.boxShadow='none'">
         <div style="font-size:2rem;margin-bottom:0.75rem">📝</div>
         <div style="display:inline-block;background:rgba(37,99,235,0.08);color:#2563eb;font-size:0.62rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;padding:2px 8px;border-radius:20px;margin-bottom:0.5rem">Testing</div>
-        <h2 style="font-size:1rem;font-weight:800;color:#0f172a;margin-bottom:0.4rem;line-height:1.3">DMV Written Test — Complete Prep Guide</h2>
+        <h3 style="font-size:1rem;font-weight:800;color:#0f172a;margin-bottom:0.4rem;line-height:1.3">DMV Written Test — Complete Prep Guide</h3>
         <p style="font-size:0.82rem;color:#64748b;line-height:1.6;margin-bottom:0.75rem">Pass your DMV knowledge test first try. Study tips, common questions, and state-specific rules.</p>
         <span style="font-size:0.78rem;color:#2563eb;font-weight:700">Read Guide →</span>
       </div>
@@ -1431,7 +1431,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
       <div onclick="showFP('fp-guide-road-test')" style="background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:1.5rem;cursor:pointer;transition:all 0.2s" onmouseover="this.style.borderColor='#93c5fd';this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.transform='none';this.style.boxShadow='none'">
         <div style="font-size:2rem;margin-bottom:0.75rem">🚦</div>
         <div style="display:inline-block;background:rgba(22,163,74,0.08);color:#16a34a;font-size:0.62rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;padding:2px 8px;border-radius:20px;margin-bottom:0.5rem">Testing</div>
-        <h2 style="font-size:1rem;font-weight:800;color:#0f172a;margin-bottom:0.4rem;line-height:1.3">DMV Road Test — Pass on First Try</h2>
+        <h3 style="font-size:1rem;font-weight:800;color:#0f172a;margin-bottom:0.4rem;line-height:1.3">DMV Road Test — Pass on First Try</h3>
         <p style="font-size:0.82rem;color:#64748b;line-height:1.6;margin-bottom:0.75rem">What to expect during your behind-the-wheel test, common failure points, and expert tips.</p>
         <span style="font-size:0.78rem;color:#2563eb;font-weight:700">Read Guide →</span>
       </div>
@@ -1440,7 +1440,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
       <div onclick="showFP('fp-guide-title-transfer')" style="background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:1.5rem;cursor:pointer;transition:all 0.2s" onmouseover="this.style.borderColor='#93c5fd';this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.transform='none';this.style.boxShadow='none'">
         <div style="font-size:2rem;margin-bottom:0.75rem">🔑</div>
         <div style="display:inline-block;background:rgba(220,38,38,0.08);color:#dc2626;font-size:0.62rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;padding:2px 8px;border-radius:20px;margin-bottom:0.5rem">Vehicle</div>
-        <h2 style="font-size:1rem;font-weight:800;color:#0f172a;margin-bottom:0.4rem;line-height:1.3">How to Transfer a Car Title (Buyer &amp; Seller)</h2>
+        <h3 style="font-size:1rem;font-weight:800;color:#0f172a;margin-bottom:0.4rem;line-height:1.3">How to Transfer a Car Title (Buyer &amp; Seller)</h3>
         <p style="font-size:0.82rem;color:#64748b;line-height:1.6;margin-bottom:0.75rem">Complete checklist for buyers and sellers — avoid the most common title transfer mistakes.</p>
         <span style="font-size:0.78rem;color:#2563eb;font-weight:700">Read Guide →</span>
       </div>
@@ -1449,7 +1449,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
       <div onclick="showFP('fp-guide-wait-times')" style="background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:1.5rem;cursor:pointer;transition:all 0.2s" onmouseover="this.style.borderColor='#93c5fd';this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.transform='none';this.style.boxShadow='none'">
         <div style="font-size:2rem;margin-bottom:0.75rem">⏱</div>
         <div style="display:inline-block;background:rgba(217,119,6,0.08);color:#d97706;font-size:0.62rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;padding:2px 8px;border-radius:20px;margin-bottom:0.5rem">Wait Times</div>
-        <h2 style="font-size:1rem;font-weight:800;color:#0f172a;margin-bottom:0.4rem;line-height:1.3">How to Avoid Long DMV Wait Times</h2>
+        <h3 style="font-size:1rem;font-weight:800;color:#0f172a;margin-bottom:0.4rem;line-height:1.3">How to Avoid Long DMV Wait Times</h3>
         <p style="font-size:0.82rem;color:#64748b;line-height:1.6;margin-bottom:0.75rem">Best days and times to visit the DMV, online alternatives, and how to get seen same day.</p>
         <span style="font-size:0.78rem;color:#2563eb;font-weight:700">Read Guide →</span>
       </div>
@@ -1458,7 +1458,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
       <div onclick="showFP('fp-guide-out-of-state')" style="background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:1.5rem;cursor:pointer;transition:all 0.2s" onmouseover="this.style.borderColor='#93c5fd';this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.transform='none';this.style.boxShadow='none'">
         <div style="font-size:2rem;margin-bottom:0.75rem">🗺</div>
         <div style="display:inline-block;background:rgba(37,99,235,0.08);color:#2563eb;font-size:0.62rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;padding:2px 8px;border-radius:20px;margin-bottom:0.5rem">Moving</div>
-        <h2 style="font-size:1rem;font-weight:800;color:#0f172a;margin-bottom:0.4rem;line-height:1.3">Transferring Out-of-State Driver's License</h2>
+        <h3 style="font-size:1rem;font-weight:800;color:#0f172a;margin-bottom:0.4rem;line-height:1.3">Transferring Out-of-State Driver's License</h3>
         <p style="font-size:0.82rem;color:#64748b;line-height:1.6;margin-bottom:0.75rem">Moved to a new state? Here's how to transfer your license, registration, and plates.</p>
         <span style="font-size:0.78rem;color:#2563eb;font-weight:700">Read Guide →</span>
       </div>
@@ -1467,7 +1467,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
       <div onclick="showFP('fp-guide-suspended')" style="background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:1.5rem;cursor:pointer;transition:all 0.2s" onmouseover="this.style.borderColor='#93c5fd';this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.transform='none';this.style.boxShadow='none'">
         <div style="font-size:2rem;margin-bottom:0.75rem">⚠️</div>
         <div style="display:inline-block;background:rgba(220,38,38,0.08);color:#dc2626;font-size:0.62rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;padding:2px 8px;border-radius:20px;margin-bottom:0.5rem">License Issues</div>
-        <h2 style="font-size:1rem;font-weight:800;color:#0f172a;margin-bottom:0.4rem;line-height:1.3">Suspended Driver's License — How to Reinstate</h2>
+        <h3 style="font-size:1rem;font-weight:800;color:#0f172a;margin-bottom:0.4rem;line-height:1.3">Suspended Driver's License — How to Reinstate</h3>
         <p style="font-size:0.82rem;color:#64748b;line-height:1.6;margin-bottom:0.75rem">Steps to reinstate a suspended or revoked license, SR-22 requirements, and reinstatement fees.</p>
         <span style="font-size:0.78rem;color:#2563eb;font-weight:700">Read Guide →</span>
       </div>
@@ -1476,7 +1476,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
       <div onclick="showFP('fp-guide-smog')" style="background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:1.5rem;cursor:pointer;transition:all 0.2s" onmouseover="this.style.borderColor='#93c5fd';this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.transform='none';this.style.boxShadow='none'">
         <div style="font-size:2rem;margin-bottom:0.75rem">🔧</div>
         <div style="display:inline-block;background:rgba(22,163,74,0.08);color:#16a34a;font-size:0.62rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;padding:2px 8px;border-radius:20px;margin-bottom:0.5rem">Vehicle</div>
-        <h2 style="font-size:1rem;font-weight:800;color:#0f172a;margin-bottom:0.4rem;line-height:1.3">Smog Check &amp; Emissions Test Guide</h2>
+        <h3 style="font-size:1rem;font-weight:800;color:#0f172a;margin-bottom:0.4rem;line-height:1.3">Smog Check &amp; Emissions Test Guide</h3>
         <p style="font-size:0.82rem;color:#64748b;line-height:1.6;margin-bottom:0.75rem">Which states require smog checks, how to prepare, and what to do if your car fails.</p>
         <span style="font-size:0.78rem;color:#2563eb;font-weight:700">Read Guide →</span>
       </div>
@@ -1496,7 +1496,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 <div class="fp" id="fp-guide-appointment"><div class="fp-inner">
   <div class="fp-back" onclick="showFP('fp-guides')">← Back to DMV Guides</div>
   <div class="sec-ey" style="margin-bottom:0.75rem">DMV Guide</div>
-  <h1>How to Get a DMV Appointment Fast (All 50 States)</h1>
+  <h2>How to Get a DMV Appointment Fast (All 50 States)</h2>
   <p class="lead">DMV appointments book out weeks in advance in major cities. Here's how to get an appointment quickly — and how our alert system does the hard work for you.</p>
   <h2>Why DMV Appointments Are So Hard to Get</h2>
   <p>High-demand services like REAL ID, road tests, and new driver licenses have limited slots. In California, New York, and Texas, popular offices can be booked 4–8 weeks out. The key is acting fast when cancellations open up.</p>
@@ -1525,7 +1525,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 <div class="fp" id="fp-guide-written-test"><div class="fp-inner">
   <div class="fp-back" onclick="showFP('fp-guides')">← Back to DMV Guides</div>
   <div class="sec-ey" style="margin-bottom:0.75rem">DMV Guide</div>
-  <h1>DMV Written (Knowledge) Test — Complete Study Guide</h1>
+  <h2>DMV Written (Knowledge) Test — Complete Study Guide</h2>
   <p class="lead">Pass your DMV permit test or license knowledge test on the first try. This guide covers what's tested, how to study, and state-specific tips.</p>
   <h2>What's on the DMV Written Test?</h2>
   <p>The knowledge test covers traffic laws, road signs, right-of-way rules, and safe driving practices. Most states test 25–50 questions with a passing score of 80–85%.</p>
@@ -1562,7 +1562,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 <div class="fp" id="fp-guide-road-test"><div class="fp-inner">
   <div class="fp-back" onclick="showFP('fp-guides')">← Back to DMV Guides</div>
   <div class="sec-ey" style="margin-bottom:0.75rem">DMV Guide</div>
-  <h1>DMV Road Test — How to Pass on Your First Try</h1>
+  <h2>DMV Road Test — How to Pass on Your First Try</h2>
   <p class="lead">Everything you need to know before your behind-the-wheel driving test — from vehicle requirements to the most common reasons people fail.</p>
   <h2>What the Examiner Is Looking For</h2>
   <p>Examiners evaluate your ability to operate the vehicle safely, follow traffic laws, and demonstrate situational awareness. They're not trying to trick you — they want you to succeed.</p>
@@ -1600,7 +1600,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 <div class="fp" id="fp-guide-title-transfer"><div class="fp-inner">
   <div class="fp-back" onclick="showFP('fp-guides')">← Back to DMV Guides</div>
   <div class="sec-ey" style="margin-bottom:0.75rem">DMV Guide</div>
-  <h1>How to Transfer a Car Title — Complete Guide for Buyers &amp; Sellers</h1>
+  <h2>How to Transfer a Car Title — Complete Guide for Buyers &amp; Sellers</h2>
   <p class="lead">Whether you're buying, selling, gifting, or inheriting a vehicle, here is the complete checklist to transfer a car title correctly and avoid costly mistakes.</p>
   <h2>Seller Checklist</h2>
   <ul>
@@ -1636,7 +1636,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 <div class="fp" id="fp-guide-wait-times"><div class="fp-inner">
   <div class="fp-back" onclick="showFP('fp-guides')">← Back to DMV Guides</div>
   <div class="sec-ey" style="margin-bottom:0.75rem">DMV Guide</div>
-  <h1>How to Avoid Long DMV Wait Times</h1>
+  <h2>How to Avoid Long DMV Wait Times</h2>
   <p class="lead">Average DMV wait times are 45 minutes to 3+ hours without an appointment. These strategies will save you hours of your time.</p>
   <h2>DMV Wait Times by State (Without Appointment)</h2>
   <table>
@@ -1670,7 +1670,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 <div class="fp" id="fp-guide-out-of-state"><div class="fp-inner">
   <div class="fp-back" onclick="showFP('fp-guides')">← Back to DMV Guides</div>
   <div class="sec-ey" style="margin-bottom:0.75rem">DMV Guide</div>
-  <h1>Transferring an Out-of-State Driver's License When You Move</h1>
+  <h2>Transferring an Out-of-State Driver's License When You Move</h2>
   <p class="lead">Moved to a new state? Most states require you to transfer your out-of-state license within 30–60 days of establishing residency. Here's exactly what to do.</p>
   <h2>When Do You Need to Transfer?</h2>
   <p>You must transfer your license when you: establish a new permanent address in a new state, register to vote in the new state, enroll children in public school, or obtain a new state's vehicle registration.</p>
@@ -1701,7 +1701,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 <div class="fp" id="fp-guide-suspended"><div class="fp-inner">
   <div class="fp-back" onclick="showFP('fp-guides')">← Back to DMV Guides</div>
   <div class="sec-ey" style="margin-bottom:0.75rem">DMV Guide</div>
-  <h1>Suspended Driver's License — How to Check Status &amp; Reinstate</h1>
+  <h2>Suspended Driver's License — How to Check Status &amp; Reinstate</h2>
   <p class="lead">A suspended license means you cannot legally drive. Here's how to find out if your license is suspended and the exact steps to reinstate it in any state.</p>
   <h2>Common Reasons for Suspension</h2>
   <ul>
@@ -1740,7 +1740,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 <div class="fp" id="fp-guide-smog"><div class="fp-inner">
   <div class="fp-back" onclick="showFP('fp-guides')">← Back to DMV Guides</div>
   <div class="sec-ey" style="margin-bottom:0.75rem">DMV Guide</div>
-  <h1>Smog Check &amp; Emissions Test Guide — All States</h1>
+  <h2>Smog Check &amp; Emissions Test Guide — All States</h2>
   <p class="lead">Does your state require a smog check before registration renewal? Here's everything you need to know — including what to do if your car fails.</p>
   <h2>Which States Require Smog Checks?</h2>
   <table>
@@ -1769,29 +1769,29 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 </div></div>
 
 <!-- ORIGINAL FOOTER PAGES -->
-<div class="fp" id="fp-realid"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-guides')">← Back to DMV Guides</div><div class="sec-ey" style="margin-bottom:0.75rem">DMV Guide</div><h1>REAL ID — Complete Guide</h1><p class="lead">Everything US residents need to know about getting a REAL ID — the federally compliant ID required for domestic air travel and federal buildings.</p><h2>What is REAL ID?</h2><p>REAL ID is a federally compliant driver's license or ID card issued by your state DMV. Since May 2025, you need a REAL ID (or US passport) to board domestic flights and enter federal buildings. Look for the gold or black star in the upper right corner of your license — that means it's REAL ID compliant.</p><h2>Required Documents (All States)</h2><ul><li>Proof of identity: US passport, birth certificate, or permanent resident card</li><li>Proof of Social Security Number: SSN card, W-2, or pay stub with full SSN</li><li>2 proofs of state residency: utility bill, bank statement, mortgage statement (dated within 60 days)</li><li>Your current driver's license (even if expiring)</li></ul><div class="info-box"><h4>💡 Pro Tip — Use DMV Assistant</h4><p>Book a REAL ID appointment as early as possible — slots fill up weeks in advance in major cities. Set an appointment alert on DMV Assistant to be notified the moment a slot opens near you.</p></div><h2>Fees</h2><p>Typically $30–$45 depending on your state — same as a regular license renewal in most cases. California: $35. New York: $40. Texas: $33.</p><h2>Important: Must Be In Person</h2><p>REAL ID cannot be obtained online. You must appear in person at your DMV with original documents — no photocopies accepted. Missing even one document means you'll need to reschedule.</p><button class="btn bp" onclick="showFP('fp-signup')">Set REAL ID Appointment Alert →</button></div></div>
+<div class="fp" id="fp-realid"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-guides')">← Back to DMV Guides</div><div class="sec-ey" style="margin-bottom:0.75rem">DMV Guide</div><h2>REAL ID — Complete Guide</h2><p class="lead">Everything US residents need to know about getting a REAL ID — the federally compliant ID required for domestic air travel and federal buildings.</p><h2>What is REAL ID?</h2><p>REAL ID is a federally compliant driver's license or ID card issued by your state DMV. Since May 2025, you need a REAL ID (or US passport) to board domestic flights and enter federal buildings. Look for the gold or black star in the upper right corner of your license — that means it's REAL ID compliant.</p><h2>Required Documents (All States)</h2><ul><li>Proof of identity: US passport, birth certificate, or permanent resident card</li><li>Proof of Social Security Number: SSN card, W-2, or pay stub with full SSN</li><li>2 proofs of state residency: utility bill, bank statement, mortgage statement (dated within 60 days)</li><li>Your current driver's license (even if expiring)</li></ul><div class="info-box"><h4>💡 Pro Tip — Use DMV Assistant</h4><p>Book a REAL ID appointment as early as possible — slots fill up weeks in advance in major cities. Set an appointment alert on DMV Assistant to be notified the moment a slot opens near you.</p></div><h2>Fees</h2><p>Typically $30–$45 depending on your state — same as a regular license renewal in most cases. California: $35. New York: $40. Texas: $33.</p><h2>Important: Must Be In Person</h2><p>REAL ID cannot be obtained online. You must appear in person at your DMV with original documents — no photocopies accepted. Missing even one document means you'll need to reschedule.</p><button class="btn bp" onclick="showFP('fp-signup')">Set REAL ID Appointment Alert →</button></div></div>
 
-<div class="fp" id="fp-renewal"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-guides')">← Back to DMV Guides</div><div class="sec-ey" style="margin-bottom:0.75rem">DMV Guide</div><h1>Driver License Renewal Guide</h1><p class="lead">How to renew your US driver's license — online options, required documents, fees, and state-specific rules.</p><h2>Renewal Cycles by State</h2><ul><li>California: Every 5 years ($35 fee)</li><li>Texas: Every 6 years ($25 fee)</li><li>New York: Every 8 years ($64.25 fee)</li><li>Florida: Every 8 years ($48 fee)</li><li>Illinois: Every 4 years ($30 fee)</li></ul><h2>Online vs In-Person Renewal</h2><p>Most states allow online renewal if: your address hasn't changed, your name hasn't changed, your vision still meets standards, and your last renewal wasn't also done online. Check your state DMV website or ask our AI Assistant.</p><h2>What Happens if License Expires?</h2><p>Driving with an expired license is a traffic violation. Fines range from $100–$500. If expired over 1 year, you may need to retake the knowledge test. Insurance may not cover accidents with an expired license.</p><div class="info-box"><h4>🔔 Set a Reminder on DMV Assistant</h4><p>Never let your license expire again. Add your expiration date to DMV Assistant — you'll receive email and SMS reminders at 60, 30, and 7 days before.</p></div><button class="btn bg" onclick="showFP('fp-signup')">Add License Renewal Reminder →</button></div></div>
+<div class="fp" id="fp-renewal"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-guides')">← Back to DMV Guides</div><div class="sec-ey" style="margin-bottom:0.75rem">DMV Guide</div><h2>Driver License Renewal Guide</h2><p class="lead">How to renew your US driver's license — online options, required documents, fees, and state-specific rules.</p><h2>Renewal Cycles by State</h2><ul><li>California: Every 5 years ($35 fee)</li><li>Texas: Every 6 years ($25 fee)</li><li>New York: Every 8 years ($64.25 fee)</li><li>Florida: Every 8 years ($48 fee)</li><li>Illinois: Every 4 years ($30 fee)</li></ul><h2>Online vs In-Person Renewal</h2><p>Most states allow online renewal if: your address hasn't changed, your name hasn't changed, your vision still meets standards, and your last renewal wasn't also done online. Check your state DMV website or ask our AI Assistant.</p><h2>What Happens if License Expires?</h2><p>Driving with an expired license is a traffic violation. Fines range from $100–$500. If expired over 1 year, you may need to retake the knowledge test. Insurance may not cover accidents with an expired license.</p><div class="info-box"><h4>🔔 Set a Reminder on DMV Assistant</h4><p>Never let your license expire again. Add your expiration date to DMV Assistant — you'll receive email and SMS reminders at 60, 30, and 7 days before.</p></div><button class="btn bg" onclick="showFP('fp-signup')">Add License Renewal Reminder →</button></div></div>
 
-<div class="fp" id="fp-registration"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-guides')">← Back to DMV Guides</div><div class="sec-ey" style="margin-bottom:0.75rem">DMV Guide</div><h1>Vehicle Registration Renewal Guide</h1><p class="lead">How to renew your vehicle registration in all 50 US states — online options, fees, smog requirements, and late penalties.</p><h2>When to Renew</h2><p>Most states require annual renewal. You should receive a renewal notice 60 days before expiry — but don't rely on postal mail. Use DMV Assistant to set an automated reminder.</p><h2>Online Renewal (Most States)</h2><p>You can renew online at your state DMV website if: your smog/emissions test is current (if required), no outstanding violations, and payment method is available. California, Texas, Florida, New York all offer online renewal.</p><h2>Smog Check States</h2><ul><li>Required: California, Texas, Arizona, Colorado, Illinois, Georgia, and 15+ others</li><li>Must be completed BEFORE you can renew registration</li><li>Cost: $30–$90 at certified smog check stations</li></ul><h2>Late Registration Fees</h2><ul><li>California: $15 late fee + 60% of registration fee if over 1 year late</li><li>Texas: $25 late fee for first month, increases after</li><li>Florida: $25–$250 depending on how late</li></ul><div class="info-box"><h4>💡 Avoid Late Fees with DMV Assistant</h4><p>The Pro plan ($12/mo) pays for itself with just ONE avoided late registration fee. Set reminders for all your vehicles today.</p></div><button class="btn bp" onclick="showFP('fp-signup')">Set Registration Reminders →</button></div></div>
+<div class="fp" id="fp-registration"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-guides')">← Back to DMV Guides</div><div class="sec-ey" style="margin-bottom:0.75rem">DMV Guide</div><h2>Vehicle Registration Renewal Guide</h2><p class="lead">How to renew your vehicle registration in all 50 US states — online options, fees, smog requirements, and late penalties.</p><h2>When to Renew</h2><p>Most states require annual renewal. You should receive a renewal notice 60 days before expiry — but don't rely on postal mail. Use DMV Assistant to set an automated reminder.</p><h2>Online Renewal (Most States)</h2><p>You can renew online at your state DMV website if: your smog/emissions test is current (if required), no outstanding violations, and payment method is available. California, Texas, Florida, New York all offer online renewal.</p><h2>Smog Check States</h2><ul><li>Required: California, Texas, Arizona, Colorado, Illinois, Georgia, and 15+ others</li><li>Must be completed BEFORE you can renew registration</li><li>Cost: $30–$90 at certified smog check stations</li></ul><h2>Late Registration Fees</h2><ul><li>California: $15 late fee + 60% of registration fee if over 1 year late</li><li>Texas: $25 late fee for first month, increases after</li><li>Florida: $25–$250 depending on how late</li></ul><div class="info-box"><h4>💡 Avoid Late Fees with DMV Assistant</h4><p>The Pro plan ($12/mo) pays for itself with just ONE avoided late registration fee. Set reminders for all your vehicles today.</p></div><button class="btn bp" onclick="showFP('fp-signup')">Set Registration Reminders →</button></div></div>
 
-<div class="fp" id="fp-title"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-guides')">← Back to DMV Guides</div><div class="sec-ey" style="margin-bottom:0.75rem">DMV Guide</div><h1>Vehicle Title Transfer Guide</h1><p class="lead">Step-by-step guide to transferring a vehicle title in the US — buying, selling, gifting, or inheriting a vehicle.</p><h2>When is a Title Transfer Needed?</h2><ul><li>Buying or selling a used vehicle</li><li>Receiving a vehicle as a gift</li><li>Inheriting a vehicle from a deceased person</li><li>Adding or removing a co-owner</li><li>Paying off a vehicle loan (lien release)</li></ul><h2>Required Documents</h2><ul><li>Signed title from seller (all owners must sign)</li><li>Odometer disclosure statement (vehicles under 10 years old)</li><li>Bill of sale (recommended — protects both buyer and seller)</li><li>Valid government-issued photo ID</li><li>Lien release letter if there was a loan on the vehicle</li><li>Payment for title fees and sales tax</li></ul><h2>Fees</h2><p>State title transfer fee: $15–$75. Plus state sales tax on the purchase price (typically 5–10%). California title fee: $21. Texas: $33. New York: $50.</p><h2>Timeline Warning</h2><p>Must be completed within 10–30 days after purchase (varies by state). Late transfers result in penalties. Store your bill of sale in the DMV Assistant document vault as proof during the transfer period.</p><button class="btn bg" onclick="showFP('fp-signup')">Store Title Documents Securely →</button></div></div>
+<div class="fp" id="fp-title"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-guides')">← Back to DMV Guides</div><div class="sec-ey" style="margin-bottom:0.75rem">DMV Guide</div><h2>Vehicle Title Transfer Guide</h2><p class="lead">Step-by-step guide to transferring a vehicle title in the US — buying, selling, gifting, or inheriting a vehicle.</p><h2>When is a Title Transfer Needed?</h2><ul><li>Buying or selling a used vehicle</li><li>Receiving a vehicle as a gift</li><li>Inheriting a vehicle from a deceased person</li><li>Adding or removing a co-owner</li><li>Paying off a vehicle loan (lien release)</li></ul><h2>Required Documents</h2><ul><li>Signed title from seller (all owners must sign)</li><li>Odometer disclosure statement (vehicles under 10 years old)</li><li>Bill of sale (recommended — protects both buyer and seller)</li><li>Valid government-issued photo ID</li><li>Lien release letter if there was a loan on the vehicle</li><li>Payment for title fees and sales tax</li></ul><h2>Fees</h2><p>State title transfer fee: $15–$75. Plus state sales tax on the purchase price (typically 5–10%). California title fee: $21. Texas: $33. New York: $50.</p><h2>Timeline Warning</h2><p>Must be completed within 10–30 days after purchase (varies by state). Late transfers result in penalties. Store your bill of sale in the DMV Assistant document vault as proof during the transfer period.</p><button class="btn bg" onclick="showFP('fp-signup')">Store Title Documents Securely →</button></div></div>
 
-<div class="fp" id="fp-veteran"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Veteran Benefits</div><h1>🎖 DMV Benefits for US Veterans</h1><div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.3);border-radius:12px;padding:1rem 1.25rem;margin:1rem 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem"><div><div style="font-size:0.9rem;font-weight:800;color:var(--gold2)">🎖 50% Off Pro Plan — Veterans Only</div><div style="font-size:0.78rem;color:var(--text2);margin-top:2px">Use code <strong style="color:var(--gold2);font-family:monospace;font-size:0.9rem">VET50</strong> at checkout — permanent discount</div></div><button onclick="showVetDiscount()" class="btn" style="background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.4);color:var(--gold2);font-weight:700;padding:0.45rem 1rem;font-size:0.82rem;white-space:nowrap">Claim Discount →</button></div><p class="lead">US veterans and active duty military receive special DMV benefits in most states — including free licenses, free plates, and reduced fees.</p><h2>Free or Discounted Licenses</h2><ul><li>California: Free DL renewal for veterans with honorable discharge</li><li>Florida: Free DL renewal for veterans</li><li>Texas: Free DL for 100% disabled veterans</li><li>New York: Veterans discount available at DMV offices</li><li>Most states: Honor or Veteran designation on license for free</li></ul><h2>Veteran License Plates</h2><p>All 50 states offer special veteran or military license plates. Most are free or low cost. Show your DD-214 or military ID at the DMV. These plates identify you as a veteran and often come with parking benefits.</p><h2>Priority DMV Service</h2><p>Many DMV locations offer priority lanes or appointments for veterans. Ask your local DMV or use our AI Assistant to find veteran-specific benefits in your state.</p><div class="info-box" style="border-color:rgba(245,158,11,0.3);background:rgba(245,158,11,0.04)"><h4>🎖 DMV Assistant Veteran Discount</h4><p>US Veterans and Active Duty receive <strong>50% off the Pro Plan</strong> — permanently. Use code <strong style="color:var(--gold2)">VET50</strong> at checkout. Our way of honoring your service.</p></div><button class="btn bg" onclick="showFP('fp-signup')">Claim Veteran Discount — 50% Off →</button></div></div>
+<div class="fp" id="fp-veteran"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Veteran Benefits</div><h2>🎖 DMV Benefits for US Veterans</h2><div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.3);border-radius:12px;padding:1rem 1.25rem;margin:1rem 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem"><div><div style="font-size:0.9rem;font-weight:800;color:var(--gold2)">🎖 50% Off Pro Plan — Veterans Only</div><div style="font-size:0.78rem;color:var(--text2);margin-top:2px">Use code <strong style="color:var(--gold2);font-family:monospace;font-size:0.9rem">VET50</strong> at checkout — permanent discount</div></div><button onclick="showVetDiscount()" class="btn" style="background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.4);color:var(--gold2);font-weight:700;padding:0.45rem 1rem;font-size:0.82rem;white-space:nowrap">Claim Discount →</button></div><p class="lead">US veterans and active duty military receive special DMV benefits in most states — including free licenses, free plates, and reduced fees.</p><h2>Free or Discounted Licenses</h2><ul><li>California: Free DL renewal for veterans with honorable discharge</li><li>Florida: Free DL renewal for veterans</li><li>Texas: Free DL for 100% disabled veterans</li><li>New York: Veterans discount available at DMV offices</li><li>Most states: Honor or Veteran designation on license for free</li></ul><h2>Veteran License Plates</h2><p>All 50 states offer special veteran or military license plates. Most are free or low cost. Show your DD-214 or military ID at the DMV. These plates identify you as a veteran and often come with parking benefits.</p><h2>Priority DMV Service</h2><p>Many DMV locations offer priority lanes or appointments for veterans. Ask your local DMV or use our AI Assistant to find veteran-specific benefits in your state.</p><div class="info-box" style="border-color:rgba(245,158,11,0.3);background:rgba(245,158,11,0.04)"><h4>🎖 DMV Assistant Veteran Discount</h4><p>US Veterans and Active Duty receive <strong>50% off the Pro Plan</strong> — permanently. Use code <strong style="color:var(--gold2)">VET50</strong> at checkout. Our way of honoring your service.</p></div><button class="btn bg" onclick="showFP('fp-signup')">Claim Veteran Discount — 50% Off →</button></div></div>
 
-<div class="fp" id="fp-about"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Company</div><h1>About DMV Assistant</h1><p class="lead">DMV Assistant was built because dealing with the DMV shouldn't be stressful. We help Americans never miss a DMV appointment or renewal deadline again.</p><h2>Our Mission</h2><p>Every year, millions of Americans pay unnecessary late fees, miss flights because of no REAL ID, or wait weeks for DMV appointments that could have been caught earlier. DMV Assistant solves this with instant alerts, automated reminders, and AI-powered guidance — covering all 50 US states.</p><h2>Who We Serve</h2><ul><li>Individual US residents in all 50 states</li><li>US Veterans and Active Duty Military (50% discount)</li><li>Families managing multiple vehicles and drivers</li><li>Businesses managing vehicle fleets</li></ul><h2>Security & Privacy</h2><p>All documents are encrypted with AES-256 — the same standard used by major US banks. We are fully GDPR and CCPA compliant. We never sell your data to third parties. Your documents are yours alone.</p><h2>Contact</h2><p>Email: <a href="mailto:alerts@dmvassistants.com" style="color:#60a5fa;text-decoration:none">alerts@dmvassistants.com</a> · Response within 24 hours · Priority support for Pro and Family plan users.</p><div class="info-box"><h4>⚠ Disclaimer</h4><p>DMV Assistant is an independent third-party service. We are NOT affiliated with any government DMV agency. For official transactions, always visit your state's official DMV website.</p></div></div></div>
+<div class="fp" id="fp-about"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Company</div><h2>About DMV Assistant</h2><p class="lead">DMV Assistant was built because dealing with the DMV shouldn't be stressful. We help Americans never miss a DMV appointment or renewal deadline again.</p><h2>Our Mission</h2><p>Every year, millions of Americans pay unnecessary late fees, miss flights because of no REAL ID, or wait weeks for DMV appointments that could have been caught earlier. DMV Assistant solves this with instant alerts, automated reminders, and AI-powered guidance — covering all 50 US states.</p><h2>Who We Serve</h2><ul><li>Individual US residents in all 50 states</li><li>US Veterans and Active Duty Military (50% discount)</li><li>Families managing multiple vehicles and drivers</li><li>Businesses managing vehicle fleets</li></ul><h2>Security & Privacy</h2><p>All documents are encrypted with AES-256 — the same standard used by major US banks. We are fully GDPR and CCPA compliant. We never sell your data to third parties. Your documents are yours alone.</p><h2>Contact</h2><p>Email: <a href="/cdn-cgi/l/email-protection#1c7d70796e686f5c78716a7d6f6f756f687d72686f327f7371" style="color:#60a5fa;text-decoration:none"><span class="__cf_email__" data-cfemail="7f1e131a0d0b0c3f1b12091e0c0c160c0b1e110b0c511c1012">[email&#160;protected]</span></a> · Response within 24 hours · Priority support for Pro and Family plan users.</p><div class="info-box"><h4>⚠ Disclaimer</h4><p>DMV Assistant is an independent third-party service. We are NOT affiliated with any government DMV agency. For official transactions, always visit your state's official DMV website.</p></div></div></div>
 
-<div class="fp" id="fp-privacy"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Legal</div><h1>Privacy Policy</h1><p class="lead">Last updated: March 15, 2026. DMV Assistant is committed to protecting your privacy and personal data.</p><h2>Data We Collect</h2><ul><li>Account information: name, email address, state</li><li>DMV preferences: state, office, service type, alert settings</li><li>Document metadata: file names, expiry dates (encrypted)</li><li>Usage data: features used, alerts sent (anonymized)</li></ul><h2>How We Use Your Data</h2><ul><li>Send DMV appointment alerts and renewal reminders</li><li>Provide AI-powered DMV guidance</li><li>Process subscription payments via Lemon Squeezy</li><li>Improve our services (anonymized analytics only)</li></ul><h2>Data Security</h2><p>All documents and personal data are encrypted with AES-256. We use Supabase for secure database storage with row-level security. Payment processing is handled by Lemon Squeezy — we never store your card details.</p><h2>GDPR & CCPA Compliance</h2><p>You have the right to access, modify, or delete your personal data at any time. Contact <a href="mailto:alerts@dmvassistants.com" style="color:#60a5fa;text-decoration:none">alerts@dmvassistants.com</a> for data requests. California residents have additional rights under CCPA.</p><h2>Contact</h2><p>Privacy questions: <a href="mailto:alerts@dmvassistants.com" style="color:#60a5fa;text-decoration:none">alerts@dmvassistants.com</a></p></div></div>
+<div class="fp" id="fp-privacy"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Legal</div><h2>Privacy Policy</h2><p class="lead">Last updated: March 15, 2026. DMV Assistant is committed to protecting your privacy and personal data.</p><h2>Data We Collect</h2><ul><li>Account information: name, email address, state</li><li>DMV preferences: state, office, service type, alert settings</li><li>Document metadata: file names, expiry dates (encrypted)</li><li>Usage data: features used, alerts sent (anonymized)</li></ul><h2>How We Use Your Data</h2><ul><li>Send DMV appointment alerts and renewal reminders</li><li>Provide AI-powered DMV guidance</li><li>Process subscription payments via Lemon Squeezy</li><li>Improve our services (anonymized analytics only)</li></ul><h2>Data Security</h2><p>All documents and personal data are encrypted with AES-256. We use Supabase for secure database storage with row-level security. Payment processing is handled by Lemon Squeezy — we never store your card details.</p><h2>GDPR & CCPA Compliance</h2><p>You have the right to access, modify, or delete your personal data at any time. Contact <a href="/cdn-cgi/l/email-protection#98f9f4fdeaecebd8fcf5eef9ebebf1ebecf9f6ecebb6fbf7f5" style="color:#60a5fa;text-decoration:none"><span class="__cf_email__" data-cfemail="93f2fff6e1e7e0d3f7fee5f2e0e0fae0e7f2fde7e0bdf0fcfe">[email&#160;protected]</span></a> for data requests. California residents have additional rights under CCPA.</p><h2>Contact</h2><p>Privacy questions: <a href="/cdn-cgi/l/email-protection#e3828f86919790a3878e958290908a9097828d9790cd808c8e" style="color:#60a5fa;text-decoration:none"><span class="__cf_email__" data-cfemail="b6d7dad3c4c2c5f6d2dbc0d7c5c5dfc5c2d7d8c2c598d5d9db">[email&#160;protected]</span></a></p></div></div>
 
-<div class="fp" id="fp-terms"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Legal</div><h1>Terms of Service</h1><p class="lead">Last updated: March 15, 2026. By using DMV Assistant, you agree to these terms.</p><h2>Service Description</h2><p>DMV Assistant provides DMV appointment monitoring, renewal reminders, document storage, and AI assistance for US residents. We are not affiliated with any government DMV agency.</p><h2>Subscription Terms</h2><ul><li>Free plan: No charge, limited to 2 alerts and 2 reminders</li><li>Pro plan: $12/month or $108/year, billed via Lemon Squeezy</li><li>Family plan: $40/month or $384/year, up to 5 members</li><li>Cancel anytime — no cancellation fees</li><li>Refunds available within 7 days of purchase</li></ul><h2>Acceptable Use</h2><ul><li>For personal DMV management only</li><li>Do not share account credentials</li><li>Do not use for commercial resale of alerts</li><li>One account per person (Family plan for multiple people)</li></ul><h2>Limitation of Liability</h2><p>DMV Assistant provides alerts and reminders as a convenience service. We do not guarantee appointment availability or DMV system uptime. Always verify with your official state DMV website for official information.</p><h2>Contact</h2><p>Legal questions: <a href="mailto:alerts@dmvassistants.com" style="color:#60a5fa;text-decoration:none">alerts@dmvassistants.com</a></p></div></div>
+<div class="fp" id="fp-terms"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Legal</div><h2>Terms of Service</h2><p class="lead">Last updated: March 15, 2026. By using DMV Assistant, you agree to these terms.</p><h2>Service Description</h2><p>DMV Assistant provides DMV appointment monitoring, renewal reminders, document storage, and AI assistance for US residents. We are not affiliated with any government DMV agency.</p><h2>Subscription Terms</h2><ul><li>Free plan: No charge, limited to 2 alerts and 2 reminders</li><li>Pro plan: $12/month or $108/year, billed via Lemon Squeezy</li><li>Family plan: $40/month or $384/year, up to 5 members</li><li>Cancel anytime — no cancellation fees</li><li>Refunds available within 7 days of purchase</li></ul><h2>Acceptable Use</h2><ul><li>For personal DMV management only</li><li>Do not share account credentials</li><li>Do not use for commercial resale of alerts</li><li>One account per person (Family plan for multiple people)</li></ul><h2>Limitation of Liability</h2><p>DMV Assistant provides alerts and reminders as a convenience service. We do not guarantee appointment availability or DMV system uptime. Always verify with your official state DMV website for official information.</p><h2>Contact</h2><p>Legal questions: <a href="/cdn-cgi/l/email-protection#8cede0e9fef8ffcce8e1faedffffe5fff8ede2f8ffa2efe3e1" style="color:#60a5fa;text-decoration:none"><span class="__cf_email__" data-cfemail="f6979a93848285b6929b809785859f858297988285d895999b">[email&#160;protected]</span></a></p></div></div>
 
-<div class="fp" id="fp-contact"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Support</div><h1>Contact Support</h1><p class="lead">We're here to help. Typical response time: under 24 hours. Pro and Family plan users get priority support.</p><div class="info-box"><h4>📧 Email Support</h4><p><a href="mailto:alerts@dmvassistants.com" style="color:#60a5fa;text-decoration:none">alerts@dmvassistants.com</a> · Response within 24 hours (business days)</p></div><div class="info-box"><h4>⭐ Priority Support</h4><p>Pro and Family plan users get responses within 4 business hours. Login to your account and use the in-app support chat.</p></div><div class="info-box"><h4>🎖 Veteran Support</h4><p>Veterans with questions about the VET50 discount or veteran DMV benefits: <a href="mailto:alerts@dmvassistants.com" style="color:#60a5fa;text-decoration:none">alerts@dmvassistants.com</a></p></div><h2>Common Issues</h2><ul><li>Not receiving emails — check spam folder, add <a href="mailto:alerts@dmvassistants.com" style="color:#60a5fa;text-decoration:none">alerts@dmvassistants.com</a> to contacts</li><li>SMS not arriving — verify phone number in Settings, ensure country code is +1</li><li>Forgot password — use "Forgot Password" on the login page</li><li>Billing questions — login → Billing → Manage via Lemon Squeezy portal</li></ul><button class="btn bp" onclick="toast('Support email copied: alerts@dmvassistants.com','i')">Copy Support Email</button></div></div>
+<div class="fp" id="fp-contact"><div class="fp-inner"><div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div><div class="sec-ey" style="margin-bottom:0.75rem">Support</div><h2>Contact Support</h2><p class="lead">We're here to help. Typical response time: under 24 hours. Pro and Family plan users get priority support.</p><div class="info-box"><h4>📧 Email Support</h4><p><a href="/cdn-cgi/l/email-protection#8dece1e8fff9fecde9e0fbecfefee4fef9ece3f9fea3eee2e0" style="color:#60a5fa;text-decoration:none"><span class="__cf_email__" data-cfemail="8eefe2ebfcfafdceeae3f8effdfde7fdfaefe0fafda0ede1e3">[email&#160;protected]</span></a> · Response within 24 hours (business days)</p></div><div class="info-box"><h4>⭐ Priority Support</h4><p>Pro and Family plan users get responses within 4 business hours. Login to your account and use the in-app support chat.</p></div><div class="info-box"><h4>🎖 Veteran Support</h4><p>Veterans with questions about the VET50 discount or veteran DMV benefits: <a href="/cdn-cgi/l/email-protection#e889848d9a9c9ba88c859e899b9b819b9c89869c9bc68b8785" style="color:#60a5fa;text-decoration:none"><span class="__cf_email__" data-cfemail="1978757c6b6d6a597d746f786a6a706a6d78776d6a377a7674">[email&#160;protected]</span></a></p></div><h2>Common Issues</h2><ul><li>Not receiving emails — check spam folder, add <a href="/cdn-cgi/l/email-protection#2948454c5b5d5a694d445f485a5a405a5d48475d5a074a4644" style="color:#60a5fa;text-decoration:none"><span class="__cf_email__" data-cfemail="2d4c41485f595e6d49405b4c5e5e445e594c43595e034e4240">[email&#160;protected]</span></a> to contacts</li><li>SMS not arriving — verify phone number in Settings, ensure country code is +1</li><li>Forgot password — use "Forgot Password" on the login page</li><li>Billing questions — login → Billing → Manage via Lemon Squeezy portal</li></ul><button class="btn bp" onclick="toast('Support email copied: alerts@dmvassistants.com','i')">Copy Support Email</button></div></div>
 
 <div class="fp" id="fp-blog">
 <div class="fp-inner" style="max-width:1000px">
   <div class="fp-back" onclick="showFP('fp-land')">← Back to Home</div>
   <div class="sec-ey" style="margin-bottom:0.5rem">DMV Resource Center</div>
-  <h1 style="margin-bottom:0.5rem">DMV Guides, Tips & State Help</h1>
+  <h2 style="margin-bottom:0.5rem">DMV Guides, Tips & State Help</h2>
   <p class="lead" style="margin-bottom:1.75rem">Free guides for US drivers — license tests, renewals, state-specific rules, REAL ID, veteran benefits, and more.</p>
 
   <!-- Category Filter -->
@@ -2140,9 +2140,9 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
   <div class="tab" onclick="filterAlertHistory('document',this)">Documents</div>
 </div>
 <div id="alert-history-list" style="margin-top:0.75rem"></div>
-        <div class="ahrow"><div class="ahic" style="background:rgba(29,106,229,0.15)">📧</div><div class="ahbody"><div class="ahtit">Slot Found — REAL ID, Culver City DMV, CA</div><div class="ahtime">Today 9:42 AM · <a href="mailto:alerts@dmvassistants.com" style="color:#60a5fa;text-decoration:none">alerts@dmvassistants.com</a></div></div><span class="ahtag">Email</span></div>
+        <div class="ahrow"><div class="ahic" style="background:rgba(29,106,229,0.15)">📧</div><div class="ahbody"><div class="ahtit">Slot Found — REAL ID, Culver City DMV, CA</div><div class="ahtime">Today 9:42 AM · <a href="/cdn-cgi/l/email-protection#3d5c51584f494e7d59504b5c4e4e544e495c53494e135e5250" style="color:#60a5fa;text-decoration:none"><span class="__cf_email__" data-cfemail="8cede0e9fef8ffcce8e1faedffffe5fff8ede2f8ffa2efe3e1">[email&#160;protected]</span></a></div></div><span class="ahtag">Email</span></div>
         <div class="ahrow"><div class="ahic" style="background:rgba(245,158,11,0.12)">💬</div><div class="ahbody"><div class="ahtit">Reminder: Driver License expires in 30 days</div><div class="ahtime">Mar 12 · +1 (310) 555-0198</div></div><span class="ahtag">SMS</span></div>
-        <div class="ahrow"><div class="ahic" style="background:rgba(29,106,229,0.15)">📧</div><div class="ahbody"><div class="ahtit">Reminder: Vehicle Registration expires in 60 days</div><div class="ahtime">Mar 1 · <a href="mailto:alerts@dmvassistants.com" style="color:#60a5fa;text-decoration:none">alerts@dmvassistants.com</a></div></div><span class="ahtag">Email</span></div>
+        <div class="ahrow"><div class="ahic" style="background:rgba(29,106,229,0.15)">📧</div><div class="ahbody"><div class="ahtit">Reminder: Vehicle Registration expires in 60 days</div><div class="ahtime">Mar 1 · <a href="/cdn-cgi/l/email-protection#e988858c9b9d9aa98d849f889a9a809a9d88879d9ac78a8684" style="color:#60a5fa;text-decoration:none"><span class="__cf_email__" data-cfemail="f1909d94838582b1959c87908282988285909f8582df929e9c">[email&#160;protected]</span></a></div></div><span class="ahtag">Email</span></div>
         <div class="ahrow"><div class="ahic" style="background:rgba(245,158,11,0.12)">💬</div><div class="ahbody"><div class="ahtit">Reminder: Driver License expires in 60 days</div><div class="ahtime">Feb 10 · +1 (310) 555-0198</div></div><span class="ahtag">SMS</span></div>
         <div class="ahrow"><div class="ahic" style="background:rgba(13,148,136,0.15)">🔔</div><div class="ahbody"><div class="ahtit">Monitoring started — Vehicle Registration, Van Nuys DMV</div><div class="ahtime">Feb 3 · Dashboard + Email</div></div><span class="ahtag">Dashboard</span></div>
       </div>
@@ -2156,7 +2156,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
         <div id="family-list"><div style="padding:1rem;text-align:center;color:var(--text3);font-size:0.84rem">Family plan required to add members.</div></div>
         <div class="banner bw" id="fam-banner"><div class="banner-ic">⭐</div><div class="banner-body"><div class="banner-t">Family Plan required to add members</div><div class="banner-s">Manage up to 5 family members, their vehicles & documents — $40/month total.</div><div class="banner-acts"><button class="btn bg bsm" onclick="doUpgrade('family')">Upgrade to Family → $40/mo</button></div></div></div>
         <div id="mem-list">
-          <div class="memcard"><div class="memava" style="background:linear-gradient(135deg,#1d6ae5,#60a5fa);color:#fff">JD</div><div style="flex:1"><div style="font-size:0.84rem;font-weight:700">John Doe <span class="ibadge ib-b">OWNER</span></div><div style="font-size:0.68rem;color:var(--text3);margin-top:1px"><a href="mailto:alerts@dmvassistants.com" style="color:#60a5fa;text-decoration:none">alerts@dmvassistants.com</a> · California</div></div><button class="btn bgh bsm" onclick="toast('Profile settings','i')">Edit</button></div>
+          <div class="memcard"><div class="memava" style="background:linear-gradient(135deg,#1d6ae5,#60a5fa);color:#fff">JD</div><div style="flex:1"><div style="font-size:0.84rem;font-weight:700">John Doe <span class="ibadge ib-b">OWNER</span></div><div style="font-size:0.68rem;color:var(--text3);margin-top:1px"><a href="/cdn-cgi/l/email-protection#b0d1dcd5c2c4c3f0d4ddc6d1c3c3d9c3c4d1dec4c39ed3dfdd" style="color:#60a5fa;text-decoration:none"><span class="__cf_email__" data-cfemail="9dfcf1f8efe9eeddf9f0ebfceeeef4eee9fcf3e9eeb3fef2f0">[email&#160;protected]</span></a> · California</div></div><button class="btn bgh bsm" onclick="toast('Profile settings','i')">Edit</button></div>
         </div>
         <div id="fam-locked" style="text-align:center;padding:2.5rem;color:var(--text3)"><div style="font-size:2.25rem;margin-bottom:0.625rem;opacity:0.25">👨‍👩‍👧</div><div style="font-size:0.875rem;font-weight:700;color:var(--text2);margin-bottom:0.3rem">Add up to 4 more family members</div><div style="font-size:0.78rem">Upgrade to Family Plan to unlock</div></div>
       </div>
@@ -2419,7 +2419,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2
 
 <!-- VET50 MODAL -->
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ===== AES-256-GCM Encryption — inlined here to guarantee availability =====
 const PBKDF2_ITERATIONS = 600000;
 const SALT_LENGTH = 32;
@@ -4177,7 +4177,7 @@ var ARTICLES = [
     icon:'🪪', title:"REAL ID — Complete Guide for All 50 States (2026)", date:'Apr 1, 2026', readTime:'8 min read',
     desc:"Everything you need to know about getting a REAL ID — requirements, documents, state-by-state guide.",
     content:`<div class="article-hero">🪪</div>
-<h1>REAL ID — Complete Guide for All 50 States (2026)</h1>
+<h2>REAL ID — Complete Guide for All 50 States (2026)</h2>
 <div class="article-meta"><span>📅 April 1, 2026</span><span>⏱ 8 min read</span><span>🏷 REAL ID</span></div>
 <p>As of May 7, 2025, a REAL ID-compliant driver's license or ID is required for domestic air travel and entering federal facilities. If you haven't gotten yours yet, here's everything you need.</p>
 <h2>What Is a REAL ID?</h2>
@@ -4210,7 +4210,7 @@ var ARTICLES = [
     icon:'📝', title:"How to Pass Your DMV Knowledge Test — State-by-State Prep Guide", date:'Mar 28, 2026', readTime:'10 min read',
     desc:"Study tips, practice questions, and what to expect on the DMV written test in every state.",
     content:`<div class="article-hero">📝</div>
-<h1>How to Pass Your DMV Knowledge Test — State-by-State Prep Guide</h1>
+<h2>How to Pass Your DMV Knowledge Test — State-by-State Prep Guide</h2>
 <div class="article-meta"><span>📅 March 28, 2026</span><span>⏱ 10 min read</span><span>🏷 Driver License</span></div>
 <p>The DMV knowledge test (also called the written test) is the first step to getting your driver's license. Here's everything you need to know to pass on your first try.</p>
 <h2>What Topics Are Covered?</h2>
@@ -4247,7 +4247,7 @@ var ARTICLES = [
     icon:'🔄', title:"Driver's License Renewal — Online vs In-Person by State (2026)", date:'Mar 25, 2026', readTime:'7 min read',
     desc:"Which states let you renew online? Renewal fees, requirements, and deadlines for all 50 states.",
     content:`<div class="article-hero">🔄</div>
-<h1>Driver's License Renewal — Online vs In-Person by State (2026)</h1>
+<h2>Driver's License Renewal — Online vs In-Person by State (2026)</h2>
 <div class="article-meta"><span>📅 March 25, 2026</span><span>⏱ 7 min read</span><span>🏷 Renewals</span></div>
 <p>Renewing your driver's license doesn't have to mean a trip to the DMV. Many states now offer online renewal. Here's the complete breakdown.</p>
 <h2>States That Allow Online License Renewal</h2>
@@ -4276,7 +4276,7 @@ var ARTICLES = [
     icon:'🎖', title:"Veteran DMV Benefits by State — Free Licenses, Plates & Discounts (2026)", date:'Mar 20, 2026', readTime:'9 min read',
     desc:"Complete guide to DMV benefits for US veterans and active duty military — free licenses, specialty plates, fee waivers.",
     content:`<div class="article-hero">🎖</div>
-<h1>Veteran DMV Benefits by State — Free Licenses, Plates & Discounts (2026)</h1>
+<h2>Veteran DMV Benefits by State — Free Licenses, Plates & Discounts (2026)</h2>
 <div class="article-meta"><span>📅 March 20, 2026</span><span>⏱ 9 min read</span><span>🏷 Veterans</span></div>
 <p>The United States offers significant DMV benefits to veterans and active duty military. Many states provide free or discounted licenses, specialty license plates, and fee waivers. Here's the complete breakdown.</p>
 <h2>Free or Discounted Driver's Licenses</h2>
@@ -4310,7 +4310,7 @@ var ARTICLES = [
     icon:'⏱', title:"5 States With the Longest DMV Wait Times — How to Skip the Line (2026)", date:'Mar 15, 2026', readTime:'6 min read',
     desc:"California, New York, Texas, Florida, and Illinois have the worst wait times. Here's exactly how to get around them.",
     content:`<div class="article-hero">⏱</div>
-<h1>5 States With the Longest DMV Wait Times — How to Skip the Line (2026)</h1>
+<h2>5 States With the Longest DMV Wait Times — How to Skip the Line (2026)</h2>
 <div class="article-meta"><span>📅 March 15, 2026</span><span>⏱ 6 min read</span><span>🏷 State Guides</span></div>
 <p>Walking into a DMV without an appointment in California can mean a 3–5 hour wait. Here's the data on which states are the worst, and exactly what you can do about it.</p>
 <h2>The 5 Worst States for DMV Wait Times</h2>
@@ -4337,7 +4337,7 @@ var ARTICLES = [
     icon:'🚗', title:"Car Registration Renewal — What You Need, Fees & Deadlines by State", date:'Mar 10, 2026', readTime:'7 min read',
     desc:"How to renew your vehicle registration online or in person — deadlines, late fees, and what happens if you forget.",
     content:`<div class="article-hero">🚗</div>
-<h1>Car Registration Renewal — What You Need, Fees & Deadlines by State</h1>
+<h2>Car Registration Renewal — What You Need, Fees & Deadlines by State</h2>
 <div class="article-meta"><span>📅 March 10, 2026</span><span>⏱ 7 min read</span><span>🏷 Renewals</span></div>
 <p>Vehicle registration must be renewed annually or biennially in most states. Missing it can mean fines, tickets, or even impoundment. Here's everything you need to know.</p>
 <h2>When Is Registration Due?</h2>
@@ -4365,7 +4365,7 @@ var ARTICLES = [
     icon:'🛡', title:"Defensive Driving: How It Reduces Insurance Costs & Removes Points", date:'Mar 5, 2026', readTime:'8 min read',
     desc:"How defensive driving courses work, which states offer point reduction, and how much you can save on insurance.",
     content:`<div class="article-hero">🛡</div>
-<h1>Defensive Driving: How It Reduces Insurance Costs & Removes Points</h1>
+<h2>Defensive Driving: How It Reduces Insurance Costs & Removes Points</h2>
 <div class="article-meta"><span>📅 March 5, 2026</span><span>⏱ 8 min read</span><span>🏷 Safe Driving</span></div>
 <p>A defensive driving course can remove points from your license, reduce your insurance premium by up to 10%, and even dismiss traffic tickets. Here's everything you need to know.</p>
 <h2>What Is Defensive Driving?</h2>
@@ -4392,7 +4392,7 @@ var ARTICLES = [
     icon:'📋', title:"Complete DMV Documents Checklist — What to Bring for Every DMV Visit", date:'Feb 28, 2026', readTime:'5 min read',
     desc:"Exact documents needed for new license, renewal, REAL ID, title transfer, and registration — don't waste a trip.",
     content:`<div class="article-hero">📋</div>
-<h1>Complete DMV Documents Checklist — What to Bring for Every DMV Visit</h1>
+<h2>Complete DMV Documents Checklist — What to Bring for Every DMV Visit</h2>
 <div class="article-meta"><span>📅 February 28, 2026</span><span>⏱ 5 min read</span><span>🏷 Driver License</span></div>
 <p>Nothing is worse than driving to the DMV and getting turned away because you're missing one document. Use this complete checklist before every visit.</p>
 <h2>New Driver's License (First Time)</h2>
@@ -4439,7 +4439,7 @@ var ARTICLES = [
     icon:'🏠', title:"New to a State? Complete DMV Transfer Guide for New Residents", date:'Feb 20, 2026', readTime:'9 min read',
     desc:"Everything you need to do at the DMV after moving to a new state — deadlines, fees, and what transfers automatically.",
     content:`<div class="article-hero">🏠</div>
-<h1>New to a State? Complete DMV Transfer Guide for New Residents</h1>
+<h2>New to a State? Complete DMV Transfer Guide for New Residents</h2>
 <div class="article-meta"><span>📅 February 20, 2026</span><span>⏱ 9 min read</span><span>🏷 State Guides</span></div>
 <p>Moving to a new state means updating your driver's license, vehicle registration, and sometimes your insurance. Most states give you 30–60 days. Here's exactly what to do.</p>
 <h2>Deadlines by State</h2>
@@ -4467,7 +4467,7 @@ var ARTICLES = [
     icon:'🚦', title:"First-Time Driver's License Guide — Step by Step for Every State", date:'Feb 15, 2026', readTime:'11 min read',
     desc:"Complete walkthrough for getting your first driver's license — learner's permit, behind-the-wheel requirements, and road test tips.",
     content:`<div class="article-hero">🚦</div>
-<h1>First-Time Driver's License Guide — Step by Step for Every State</h1>
+<h2>First-Time Driver's License Guide — Step by Step for Every State</h2>
 <div class="article-meta"><span>📅 February 15, 2026</span><span>⏱ 11 min read</span><span>🏷 Driver License</span></div>
 <p>Getting your first driver's license involves several steps that vary by state. Here's a complete walkthrough of the entire process.</p>
 <h2>Step 1: Get Your Learner's Permit</h2>
@@ -4502,7 +4502,7 @@ var ARTICLES = [
     icon:'🛡', title:"What Happens to Your Insurance After a DMV Violation or Accident?", date:'Feb 5, 2026', readTime:'7 min read',
     desc:"Points on your license, SR-22 requirements, and how to minimize insurance rate increases after violations.",
     content:`<div class="article-hero">🛡</div>
-<h1>What Happens to Your Insurance After a DMV Violation or Accident?</h1>
+<h2>What Happens to Your Insurance After a DMV Violation or Accident?</h2>
 <div class="article-meta"><span>📅 February 5, 2026</span><span>⏱ 7 min read</span><span>🏷 Safe Driving</span></div>
 <p>A traffic ticket or at-fault accident can significantly increase your insurance premium. Here's exactly how the point system works and what you can do to minimize the impact.</p>
 <h2>How the Point System Works</h2>
@@ -4921,7 +4921,7 @@ async function downloadDecryptedFromSupabase(supabaseClient, metadata, password,
 <!-- MEMBER TRACKING MODAL -->
 <div class="mov" id="m-member-detail">
 <div class="modal" style="max-width:520px;max-height:85vh;overflow-y:auto">
-  <div class="mhead"><h3 id="md-title">Track Member</h3><span class="mx" onclick="cM('m-member-detail')">X</span></div>
+  <div class="mhead"><span id="md-title">Track Member</span><span class="mx" onclick="cM('m-member-detail')">X</span></div>
   <div id="md-body" style="padding:0.5rem 0">Loading...</div>
 </div>
 </div>
@@ -4951,7 +4951,7 @@ async function downloadDecryptedFromSupabase(supabaseClient, metadata, password,
 
 <div class="mov" id="m-add-policy">
 <div class="modal" style="max-width:440px">
-  <div class="mhead"><h3>+ Add Insurance Policy</h3><span class="mx" onclick="cM('m-add-policy')">✕</span></div>
+  <div class="mhead"><span>+ Add Insurance Policy</span><span class="mx" onclick="cM('m-add-policy')">✕</span></div>
   <div class="fg"><label class="fl">Insurance Provider *</label><input class="fi" id="ins-provider" placeholder="e.g. State Farm, Geico, Progressive"/></div>
   <div class="fr">
     <div class="fg"><label class="fl">Policy Number</label><input class="fi" id="ins-policy-num" placeholder="Optional"/></div>
@@ -4965,22 +4965,4 @@ async function downloadDecryptedFromSupabase(supabaseClient, metadata, password,
 </div>
 <!-- VET50 DISCOUNT MODAL -->
 <div id="m-vet50" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:99999;align-items:center;justify-content:center;padding:1rem">
-<div style="background:#fff;border-radius:20px;padding:0;width:100%;max-width:420px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.2)">
-  <div style="background:linear-gradient(135deg,#05112b,#0a1f4a);padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between">
-    <h3 style="color:#fff;font-size:1rem;font-weight:800;margin:0">🎖 Veteran Discount — 50% Off</h3>
-    <button onclick="cM('m-vet50')" style="background:rgba(255,255,255,0.15);border:none;color:#fff;width:28px;height:28px;border-radius:50%;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">✕</button>
-  </div>
-  <div style="padding:1.5rem;text-align:center">
-    <div style="font-size:0.88rem;color:#475569;margin-bottom:1.25rem;line-height:1.65">Thank you for your service! Use this code at checkout to get <strong style="color:#d97706">50% off Pro Plan — forever.</strong></div>
-    <div style="background:#fffbeb;border:2px dashed #f59e0b;border-radius:14px;padding:1.25rem;margin-bottom:1.25rem">
-      <div style="font-size:0.62rem;color:#92400e;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px">Your Discount Code</div>
-      <div style="font-size:2.2rem;font-weight:900;letter-spacing:0.15em;color:#d97706;font-family:monospace;margin-bottom:0.75rem">VET50</div>
-      <button id="copy-vet-btn" onclick="copyVetCode()" style="padding:0.4rem 1.25rem;background:#f59e0b;color:#fff;border:none;border-radius:8px;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:'Manrope',sans-serif">📋 Copy Code</button>
-    </div>
-    <div style="font-size:0.76rem;color:#64748b;line-height:1.6">Apply this code during checkout on <strong>Lemon Squeezy</strong>. Valid for active & veteran military personnel.</div>
-  </div>
-</div>
-</div>
-
-</body>
-</html>
+<div style="back
