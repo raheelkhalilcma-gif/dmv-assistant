@@ -86,7 +86,78 @@ a { text-decoration: none; }
 .cta-box h3 { font-size: 1rem; font-weight: 900; margin: 0 0 8px; }
 .cta-box p { font-size: 0.85rem; color: #64748b; margin: 0 0 16px; }
 .cta-btn { display: inline-flex; align-items: center; gap: 8px; background: #3b82f6; color: #fff; font-weight: 700; font-size: 0.85rem; padding: 10px 28px; border-radius: 8px; }
-.cta-btn:hover { background: #2563eb; }</style>
+.cta-btn:hover { background: #2563eb; }
+/* ===== MOBILE OPTIMIZED ===== */
+/* Fix footer veteran link */
+.vet-footer-link { cursor:pointer; font-size:0.82rem; color:#475569; background:none; border:none; font-family:inherit; padding:0; text-align:left; }
+.vet-footer-link:hover { color:#0a1628; }
+
+/* Article layout */
+.article-wrap { padding: 24px 4%; }
+
+/* Table responsive */
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 12px 0 16px; }
+.article-body table { min-width: 480px; }
+
+/* Footer responsive */
+.footer-cols { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+
+@media (max-width: 900px) {
+  .footer-cols { grid-template-columns: 1fr 1fr !important; }
+}
+
+@media (max-width: 768px) {
+  /* Nav */
+  .nav-links { display: none !important; }
+  .mob-nav-btn { display: flex !important; }
+
+  /* Article */
+  .article-wrap { padding: 20px 4%; }
+  .article-wrap h1 { font-size: 1.45rem !important; }
+  .article-desc { font-size: 0.88rem; }
+
+  /* Tables — horizontal scroll */
+  .article-body table { font-size: 0.75rem; }
+
+  /* CTA box */
+  .cta-box { padding: 20px 16px; }
+  .cta-btn { width: 100%; justify-content: center; padding: 12px 20px; font-size: 0.9rem; }
+
+  /* Footer */
+  .footer-cols { grid-template-columns: 1fr 1fr !important; gap: 1.5rem !important; }
+  footer [style*="grid-template-columns:2fr 1fr 1fr 1fr"] { grid-template-columns: 1fr 1fr !important; }
+  footer [style*="grid-template-columns: 2fr 1fr 1fr 1fr"] { grid-template-columns: 1fr 1fr !important; }
+  [style*="grid-template-columns:2fr 1fr 1fr 1fr"] { grid-template-columns: 1fr 1fr !important; }
+}
+
+@media (max-width: 480px) {
+  /* Article */
+  .article-wrap { padding: 16px 4%; }
+  .article-wrap h1 { font-size: 1.3rem !important; line-height: 1.25 !important; }
+  .back-link { font-size: 0.8rem; }
+  .badge { font-size: 0.6rem; }
+
+  /* Article body */
+  .article-body h2 { font-size: 0.97rem; }
+  .article-body p, .article-body ul li, .article-body ol li { font-size: 0.82rem; }
+  .article-body table { font-size: 0.72rem; }
+  .article-body th, .article-body td { padding: 6px 8px; }
+  .article-desc { font-size: 0.84rem; }
+
+  /* CTA */
+  .cta-box h3 { font-size: 0.95rem; }
+  .cta-box p { font-size: 0.8rem; }
+  .cta-btn { font-size: 0.84rem; }
+
+  /* Footer — single column */
+  footer [style*="grid-template-columns:2fr 1fr 1fr 1fr"],
+  footer [style*="grid-template-columns: 2fr 1fr 1fr 1fr"],
+  [style*="grid-template-columns:2fr 1fr 1fr 1fr"] { grid-template-columns: 1fr !important; }
+
+  footer [style*="justify-content:space-between"] { flex-direction: column; gap: 0.5rem; }
+}
+
+</style>
 <script>
 function toggleMobNav(){
   var d=document.getElementById('mob-nav-drawer');
@@ -128,7 +199,7 @@ function toggleMobNav(){
   <h1>New to a State? Complete DMV Transfer Guide for New Residents</h1>
   <p class="article-desc">Everything you need to do at the DMV after moving to a new state — deadlines, fees, and what transfers automatically.</p>
   <div class="article-body">
-    <h2>Deadlines by State</h2><table><tr><th>State</th><th>DL Transfer</th><th>Vehicle Reg</th></tr><tr><td>California</td><td>10 days</td><td>20 days</td></tr><tr><td>Texas</td><td>90 days</td><td>30 days</td></tr><tr><td>New York</td><td>30 days</td><td>30 days</td></tr><tr><td>Florida</td><td>30 days</td><td>10 days</td></tr><tr><td>Illinois</td><td>90 days</td><td>30 days</td></tr></table><div class="tip-box"><h4>⚠️ Warning</h4><p>California has the strictest deadline — only 10 days to transfer your license.</p></div><h2>Steps to Transfer Your Driver's License</h2><ol><li>Gather documents: out-of-state license, proof of new address, SSN proof</li><li>Schedule DMV appointment</li><li>Take a vision test (knowledge test may be waived)</li><li>Pay transfer fee and surrender your old license</li></ol><h2>Does My Car Registration Transfer Automatically?</h2><p>No — you must register your vehicle in the new state within the deadline. You'll typically need to get a VIN inspection and may need an emissions test.</p>
+    <h2>Deadlines by State</h2><div class="table-wrap"><table><tr><th>State</th><th>DL Transfer</th><th>Vehicle Reg</th></tr><tr><td>California</td><td>10 days</td><td>20 days</td></tr><tr><td>Texas</td><td>90 days</td><td>30 days</td></tr><tr><td>New York</td><td>30 days</td><td>30 days</td></tr><tr><td>Florida</td><td>30 days</td><td>10 days</td></tr><tr><td>Illinois</td><td>90 days</td><td>30 days</td></tr></table></div><div class="tip-box"><h4>⚠️ Warning</h4><p>California has the strictest deadline — only 10 days to transfer your license.</p></div><h2>Steps to Transfer Your Driver's License</h2><ol><li>Gather documents: out-of-state license, proof of new address, SSN proof</li><li>Schedule DMV appointment</li><li>Take a vision test (knowledge test may be waived)</li><li>Pay transfer fee and surrender your old license</li></ol><h2>Does My Car Registration Transfer Automatically?</h2><p>No — you must register your vehicle in the new state within the deadline. You'll typically need to get a VIN inspection and may need an emissions test.</p>
   </div>
   <div class="cta-box">
     <h3>Never Miss Another DMV Deadline</h3>
@@ -145,7 +216,7 @@ function toggleMobNav(){
           <div style="font-weight:900;font-size:1rem;color:#0f172a">DMV<span style="color:#2563eb">Assistants</span>.com</div>
         </div>
         <p style="font-size:0.82rem;color:#475569;line-height:1.65;max-width:260px;margin-bottom:1rem">The #1 DMV Assistant for US residents and veterans. Never miss a renewal or appointment again.</p>
-        <div style="font-size:0.8rem;color:#475569">📧 <a href="mailto:alerts@dmvassistants.com" style="color:#60a5fa;text-decoration:none;font-weight:600">alerts@dmvassistants.com</a></div>
+        <div style="font-size:0.8rem;color:#475569">📧 <a href="/cdn-cgi/l/email-protection#67060b0215131427030a110614140e1413060913144904080a" style="color:#60a5fa;text-decoration:none;font-weight:600"><span class="__cf_email__" data-cfemail="7c1d10190e080f3c18110a1d0f0f150f081d12080f521f1311">[email&#160;protected]</span></a></div>
       </div> 
 <div>
         <div style="font-weight:800;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;color:#0f172a;margin-bottom:1rem">Product</div>
@@ -163,17 +234,17 @@ function toggleMobNav(){
 
   <div style="display:flex;flex-direction:column;gap:0.625rem">
 
-    <a href="https://www.dmvassistants.com/guides/" 
+    <a href="https://www.dmvassistants.com/blog/" 
        style="font-size:0.82rem;color:#475569;text-decoration:none;">
        DMV Blogs
     </a>
 
-    <a href="https://www.dmvassistants.com/guides/driver-license-renewal-online-vs-in-person.html" 
+    <a href="https://www.dmvassistants.com/blog/driver-license-renewal-guide.html"
        style="font-size:0.82rem;color:#475569;text-decoration:none;">
        License Renewal Guide
     </a>
 
-    <a href="https://www.dmvassistants.com/guides/driver-license-renewal-online-vs-in-person.html" 
+    <a href="https://www.dmvassistants.com/blog/vehicle-registration-renewal.html"
        style="font-size:0.82rem;color:#475569;text-decoration:none;">
        Registration Guide
     </a>
@@ -184,7 +255,7 @@ function toggleMobNav(){
     </a>
           
           
-          <span style="font-size:0.82rem;color:#475569;cursor:pointer" onclick="showFP('fp-veteran')">Veteran Benefits</span>
+          <a href="https://www.dmvassistants.com/veteran-dmv-benefits.html" style="font-size:0.82rem;color:#475569;text-decoration:none;">Veteran Benefits</a>
           
         </div>
       </div>
@@ -215,9 +286,4 @@ function toggleMobNav(){
     </div>
     <div style="border-top:1px solid #cbd5e1;padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem">
       <div style="font-size:0.78rem;color:#475569">© 2026 DMVAssistants.com · All rights reserved</div>
-      <div style="font-size:0.78rem;color:#475569">📧 <a href="mailto:alerts@dmvassistants.com" style="color:#60a5fa;text-decoration:none;font-weight:600">alerts@dmvassistants.com</a> · All 50 US States</div>
-    </div>
-  </div>
-</footer>
-</body>
-</html>
+      <div style="font-size:0.78rem;color:#475569">📧 <a href="/cdn-cgi/l/email-protection#c2a3aea7b0b6b182a6a
