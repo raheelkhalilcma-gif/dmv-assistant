@@ -88,73 +88,45 @@ a { text-decoration: none; }
 .cta-btn { display: inline-flex; align-items: center; gap: 8px; background: #3b82f6; color: #fff; font-weight: 700; font-size: 0.85rem; padding: 10px 28px; border-radius: 8px; }
 .cta-btn:hover { background: #2563eb; }
 /* ===== MOBILE OPTIMIZED ===== */
-/* Fix footer veteran link */
 .vet-footer-link { cursor:pointer; font-size:0.82rem; color:#475569; background:none; border:none; font-family:inherit; padding:0; text-align:left; }
-.vet-footer-link:hover { color:#0a1628; }
-
-/* Article layout */
-.article-wrap { padding: 24px 4%; }
 
 /* Table responsive */
 .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 12px 0 16px; }
 .article-body table { min-width: 480px; }
 
-/* Footer responsive */
-.footer-cols { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
-
 @media (max-width: 900px) {
-  .footer-cols { grid-template-columns: 1fr 1fr !important; }
+  footer [style*="grid-template-columns:2fr 1fr 1fr 1fr"] { grid-template-columns: 1fr 1fr !important; }
+  footer [style*='grid-template-columns: 2fr 1fr 1fr 1fr'] { grid-template-columns: 1fr 1fr !important; }
 }
 
 @media (max-width: 768px) {
-  /* Nav */
   .nav-links { display: none !important; }
   .mob-nav-btn { display: flex !important; }
-
-  /* Article */
   .article-wrap { padding: 20px 4%; }
   .article-wrap h1 { font-size: 1.45rem !important; }
   .article-desc { font-size: 0.88rem; }
-
-  /* Tables — horizontal scroll */
   .article-body table { font-size: 0.75rem; }
-
-  /* CTA box */
   .cta-box { padding: 20px 16px; }
   .cta-btn { width: 100%; justify-content: center; padding: 12px 20px; font-size: 0.9rem; }
-
-  /* Footer */
-  .footer-cols { grid-template-columns: 1fr 1fr !important; gap: 1.5rem !important; }
-  footer [style*="grid-template-columns:2fr 1fr 1fr 1fr"] { grid-template-columns: 1fr 1fr !important; }
-  footer [style*="grid-template-columns: 2fr 1fr 1fr 1fr"] { grid-template-columns: 1fr 1fr !important; }
-  [style*="grid-template-columns:2fr 1fr 1fr 1fr"] { grid-template-columns: 1fr 1fr !important; }
+  footer [style*="grid-template-columns:2fr 1fr 1fr 1fr"],
+  footer [style*='grid-template-columns: 2fr 1fr 1fr 1fr'] { grid-template-columns: 1fr 1fr !important; }
+  footer [style*="justify-content:space-between"] { flex-direction: column; gap: 0.5rem; }
 }
 
 @media (max-width: 480px) {
-  /* Article */
   .article-wrap { padding: 16px 4%; }
   .article-wrap h1 { font-size: 1.3rem !important; line-height: 1.25 !important; }
   .back-link { font-size: 0.8rem; }
-  .badge { font-size: 0.6rem; }
-
-  /* Article body */
   .article-body h2 { font-size: 0.97rem; }
   .article-body p, .article-body ul li, .article-body ol li { font-size: 0.82rem; }
   .article-body table { font-size: 0.72rem; }
   .article-body th, .article-body td { padding: 6px 8px; }
   .article-desc { font-size: 0.84rem; }
-
-  /* CTA */
   .cta-box h3 { font-size: 0.95rem; }
   .cta-box p { font-size: 0.8rem; }
   .cta-btn { font-size: 0.84rem; }
-
-  /* Footer — single column */
   footer [style*="grid-template-columns:2fr 1fr 1fr 1fr"],
-  footer [style*="grid-template-columns: 2fr 1fr 1fr 1fr"],
-  [style*="grid-template-columns:2fr 1fr 1fr 1fr"] { grid-template-columns: 1fr !important; }
-
-  footer [style*="justify-content:space-between"] { flex-direction: column; gap: 0.5rem; }
+  footer [style*='grid-template-columns: 2fr 1fr 1fr 1fr'] { grid-template-columns: 1fr !important; }
 }
 
 </style>
@@ -216,74 +188,9 @@ function toggleMobNav(){
           <div style="font-weight:900;font-size:1rem;color:#0f172a">DMV<span style="color:#2563eb">Assistants</span>.com</div>
         </div>
         <p style="font-size:0.82rem;color:#475569;line-height:1.65;max-width:260px;margin-bottom:1rem">The #1 DMV Assistant for US residents and veterans. Never miss a renewal or appointment again.</p>
-        <div style="font-size:0.8rem;color:#475569">📧 <a href="/cdn-cgi/l/email-protection#e0818c85929493a0848d96819393899394818e9493ce838f8d" style="color:#60a5fa;text-decoration:none;font-weight:600"><span class="__cf_email__" data-cfemail="4c2d20293e383f0c28213a2d3f3f253f382d22383f622f2321">[email&#160;protected]</span></a></div>
-      </div> 
-<div>
-        <div style="font-weight:800;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;color:#0f172a;margin-bottom:1rem">Product</div>
-        <div style="display:flex;flex-direction:column;gap:0.625rem">
-          <a href="/#s-features" style="font-size:0.85rem;color:#475569;font-weight:500;text-decoration:none">Features</a>
-    <a href="/#s-price" style="font-size:0.85rem;color:#475569;font-weight:500;text-decoration:none">Pricing</a>
-<a href="/#s-why" style="font-size:0.85rem;color:#475569;font-weight:500;text-decoration:none">Why Subscribe</a>
-         
-                 </div>
-      </div>    
-      <div>
-  <div style="font-weight:800;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;color:#0f172a;margin-bottom:1rem">
-    DMV Guides & Tips
-  </div>
-
-  <div style="display:flex;flex-direction:column;gap:0.625rem">
-
-    <a href="https://www.dmvassistants.com/blog/" 
-       style="font-size:0.82rem;color:#475569;text-decoration:none;">
-       DMV Blogs
-    </a>
-
-    <a href="https://www.dmvassistants.com/blog/driver-license-renewal-guide.html"
-       style="font-size:0.82rem;color:#475569;text-decoration:none;">
-       License Renewal Guide
-    </a>
-
-    <a href="https://www.dmvassistants.com/blog/vehicle-registration-renewal.html"
-       style="font-size:0.82rem;color:#475569;text-decoration:none;">
-       Registration Guide
-    </a>
-
-    <a href="https://www.dmvassistants.com/blog/dmv-appointment-fast.html" 
-       style="font-size:0.82rem;color:#475569;text-decoration:none;">
-       DMV Appointment Tips
-    </a>
-          
-          
-          <a href="https://www.dmvassistants.com/veteran-dmv-benefits.html" style="font-size:0.82rem;color:#475569;text-decoration:none;">Veteran Benefits</a>
-          
-        </div>
-      </div>
-      <div>
-        <div style="font-weight:800;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;color:#0f172a;margin-bottom:1rem">Company</div>
-        <div style="display:flex;flex-direction:column;gap:0.625rem">
-          <a href="https://www.dmvassistants.com/about-us.html" 
-   style="font-size:0.82rem;color:#475569;text-decoration:none;">
-   About Us
-</a>
-
-<a href="https://www.dmvassistants.com/contact-us.html" 
-   style="font-size:0.82rem;color:#475569;text-decoration:none;">
-   Contact
-</a>
-
-<a href="https://www.dmvassistants.com/privacy-policy.html" 
-   style="font-size:0.82rem;color:#475569;text-decoration:none;">
-   Privacy Policy
-</a>
-
-<a href="https://www.dmvassistants.com/terms-of-service.html" 
-   style="font-size:0.82rem;color:#475569;text-decoration:none;">
-   Terms of Service
-</a>
-        </div>
-      </div>
+        <div style="font-size:0.8rem;color:#475569">📧 <a href="mailto:alerts@dmvassistants.com" style="color:#60a5fa;text-decoration:none;font-weight:600">alerts@dmvassistants.com</a> · All 50 US States</div>
     </div>
-    <div style="border-top:1px solid #cbd5e1;padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem">
-      <div style="font-size:0.78rem;color:#475569">© 2026 DMVAssistants.com · All rights reserved</div>
-      <div style="font-size:0.78rem;color:#475569">📧 <a href="/cdn-cgi/l/email-protection#abcac7ced9dfd8ebcfc
+  </div>
+</footer>
+</body>
+</html>
